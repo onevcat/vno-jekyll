@@ -31,9 +31,13 @@ You could replace the background and avatar image in `assets/images` folder to c
 
 #### Sites using Vno
 
-[My blog](http://onevcat.com) is using `Vno Jekyll` as well, you could see how it works in real. If you happen to be using this theme, you could [send me a pull request](https://github.com/onevcat/vno-jekyll/pulls) to add your site link:
+[My blog](http://onevcat.com) is using `Vno Jekyll` as well, you could see how it works in real. There are some other sites using the same theme. You can find them below:
 
-* [OneV's Den](http://onevcat.com)
+| Site Name    | URL                          |
+| ------------ | -----------------------------|
+| OneV's Den   | http://onevcat.com           |
+
+> If you happen to be using this theme, welcome to [send me a pull request](https://github.com/onevcat/vno-jekyll/pulls) to add your site link here. :)
 
 #### License
 
