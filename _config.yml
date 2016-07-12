@@ -1,11 +1,11 @@
 # Basic
-title: 1111111
-subtitle: 222222222222222222
-welcome_message: <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Download the theme</a>
-description: 333333333333333
-creator: <a href="http://onev.cat">@onevcat</a>
+title: 计算机程序的构造和解释学习博客
+subtitle: 记录学习《计算机程序的构造和解释》的过程
+welcome_message: <a href="https://github.com/SylvanasaWindrunner" target="_blank">Download the theme</a>
+description: 想做出一个东西，你需要先懂很多基础的知识。
+creator: <a href="weitianjiao.com">@onevcat</a>
 
-url: "http://vno.onevcat.com"
+url: "http://weitianjiao.com"
 
 permalink: /:year/:month/:title/
 
