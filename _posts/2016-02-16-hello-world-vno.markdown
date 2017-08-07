@@ -37,6 +37,7 @@ You could replace the background and avatar image in `assets/images` folder to c
 | ------------ | ---------------------------------------------------|
 | OneV's Den   | [http://onevcat.com](http://onevcat.com)           |
 | July Tang    | [http://blog.julytang.xyz](http://onevcat.com)     |
+| Harry Lee    | [http://qiuqi.li](http://qiuqi.li)                 |
 
 > If you happen to be using this theme, welcome to [send me a pull request](https://github.com/onevcat/vno-jekyll/pulls) to add your site link here. :)
 
