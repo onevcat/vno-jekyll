@@ -1,9 +1,9 @@
 # Basic
 title: Miracle Lee
-subtitle: Lonely god, happy tonight.
+subtitle: Be confident, not arrogant.
 welcome_message: <a href="https://github.com/lixymiracle/lixymiracle.github.io" target="_blank">Welcome to Miracle's blog.</a>
-description: Vno Jekyll is a port of my Ghost theme vno.
-creator: <a href="http://lixiangyu.cc">@miracle</a>
+description: Life never stops pushing forward. Stay focused and never slow down with regrets. Smile, forgive, forget, and keep moving!
+creator: <a href="http://lixiangyu.cc">@Miracle</a>
 
 url: "http://lixiangyu.cc"
 
@@ -39,8 +39,6 @@ comment:
 social:
     weibo: onevcat
     github: onevcat
-    twitter: onevcat
-    gplus: 107108267983477358170
     mail: onev@onevcat.com
 
 # Google Analytics
