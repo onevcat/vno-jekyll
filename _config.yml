@@ -1,11 +1,11 @@
 # Basic
-title: Vno Jekyll
+title: Miracle Lee
 subtitle: A blog-orientation theme for Jekyll
-welcome_message: <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Download the theme</a>
+welcome_message: <a href="https://github.com/lixymiracle/vno-jekyll" target="_blank">Download the theme</a>
 description: Vno Jekyll is a port of my Ghost theme vno.
-creator: <a href="http://onev.cat">@onevcat</a>
+creator: <a href="http://lixiangyu.cc">@miracle</a>
 
-url: "http://vno.onevcat.com"
+url: "http://lixiangyu.cc"
 
 permalink: /:year/:month/:title/
 
