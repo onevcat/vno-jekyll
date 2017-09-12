@@ -2,7 +2,7 @@
 title: Miracle Lee
 subtitle: Be confident, not arrogant.
 welcome_message: <a href="https://github.com/lixymiracle/lixymiracle.github.io" target="_blank">Welcome to Miracle's blog.</a>
-description: Life never stops pushing forward. Stay focused and never slow down with regrets. Smile, forgive, forget, and keep moving!
+description: Life never stops pushing forward. Stay focused and never slow down with regrets.
 creator: <a href="http://lixiangyu.cc">@Miracle</a>
 
 url: "http://lixiangyu.cc"
@@ -37,9 +37,9 @@ comment:
     
 # Social
 social:
-    weibo: onevcat
-    github: onevcat
-    mail: onev@onevcat.com
+    weibo: Encelade
+    github: lixymiracle
+    mail: lixymiracle@gmail.com
 
 # Google Analytics
 ga:
