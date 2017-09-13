@@ -1,7 +1,7 @@
 # Basic
 title: Miracle Lee
-subtitle: Be confident, not arrogant.
-welcome_message: <a href="https://github.com/lixymiracle/lixymiracle.github.io" target="_blank">Welcome to Miracle's blog.</a>
+subtitle: LI Xiangyu in BUPT.
+welcome_message: Welcome to Miracle's blog.
 description: Life never stops pushing forward. Stay focused and never slow down with regrets.
 creator: <a href="http://lixiangyu.cc">@Miracle</a>
 
@@ -22,7 +22,7 @@ blog_button:
 
 # Navigation buttons in the front page.
 nav:
-    - {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
+    - {title: Projects, description: My Projects, url: 'http://github.com/lixymiracle'}
     # - {title: Another Button, description: A button, url: 'http://example.com'}
 
 # Pagination
