@@ -204,3 +204,32 @@ pre {
         }
     }
 }
+
+/**
+ * Details
+ */
+details {
+    border-radius: 3px;
+    background: $gray-lighter;
+    margin: 1em 0;
+  }
+  
+  summary {
+    background: $gray-light;
+    color: $gray-darkest;
+    border-radius: 3px;
+    padding: 5px 10px;
+    outline: none;
+  }
+  
+  details[open] summary {
+    background: $primary-color;
+    color: $gray-lightest;
+  }
+  
+  details p {
+    margin: 10px;
+    padding-bottom: 5px
+  }
+  
+  
