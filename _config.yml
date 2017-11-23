@@ -35,23 +35,15 @@ highlighter: rouge
 cover_color: blue
 
 # The blog button should not be removed.
-home_button:
-    title: 首页
-    description: 点击进入博客
 blog_button:
     title: 博客
     description: 点击进入博客
-product_button:
-    title: 产品
-    description: 点击进入博客
-about_button:
-    title: 关于
-    description: 点击进入博客
+
 
 # Navigation buttons in the front page.
-#nav:
-#    - {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
-    # - {title: Another Button, description: A button, url: 'http://example.com'}
+nav:
+    - {title: 产品, description: product, url: 'http://project.onevcat.com'}
+    - {title: 关于, description: about, url: 'http://example.com'}
 
 # Pagination
 gems: [jekyll-paginate]
