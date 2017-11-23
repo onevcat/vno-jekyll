@@ -1,21 +1,17 @@
 # Basic
+title: LawChant Blog                #你博客的标题
 subtitle: 技术博客空间
 description: 技术博客空间-嵌入式芯片开发-电子设计研发.
-creator: <a href="http://onev.cat">@onevcat</a>
-
-url: "http://vno.onevcat.com"
-
-permalink: /:year/:month/:title/
-
-# Site settings
-title: LawChant Blog                #你博客的标题
 SEOTitle: 你的博客 | You Blog        #显示在浏览器上搜索的时候显示的标题
-#header-img: img/post-bg-rwd.jpg     #显示在首页的背景图片
+creator: <a href="https://luoqianer.github.io">LawChant</a>
 email: 137733290@qq.com    
 description: "技术博客"              #网站介绍
 keyword: "LawChant, 罗骞, 罗骞的博客, luoqian, IoT HOME, 嵌入式智能家居, 嵌入式物联网" #关键词
 url: "https://luoqianer.github.io"          # 这个就是填写你的博客地址
 baseurl: ""      # 这个我们不用填写
+
+#permalink: /:year/:month/:title/
+#header-img: img/post-bg-rwd.jpg     #显示在首页的背景图片
 
 # Sidebar settings
 sidebar: true                           # 是否开启侧边栏.
