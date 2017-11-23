@@ -20,7 +20,7 @@ baseurl: ""      # 这个我们不用填写
 # Sidebar settings
 sidebar: true                           # 是否开启侧边栏.
 sidebar-about-description: "专注智能家居物联网交互方案研发设计"
-sidebar-avatar:/assets/images/sun1.jpg      # 你的个人头像 这里你可以改成我在img文件夹中的两张备用照片 img/avatar-m 或 avatar-g
+sidebar-avatar:/assets/images/sun1      # 你的个人头像 这里你可以改成我在img文件夹中的两张备用照片 img/avatar-m 或 avatar-g
 
 # SNS settings
 RSS: false
