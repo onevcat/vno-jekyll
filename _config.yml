@@ -1,13 +1,36 @@
 # Basic
-title: Vno Jekyll
-subtitle: A blog-orientation theme for Jekyll
-welcome_message: <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Download the theme</a>
-description: Vno Jekyll is a port of my Ghost theme vno.
+subtitle: 技术博客空间
+description: 技术博客空间-嵌入式芯片开发-电子设计研发.
 creator: <a href="http://onev.cat">@onevcat</a>
 
 url: "http://vno.onevcat.com"
 
 permalink: /:year/:month/:title/
+
+# Site settings
+title: LawChant Blog                #你博客的标题
+SEOTitle: 你的博客 | You Blog        #显示在浏览器上搜索的时候显示的标题
+header-img: img/post-bg-rwd.jpg     #显示在首页的背景图片
+email: 137733290@qq.com    
+description: "技术博客"              #网站介绍
+keyword: "LawChant, 罗骞, 罗骞的博客, luoqian, IoT HOME, 嵌入式智能家居, 嵌入式物联网" #关键词
+url: "https://luoqianer.github.io"          # 这个就是填写你的博客地址
+baseurl: ""      # 这个我们不用填写
+
+# Sidebar settings
+sidebar: true                           # 是否开启侧边栏.
+sidebar-about-description: "专注智能家居物联网交互方案研发设计"
+sidebar-avatar:/img/avatar-by.JPG      # 你的个人头像 这里你可以改成我在img文件夹中的两张备用照片 img/avatar-m 或 avatar-g
+
+# SNS settings
+RSS: false
+weibo_username:     username
+zhihu_username:     username
+github_username:    username
+facebook_username:  username
+jianshu_username:   jianshu_id
+
+
 
 # Format
 highlighter: rouge
