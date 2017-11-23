@@ -2,7 +2,7 @@
 title: LawChant Blog                #你博客的标题
 subtitle: 技术博客空间
 description: 技术博客空间-嵌入式芯片开发-电子设计研发.
-SEOTitle: 你的博客 | You Blog        #显示在浏览器上搜索的时候显示的标题
+SEOTitle: 罗骞的技术博客        #显示在浏览器上搜索的时候显示的标题
 creator: <a href="https://luoqianer.github.io">LawChant</a>
 email: 137733290@qq.com    
 description: "技术博客"              #网站介绍
@@ -24,7 +24,7 @@ weibo_username:     username
 zhihu_username:     username
 github_username:    username
 facebook_username:  username
-jianshu_username:   jianshu_id
+#jianshu_username:   jianshu_id
 
 
 
@@ -35,16 +35,16 @@ highlighter: rouge
 cover_color: blue
 
 # The blog button should not be removed.
-blog_button:
+home_button:
     title: 首页
     description: 点击进入博客
 blog_button:
     title: 博客
     description: 点击进入博客
-blog_button:
+product_button:
     title: 产品
     description: 点击进入博客
-blog_button:
+about_button:
     title: 关于
     description: 点击进入博客
 
@@ -65,9 +65,9 @@ comment:
     
 # Social
 social:
-    weibo: none
-    github: none
-    twitter: none
+    weibo: digcore
+    github: digcore
+    twitter: digcore
     #gplus: 137733290
     mail: 137733290@qq.com
 
