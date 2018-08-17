@@ -1,6 +1,6 @@
 # Basic
 title: Miracle Lee
-subtitle: LI Xiangyu in BUPT.
+subtitle: 我是李奇迹。
 welcome_message: Welcome to Miracle's blog.
 description: Life never stops pushing forward. Stay focused and never slow down with regrets.
 creator: <a href="http://lixiangyu.cc">@Miracle</a>
@@ -33,8 +33,8 @@ paginate_path: "page/:num/"
 # Comment
 comment:
     disqus: vno-jekyll
-    # duoshuo: 
-    
+    # duoshuo:
+
 # Social
 social:
     weibo: Encelade
