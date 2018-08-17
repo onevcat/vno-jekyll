@@ -1,6 +1,6 @@
 # Basic
-title: Miracle Lee
-subtitle: 我是李奇迹。
+title: Miracle
+subtitle: 我是李奇迹
 welcome_message: Welcome to Miracle's blog.
 description: Life never stops pushing forward. Stay focused and never slow down with regrets.
 creator: <a href="http://lixiangyu.cc">@Miracle</a>
@@ -13,7 +13,7 @@ permalink: /:year/:month/:title/
 highlighter: rouge
 
 # supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
-cover_color: orange
+cover_color: slate
 
 # The blog button should not be removed.
 blog_button:
