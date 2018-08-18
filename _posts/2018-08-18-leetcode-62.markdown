@@ -3,8 +3,7 @@ layout: post
 title: Leetcode 62.Unique Paths
 ---
 
-#### Leetcode 62. Unique Paths
-#####问题描述
+##### 问题描述
 A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
 
 The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
@@ -12,7 +11,7 @@ The robot can only move either down or right at any point in time. The robot is 
 How many possible unique paths are there?
 ![enter image description here](https://leetcode.com/static/images/problemset/robot_maze.png)
 Above is a 7 x 3 grid. How many possible unique paths are there?
-#####思路一
+##### 思路一
 机器人要走m + n - 2步，向下m - 1步，向右n - 1步，总共的不同的走法数量相当于在总的步数中，向下、向右步数中较小的数的取法的数量。
 ```java
 class Solution {
