@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Leetcode 62.Unique Paths
+title: LeetCode 62.Unique Paths
 ---
 
 #### **问题描述**
