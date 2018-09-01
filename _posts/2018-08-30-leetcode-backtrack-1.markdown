@@ -33,7 +33,7 @@ while(i > 0(有路可走) and (未达到目标)) //还未回溯到头
 {
     if(i > n) //搜索到叶结点
     {   
-	      搜索到一个解，输出；
+	    搜索到一个解，输出；
     }
     else //处理第i个元素
     {
@@ -51,7 +51,7 @@ while(i > 0(有路可走) and (未达到目标)) //还未回溯到头
         {
              清理所占的状态空间; //回溯
              i = i – 1;
-	      }
+	    }
     }
 }
 ```
@@ -63,20 +63,20 @@ int a[n];
 try(int i)
 {
     if(i > n)
-	      输出结果;
+	    输出结果;
     else
     {
-    		for(j = 下界; j <= 上界; j = j + 1) //枚举i所有可能的路径
+	    for(j = 下界; j <= 上界; j = j + 1) //枚举i所有可能的路径
         {
-    	      if(fun(j)) //满足限界函数和约束条件
+	    	if(fun(j)) //满足限界函数和约束条件
             {
-    	          a[i] = j;
+	    	    a[i] = j;
                 ...  // 其他操作
                 try(i + 1);
                 回溯前的清理工作（如a[i]置空值等）;
             }
         }
-	  }
+	}
 }
 ```
 
@@ -107,19 +107,19 @@ Output:
 ```java
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
-		    List<List<Integer>> list = new ArrayList<>();
-		    backTrack(list, new ArrayList<Integer>(), nums, 0);
+		List<List<Integer>> list = new ArrayList<>();
+		backTrack(list, new ArrayList<Integer>(), nums, 0);
         return list;
-	  }
+	}
 
     public void backTrack(List<List<Integer>> list, List<Integer> tempList, int[] nums, int start) {
-		    list.add(new ArrayList<>(tempList));
+		list.add(new ArrayList<>(tempList));
         for (int i = start; i < nums.length; i++) {
-    			  tempList.add(nums[i]);
-    			  backTrack(list, tempList, nums, i + 1);
-    			  tempList.remove(tempList.size() - 1);
-		    }
-	  }
+	    	tempList.add(nums[i]);
+    		backTrack(list, tempList, nums, i + 1);
+    		tempList.remove(tempList.size() - 1);
+		}
+	}
 }
 ```
 
@@ -145,22 +145,22 @@ Output:
 ```java
 class Solution {
     public List<List<Integer>> subsetWithDup(int[] nums) {
-		    Arrays.sort(nums);
-		    List<List<Integer>> list = new ArrayList<>();
-		    backTrack(list, new ArrayList<Integer>(), nums, 0);
-		    return list;
-	  }
+		Arrays.sort(nums);
+		List<List<Integer>> list = new ArrayList<>();
+		backTrack(list, new ArrayList<Integer>(), nums, 0);
+		return list;
+	}
 
     public void backTrack(List<List<Integer>> list, List<Integer> tempList, int[] nums, int start) {
-		    list.add(new ArrayList<>(tempList));
-		    for (int i = start; i < nums.length; i++) {
-			      if (i > start && nums[i] == nums[i - 1])
-				        continue;
-			      tempList.add(nums[i]);
-			      backTrack(list, tempList, nums, i + 1);
-			      tempList.remove(tempList.size() - 1);
-		    }
-	  }
+		list.add(new ArrayList<>(tempList));
+		for (int i = start; i < nums.length; i++) {
+			if (i > start && nums[i] == nums[i - 1])
+				continue;
+			tempList.add(nums[i]);
+			backTrack(list, tempList, nums, i + 1);
+			tempList.remove(tempList.size() - 1);
+		}
+	}
 }
 ```
 
@@ -183,24 +183,24 @@ Output:
 **Solution:**
 ```java
 class Solution {
-	  public List<List<Integer>> permute(int[] nums) {
-		    List<List<Integer>> list = new ArrayList<>();
-		    backTrack(list, new ArrayList<Integer>(), nums);
-		    return list;
-	  }
+	public List<List<Integer>> permute(int[] nums) {
+		List<List<Integer>> list = new ArrayList<>();
+		backTrack(list, new ArrayList<Integer>(), nums);
+		return list;
+	}
 
-	  public void backTrack(List<List<Integer>> list, List<Integer> tempList, int[] nums) {
-		    if (tempList.size() == nums.length)
-			      list.add(new ArrayList<>(tempList));
-		    else {
-			      for (int i = 0; i < nums.length; i++) {
-				        if (tempList.contains(nums[i]))
-					          continue;
-				        tempList.add(nums[i]);
-				        backTrack(list, tempList, nums);
-				        tempList.remove(tempList.size() - 1);
-			      }
-		    }
+	public void backTrack(List<List<Integer>> list, List<Integer> tempList, int[] nums) {
+		if (tempList.size() == nums.length)
+			list.add(new ArrayList<>(tempList));
+		else {
+			for (int i = 0; i < nums.length; i++) {
+				if (tempList.contains(nums[i]))
+					continue;
+				tempList.add(nums[i]);
+				backTrack(list, tempList, nums);
+				tempList.remove(tempList.size() - 1);
+			}
+		}
     }
 }
 ```
@@ -221,27 +221,27 @@ Output:
 **Solution:**
 ```java
 class Solution {
-	  public List<List<Integer>> permuteUnique(int[] nums) {
-	      Arrays.sort(nums);
-		    List<List<Integer>> list = new ArrayList<>();
-		    backTrack(list, new ArrayList<Integer>(), nums, new boolean[nums.length]);
-		    return list;
+	public List<List<Integer>> permuteUnique(int[] nums) {
+		Arrays.sort(nums);
+		List<List<Integer>> list = new ArrayList<>();
+		backTrack(list, new ArrayList<Integer>(), nums, new boolean[nums.length]);
+		return list;
     }
 
-	  public void backTrack(List<List<Integer>> list, List<Integer> tempList, int[] nums, boolean[] used) {
-		    if (tempList.size() == nums.length)
-			      list.add(new ArrayList<>(tempList));
-		    else {
-			      for (int i = 0; i < nums.length; i++) {
-				        if(used[i] || i > 0 && nums[i] == nums[i - 1] && !used[i - 1])
-					          continue;
-				        tempList.add(nums[i]);
-				        used[i] = true;
-				        backTrack(list, tempList, nums, used);
-				        used[i] = false;
-				        tempList.remove(tempList.size() - 1);
-			      }
+	public void backTrack(List<List<Integer>> list, List<Integer> tempList, int[] nums, boolean[] used) {
+		if (tempList.size() == nums.length)
+			list.add(new ArrayList<>(tempList));
+		else {
+			for (int i = 0; i < nums.length; i++) {
+				if(used[i] || i > 0 && nums[i] == nums[i - 1] && !used[i - 1])
+					continue;
+				tempList.add(nums[i]);
+				used[i] = true;
+				backTrack(list, tempList, nums, used);
+				used[i] = false;
+				tempList.remove(tempList.size() - 1);
 		    }
+		}
     }
 }
 ```
