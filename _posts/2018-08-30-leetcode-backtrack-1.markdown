@@ -20,12 +20,14 @@ LeetCode中有关寻找数组的子集问题（78，90）、全排列（46，47�
 而若使用回溯法求任一个解时，只要搜索到问题的一个解就可以结束。
 
 #### **解题步骤**
-1.&nbsp;针对给定问题，确定问题的解空间，即首先明确问题的解空间，问题的解空间应至少包含问题的一个（最优）解</br>
-2.&nbsp;确定结点的扩展搜索规则</br>
-3.&nbsp;以深度优先的方式搜索解空间，并在搜索过程中使用剪枝函数避免无效搜索</br>
+1.&nbsp;针对给定问题，确定问题的解空间，即首先明确问题的解空间，问题的解空间应至少包含问题的一个（最优）解
+
+2.&nbsp;确定结点的扩展搜索规则
+
+3.&nbsp;以深度优先的方式搜索解空间，并在搜索过程中使用剪枝函数避免无效搜索
 
 #### **算法框架**
-**1.&nbsp;非递归回溯框架**
+* 非递归回溯框架
 ```cpp
 int a[n], i; //初始化数组a[];
 i = 1;
@@ -56,7 +58,8 @@ while(i > 0(有路可走) and (未达到目标)) //还未回溯到头
 }
 ```
 
-**2.&nbsp;递归回溯框架**
+* 递归回溯框架
+
 回溯法是对解空间的深度优先搜索，在一般情况下使用递归函数来实现回溯法比较简单，其中i为搜索深度，框架如下：
 ```cpp
 int a[n];
@@ -81,6 +84,7 @@ try(int i)
 ```
 
 #### **LeetCode解题过程**
+
 **78. Subset**
 
 Given a set of **distinct** integers, nums, return all possible subsets (the power set).
@@ -124,6 +128,7 @@ class Solution {
 ```
 
 **90. Subsets II**
+
 Given a collection of integers that might contain duplicates, **nums**, return all possible subsets (the power set).
 
 **Note:** The solution set must not contain duplicate subsets.
@@ -141,6 +146,7 @@ Output:
   []
 ]
 ```
+
 **Solution:**
 ```java
 class Solution {
@@ -165,6 +171,7 @@ class Solution {
 ```
 
 **46. Permutations**
+
 Given a collection of **distinct** integers, return all possible permutations.
 
 **Example:**
@@ -180,6 +187,7 @@ Output:
   [3,2,1]
 ]
 ```
+
 **Solution:**
 ```java
 class Solution {
@@ -206,6 +214,7 @@ class Solution {
 ```
 
 **47. Permutations II**
+
 Given a collection of numbers that might contain duplicates, return all possible unique permutations.
 
 **Example:**
@@ -246,6 +255,7 @@ class Solution {
 }
 ```
 **39. Combination Sum**
+
 Given a **set** of candidate numbers (`candidates`) (**without duplicates**) and a target number (`target`), find all unique combinations in `candidates` where the candidate numbers sums to `target`.
 
 The **same** repeated number may be chosen from `candidates` unlimited number of times.
@@ -273,6 +283,7 @@ A solution set is:
   [3,5]
 ]
 ```
+
 **Solution:**
 ```java
 class Solution {
@@ -298,7 +309,9 @@ class Solution {
     }
 }
 ```
+
 **40. Combination Sum II**
+
 Given a collection of candidate numbers (`candidates`) and a target number (`target`), find all unique combinations in `candidates` where the candidate numbers sums to `target`.
 
 Each number in `candidates` may only be used **once** in the combination.
@@ -328,6 +341,7 @@ A solution set is:
   [5]
 ]
 ```
+
 **Solution:**
 ```java
 class Solution {
