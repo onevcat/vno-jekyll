@@ -1,0 +1,84 @@
+---
+layout: post
+title: Leetcode 94. Binary Tree Inorder Traversal
+---
+
+#### **问题描述**
+
+Given a binary tree, return the inorder traversal of its nodes' values.
+
+**Example:**
+
+```
+Input: [1,null,2,3]
+   1
+    \
+     2
+    /
+   3
+
+Output: [1,3,2]
+```
+
+#### **解题思路**
+通常，实现二叉树的遍历有两种常用的方法：一是用递归，二是用栈实现的迭代的方法。
+
+##### **思路一：递归**
+递归是比较常用的方法，算法的时间复杂度为O(n)，空间复杂度为递归栈的大小，即O(logn)，实现代码如下：
+```java
+/**
+ * Definitioin for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }  
+ * }
+ */
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        helper(list, root);
+        return list;
+    }
+
+    public void helper(List<Integer> list, TreeNode root) {
+        if(root == null)
+            return;
+        helper(list, root.left);
+        list.add(root.val);
+        helper(list, root.right);
+    }
+}
+```
+
+##### **思路二：迭代**
+迭代的方法是用一个栈模拟递归的过程。所以算法的时间复杂度也是O(n)，空间复杂度是栈的大小O(logn)，实现代码如下：
+```java
+/**
+ * Definitioin for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }  
+ * }
+ */
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        while (root != null || !stack.isEmpty()) {
+            if (root != null) {
+                stack.push(root);
+                root = root.left;
+            } else {
+                root = stack.pop();
+                list.add(root.val);
+                root = root.right;
+            }
+        }
+        return list;
+    }
+}
+```

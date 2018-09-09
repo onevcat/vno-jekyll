@@ -1,0 +1,104 @@
+---
+layout: post
+title: Leetcode 112. Path Sum & 113. Path Sum II
+---
+
+#### **问题描述**
+**112. Path Sum**
+
+Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the values along the path equals the given sum.
+
+**Note:** A leaf is a node with no children.
+
+**Example:**
+
+Given the below binary tree and `sum = 22`,
+```
+      5
+     / \
+    4   8
+   /   / \
+  11  13  4
+ /  \      \
+7    2      1
+```
+return true, as there exist a root-to-leaf path `5->4->11->2` which sum is 22.
+
+**113. Path Sum II**
+
+Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
+
+**Note:** A leaf is a node with no children.
+
+**Example:**
+
+Given the below binary tree and `sum = 22`,
+
+```
+      5
+     / \
+    4   8
+   /   / \
+  11  13  4
+ /  \    / \
+7    2  5   1
+```
+
+Return:
+
+```
+[
+   [5,4,11,2],
+   [5,8,4,5]
+]
+```
+
+#### **解题方案**
+**112. Path Sum**
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null)
+            return false;
+        if (root.left == null && root.right == null && root.val == sum)
+            return true;
+        return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+    }
+}
+```
+
+#### **解题方案**
+**113. Path Sum II**
+
+```java
+class Solution {
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> list = new ArrayList<>();
+        backTrack(list, new ArrayList<Integer>(), root, sum);
+        return list;
+    }
+
+    public void backTrack(List<List<Integer>> list, List<Integer> tempList, TreeNode root, int sum) {
+        if (root == null)
+            return;
+        tempList.add(root.val);
+        if (root.left != null)
+            backTrack(list, tempList, root.left, sum - root.val);
+        if (root.right != null)
+            backTrack(list, tempList, root.right, sum - root.val)
+        if (root.left == null && root.right == null && root.val == sum)
+            list.add(new ArrayList(tempList));
+        tempList.remove(tempList.size() - 1);
+    }
+}
+```
