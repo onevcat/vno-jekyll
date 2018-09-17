@@ -1,0 +1,309 @@
+---
+layout: post
+title: LeetCode二叉树的层序遍历
+---
+
+LeetCode102、103、107题有关于二叉树的层序遍历，分别对应的是二叉树普通的层序遍历、“龙摆尾”式层序遍历，由下至上的层序遍历，解题方法有使用队列和递归两种。
+
+#### **问题描述**
+
+**102. Binary Tree Level Order Traversal**
+
+Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+
+For example:
+Given binary tree `[3,9,20,null,null,15,7]`,
+
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+
+return its level order traversal as:
+
+```
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+```
+
+**103. Binary Tree Zigzag Level Order Traversal**
+
+Given a binary tree, return the zigzag level order traversal of its nodes' values. (ie, from left to right, then right to left for the next level and alternate between).
+
+For example:
+
+Given binary tree `[3,9,20,null,null,15,7]`,
+
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+
+return its zigzag level order traversal as:
+
+```
+[
+  [3],
+  [20,9],
+  [15,7]
+]
+```
+
+**107. Binary Tree Level Order Traversal II**
+
+Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
+
+For example:
+Given binary tree `[3,9,20,null,null,15,7]`,
+
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+
+return its bottom-up level order traversal as:
+
+```
+[
+  [15,7],
+  [9,20],
+  [3]
+]
+```
+
+#### **解题方案**
+
+**102. Binary Tree Level Order Traversal**
+
+##### 思路一：使用队列
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            List<Integer> tempList = new ArrayList<>();
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.remove();
+                tempList.add(node.val);
+                if (node.left != null) {
+                    queue.offer(node.left);
+                } 
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }         
+            }
+            list.add(new ArrayList<>(tempList));
+        }
+        return list;
+    }
+}
+```
+
+##### 思路二： 递归
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        levelRecursion(list, root, 0);
+        return list;
+    }
+
+    public void levelRecursion(List<List<Integer>> list, TreeNode root, int level) {
+        if (root == null) {
+            return;
+        }
+        if (list.size() < level + 1) {
+            list.add(new ArrayList<Integer>());
+        }
+        list.get(level).add(root.val);
+        levelRecursion(list, root.left, level + 1);
+        levelRecursion(list, root.rigth, level + 1);
+    }
+}
+```
+
+**103. Binary Tree Zigzag Level Order Traversal**
+
+##### 思路一： 双端队列
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        if(root == null) {
+            return list;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        boolean flag = true;
+        deque.offer(root);
+        while (!deque.isEmpty()) {
+            List<Integer> tempList = new ArrayList<>();
+            int size = deque.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = flag ? deque.pollFirst() : deque.pollLast();
+                if (flag) {
+                    if (node.left != null) {
+                        deque.offerLast(node.left); 
+                    } 
+                    if (node.right != null) {
+                        deque.offerLast(node.right);
+                    }
+                } else {
+                    if (node.right != null) {
+                        deque.offerFirst(node.right); 
+                    } 
+                    if (node.left != null) {
+                        deque.offerFirst(node.left);
+                    }
+                }
+            }
+            flag = !flag;
+            list.add(new ArrayList<>(tempList));
+        }
+        return list;
+    }
+}
+```
+
+##### 思路二： 双栈
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        if(root == null) {
+            return list;
+        }
+        Stack<TreeNode> forwardStack = new Stack<>();
+        Stack<TreeNode> retrorseStack = new Stack<>();
+        forwardStack.push(root);
+        while (!forwardStack.isEmpty() || !retrorseStack.isEmpty()) {
+            List<Integer> tempList = new ArrayList<>();
+            while (!forwardStack.isEmpty()) {
+                TreeNode node = forwardStack.pop();
+                tempList.add(node.val);
+                if (node.left != null) {
+                    retrorseStack.push(node.left);
+                }
+                if (node.right != null) {
+                    retrorseStack.push(node.right);
+                }
+            }
+            if(!tempList.isEmpty()) {
+                list.add(new ArrayList<>(tempList));
+                tempList.clear();
+            }
+            while (!retrorseStack.isEmpty()) {
+                TreeNode node = retrorseStack.pop();
+                tempList.add(node.val);
+                if (node.right != null) {
+                    forwardStack.push(node.right);
+                }
+                if (node.left != null) {
+                    forwardStack.push(node.left);
+                }
+            }
+            if(!tempList.isEmpty()) {
+                list.add(new ArrayList<>(tempList));
+                tempList.clear();
+            }
+        }
+        return list;
+    }
+}
+```
+
+**107. Binary Tree Level Order Traversal II**
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            List<Integer> tempList = new ArrayList<>();
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.remove();
+                tempList.add(node.val);
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+            list.add(0, new ArrayList<>(tempList));
+        }
+        return list;
+    }
+}
+```
