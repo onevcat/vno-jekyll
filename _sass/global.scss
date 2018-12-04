@@ -14,8 +14,9 @@ html {
 body {
   font-family: $sans-font;
   font-size: 1em;
-  color: $gray-darker;
+  color: $body-color;
   -webkit-font-smoothing: antialiased;
+  text-align: justify;
 }
 
 ::selection {
@@ -42,6 +43,11 @@ a {
     -webkit-transition:.5s;
   }
 
+}
+
+video {
+    display: block;
+    margin: 10px auto;
 }
 
 h1,
@@ -99,7 +105,7 @@ em {
 }
 
 blockquote {
-  padding: 10px 20px;
+  padding: 10px 0px 5px 20px;
   margin: 0 0 20px;
   font-family: $serif-font;
   font-weight: lighter;
