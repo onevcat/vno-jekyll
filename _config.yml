@@ -1,11 +1,12 @@
 # Basic
-title: Zehui Qu
-subtitle: Zququ's Blog
-welcome_message: <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Download the theme</a>
-description: Vno Jekyll is a port of my Ghost theme vno.
-creator: <a href="http://onev.cat">@onevcat</a>
+title: Zququ's Blog
+subtitle: 不忘初心, 砥砺前行
+welcome_message: A blog about mathematics, cryo-em, crystallography and other studying experiences
+#<a href="https://github.com/onevcat/vno-jekyll" target="_blank">Download the theme</a>
+description: Hi, I am Zehui Qu (@Zququ), Phd candidate at CAU.
+creator: <a href="简历未完成">@zququ</a>
 
-url: "http://vno.onevcat.com"
+url: "http://life.zququ.fun"
 
 permalink: /:year/:month/:title/
 
@@ -13,7 +14,7 @@ permalink: /:year/:month/:title/
 highlighter: rouge
 
 # supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
-cover_color: red
+cover_color: green
 
 # The blog button should not be removed.
 blog_button:
@@ -22,7 +23,7 @@ blog_button:
 
 # Navigation buttons in the front page.
 nav:
-    - {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
+    - {title: C.V., description: Curriculum Vitae, url: '#简历未完成#'}
     # - {title: Another Button, description: A button, url: 'http://example.com'}
 
 # Pagination
@@ -32,18 +33,18 @@ paginate_path: "page/:num/"
 
 # Comment
 comment:
-    disqus: vno-jekyll
+    disqus: zququ
     # duoshuo: 
     
 # Social
 social:
-    weibo: onevcat
-    github: onevcat
-    twitter: onevcat
-    gplus: 107108267983477358170
-    mail: onev@onevcat.com
+    weibo: 1251190497
+    github: Zququ
+    twitter: qzh813
+    Researchgate: https://www.researchgate.net/profile/Zehui_Qu2
+    mail: qzh813@gmail.com
 
 # Google Analytics
 ga:
-    # id: your_ga_id
+    # id: qzh813
     # host: your_host
