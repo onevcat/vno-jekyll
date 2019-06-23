@@ -8,9 +8,9 @@ This is a valuable post, because this is my first post. Every first must be memo
 
 'Zququ's Blog' is a place to record my studying experiences. 
 
-However, I dream to communicate with other people who has the same interest with me.
+However, I dream to communicate with other people.
 
-So I welcome whoever has any surggestion or any question.
+So I welcome everyone who has any surggestion or any question.
 
 
 #### How long will this blog last?
@@ -20,6 +20,7 @@ So I welcome whoever has any surggestion or any question.
 
 
 #### Who AM I? 
+![Who am I](/assets/post_images/me.jpg)
 
 
 For now, I'm a Phd canditate in China Agricutural University (CAU), studying on the veterinary microbiology and immunology.
