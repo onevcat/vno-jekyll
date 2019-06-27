@@ -12,7 +12,7 @@ When I am searching videos at Bilibili, I found an upper, 'TheCW', showed a very
 
 > Actually, I ever learned vim from some basic introduction articles, and I ever thought it was a very unique editor, but not a good one. I can imagine at the very old age without a mouse, there must be a keyboard leading editor make some words out, but why vim is still pre-installed in kinds of Unix based os today? I found myself too young (not young enough actually :() too simple. Vim is a very powerful txt editor in Unix. How powerful? 
 
-First of all, vim could be apart from the mouse. Some people may feel puzzle, why this can be called an advantage, it's because the mouse provide us a convenient way to solve some problems. But in fact, when I have tried the vim to process data totally without a mouse, something interesting has happened to me. This is a feeling of fluent, makes you feel that you can control everything here. Every moves will give you a response, and every response will make you know what you're doing now. 
+First of all, vim could be apart from the mouse. Some people may feel puzzle, why this can be called an advantage, thanks to the mouse, it provide us a convenient way to solve some problems. But in fact, when I have tried the vim to process data totally without a mouse, something interesting has happened to me. This is a feeling of fluent, makes you feel that you can control everything here. Every moves will give you a response, and every response will make you know what you're doing now. 
 
 Secondly, unexpected high level freedom for the plug-in setting. In my opinion, the greatest quality of linux is you can make linux you like. Vim follows this spirit. An open, free, and big community forum exits, and you can download the plug-ins easily.
 
