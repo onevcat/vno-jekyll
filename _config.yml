@@ -34,14 +34,11 @@ paginate_path: "page/:num/"
 # Comment
 comment:
     disqus: zququ
-    # duoshuo: 
-    
 # Social
 social:
     weibo: 1251190497
     github: Zququ
     twitter: qzh813
-    Researchgate: https://www.researchgate.net/profile/Zehui_Qu2
     mail: qzh813@gmail.com
 
 # Google Analytics
