@@ -4,7 +4,7 @@
   {% if site.social.weibo %}
   <!-- Weibo -->
   <li class="navigation__item">
-    <a href="http://weibo.com/{{site.social.weibo}}" title="@{{site.social.weibo}} 的微博" target="_blank">
+    <a href="http://weibo.com/{{site.social.weibo}}" title="@{{site.social.weibo}} Weibo" target="_blank">
       <i class='social fa fa-weibo'></i>
       <span class="label">Weibo</span>
     </a>
@@ -14,7 +14,7 @@
   {% if site.social.github %}
   <!-- Github -->
   <li class="navigation__item">
-    <a href="https://github.com/{{site.social.github}}" title="@{{site.social.github}} 的 Github" target="_blank">
+    <a href="https://github.com/{{site.social.github}}" title="@{{site.social.github}} Github" target="_blank">
       <i class='social fa fa-github'></i>
       <span class="label">Github</span>
     </a>
@@ -55,6 +55,16 @@
     <a href="mailto:{{site.social.mail}}" title="Contact me">
       <i class='social fa fa-envelope'></i>
       <span class="label">Email</span>
+    </a>
+  </li>
+  {% endif %}
+
+  {% if site.social.rg %}
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/{{site.social.rg}}" title="@{{site.social.rg}}" target="_blank">
+      <i class="fab fa-researchgate"></i>
+      <span class="label">Research_Gate</span>
     </a>
   </li>
   {% endif %}
