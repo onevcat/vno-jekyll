@@ -6,7 +6,7 @@ date: 2019-06-26 19:11:24.000000000 +09:00
 
 #### Where I got to know vim
 
-When I am searching videos at Bilibili, I found an upper, 'TheCW', showed a very nice video to introduce how to use the vim [the link](http://www.bilibili.com/video/av55498503?from=search&seid=9399177761934796555).
+When I am searching videos at Bilibili, I found an upper, 'TheCW', showed a very nice video to introduce how to use the vim ( [the link](http://www.bilibili.com/video/av55498503?from=search&seid=9399177761934796555). )
 
 #### The advantage of vim
 
@@ -59,4 +59,4 @@ Today I only introduced some very basal operations. In fact, the most interestin
 
 If you are not a freshbird like me, I share a configuration of mine, and you can configurate yourself immediately.
 
-> [zququ-configuration](https://github.com/zququ/vim-configuration)
+> [My vim configuration (vimrc)](https://github.com/zququ/vim-configuration)
