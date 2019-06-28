@@ -1,9 +1,8 @@
 # Basic
 title: Zququ's Blog
-subtitle: 不忘初心, 砥砺前行
-welcome_message: A blog about mathematics, cryo-em, crystallography and other studying experiences
-#<a href="https://github.com/onevcat/vno-jekyll" target="_blank">Download the theme</a>
-description: Hi, I am Zehui Qu (@Zququ), Phd candidate at CAU.
+subtitle: 生而为学, 学而不老
+welcome_message: <a href="https://www.researchgate.net/profile/Zehui_Qu2">I am Zehui Qu (@Zququ), Phd candidate at CAU, you can find my publications at ResearchGate</a>
+description: About mathematics, cryo-em, crystallography and coding
 creator: <a href="简历未完成">@zququ</a>
 
 url: "http://life.zququ.fun"
@@ -18,12 +17,12 @@ cover_color: green
 
 # The blog button should not be removed.
 blog_button:
-    title: Blog
+    title: 博客Blog
     description: Visit blog
 
 # Navigation buttons in the front page.
 nav:
-    - {title: C.V., description: Curriculum Vitae, url: '#简历未完成#'}
+    - {title: 简历CV, description: Curriculum Vitae, url: '#简历未完成#'}
     # - {title: Another Button, description: A button, url: 'http://example.com'}
 
 # Pagination
@@ -42,7 +41,8 @@ social:
     mail: qzh813@gmail.com
     rg: Zehui_Qu2
 
+
 # Google Analytics
 ga:
-    # id: qzh813
+    # id: your_ga_id 
     # host: your_host
