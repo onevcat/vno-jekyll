@@ -3,7 +3,7 @@ title: Zququ's Blog
 subtitle: 生而为学, 学而不老
 welcome_message: <a href="https://www.researchgate.net/profile/Zehui_Qu2">I am Zehui Qu (@Zququ), Phd candidate at CAU, you can find my publications at ResearchGate</a>
 description: About mathematics, cryo-em, crystallography and coding
-creator: <a href="简历未完成">@zququ</a>
+creator: <a href="https://zququcv.netlify.com">@zququ</a>
 
 url: "http://life.zququ.fun"
 
@@ -22,7 +22,7 @@ blog_button:
 
 # Navigation buttons in the front page.
 nav:
-    - {title: 简历CV, description: Curriculum Vitae, url: '#简历未完成#'}
+    - {title: 简历CV, description: Curriculum Vitae, url: 'https://zququcv.netlify.com'}
     # - {title: Another Button, description: A button, url: 'http://example.com'}
 
 # Pagination
