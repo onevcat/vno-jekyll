@@ -46,6 +46,6 @@ As I introduced [before](../../06/basic-op-vim), **`operation + motivation`** wi
 ```vim
 map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 ```
- Means when you tap **`<LEADER> + <LEADER>`**, will at first execute **`Esc`** command, and then search for **`<++>`** (some defined tag working as a place holder), then execute **`:nohlsearch`** to cancel highlight search mode and change the 4 units on the right (**`c4l`**) .
+ Means when you tap **`<LEADER> + <LEADER>`**, will at first execute **`Esc`** command, and then search for **`<++>`** (some defined tag working as a place holder), then execute **`:nohlsearch`** to cancel highlight search mode and change the 4 units on the right (**`c4l`**), in another word, make a change of the **`<++>`** into other word.
 
 
