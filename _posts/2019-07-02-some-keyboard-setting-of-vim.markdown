@@ -42,7 +42,7 @@ It will simply help you change i to u.
 map <LEADER>rc :e ~/.vim/vimrc<CR>
 ```
 Means to set **`<LEADER> + r + c`** can help you edit vimrc document directly.<br>
-As I introduced [before](./2019-06-26-basic-op-vim.markdown), **`operation + motivation`** will help you make a more flexible setting like,
+As I introduced [before](../2019-06-26-basic-op-vim.markdown), **`operation + motivation`** will help you make a more flexible setting like,
 ```vim
 map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 ```
