@@ -42,10 +42,10 @@ It will simply help you change i to u.
 map <LEADER>rc :e ~/.vim/vimrc<CR>
 ```
 Means to set **`<LEADER> + r + c`** can help you edit vimrc document directly.<br>
-As I introduced [before](./2019-06-26-basic-op-vim.markdown2019-2019-06-26-basic-op-vim.markdown), **`operation + motivation`** will help you make a more flexible setting like,
+As I introduced [before](./2019-06-26-basic-op-vim.markdown), **`operation + motivation`** will help you make a more flexible setting like,
 ```vim
 map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 ```
- Means when you tap **`<LEADER> + <LEADER>`**, will at first execute **`Esc`** command, and then search for **`<++>`** (some defined taq working as a place holder), then execute **`:nohlsearch`** to cancle highlight search mode and change the four 4 units (**`c4l`**) .
+ Means when you tap **`<LEADER> + <LEADER>`**, will at first execute **`Esc`** command, and then search for **`<++>`** (some defined tag working as a place holder), then execute **`:nohlsearch`** to cancel highlight search mode and change the 4 units on the right (**`c4l`**) .
 
 
