@@ -6,17 +6,17 @@ date: 2019-06-26 19:11:24.000000000 +09:00
 
 #### Where I got to know vim
 
-When I am searching videos at Bilibili, I found an upper, 'TheCW', showed a very nice video to introduce how to use the vim ( [the link](http://www.bilibili.com/video/av55498503?from=search&seid=9399177761934796555). )
+Bilibili up, 'TheCW', showed a very nice video to introduce how to use the vim ( [You can find the video here](http://www.bilibili.com/video/av55498503?from=search&seid=9399177761934796555). )
 
 #### The advantage of vim
 
-> Actually, I ever learned vim from some basic introduction articles, and I ever thought it was a very unique editor, but not a good one. I can imagine at the very old age without a mouse, there must be a keyboard leading editor make some words out, but why vim is still pre-installed in kinds of Unix based os today? I found myself too young (not young enough actually :() too simple. Vim is a very powerful txt editor in Unix. How powerful? 
+> Actually, I have ever learned some basic introduction about vim, and I ever thought it was a very unique editor, but not a good one. I can imagine at the very old age without a mouse, there must be a keyboard leading editor make some words out, but why vim is still pre-installed in kinds of Unix based os today? I found myself too young (not young enough actually :() too simple. Vim is a very powerful txt editor in Unix. How powerful? 
 
 First of all, vim could be apart from the mouse. Some people may feel puzzle, why this can be called an advantage, thanks to the mouse, it provide us a convenient way to solve some problems. But in fact, when I have tried the vim to process data totally without a mouse, something interesting has happened to me. This is a feeling of fluent, makes you feel that you can control everything here. Every moves will give you a response, and every response will make you know what you're doing now. 
 
 Secondly, unexpected high level freedom for the plug-in setting. In my opinion, the greatest quality of linux is you can make linux you like. Vim follows this spirit. An open, free, and big community forum exits, and you can download the plug-ins easily.
 
-Thirdly, a built-in keyboard macro can help work change to be extremly high efficient. Some complex processes will be easy thing to be done. You can imagine the boring repetition in your daily work is elegantly avoided. What a happiness :).
+Thirdly, a built-in keyboard macro can help work change to be highly efficient. Some complex processes will be easy thing to be done. You can imagine the boring repetition in your daily work is elegantly avoided. What a happiness :).
 
 #### Some basic operations on vim
 
