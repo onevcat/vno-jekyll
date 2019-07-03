@@ -70,11 +70,11 @@ let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
 ```
-I just copied them here, you can also just copy them to your vimrc to set the MarkdownPreview plugin.<br>
+I just copied them here, just copy them to your vimrc to set the MarkdownPreview plugin.<br>
 Look at this line:
 ```vim
 let g:mkdp_browserfunc = ''
 ```
-You can set your expolorer here, and you can just leave this place blank, escape from some other troubles.
+Set your expolorer here, or just leave this place blank, escape from some other troubles.<br>
 And now, you can enjoy your happy input and explore your post at the same time.
 
