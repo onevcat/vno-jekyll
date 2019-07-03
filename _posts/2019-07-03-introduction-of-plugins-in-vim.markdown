@@ -9,7 +9,7 @@ There are many very nice plugins in vim, which make vim a very charming one. As 
 
 Every great success begins with a dream, and why vim becomes great, I think it is because of vim-plug.
 Vim-plug is very powerful vim plugin manager, very easy install and control. You can find a detail description [here](https://github.com/junegunn/vim-plug).
-Here I cite some advantages introductions from vim-plug README <br>:
+Here I cite some advantages introductions from vim-plug README:<br>
 ![image](https://raw.githubusercontent.com/junegunn/i/master/vim-plug/installer.gif)
 - Easier to setup: Single file. No boilerplate code required.
 - Easier to use: Concise, intuitive syntax
@@ -21,8 +21,15 @@ Here I cite some advantages introductions from vim-plug README <br>:
 - Branch/tag/commit support
 - Post-update hooks
 - Support for externally managed plugins
+## The Installation of vim-plug:<br>
+For Unix:
+```bash
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+It will help download the plug.vim and put it in the **`.vim/autoload`**.
 
-The use of vim-plug:<br>
+## The use of vim-plug:<br>
 Add these lines in your vimrc:
 ```vim
 Plug 'your plugins here'
@@ -46,8 +53,8 @@ map <LEADER>t :MarkdownPreview<CR>
 ```
 In this way you can enter the explorer to see the output of your markdown file.
 > There is something we need to know about the markdown.
+
 1. Markdown only supports vim >= 8.1 ver.
-   markdown
 2. There are some default settings of MarkdownPreview:
 
 ```vim
