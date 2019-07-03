@@ -45,6 +45,7 @@ In this way you can enter the explorer to see the output of your markdown file.
 1. Markdown only supports vim >= 8.1 ver.
    markdown
 2. There are some default settings of MarkdownPreview:
+
 ``` vim
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
@@ -68,7 +69,6 @@ let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
-
 ```
 I just copied them here, you can also just copy them to your vimrc to set the MarkdownPreview plugin.<br>
 Look at this line:
