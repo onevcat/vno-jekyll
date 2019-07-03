@@ -29,7 +29,11 @@ Plug 'your plugins here'
 " for example, install the vim-airline (a vim theme)
 Plug 'vim-airline/vim-airline'
 ```
-
+After you have input all the **`Plug ''`**, in your **`.markdown`** file, input,
+```vim
+:PlugInstall
+```
+Every installation will be done within seconds. 
 ## MarkdownPreview
 
 MarkdownPrefview can help you edit and show your markdown file at the same time. After the installation, you can just input:
