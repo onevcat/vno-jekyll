@@ -21,6 +21,7 @@ Here I cite some advantages introductions from vim-plug README:<br>
 - Branch/tag/commit support
 - Post-update hooks
 - Support for externally managed plugins
+
 ## The Installation of vim-plug:<br>
 For Unix:
 ```bash
