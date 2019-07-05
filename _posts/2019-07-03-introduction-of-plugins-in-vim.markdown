@@ -22,7 +22,8 @@ Here I cite some advantages introductions from vim-plug README:<br>
 - Post-update hooks
 - Support for externally managed plugins
 
-## The Installation of vim-plug:<br>
+## The Installation of vim-plug:
+
 For Unix:
 ```bash
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
