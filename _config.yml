@@ -31,9 +31,9 @@ paginate: 10
 paginate_path: "page/:num/"
 
 # Comment
-comment:
-    disqus: zququ
-# Social
+#comment:
+disqus_username: zququ
+    # Social
 social:
     weibo: 1251190497
     github: Zququ
@@ -43,6 +43,8 @@ social:
 
 
 # Google Analytics
-ga:
+#ga:
     # id: your_ga_id 
     # host: your_host
+
+
