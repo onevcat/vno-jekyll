@@ -2,7 +2,6 @@
   {% if site.comment.disqus %}
     <div id="disqus_thread"></div>
     <script>
-    
     var disqus_config = function () {
         this.page.url = "{{ page.url | prepend: site.baseurl | prepend: site.url }}";
         this.page.identifier = "{{ page.url }}";
