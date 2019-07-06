@@ -32,7 +32,7 @@ paginate_path: "page/:num/"
 
 # Comment
 #comment:
-disqus_username: zququ
+disqus: zququ
     # Social
 social:
     weibo: 1251190497
