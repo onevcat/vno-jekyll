@@ -20,3 +20,20 @@
   {% elsif site.valine_comment.enable %}
    <div id="valine_comment"></div> 
   {% endif %} 
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomments"></div>
+<script>
+    var valine = new Valine();
+    valine.init({
+        el:'#vcomments',
+        appId: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        appKey: 'AMHLA0K7K1BXcSEWwusdyllN'
+        notify:false, 
+        verify:false, 
+        avatar:'mp', 
+        placeholder: 'just go go' 
+    })
+</script>
