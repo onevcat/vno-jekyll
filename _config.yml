@@ -31,10 +31,10 @@ paginate: 10
 paginate_path: "page/:num/"
 
 # Comment
-# comment:
+comment:
 #   disqus: zququ
-    # Social
-disqus_username: zququ 
+    disqus_username: zququ 
+# Social
 social:
     weibo: 1251190497
     github: Zququ
