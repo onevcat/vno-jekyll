@@ -1,10 +1,18 @@
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-    new Valine({
-        el: '#valine_comment',
-        app_id: '{{ site.valine_comment.leancloud_appid }}',   //这里变量的取值在网站配置文件里_config.yml
-        app_key: '{{ site.valine_comment.leancloud_appkey }}', //这里变量的取值在网站配置文件里_config.yml
-        placeholder:'{{ site.valine_comment.placeholder }}'    //这里变量的取值在网站配置文件里_config.yml
-    });
-</script>
+<head>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+</head>
+<body>
+    <div id="vcomments"></div>
+    <script>
+        var valine = new Valine();
+        valine.init({
+            el:'#vcomments',
+            appId: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+            appKey: 'AMHLA0K7K1BXcSEWwusdyllN'
+            notify:false, 
+            verify:false, 
+            avatar:'mp', 
+            placeholder: 'just go go' 
+        })
+    </script>
+</body>
