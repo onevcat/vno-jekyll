@@ -31,8 +31,8 @@ paginate: 10
 paginate_path: "page/:num/"
 
 # Comment
-comment:
-    disqus: zququ
+#comment:
+#    disqus: zququ
     # Social
 social:
     weibo: 1251190497
@@ -49,4 +49,13 @@ social:
 
 # Baidu Analysis
 baidu-analysis: 18cdfb7c9ee74e1cfba49c447d3945eb 
+
+valine_comment:
+  enable: true
+# app_id
+  leancloud_appid: FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz 
+# app_key
+  leancloud_appkey: AMHLA0K7K1BXcSEWwusdyllN
+# placeholde
+  placeholder: “Just go go"
 
