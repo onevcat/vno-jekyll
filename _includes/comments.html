@@ -17,9 +17,6 @@
         })();
     </script>
     <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+  {% elsif site.valine_comment.enable %}
+   <div id="vcomments"></div> 
   {% endif %}
-    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-  {% if site.valine_comment.enable %}
-   <div id="vcomments"></div>
-  {% endif %}
-  
