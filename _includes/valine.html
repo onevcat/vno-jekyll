@@ -1,19 +1,13 @@
-<head>
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-</head>
-<body>
-    <div id="vcomments"></div>
-    <script>
-        var valine = new Valine();
-        valine.init({
-            el:'#vcomments',
-            appId: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
-            appKey: 'AMHLA0K7K1BXcSEWwusdyllN'
-            notify:false, 
-            verify:false, 
-            avatar:'mp', 
-            placeholder: 'just go go' 
-        })
-    </script>
-</body>
+<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: '{{ site.valine_comment.leancloud_appid }}',
+        app_key: '{{ site.valine_comment.leancloud_appkey }}',
+        notify: false, 
+        verify: false, 
+        avatar: 'mp', 
+      placeholder: '{{ site.valine_comment.placeholder }}' 
+    });
+</script>
