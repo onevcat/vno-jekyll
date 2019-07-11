@@ -58,5 +58,5 @@ valine_comment:
 # app_key
     leancloud_appkey: AMHLA0K7K1BXcSEWwusdyllN
 # placeholde
-    placeholder: “Just go go"
+    placeholder: "Welcome your comment!"
 
