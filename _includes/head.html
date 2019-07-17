@@ -31,6 +31,9 @@
   <link rel="shortcut icon" href="img/favicon.ico">
   <!-- mathjax -->
   <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
   <!-- Valine Comment -->
   {% if site.valine_comment.enable %}
   <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
