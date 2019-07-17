@@ -16,8 +16,8 @@ $$S_{ij} =
   \end{bmatrix}
 $$
 This adjacency matrix means count the connection (edge) between node i and node j with one walk. For example, $S_{12}$ means from node 1 to node 2, there is one connection. And because there is no connection with one walk between node 1 itself, so $S_{11}$ equals to 0.<br>
-It's a very excellent model for counting paths on a graph - channels of communication. And what we want to explore is how we can try to extend the function of this model? Look at at the $S_{ij}^2$:
-$$(S^2)_{ij} =  
+It's a very excellent model for counting paths on a graph - channels of communication. And what we want to explore is how we can try to extend the function of this model? Look at at the $S\_{ij}^2$:
+$$(S^2)\_{ij} =  
   \begin{bmatrix}
   2 & 1 & 1 & 2\\
   1 & 3 & 2 & 1\\
@@ -26,10 +26,10 @@ $$(S^2)_{ij} =
   \end{bmatrix}
 $$
 We got a new model to represent something more interesting. To understand what it means, I wil show the expansion:
-$$(S^2)_{ij} = (row\,i\,of\,S)\cdot(column\,j\,of\,S) = s_{i1}s_{1j}+s_{i2}s_{2j}+s_{i3}s_{3j}+s_{i4}s_{4j} \tag{1}$$
+$$(S^2)\_{ij} = (row\,i\,of\,S)\cdot(column\,j\,of\,S) = s\_{i1}s_{1j}+s\_{i2}s\_{2j}+s\_{i3}s\_{3j}+s\_{i4}s\_{4j} \tag{1}$$
 We can get the conclusion, $(S^2)_{ij}$ means how many connections between node i and node j with a walk step of two. But why?<br>
-For better understanding this new model, we make the $(S^2)_{23}$ as an example as shown in the figure bellow.
+For better understanding this new model, we make the $\(S^2\)_{23}$ as an example as shown in the figure bellow.
 ![S21 example](/assets/1907/Snipaste_2019-07-17_08-41-12.png)
-$(S^2)_{23}$ has been expanded to 4 kind of walks, decomposed into $S_{21}\cdot S_{13} + S_{22}\cdot S_{23} + S_{23}\cdot S_{33} + S_{24}\cdot S_{43}$, make all this value into these terms from $S_{ij}$, and then we will find the value of this 4 steps. Only $S_{2\to1\to3}$ and $S_{2\to4\to3} equal to 2, so the value of $(S^2)_{23}$ equals to 2. Just the same with the result from (1).<br>
+$(S^2)\_{23}$ has been expanded to 4 kind of walks, decomposed into $S_{21}\cdot S_{13} + S_{22}\cdot S_{23} + S_{23}\cdot S_{33} + S_{24}\cdot S_{43}$, make all this value into these terms from $S_{ij}$, and then we will find the value of this 4 steps. Only $S_{2\to1\to3}$ and $S_{2\to4\to3} equal to 2, so the value of $(S^2)_{23}$ equals to 2. Just the same with the result from (1).<br>
 The same, we can get $S^N$ counts all the N-step paths between pairs of nodes.
 
