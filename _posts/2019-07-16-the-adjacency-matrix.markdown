@@ -30,6 +30,6 @@ $$(S^2)_{ij} = (row\,i\,of\,S)\cdot(column\,j\,of\,S) = s_{i1}s_{1j}+s_{i2}s_{2j
 We can get the conclusion, $(S^2)\_{ij}$ means how many connections between node i and node j with a walk step of two. But why?<br>
 For better understanding this new model, we make the $(S^2)\_{23}$ as an example as shown in the figure bellow.
 ![S21 example](/assets/1907/Snipaste_2019-07-17_08-41-12.png)
-$(S^2)\_{23}$ has been expanded to 4 kind of walks, decomposed into $S_{21}\cdot S_{13} + S_{22}\cdot S_{23} + S_{23}\cdot S_{33} + S_{24}\cdot S_{43}$, make all this value into these terms from $S_{ij}$, and then we will find the value of this 4 steps. Only $S_{2\to 1\to 3}$ and $S_{2\to 4\to 3} equal to 2, so the value of $(S^2)_{23}$ equals to 2. Just the same with the result from (1).<br>
+$(S^2)\_{23}$ has been expanded to 4 kind of walks, decomposed into $S_{21}\cdot S_{13} + S_{22}\cdot S_{23} + S_{23}\cdot S_{33} + S_{24}\cdot S_{43}$, make all this value into these terms from $S_{ij}$, and then we will find the value of this 4 steps. Only $S_{2\to 1\to 3}$ and $S_{2\to 4\to 3}$ equal to 2, so the value of $(S^2)\_{23}$ equals to 2. Just the same with the result from (1).<br>
 The same, we can get $S^N$ counts all the N-step paths between pairs of nodes.
 
