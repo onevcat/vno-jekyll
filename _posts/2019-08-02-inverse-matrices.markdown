@@ -18,7 +18,7 @@ Not all matrices have inverses. There are six note:<br>
 > If A is invertible, then Ax = 0 can only have the zero solution when $x = A^{-1}\cdot 0 = 0$.
 5. A 2 by 2 matrix is invertible if an only if ad-bc is not zero:
 > 2 by 2 Inverse:
-$
+$$
   \begin{bmatrix}
   a & b\\
   c & d\\
@@ -28,27 +28,28 @@ $
   d & -b\\
   -c & a\\
   \end{bmatrix}
-$
+$$
 <br>ad-bc is the determinant of A
 6. A diagonal matrix has an inverse provided no diagonal entries are zero:
 <br>
-if $
+if 
+$$
 A = 
   \begin{bmatrix}
   d_1 &      &  \\
      &\ddots&  \\
      &      &d_n\\
   \end{bmatrix}
-$
+$$
 then
-$
+$$
 A^{-1} = 
   \begin{bmatrix}
   \frac{1}{d_1} &      &  \\
      &\ddots&  \\
      &      &\frac{1}{d_n}\\
   \end{bmatrix}
-$
+$$
 
 
 
