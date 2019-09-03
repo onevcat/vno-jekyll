@@ -4,7 +4,7 @@ title: Vector Spaces and Subspaces
 date: 2019-09-03 11:30:00:24.000000000 +09:00
 ---
 Summarized from 'Introduction to Linear algebra' from Gilbert Strang.
-### Definition of The Vector Spaces
+## Definition of The Vector Spaces
 **Vector space** is a very important concept, which is denoted by $R^1, R^2, R^3 ... R^n$, which consists of a *a whole collection of vectors*. For example, $R^5$ contains all column vectors with five components, the so-called "ive-dimentional space".
 > **DEFINITION** The space $R^n$ consists of all column vectors v with n components.
 
@@ -13,7 +13,7 @@ Here are three vector spaces other than $R^n$:
 > **F** *The vector space of ***all real functions $f(x)$*** <br>
 > **Z** The vector sapce that consists only of a ***zero vector***
 
-****PS***:The function space F is infinite-dimensional. A smaller function space is $P$, or $P_n$ containing all polynomials $a_0 + a_1x ... a_nx^n$ of degree n.
+**PS***:The function space F is infinite-dimensional. A smaller function space is $P$, or $P_n$ containing all polynomials $a_0 + a_1x ... a_nx^n$ of degree n.
 ## Subspaces
 A plane in three-dimensional space is not $R^2$ (even if it looks like $R^2$). The vectors have three components and they belong to $R^3$. The plane is a vector space ***inside $R^3$***.
 > **DEFINITION** A subspace of a vector space is a set of vectors (including 0) that satisfies two requirements: ***If $v$ and $w$ are vectors in the subspace and $c$ is any scalar, then<br>***
