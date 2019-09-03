@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Inverse Matrices
-data: 2019-08-02 08:33:24.000000000 +09:00
+date: 2019-08-02 08:33:24.000000000 +09:00
 ---
 ## Something to note
 > The matrix A is invertible if there exists a matrix $A^{-1}$
