@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python - The Staticmethod Bingding
+title: Python - The Staticmethod Binding
 date: 2019-09-04 16:45:24.000000000 +09:00
 ---
 ## Something about parameter binding
