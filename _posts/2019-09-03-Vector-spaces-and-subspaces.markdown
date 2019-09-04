@@ -46,3 +46,20 @@ To solve $Ax = b$ is to express b as a combination of the columns.
 When $S$ is the set of columns, $SS$ is the column space. When there is noly one nonzero vector $v$ in $S$, the subspace $SS$ is the line through $v$. ALways $SS$ is the smallest subspace containing $S$.
 
 > The subspace $SS$ is the "span" of $S$, containing all combinaitons of vectors in $S$.
+
+## Some Problems to Learn
+In the definition of a vector space, vector spaces are not necessarily column vectors. In the definition of a vector space, vector addition $x+y$ and scalar multiplicaiton $cx$ must obey the following eight rules:
+1. $x+y=y+x$
+2. $x+(y+z)=(x+y)+z$
+3. There is a unique 'zero vector' such that $x+0=x$ for all $x$
+4. For each $x$ there is a unique vector $-x$ such that $x + (-x) = 0$
+5. 1 times $x$ equals $x$
+6. $(c_1c_2)x=c_1(c_2x)$
+7. $c(x+y)=cx + cy$
+8. $(c_1+c_2)x = c_1x + c_2x$
+
+For example:<br>
+Problems, <br>
+The possitive numbers with $x + y$ and $cx$ redefined to equal the usual $xy$ and $x^c$ do satisfy the eight rules. Test rule 7 when $c =3, x = 2, y =1$. (Then $x+y=2$ and $cx=8$.) Which number acts ad the "zero vector"?
+> $c(x+y)\to(xy)^c$, and zero vector is 1
+
