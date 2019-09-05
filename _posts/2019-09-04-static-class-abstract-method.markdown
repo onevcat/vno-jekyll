@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python - The Staticmethod Binding
+title: Python - Binding and the Static, Class, Abstract Method 
 date: 2019-09-04 16:45:24.000000000 +09:00
 ---
 ## Something about parameter binding
@@ -46,7 +46,7 @@ class Pizza:
 print(Pizza.mix_ingredients(1, 2))
 print(Pizza().cook())
 ```
-Here `@staticmethod` is a marker to begin the staticmethod which lead the defination of mix_ingredients a static fuction. When we make it a staticmethod, we can make the instance x, y not self. In this way, when we have the function, we don't need to input `Pizza().mix_ingredients(1, 2)` again, input `Pizza.mix_ingredients(1, 2)`is OK. To make a comparation, we give another function, `cook`, which is not a statcimethod, and in this situation, we must define a instance to `Pizza()`, and only in this way, the function of self will pass to `Pizza()`.
+Here `@staticmethod` is a marker to begin the staticmethod which lead the defination of `mix_ingredients` a static fuction. When we make it a staticmethod, we can make the instance x, y not self. In this way, when we have the function, we don't need to input `Pizza().mix_ingredients(1, 2)` again, input `Pizza.mix_ingredients(1, 2)`is OK. To make a comparation, we give another function, `cook`, which is not a statcimethod, and in this situation, we must define a instance to `Pizza()`, and only in this way, the function of self will pass to `Pizza()`.
 
 ## The class method
 See this code.
@@ -65,7 +65,7 @@ class Pizza(object):
 
 print(Pizza.compute_volume(2, 3))
 ```
-What is a class method, it's a function bound to class not object. And the first parameter must be the class itself. And when the function is bound to cls, if we del the base_class, the classmethod will still work well. The other side, the staticmethod will not be that lucky, it will call a error as seen followed:
+What is a class method, it's a function bound to class not instance. And the first parameter must be the `cls` class itself. And when the function is bound to cls, if we delelte the base_class, the classmethod will still work well. The other side, the staticmethod will not be that lucky, it will call a error as seen followed:
 ```python
 # Using the staticmethod
 class Pizza(object):
@@ -76,6 +76,7 @@ class Pizza(object):
         return Pizza.key
 print(Pizza.sta('B'))
 del Pizza
+print(Pizza.sta('B'))
 #Output will be error:  
 > NameError: name 'Pizza' is not defined
 
@@ -89,6 +90,7 @@ class Pizza(object):
         return Pizza.key
 print(Pizza.Cls('B'))
 del Pizza
+print(Pizza.Cls('B'))
 # Everything will go well (maybe)
 ```
 ## The abstract method
