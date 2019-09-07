@@ -70,44 +70,44 @@ $$
  \end{bmatrix}
 $$
 and $B$ = 
-$
+$$
  \begin{bmatrix}
  0 & 0\\
  0 & -1\\
  \end{bmatrix}
-$
+$$
 , if a subspace of M does contain $A$ and $B$, must it contain $I$?
 > From the DIFINITION of subspace, we can find when $u$ and $w$ are two vectors in the subspace. $u + w$ is also in the subspace is also in the subspace. Because that $A - B$ = 
-$
+$$
  \begin{bmatrix}
  1 & 0\\
  0 & 1\\
  \end{bmatrix}
-$
+$$
 = $I$, this subspace must contain $I$.
 3. The subspaces of $R^3$ are planes, lines , $R^3$ itself, or $Z$ containing only (0, 0 ,0).
 4. Show that the set of singular matrices in $M$ is not a subspace.
 > Import two singular matrices, $A$ =
-$
+$$
  \begin{bmatrix}
  1&0\\
  0&0\\
  \end{bmatrix}
-$
+$$
 , and $B$ = 
-$
+$$
  \begin{bmatrix}
  0&0\\
  0&1\\
  \end{bmatrix}
-$
+$$
 . It's because that the sum of $A,B$ is 
-$
+$$
  \begin{bmatrix}
  1&0\\
  0&1\\
  \end{bmatrix}
-$
+$$
 which is invertible, so the set of singular matrices in $M$ is not a subspace.
 5. The columns of $AB$ are combinations of the columns of $A$. This means: The column space of $AB$ is contained in (possibly equal to) the column space of A. Give an example where the column spaces of $A$ and $AB$ are not equal.
 > If $B$ is a zero matrix, while $A!=0$, then $AB$ is smaller than $A$ and not equal to each other.
