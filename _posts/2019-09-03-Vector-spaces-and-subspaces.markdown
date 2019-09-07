@@ -63,12 +63,12 @@ Problems, <br>
 1. The possitive numbers with $x + y$ and $cx$ redefined to equal the usual $xy$ and $x^c$ do satisfy the eight rules. Test rule 7 when $c =3, x = 2, y =1$. (Then $x+y=2$ and $cx=8$.) Which number acts as the "zero vector"?
 > $c(x+y)\to(xy)^c$, and zero vector is 1
 2. $A$ = 
-$
+$$
  \begin{bmatrix}
  1 & 0\\
  0 & 0\\
  \end{bmatrix}
-$
+$$
 and $B$ = 
 $
  \begin{bmatrix}
