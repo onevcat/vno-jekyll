@@ -174,7 +174,6 @@ d.extendleft([6, 7, 8])
 >>> d
 d = deque([8, 7, 6, 1, 2, 3, 4, 5, 0])
 ```
-***
 #### Yield?
 Codes and text is tranlated [HERE](https://blog.csdn.net/mieleizhi0522/article/details/82142856)
 Another thing to concern is the yield, here I find some explain about this function. <br>
@@ -190,17 +189,18 @@ print(next(g)) # only when call the next(), foo() will begin working**
 print('x'*20)
 print(next(g)) # Here start from the where previous  next(g) stop {the res valuing process}
 
- >>>
+>>>
 starting...
 4   # *** WHAT NEED TO GET ATTENTION: Here, 4 is not valued to res (<-**->), only print the yielded 4 (the returned 4) and then the program will stop
-********************
+ ********************
 res: None  # Here, next() begins from the {prviously stopped point of previous next(g) at <-**->} to value to res, however, at the first next(), 4 has been returned out, so here "res: None"
-4     # Here because of the recyle of 'while', yield 4 again.
+4   # Here because of the recyle of 'while', yield 4 again.
 ```
 
 Here you may understand the relationship between yield and return, ```yield``` is a generator but not a function. There is a function of ```yield```, ```next()```, means which function to generate next step, and this time the fuction will continue from where previous ```next()``` stops, and when call the ```next()```, generator will not begin from ```foo()```, but from the previous stopped point. Then when meet the `yield` again, return the generated number, and this stip will stop.
 <br>
 2. Then another example about ```send()```
+
 ```python
 def foo():
     print('starting...')
@@ -212,10 +212,10 @@ print(next(g))
 print('*' * 20)
 print(g.send(7))  # Here 7 has been valued to res <-**->
 
- >>>
+>>>
 starting...
 4
-********************
+ ********************
 res: 7   # Because before the second next() {Here, send() include the use of next()}, 7 has been valued to res.
 4
 ```
@@ -229,7 +229,9 @@ If there is a very big data, like (0 ~ 1000).
 for n in range(1000):
     a = n
 ```
+
 ```range(1000)``` will generate a list with 1000 datas, not good for storage. Then you can use ```yield```:
+
 ```python
 def foo(num):    # This will help make a very small list which will help for better storage.
     print('starting...')
@@ -239,7 +241,7 @@ def foo(num):    # This will help make a very small list which will help for bet
 for n in foo(0):
     print(n)
 
- >>>
+>>>
 starting...
 1
 2
@@ -252,15 +254,15 @@ starting...
 9
 10
 ```
+
 It is the same with ```xrange(1000)```:
+
 ```python
 for n in xrange(1000):
     a = n
 ```
 
 However, in python3, ```range()``` is ```xrange()``` already. So you don't need to care about this.
-
-***
 
 After the preparing knowledge about ```yield``` as well as the ```deque```. The following code performs a simple text match on a sequence of lines and yields the matching line along with the previous N lines of context when found:
 
@@ -281,12 +283,14 @@ if __name__ == '__main__':
             print(pline, end = '')
             print('-' * 20)
 ```
+
 When writing code to search for items, it is common to use a generator function involving ```yield```, this decouples the process of searching from the code that uses the reults. And using ```deque(maxlen=N)``` creates a fixed-sized queue. When new items are added and the queue is full, the oldest item is automatically removed.
 <br>
 More generally, a deque can be used whenever you need a simple queue structure. If you don't give it a maximum size, you get an unbounded queue that lets you append and pop items on either end. Adding or popping items from either end of a queue has O(1) complexity. This is unlike a list where inserting or removing items from the front of the list is O(N).
 
 ## 1.4. Finding the Largest or Smallest N Items
 The ```heapq``` module has two functions, ```nlargest()``` and ```nsmallest()``` --- that do exactly what you want.
+
 ```python
 import heapq
 
@@ -294,7 +298,9 @@ nums = [1, 8, 2, 23, 7, -4, 18, 23, 42, 37, 2]
 print(heapq.nlargest(3, nums))  # Print [42, 37, 23]
 print(heapq.nsmallest(3, nums)) # Print -4, 1, 2
 ```
+
 A key parameter that allows them to be used with more complicated data structures is accepted.
+
 ```python
 portfolio = [
     {'name': 'IBM', 'shares': 100, 'price': 91.1},
@@ -304,24 +310,25 @@ portfolio = [
 cheap = heapq.nsmallest(3, portfolio, key = lambda s: s['price'])
 expensive = heapq.nlargest(3, portfolio, key = lambda s: s['price'])
 ```
+
 1. If N is small compared to the overall size of the collection and you are looking for the N smallest or largest items.
 They work by first converting the data into a list where items are ordered as a heap. For example,
 ```python
- >>> nums = [1, 8, 2, 23, 7, -4, 18, 23, 42, 37, 2]
- >>> import heapq
- >>> heap = list(nums)
- >>> heapq.heapify(heap)
- >>> heap
+>>> nums = [1, 8, 2, 23, 7, -4, 18, 23, 42, 37, 2]
+>>> import heapq
+>>> heap = list(nums)
+>>> heapq.heapify(heap)
+>>> heap
 [-4, 2, 1, 23, 7, 2, 18, 23, 42, 37, 8]
 ```
 The most important feature of a heap, ```heap[0]``` is **always the smallest item. Moreover, subsequent items can be easily found using the ```heapq.heappop()``` method. For example, to find the three smallest items, you can do this:
 
 ```python
- >>> heapq.heappop(heap)
+>>> heapq.heappop(heap)
 -4
- >>> heapq.heappop(heap)
+>>> heapq.heappop(heap)
 1
- >>> heapq.heappop(heap)
+>>> heapq.heappop(heap)
 2
 ```
 If you just want to find the single largest or smallest, ```max()``` and ```min()``` is faster.<br>
@@ -344,24 +351,24 @@ class PriorityQueue:
     def pop(self):
         return heapq.heapop(self._queue)[-1]
 
- >>> class Item:
+>>> class Item:
         def __init__(self, name):
             self.name = name
         def __repr__(self):
             return 'Item({!r})' format(self.name)   #???
 
- >>> q = PriorityQueue()
- >>> q.push(Item('foo'), 1)
- >>> q.push(Item('bar'), 5)
- >>> q.push(Item('spam'), 4)
- >>> q.push(Item('grok'), 1)
- >>> q.pop()
+>>> q = PriorityQueue()
+>>> q.push(Item('foo'), 1)
+>>> q.push(Item('bar'), 5)
+>>> q.push(Item('spam'), 4)
+>>> q.push(Item('grok'), 1)
+>>> q.pop()
 Item('bar')
- >>> q.pop()
+>>> q.pop()
 Item('spam')
- >>> q.pop()
+>>> q.pop()
 Item('foo')
- >>> q.pop()
+>>> q.pop()
 Item('grok')
 ```
 Make data a ```priority, item``` tuple will help make a comparision between two items.
@@ -370,7 +377,7 @@ a = Item('foo')
 b = Item('bar')
 a < b
 
- >>>
+>>>
 
 TypeError: unorderable types: Item() < Item()
 ```
@@ -382,9 +389,9 @@ a = (1, 0, Item('foo'))
 b = (5, 1, Item('bar'))
 c = (1, 2, Item('grok'))
 
- >>> a < b
+>>> a < b
 True
- >>> a < c
+>>> a < c
 True
 ```
 
