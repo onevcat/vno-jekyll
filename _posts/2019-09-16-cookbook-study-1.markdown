@@ -8,7 +8,7 @@ Python - Cookbook study CHAPTER 1 - Data Strucutres and Algorithms - PCB1 for sh
 #### Something to say before everything begins
 I plan to have a python cookbook study (David Beazley & Brian K. Jones). Aim to have a deeper understanding Python coding tech. And for better studying, I will make a notebook for studying process, I will upload this part to github, **if I inadvertently encroaching on the interests of anyone, please contact me in time, I will delete the related information immediately**.
 ## 1.1. Unpacking a Sequence into Separate Variables
-> Unpack N-element tuple or sequence into a collection of N variables
+Unpack N-element tuple or sequence into a collection of N variables
 
 ```python
 data = ['ACME', 50, 91.1, (2012, 12, 21)]
@@ -19,7 +19,7 @@ and if there is a mismatch in the number of elements, you'll get an error.
 ValueError: need more than 2 values to unpack
 ```
 
-> throwaway variable name
+throwaway variable name
 
 If you want to discard certain values.
 
@@ -29,7 +29,7 @@ _ , shares, price, _ = data
 ```
 
 ## 1.2. Unpacking Elements from Iterables of Arbitrary Length
-> Problems of "too many values to unpack"
+Problems of "too many values to unpack"
 
 Python use "star expressions" to address the problems when there are too many values to unpack.
 
@@ -61,7 +61,7 @@ and
 >>> current
 3
 ```
-> star syntax can be especially useful when iterating over a sequence of tupls of varying length. For example, a sequence of **tagged tuples**:
+star syntax can be especially useful when iterating over a sequence of tupls of varying length. For example, a sequence of **tagged tuples**:
 
 ```python
 records = [('ffo', 1, 2),
@@ -82,7 +82,7 @@ for tag, *args in records:
         do_bar(*args)
 
 ```
-> star unpacking combined with certain kinds of string processing operations, such as splitting.
+star unpacking combined with certain kinds of string processing operations, such as splitting.
 
 ```python
 >>> line = 'nobody:*:-2:-2:Unprivileged User:/var/empty:/usr/bin/false'
@@ -92,7 +92,7 @@ for tag, *args in records:
 >>> sh
 '/usr/bin/false'
 ```
-> combined with a common throwaway variable name, such as _ or ign (ignored).
+combined with a common throwaway variable name, such as _ or ign (ignored).
 
 ```python
 >>> record = ('ACME', 50, 123.45, (12, 18, 2012))
@@ -103,7 +103,7 @@ for tag, *args in records:
 2012
 ```
 
-> **Split a list into head and tail components** with star syntax
+**Split a list into head and tail components** with star syntax
 
 ```python
 >>> items = [1, 10, 7, 4, 5, 9]
@@ -113,7 +113,7 @@ for tag, *args in records:
 [10, 7, 4, 5, 9]
 ```
 
-> apply the star unpacking to recursive algorithm <br>
+apply the star unpacking to recursive algorithm <br>
 (not recommand, because of Python is not strong about inherent recursion limit)
 ```python
 >>> def sum(items):
@@ -375,8 +375,8 @@ TypeError: unorderable types: Item() < Item()
 ```
 <br>
 <-**-> Here index will function as a proper way to handle the problems when two items possess the same priority.
-```python
 
+```python
 a = (1, 0, Item('foo'))
 b = (5, 1, Item('bar'))
 c = (1, 2, Item('grok'))
