@@ -165,6 +165,7 @@ for i in range(30):
 d = deque(['10', '11', '12'], maxlen = 3)
 ```
 4. Extend the list to deque
+
 ```pyhon
 d = deque([1, 2, 3, 4, 5])
 d.extend([0])
@@ -177,7 +178,9 @@ d = deque([8, 7, 6, 1, 2, 3, 4, 5, 0])
 #### Yield?
 Codes and text is tranlated [HERE](https://blog.csdn.net/mieleizhi0522/article/details/82142856)
 Another thing to concern is the yield, here I find some explain about this function. <br>
-1. At first, you can just think ```yield``` as ```return``` for easy understanding. And next, think it as a *generator*
+
+#### At first, you can just think ```yield``` as ```return``` for easy understanding. And next, think it as a *generator*
+
 ```python
 def foo():
     print('starting...')
@@ -199,7 +202,8 @@ res: None  # Here, next() begins from the {prviously stopped point of previous n
 
 Here you may understand the relationship between yield and return, ```yield``` is a generator but not a function. There is a function of ```yield```, ```next()```, means which function to generate next step, and this time the fuction will continue from where previous ```next()``` stops, and when call the ```next()```, generator will not begin from ```foo()```, but from the previous stopped point. Then when meet the `yield` again, return the generated number, and this stip will stop.
 <br>
-2. Then another example about ```send()```
+
+#### Then another example about ```send()```
 
 ```python
 def foo():
@@ -222,7 +226,8 @@ res: 7   # Because before the second next() {Here, send() include the use of nex
 
 Here, <-**-> The fucntion of ```g.send()``` includes ```g.next()```, and different from ```g.next()```, it can pass the value 7 to res.
 
-3. Why need the yield?
+#### Why need the yield?
+
 <br>
 If there is a very big data, like (0 ~ 1000).
 ```python
@@ -311,7 +316,7 @@ cheap = heapq.nsmallest(3, portfolio, key = lambda s: s['price'])
 expensive = heapq.nlargest(3, portfolio, key = lambda s: s['price'])
 ```
 
-1. If N is small compared to the overall size of the collection and you are looking for the N smallest or largest items.
+#### If N is small compared to the overall size of the collection and you are looking for the N smallest or largest items.
 They work by first converting the data into a list where items are ordered as a heap. For example,
 ```python
 >>> nums = [1, 8, 2, 23, 7, -4, 18, 23, 42, 37, 2]
