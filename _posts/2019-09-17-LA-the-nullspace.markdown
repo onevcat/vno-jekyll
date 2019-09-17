@@ -65,6 +65,8 @@ To get the special solutions, we can very easily value the free components (colu
 
 > Pivot Varibles and Free Variables in the Echelon Matrix
 
+**$p$ means pivot columns** while **$f$ means free columns**
+
 $A=$
 $$\begin{bmatrix}p&p&f&p&f\\|&|&|&|&|\\|&|&|&|&|\\|&|&|&|&|\\\end{bmatrix}$$
 $R=$
@@ -73,9 +75,14 @@ $s_1=$
 $$\begin{bmatrix}-a\\-b\\1\\0\\0\\\end{bmatrix}$$
 $s_2=$
 $$\begin{bmatrix}-c\\-d\\0\\-e\\1\\\end{bmatrix}$$
-.
+. 
 
 Now let's talk something more interesting. About the ***dimension***.
 
-> 
+> See the $N(R)$ below, think about what are the column space and the nullspace for this matrix $R$?
+
+$R=$
+$$\begin{bmatrix}1&0&x&x&x&0&x\\0&1&x&x&x&0&x\\0&0&0&0&0&1&x\\0&0&0&0&0&0&0\\\end{bmatrix}$$
+
+The columns of $R$ have four components (rows) so they lie in $R^4$. The column space $C(R)$ consists of all vectors of the form $(b_1, b_2, b_3, 0)$. 
 
