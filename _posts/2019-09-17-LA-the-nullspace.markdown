@@ -84,5 +84,59 @@ Now let's talk something more interesting. About the ***dimension***.
 $R=$
 $$\begin{bmatrix}1&0&x&x&x&0&x\\0&1&x&x&x&0&x\\0&0&0&0&0&1&x\\0&0&0&0&0&0&0\\\end{bmatrix}$$
 
-The columns of $R$ have four components (rows) so they lie in $R^4$. The column space $C(R)$ consists of all vectors of the form $(b_1, b_2, b_3, 0)$. 
+The columns of $R$ have four components (rows) so they lie in $R^4$. The column space $C(R)$ consists of all vectors of the form $(b_1, b_2, b_3, 0)$. Counting the pivots leads to an extremely important theorem. Suppose $A$ has more columns than rows. ***With $n>m$ there is at least one free variable***. The system **$Ax=0$ has at least one special solution and this solution is not zero**!
 
+For a *Short Wide* matrix ($n>m$), in its nullspce always has nonzero vectors. And there must be at least $n-m$ free variables, since the number of pivots cannot exceed $m$. Here is the point: **When there is a free variable, it can be set to $1$. Then the equation $Ax=0$ has at least a line of nonzero solutions**.
+
+> About the dimension of nullspace
+
+Nullspace is a subspace. Its dimension is the number of *free variables*.
+
+#### The Rank of a Matrix
+
+Sometimes we need to get the **true size** of a linear system, some rows may be a combination of other rows and becomes zero in the $U$ or the $rref$, and we don''t want to count them. So there comes the ***Rank***, ***the true size of $A$***.
+
+Here is an example:
+
+$A=$
+$$\begin{bmatrix}1&1&2&4\\1&2&2&5\\1&3&2&6\\\end{bmatrix}$$
+and $R=$
+$$\begin{bmatrix}1&0&2&3\\0&1&0&1\\0&0&0&0\\\end{bmatrix}$$
+
+The first two columns of $A$ are $(1, 1, 1)$ and $(2, 2, 2)$, **going in different directions**, which will be pivot columns. What we need to be attention, column 3 and column4 is free column,
+
+> $Column 3 =2(column 1) + 0(column 2)$  ---->   $s_1=(-2, -0, 1, 0)$<br>
+  $Column 4 =3(column 1) + 1(column 2)$  ---->   $s_2=(-3, -1, 0, 1)$
+
+Actually, ***Every free column is a combination of earlier pivot columns. It is the special solutions $s$ that tell us those combinations***.
+
+#### Rank One
+
+Matrices of **rank one** have only one pivot. The column space of a rank one matrix is 'one-dimensional'. 
+
+For example,
+$A=$
+$$\begin{bmatrix}1&3&10\\2&6&20\\3&9&30\\\end{bmatrix}$$
+---->
+$R=$
+$$\begin{bmatrix}1&3&10\\0&0&0\\0&0&0\\\end{bmatrix}$$
+
+Here all columns are on the line through $u= (1, 2, 3)$. The columns of $A$ is $u, 3u, 10u$. Put those numbers into the row $v^T=$
+$$\begin{bmatrix}1&3&10\\\end{bmatrix}$$
+and you have the special rank one form $A = uv^T$
+
+> $A = column times row = uv^T$<br>
+$$\begin{bmatrix}1&3&10\\2&6&20\\3&9&30\\\end{bmatrix}$$
+$=$
+$$\begin{bmatrix}1\\2\\3\\\end{bmatrix}$$
+$$\begin{bmatrix}1&3&10\\\end{bmatrix}$$
+
+With rank one, $Ax=0$ is easy to understand. That equation $u(v^Tx)=0$ leads us to $u^Tx = 0$. All vectors $x$ in the nullspace must be othogonal to $v$ in the row space. This is the geometry when $r=1$: ***row space = line, nullspace = perpendicular plane***.
+
+$A$ and $U$ and $R$ also have ***r independent columns*** (pivot columns).
+
+The ***rank r*** is the '***dimension***' of the column space. It is also the ***dimension of the row space***. There is a very great thing: ##
+
+> The ***Dimension of the nullspace*** = $n-r$ ##
+
+Very important!
