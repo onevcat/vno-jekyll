@@ -29,10 +29,10 @@ Here we introduce the complete solution of x, and very very gracefully.
 
 $x = x_p + x_n=$
 $$\begin{bmatrix}1\\0\\6\\0\\\end{bmatrix}$$
- + 
++
 $x_2$
 $$\begin{bmatrix}-3\\1\\0\\0\\\end{bmatrix}$$
- + 
++
 $x_4$
 $$\begin{bmatrix}-2\\0\\-4\\1\\\end{bmatrix}$$
 , for example.
