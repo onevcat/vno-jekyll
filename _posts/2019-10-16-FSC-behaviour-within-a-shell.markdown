@@ -1,6 +1,6 @@
 ---
 layout: post
-title: First Glimpse on Fourier Shell Correlation: FSC Behaviour Within A Shell
+title: First Glimpse on Fourier Shell Correlation - FSC Behaviour Within A Shell
 date: 2019-10-16 21:18:24.000000000 +09:00
 ---
 
