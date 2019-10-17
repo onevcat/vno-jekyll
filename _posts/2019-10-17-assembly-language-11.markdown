@@ -70,7 +70,7 @@ mov ax, 2000H      ；定义数据段为2000H
 mov ds, ax
 mov ax, 1000H      ; 定义栈地址
 mov ss, ax
-mov sp, 0
+mov sp, 0          ; 这里之所以将sp规定为0，是因为pop命令的行为是在从数据段弹出并复制到栈中一个字型大小后，执行sp = sp + 2，向下行。
 pop [E]            ; 从数据段按顺序pop出数据到栈地址
 pop [C]
 pop [A]
