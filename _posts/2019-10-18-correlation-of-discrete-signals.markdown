@@ -43,7 +43,7 @@ $$
 and 
 
 $$
-\begin{aligned} \operatorname{Corr}_{x,y} &= y[0]z[0] + y[1]z[1] + y[2]z[2] + y[3]z[3] \\ &= (2)(2)+(3)(-1)+(-1)(4)+(3)(-2) \\ &= -9 \end{aligned}
+\begin{aligned} \operatorname{Corr}_{y,z} &= y[0]z[0] + y[1]z[1] + y[2]z[2] + y[3]z[3] \\ &= (2)(2)+(3)(-1)+(-1)(4)+(3)(-2) \\ &= -9 \end{aligned}
 $$
 
 However if we substitute the first 2 in Z into 100, which will lead to $Corr_{y,z} = 187$, and we will become confused, because we can't get clearly which two are more similar with the other. as seen in the figure:
@@ -53,7 +53,7 @@ However if we substitute the first 2 in Z into 100, which will lead to $Corr_{y,
 So here we need **Normalised Correlation**.
 
 $$
-\operatorname{Corr}_{norm_{y,z}}=\frac{\sum_{n=0}^{N-1} x[n]y[n]}{\sqrt{\sum_{n=0}^{N-1} x^{2}[n] \sum_{n=0}^{N-1} y^{2}[n]}}
+\operatorname{Corr}_{norm_{x,y}}=\frac{\sum_{n=0}^{N-1} x[n]y[n]}{\sqrt{\sum_{n=0}^{N-1} x^{2}[n] \sum_{n=0}^{N-1} y^{2}[n]}}
 $$
 
 The two terms at denominator are the measure of energy in signal X and Y respectively, which make the denominator the overall scaling factor.
