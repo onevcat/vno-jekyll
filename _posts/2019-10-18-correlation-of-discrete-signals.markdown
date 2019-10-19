@@ -37,16 +37,18 @@ From this figure we can find x is similar with y but not similar with z. How we 
 We substitute x, y and y, z into Eq. (1),
 
 $$
-Corr_{x,y} = x[0]y[0] + x[1]y[1] + x[2]y[2] + x[3]y[3] \\ = (1)(2) + (3)(3) + (-2)(-1) + (4)(3) \\ = 2 + 9 + 2 + 12 \\ = 25
+\begin{aligned} \operatorname{Corr}_{x, y} &=x[0] y[0]+x[1] y[1]+x[2] y[2]+x[3] y[3] \\ &=(1)(2)+(3)(3)+(-2)(-1)+(4)(3) \\ &=2+9+2+12=25 \end{aligned}
 $$
 
 and 
 
 $$
-Corr_{x,y} = y[0]z[0] + y[1]z[1] + y[2]z[2] + y[3]z[3] \\ = ... \\ = -9
+\begin{aligned} \operatorname{Corr}_{x,y} &= y[0]z[0] + y[1]z[1] + y[2]z[2] + y[3]z[3] \\ &= (2)(2)+(3)(-1)+(-1)(4)+(3)(-2) \\ &= -9 \end{aligned}
 $$
 
-However if we substitute the first 2 in Z into 100, which will lead to $Corr_{y,z} = 187$, and we will become confused, because we can't get clearly which two are more similar with the other.
+However if we substitute the first 2 in Z into 100, which will lead to $Corr_{y,z} = 187$, and we will become confused, because we can't get clearly which two are more similar with the other. as seen in the figure:
+
+![figure2](/assets/201910/figure2.png)
 
 So here we need **Normalised Correlation**.
 
