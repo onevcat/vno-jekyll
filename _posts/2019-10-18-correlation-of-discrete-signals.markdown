@@ -61,3 +61,52 @@ The two terms at denominator are the measure of energy in signal X and Y respect
 Basically, this normalised correlation function is this result divided by a scaling factor which is related to the energy that's contained in the signals that you are measuring the similarity.
 
 For $Corr_{x,y}=0.95$ and $Corr_{y,z}=0.38$, $Corr$ ranges in $[-1, 1]$. Which can well score the similarity.
+
+It's worth noting that, sometimes, as seen in the code demo:
+
+```matlab
+% This code highlights where non normalised correlation is
+% be more beneficial than normalised correlation
+t = [0:100-1]/100;
+s1 = cos(2*pi*1*t);
+s2 = cos(2*pi*4*t);
+s3 = cos(2*pi*10*t);
+
+% The following signals contain the three sinusoids above
+a = 2*s1+4*s2+s3;
+b = s1 + s2;
+
+% Comparing the results it can be seen that non-normalised
+% correlation is useful for identifying how strongly present
+% one signal is in another
+corr_res1 = sum(a.*s1)
+norm_corr_res1 = sum(a.*s1)/sqrt((sum(a.^2).*sum(s1.^2)))
+
+corr_res2 = sum(b.*s1)
+nor_corr_res2 = sum(b.*s1)/sqrt((sum(b.^2).*sum(s1.^2)))
+```
+The output is:
+
+```matlab
+>> NormalisedCorrelation
+
+corr_res1 =
+
+   100
+
+
+   norm_corr_res1 =
+
+       0.4364
+
+
+       corr_res2 =
+
+          50.0000
+
+
+          nor_corr_res2 =
+
+              0.7071
+```
+
