@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 5.4 Debug masm对指令的不同处理
+title: 汇编语言 5.4 Debug masm对指令的不同处理
 date: 2019-10-27 12:07:24.000000000 +09:00
 ---
 ### 5.4
