@@ -22,7 +22,7 @@ res = requests.get("http://movie.douban.com/top250")
 soup = bs4.BeautifulSoup(res.text, "html.parser")
 targets = soup.find_all("div", class_="hd")   # 这里网页中class与python class重名，用class_代替
 for each in targets:
-    print(each.a.span.text)
+    print(each.a.span.text)  #不加text则带着html代码一起打印
 ```
 
 检查网页HTML代码，如下图：
@@ -34,6 +34,18 @@ for each in targets:
 ```div``` ---> ```a``` ---> ```span```
 
 所以先调用```find_all()```，找到所有```class="hd"```的```div```标签，然后即可按照从属关系取出想要的电影名信息。
+
+> 值得注意的是，这我想爬取的是第一个span内的名字，如果我想所有名字代码如下：
+
+```python
+print(each.a.text)
+```
+
+> 如果我想指向爬取第二个span内的名字，代码如下：
+
+```python
+print(each.a.span.find_next_sibling().text)
+```
 
 下面是完成的爬取代码，方便学习：
 
