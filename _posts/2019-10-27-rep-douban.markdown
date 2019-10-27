@@ -27,7 +27,7 @@ for each in targets:
 
 检查网页HTML代码，如下图：
 
-![figure1](2019-10-27_15-40-49.png)
+![figure1](/assets/201910/2019-10-27_15-40-49.png)
 
 电影标题位于```<div class="hd">...</div>```标签中，从属关系如下：
 
