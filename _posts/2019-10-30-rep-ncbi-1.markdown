@@ -1,0 +1,82 @@
+---
+layout: post
+title: python爬取ncbi检索信息的摸索
+date: 2019-10-30 21:15:24.000000000 +09:00
+---
+
+爬取前，先准备爬虫所需模块：
+
+1. requests
+2. bs4
+3. openpyxl
+
+安装后，进行爬取。
+
+首先伪装user-agent:
+
+在浏览器中使用inspect功能寻找浏览器user-agent, 如图中红框所示：
+
+![figure1](/assets/201910/2019-10-30_21-18-47.png)
+
+爬取代码如下：
+
+```python
+import requests
+import bs4
+import openpyxl
+
+def open_url(url):
+    headers = {"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"}
+    res = requests.get(url, headers=headers)
+
+    return res
+
+def find_data(res):
+    data = []
+    soup = bs4.BeautifulSoup(res.text, "html.parser")
+    content = soup.find(id = "gene-tabular-docsum")
+    target = content.find_all("td")
+    target = iter(target)   # 对target列表添加迭代器
+
+    for each in target:
+        data.append([
+            next(target).text,
+            next(target).text,
+            next(target).text])
+
+    return data
+
+def to_excel(data):
+    wb = openpyxl.Workbook()
+    wb.guess_types = True
+    ws = wb.active
+    ws.append(['Description','Location','Name'])
+    for each in data:
+        ws.append(each)
+
+    wb.save("test.xlsx")
+
+def main():
+    url = "https://www.ncbi.nlm.nih.gov/gene/?term="
+    res = open_url(url)
+    data = find_data(res)
+    to_excel(data)
+
+if __name__ == "__main__":
+    main()
+```
+本代码以爬取ncbi上PRRSV关键字的基因的Description, Location 以及基因名称为例。
+
+爬取后的效果如图所示：
+
+![figure2](/assets/201910/2019-10-30_21-31-41.png)
+
+目标爬取html代码如下:
+
+```html
+        <div><p><set></set></p><div class="ui-ncbigrid-outer-div" id="gene-tabular-docsum"><div class="ui-ncbigrid-inner-div"><table class="jig-ncbigrid gene-tabular-rprt" data-jigconfig="isPageable: false, isPageToolbarHideable: true, pageSize:300" style="width:100%;margin-top:0;" cellpadding="0" cellspacing="0"><thead><tr><th>Name/Gene ID</th><th>Description</th><th>Location</th><th>Aliases</th></tr></thead><tbody><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox1502251" class="ui-helper-hidden-accessible">Select item 1502251</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="1" type="checkbox" id="UidCheckBox1502251" value="1502251" /></div></div><div><a href="/gene/1502251" ref="ordinalpos=1&amp;ncbi_uid=1502251&amp;link_uid=1502251">FCVgp2</a></div><span class="gene-id">ID: 1502251</span></td><td>capsid protein precursor [<em>Feline <span class="highlight" style="background-color:">calicivirus</span></em>]</td><td>NC_001481.2 (5314..7320)</td><td>FCVgp2</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox105998555" class="ui-helper-hidden-accessible">Select item 105998555</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="2" type="checkbox" id="UidCheckBox105998555" value="105998555" /></div></div><div><a href="/gene/105998555" ref="ordinalpos=2&amp;ncbi_uid=105998555&amp;link_uid=105998555">Mapt</a></div><span class="gene-id">ID: 105998555</span></td><td>microtubule associated protein tau [<em>Dipodomys ordii</em> (Ord's kangaroo rat)]</td><td></td><td></td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox105782729" class="ui-helper-hidden-accessible">Select item 105782729</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="3" type="checkbox" id="UidCheckBox105782729" value="105782729" /></div></div><div><a href="/gene/105782729" ref="ordinalpos=3&amp;ncbi_uid=105782729&amp;link_uid=105782729">LOC105782729</a></div><span class="gene-id">ID: 105782729</span></td><td>general negative regulator of transcription subunit 3-like [<em>Gossypium raimondii</em>]</td><td>Chromosome 13, NC_026941.1 (31606705..31615612)</td><td>B456_013G123000</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox101405930" class="ui-helper-hidden-accessible">Select item 101405930</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="4" type="checkbox" id="UidCheckBox101405930" value="101405930" /></div></div><div><a href="/gene/101405930" ref="ordinalpos=4&amp;ncbi_uid=101405930&amp;link_uid=101405930">LOC101405930</a></div><span class="gene-id">ID: 101405930</span></td><td>rubicon autophagy regulator [<em>Ceratotherium simum simum</em> (southern white rhinoceros)]</td><td></td><td>KIAA0226</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox7095708" class="ui-helper-hidden-accessible">Select item 7095708</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="5" type="checkbox" id="UidCheckBox7095708" value="7095708" /></div></div><div><a href="/gene/7095708" ref="ordinalpos=5&amp;ncbi_uid=7095708&amp;link_uid=7095708">RaCVMIC07_gp1</a></div><span class="gene-id">ID: 7095708</span></td><td>polyprotein [<em>Rabbit <span class="highlight" style="background-color:">calicivirus</span> Australia 1 MIC-07</em>]</td><td>NC_011704.1 (10..7032)</td><td>RaCVMIC07_gp1</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox111588689" class="ui-helper-hidden-accessible">Select item 111588689</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="6" type="checkbox" id="UidCheckBox111588689" value="111588689" /></div></div><div><a href="/gene/111588689" ref="ordinalpos=6&amp;ncbi_uid=111588689&amp;link_uid=111588689">ect2</a></div><span class="gene-id">ID: 111588689</span></td><td>epithelial cell transforming 2 [<em>Amphiprion ocellaris</em> (clown anemonefish)]</td><td></td><td></td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox101077282" class="ui-helper-hidden-accessible">Select item 101077282</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="7" type="checkbox" id="UidCheckBox101077282" value="101077282" /></div></div><div><a href="/gene/101077282" ref="ordinalpos=7&amp;ncbi_uid=101077282&amp;link_uid=101077282">gata3</a></div><span class="gene-id">ID: 101077282</span></td><td>GATA binding protein 3 [<em>Takifugu rubripes</em> (torafugu)]</td><td>Chromosome 18, NC_042302.1 (3061001..3072374, complement)</td><td></td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox20178596" class="ui-helper-hidden-accessible">Select item 20178596</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="8" type="checkbox" id="UidCheckBox20178596" value="20178596" /></div></div><div><a href="/gene/20178596" ref="ordinalpos=8&amp;ncbi_uid=20178596&amp;link_uid=20178596">PPTG_08834</a></div><span class="gene-id">ID: 20178596</span></td><td>hypothetical protein [<em>Phytophthora parasitica INRA-310</em>]</td><td></td><td>PPTG_08834</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox43765" class="ui-helper-hidden-accessible">Select item 43765</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="9" type="checkbox" id="UidCheckBox43765" value="43765" /></div></div><div><a href="/gene/43765" ref="ordinalpos=9&amp;ncbi_uid=43765&amp;link_uid=43765">Map205</a></div><span class="gene-id">ID: 43765</span></td><td>Microtubule-associated protein 205 [<em>Drosophila melanogaster</em> (fruit fly)]</td><td>Chromosome 3R, NT_033777.3 (32055279..32068441, complement)</td><td>Dmel_CG1483, 205-kDa MAP, 205K MAP, 205kD MAP, 205kDa MAP, CG1483, Dmel\CG1483, MAP205, MAP4, map205</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox33905891" class="ui-helper-hidden-accessible">Select item 33905891</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="10" type="checkbox" id="UidCheckBox33905891" value="33905891" /></div></div><div><a href="/gene/33905891" ref="ordinalpos=10&amp;ncbi_uid=33905891&amp;link_uid=33905891">CK834_gp1</a></div><span class="gene-id">ID: 33905891</span></td><td>polyprotien [<em>Fathead minnow <span class="highlight" style="background-color:">calicivirus</span></em>]</td><td>NC_035675.1 (46..6390)</td><td>CK834_gp1</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox19351527" class="ui-helper-hidden-accessible">Select item 19351527</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="11" type="checkbox" id="UidCheckBox19351527" value="19351527" /></div></div><div><a href="/gene/19351527" ref="ordinalpos=11&amp;ncbi_uid=19351527&amp;link_uid=19351527">EW44_gp1</a></div><span class="gene-id">ID: 19351527</span></td><td>polyprotein [<em>Goose <span class="highlight" style="background-color:">calicivirus</span></em>]</td><td>NC_024078.1 (11..6970)</td><td>EW44_gp1</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox19076913" class="ui-helper-hidden-accessible">Select item 19076913</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="12" type="checkbox" id="UidCheckBox19076913" value="19076913" /></div></div><div><a href="/gene/19076913" ref="ordinalpos=12&amp;ncbi_uid=19076913&amp;link_uid=19076913">EH71_gp1</a></div><span class="gene-id">ID: 19076913</span></td><td>polyprotein [<em>Atlantic salmon <span class="highlight" style="background-color:">calicivirus</span></em>]</td><td>NC_024031.1 (46..7131)</td><td>EH71_gp1</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox7901792" class="ui-helper-hidden-accessible">Select item 7901792</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="13" type="checkbox" id="UidCheckBox7901792" value="7901792" /></div></div><div><a href="/gene/7901792" ref="ordinalpos=13&amp;ncbi_uid=7901792&amp;link_uid=7901792">SVSV_gp1</a></div><span class="gene-id">ID: 7901792</span></td><td>polyprotein [<em><span class="highlight" style="background-color:">Calicivirus</span> pig/AB90/CAN</em>]</td><td>NC_012699.1 (11..5950)</td><td>SVSV_gp1</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox14181239" class="ui-helper-hidden-accessible">Select item 14181239</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="14" type="checkbox" id="UidCheckBox14181239" value="14181239" /></div></div><div><a href="/gene/14181239" ref="ordinalpos=14&amp;ncbi_uid=14181239&amp;link_uid=14181239">F868_gp2</a></div><span class="gene-id">ID: 14181239</span></td><td>ORF2 protein [<em>Mink <span class="highlight" style="background-color:">calicivirus</span></em>]</td><td>NC_019712.1 (5857..7899)</td><td>F868_gp2</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox114798770" class="ui-helper-hidden-accessible">Select item 114798770</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="15" type="checkbox" id="UidCheckBox114798770" value="114798770" /></div></div><div><a href="/gene/114798770" ref="ordinalpos=15&amp;ncbi_uid=114798770&amp;link_uid=114798770">tmem201</a></div><span class="gene-id">ID: 114798770</span></td><td>transmembrane protein 201 [<em>Denticeps clupeoides</em> (denticle herring)]</td><td>Chromosome 10, NC_041716.1 (20993598..21005919, complement)</td><td></td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox105583465" class="ui-helper-hidden-accessible">Select item 105583465</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="16" type="checkbox" id="UidCheckBox105583465" value="105583465" /></div></div><div><a href="/gene/105583465" ref="ordinalpos=16&amp;ncbi_uid=105583465&amp;link_uid=105583465">PLD2</a></div><span class="gene-id">ID: 105583465</span></td><td>phospholipase D2 [<em>Cercocebus atys</em> (sooty mangabey)]</td><td></td><td></td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox30854753" class="ui-helper-hidden-accessible">Select item 30854753</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="17" type="checkbox" id="UidCheckBox30854753" value="30854753" /></div></div><div><a href="/gene/30854753" ref="ordinalpos=17&amp;ncbi_uid=30854753&amp;link_uid=30854753">BWU78_gp1</a></div><span class="gene-id">ID: 30854753</span></td><td>polyprotein [<em>Chicken <span class="highlight" style="background-color:">calicivirus</span></em>]</td><td>NC_033081.1 (304..7245)</td><td>BWU78_gp1</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox5130492" class="ui-helper-hidden-accessible">Select item 5130492</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="18" type="checkbox" id="UidCheckBox5130492" value="5130492" /></div></div><div><a href="/gene/5130492" ref="ordinalpos=18&amp;ncbi_uid=5130492&amp;link_uid=5130492">CITV_gp1</a></div><span class="gene-id">ID: 5130492</span></td><td>polyprotein [<em><span class="highlight" style="background-color:">Calicivirus</span> isolate TCG</em>]</td><td>NC_006875.1 (75..6707)</td><td>CITV_gp1</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox105328637" class="ui-helper-hidden-accessible">Select item 105328637</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="19" type="checkbox" id="UidCheckBox105328637" value="105328637" /></div></div><div><a href="/gene/105328637" ref="ordinalpos=19&amp;ncbi_uid=105328637&amp;link_uid=105328637">LOC105328637</a></div><span class="gene-id">ID: 105328637</span></td><td>leucine-rich repeat-containing protein 74B [<em>Crassostrea gigas</em> (Pacific oyster)]</td><td></td><td>CGI_10025655</td></tr><tr class="rprt"><td class="gene-name-id"><div class="rprtnumcol"><div class="rprtnum nohighlight"><label for="UidCheckBox7901791" class="ui-helper-hidden-accessible">Select item 7901791</label><input name="EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid" sid="20" type="checkbox" id="UidCheckBox7901791" value="7901791" /></div></div><div><a href="/gene/7901791" ref="ordinalpos=20&amp;ncbi_uid=7901791&amp;link_uid=7901791">SVSV_gp2</a></div><span class="gene-id">ID: 7901791</span></td><td>VP2 [<em><span class="highlight" style="background-color:">Calicivirus</span> pig/AB90/CAN</em>]</td><td>NC_012699.1 (5941..6393)</td><td>SVSV_gp2</td></tr></tbody></table></div></div></div>
+ 
+```
+根据html代码，我们可以用```find_all()```函数来直接寻找"td"关键词，来直接取前三个关键词的text进行爬取。
+
+以上代码只是一个引子，具体情况具体分析。
