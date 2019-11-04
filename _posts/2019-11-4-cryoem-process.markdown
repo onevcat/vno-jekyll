@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 单颗粒冷冻电镜3D分类较低要求流程的摸索
+title: 单颗粒3D分类较低要求流程的摸索
 date: 2019-11-4 21:56:24.000000000 +09:00
 ---
 
@@ -35,7 +35,7 @@ Ab-initio  # 这里可以在eman2运行，见下
 particles ---------> e2import particle sets
   |                            |
   V                            V
-csparc2star              2initialmodel 
+csparc2star              e2initialmodel 
   |                            |
   V                            |
 Class3D <----------------------|
