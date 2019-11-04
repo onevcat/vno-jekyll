@@ -15,6 +15,6 @@ I2 对称性：relion默认
 I3 对称性：
 ![figure3](/assets/201911/I3.png)
 
-I4 对称性：
+I4 对称性：eman2默认
 ![figure4](/assets/201911/I4.png)
 
