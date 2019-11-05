@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 汇编语言 6.2 6.3 在代码中使用段
+title: 汇编语言 6.2 6.3 在代码中使用段 将数据代码栈放入不同的段
 date: 2019-11-05 19:22:24.000000000 +09:00
 ---
 
@@ -123,3 +123,4 @@ end start
 1. 源程序中"data", "code", "stack"均只是我们的命名，CPU不会识别
 2. 伪指令中```assume cscode, ds:data, ss:stack```将cs, ds, ss分别与code, data, stack相连。但其是伪指令，是由编译器执行的，cpu同样无法识别
 3. CPU的识别其实靠的是控制cs, ds, ss的相关地址来识别相应的数据信息的
+
