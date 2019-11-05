@@ -32,11 +32,11 @@ Ab-initio  # 这里可以在eman2运行，见下
 ```
 *** relion           *** eman2
 
-particles ---------> e2import particle sets
-  |                            |
-  V                            V
-csparc2star              e2initialmodel 
-  |                            |
-  V                            |
-Class3D <----------------------|
+particles -> e2import particle sets
+  |                  |
+  V                  V
+csparc2star  e2initialmodel 
+  |           |
+  V           |
+Class3D <-----|
 ```
