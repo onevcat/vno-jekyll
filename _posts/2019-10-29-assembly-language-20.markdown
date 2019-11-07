@@ -25,6 +25,10 @@ code segment
 
 s:  mov ax, 0ffffh
     mov ds, ax
+    mov dl, [bx]
+
+    mov ax, 0020h
+    mov ds, ax
     mov [bx], dl
 
     inc bx
