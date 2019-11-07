@@ -28,7 +28,7 @@ class Turtle:
         print("咬死你咬死你！")
 ```
 
-### 示例(instance)与示例对象(instance object)
+### 实例(instance)与实例对象(instance object)
 
 上面代码定义了对象的属性(特征)以及方法(行动)，但还不是一个完整的对象，将**定义的这些称为类(class)**。
 
