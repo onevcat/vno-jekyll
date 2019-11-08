@@ -2,6 +2,7 @@
 layout: post
 title: Correlation of Discrete Signals
 date: 2019-10-18 11:34:24.000000000 +09:00
+tags: 数学
 ---
 The related information of correlation is mostly from [David Dorran video at youtube](https://www.youtube.com/watch?v=_r_fDlM0Dx0&list=PLJ8LTUMGG9U6IcCrKDUGavUTsBn-0ajIX), it is very clear and easy understanding.
 

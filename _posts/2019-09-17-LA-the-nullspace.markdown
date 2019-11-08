@@ -2,6 +2,7 @@
 layout: post
 title: LA3.2 The Nullspace of A
 date: 2019-09-17 08:50:24.000000000 +9:00
+tags: 数学
 ---
 
 ### The Nullspace of A

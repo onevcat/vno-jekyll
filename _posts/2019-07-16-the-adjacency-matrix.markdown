@@ -2,6 +2,7 @@
 layout: post
 title: The Adjacency Matrix
 data: 2019-07-16 09:33:24.000000000 +09:00
+tags: 数学
 ---
 ## Define an Adjacency Matrix
 Here, I want to define a matrix to show the graph or a network which has four nodes. As you can see in the Figure.

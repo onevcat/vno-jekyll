@@ -2,6 +2,7 @@
 layout: post
 title: Some Basic Operations of Vim
 date: 2019-06-26 19:11:24.000000000 +09:00
+tags: vim
 ---
 
 #### Where I got to know vim

@@ -2,6 +2,7 @@
 layout: post
 title: Python - Binding and the Static, Class, Abstract Method 
 date: 2019-09-04 16:45:24.000000000 +09:00
+tags: python
 ---
 ## Something about parameter binding
 Function is stored as the attribute of class, as you can see in the code followed.

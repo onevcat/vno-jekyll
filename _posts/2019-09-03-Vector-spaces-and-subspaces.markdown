@@ -2,6 +2,7 @@
 layout: post
 title: Vector Spaces and Subspaces
 date: 2019-09-03 11:30:00:24.000000000 +09:00
+tags: 数学
 ---
 Summarized from 'Introduction to Linear algebra' from Gilbert Strang.
 ## Definition of The Vector Spaces

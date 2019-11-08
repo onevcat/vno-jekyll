@@ -2,6 +2,7 @@
 layout: post
 title: First Glimpse on Fourier Shell Correlation - FSC Behaviour Within A Shell
 date: 2019-10-16 21:18:24.000000000 +09:00
+tags: cryoEM
 ---
 
 Let us first assume that the two Fourier-space 3D volumes to be compared each contain a signal "$S(r)$" with an uncorrelated additive noise component "$N(r)$". And the signal component in bothe volumes can be written as:

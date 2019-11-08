@@ -2,6 +2,7 @@
 layout: post
 title: 汇编5.3 Debug跟踪loop循环
 date: 2019-10-26 12:31:24.000000000 +09:00
+tags: 汇编语言
 ---
 
 ### 5.3 在Debug中跟踪用loop指令实现的循环程序

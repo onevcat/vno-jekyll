@@ -2,6 +2,7 @@
 layout: post
 title: Some Keyboard Setting of Vim
 date: 2019-07-02 19:39:24.000000000 +09:00
+tags: vim
 ---
 Keyboard setting is something boring in vim, and tell you the truth, it's a little complex. However, vim setting is essential to us. I use the vim aimed to increase the efficiency of my daily writing, including blog and coding. And the keyboard setting is no doubly the most important.<br>
 ## The vimrc build

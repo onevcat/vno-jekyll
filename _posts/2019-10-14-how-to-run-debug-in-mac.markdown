@@ -2,6 +2,7 @@
 layout: post
 title: 在mac或者linux运行debug的优雅解决方案
 date: 2019-10-14 12:16:24.000000000 +09:00
+tags: 汇编语言
 ---
 
 I want to run debug in mac or linux sys, however, debug is only designed for windows.

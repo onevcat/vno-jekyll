@@ -2,6 +2,7 @@
 layout: post
 title: python爬取ncbi检索信息的摸索
 date: 2019-10-30 21:15:24.000000000 +09:00
+tags: python
 ---
 
 爬取前，先准备爬虫所需模块：

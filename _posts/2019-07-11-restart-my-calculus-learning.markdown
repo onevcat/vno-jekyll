@@ -2,6 +2,7 @@
 layout: post
 title: Restart My Calculus Learning
 date: 2019-07-11 11:19:24.000000000 +09:00
+tags: 数学
 ---
 
 ## I have decided!

@@ -2,6 +2,7 @@
 layout: post
 title: python 爬虫豆瓣热门电影学习
 date: 2019-10-27 15:28:24.000000000 +09:00
+tags: python
 ---
 本文为学习鱼c论坛相关课程视频笔记，观看原视频访问[这里](https://www.bilibili.com/video/av23695737?from=search&seid=718237188866018077)。
 

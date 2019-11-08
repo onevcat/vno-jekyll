@@ -2,6 +2,7 @@
 layout: post
 title: PCB1.1 - Squence unpacking, Star syntax, deque, yield, Keeping the Last N Items, Finding the Largest or Smallest N Items, and Implementing a Priority Queue
 date: 2019-09-16 08:21:24.000000000 +09:00
+tags: python
 ---
 #### About the title
 Python - Cookbook study CHAPTER 1 - Data Strucutres and Algorithms - PCB1 for short

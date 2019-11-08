@@ -2,6 +2,7 @@
 layout: post
 title: 汇编语言 3.4 3.5 数据段 mov add sub
 date: 2019-10-14 11:48:24.000000000 +09:00
+tags: 汇编语言
 ---
 #### 3.4 mov, add, sub指令
 

@@ -2,6 +2,7 @@
 layout: post
 title: 汇编语言 5.2 loop
 date: 2019-10-25 17:07:24.000000000 +09:00
+tags: 汇编语言
 ---
 
 ### Loop 指令

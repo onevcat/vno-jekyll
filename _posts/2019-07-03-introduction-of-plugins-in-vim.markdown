@@ -2,6 +2,7 @@
 layout: post
 title: Introduction of Plugins In Vim
 date: 2019-07-03 13:52:24.000000000 +09:00
+tags: vim
 ---
 There are many very nice plugins in vim, which make vim a very charming one. As I introduced at first, why people like vim, the most reliable reason is the powerful plugins in Vim.
 

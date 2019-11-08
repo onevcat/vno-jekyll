@@ -2,6 +2,7 @@
 layout: post
 title: 如何利用dosbox搭建mac, linux masm环境
 date: 2019-10-19 12:03:24.000000000 +09:00
+tags: 汇编语言
 ---
 
 之前介绍过如何dosbox运性debug，这里介绍一下如何用doxbox运行汇编语言的调试包。

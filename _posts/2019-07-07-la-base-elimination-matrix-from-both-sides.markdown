@@ -2,6 +2,7 @@
 layout: post
 title: LA Basic, Elimination Matrix From The Other Side 
 date: 2019-07-07 15:17:24.000000000 +09:00
+tags: 数学
 ---
 
 What will happen, when we multiply an elimination matrix from the other side?<br>

@@ -2,6 +2,7 @@
 layout: post
 title: Cross Correlation
 date: 2019-10-21 09:41:24.000000000 +09:00
+tags: 数学
 ---
 
 ```matlab

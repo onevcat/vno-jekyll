@@ -2,6 +2,7 @@
 layout: post
 title: One Little Puzzle About An Extra Two-fold Axis
 date: 2019-07-05 21:30:24.000000000 +09:00
+tags: crystallography
 ---
 ## The Puzzle
 

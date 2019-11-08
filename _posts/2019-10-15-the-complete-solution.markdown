@@ -2,6 +2,7 @@
 layout: post
 title: LA3.3 The Complete Solution to Ax=b
 date: 2019-10-15 16:07:24.000000000 +09:00
+tags: 数学
 ---
 
 ### Simply show the Row Echelon Form R with b at the right side
