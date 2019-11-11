@@ -23,7 +23,21 @@ B.setName('B')
 A.intro()    # 这里'()'中为A的隐藏属性，即将A的name属性传入了self.name
 B.intro()
 ```
+### 构造方法
 
+__init__()方法称为构造方法，__init__()只需要实例化一个对象，这个方法就会在对象被创建时自动调用(类似于C的构造函数)。实例化对象是可以传入参数的，这些参数会自动传入__init__()中，可以通过这个方法来自定义对象的初始化操作。
+
+```python
+class People():
+    def __init__(self, name)
+        self.name = name
+    def intro(self):
+        print('I am %s' % self.name)
+
+>>>A = People("A")
+>>>A.intro()
+I am A
+```
 ### Name Mangling
 
 对象的属性方法可以通过'.'来进行访问。如下代码：
