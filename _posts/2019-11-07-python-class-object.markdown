@@ -89,4 +89,36 @@ class Mylist(list):   # 这里Mylist 继承了list的方法
 list2 = Mylist()
 list2.append(1)
 ```
+### 课后练习
+
+> 1.函数和方法有什么区别？<br>
+函数和方法几乎完全一样，但方法默认有一个self参数。
+
+> 2.按要求定义矩形类并生成实例对象<br>
+属性：长，宽<br>
+方法：设置长和宽 setRect(self)，获得长和宽 getRect(self)，获得面积 getArea(self)
+
+```python
+class Rect:
+    length = 5
+    width = 4
+
+    def setRect(self):
+        print('Please input the Width & Length!')
+        self.length = float(input('Width of the Rect is: '))
+        self.width = float(input('Length of the Rect is: '))
+    
+    def getRect(self):
+        print('Length is %.2f' % self.length, \n
+              'Width is %.2f' % self.width)
+    
+    def getArea(self):
+        Area = self.length * self.width
+        print('The area of the Rect is %.2f' % Area)
+
+rectA = Rect()
+rectA.setRect()
+rectA.getRect()
+rectA.getArea()
+```
 
