@@ -1,0 +1,43 @@
+---
+layout: post
+title: Defocus in TEM Imaging.1 General
+date: 2019-11-11 18:21:24.000000000 +09:00
+tags: cryo-EM
+---
+
+Relative information is from summarised from the Online Book of the [Practical Electron Microscopy and Database Online Book](http://www.globalsino.com/EM/), in the next posts, I will only reference it in the end of the post.
+
+In TEM imaging, the conventional modes of high-resolution imaging are mainly determined by the objective lens defocus. There are four generally used defocus settings:
+1. "Standard" defocus
+2. Scherzer defocus maximizing the phase contrast of a weak-phase object
+3. Lichte defocus of least confusion, minimizing contrast delocalization
+
+#### Where is defocus from
+
+The third- and fifth-order spherical aberration coefficients and defocus are present in a perfect, round electromagnetic lens, while all other higher-order coherent aberration coefficients are caused by lens imperfections. 
+
+Under the isoplanatic approximation as well as Taylor expansion, the wave aberration function, W, using the notation provided by Krivanek, can be concisely expanded to sixth order in k about the origin of zero scattering angle in terms of the coherent aberration coefficients, given by,
+
+![figure1](http://www.globalsino.com/EM/image1/3752d.gif)
+
+#### What is defocus
+
+Because of the misalignment of an objective lens, the off-axis electron beam enters the objective lens. And the ABC will form the A"B"C" which will be smaller than the real image A'B'C' as shown in the figure2, it is because of the change of the back focal plane. And this change will also induce a rotation of the image because of the helical path of the electrons through the lens.
+
+![figure2](http://www.globalsino.com/EM/image1/1981a.jpg)
+Fig.1 Misalignment of the objective lens: (a) Sweep of the image, and (b) Combination of sweep and rotation of the image on the viewing screen in the EM.
+
+There are two ways to correct this situation:
+1. Tilting the incident illumination
+2. adjust the physical positon of the objective lens pole pieces
+
+![figure3](http://www.globalsino.com/EM/image1/1981b.jpg)
+
+#### Reference:
+
+1. J.M. Cowley, Electron diffraction phenomena observed with a high resolution STEM instrument, J. Electron. Microsc. Tech. 3 (1986) 25-44.
+
+2. Krivanek, O. L., Dellby, N., and Lupini, A. R. (1999). Towards sub-Å electron beams. Ultramicroscopy 78, 1.
+
+3. Practical Electron Microscopy and Database Online Book: http://www.globalsino.com/EM/
+
