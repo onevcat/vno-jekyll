@@ -5,12 +5,13 @@ date: 2019-11-11 18:21:24.000000000 +09:00
 tags: cryo-EM
 ---
 
-Relative information is from summarised from the Online Book of the [Practical Electron Microscopy and Database Online Book](http://www.globalsino.com/EM/), in the next posts, I will only reference it in the end of the post.
+Relative information is from summarised from the Online Book of the [Practical Electron Microscopy and Database](http://www.globalsino.com/EM/), in the next posts, I will only reference it in the end of the post.
 
 In TEM imaging, the conventional modes of high-resolution imaging are mainly determined by the objective lens defocus. There are four generally used defocus settings:
 1. "Standard" defocus
 2. Scherzer defocus maximizing the phase contrast of a weak-phase object
 3. Lichte defocus of least confusion, minimizing contrast delocalization
+4. Minimum phase-contrast defocus
 
 #### Where is defocus from
 
@@ -32,6 +33,8 @@ There are two ways to correct this situation:
 2. adjust the physical positon of the objective lens pole pieces
 
 ![figure3](http://www.globalsino.com/EM/image1/1981b.jpg)
+
+Next, I will talk about the "Strandard" defocus.
 
 #### Reference:
 
