@@ -5,13 +5,23 @@ date: 2019-11-11 18:21:24.000000000 +09:00
 tags: cryo-EM
 ---
 
-Relative information is from summarised from the Online Book of the [Practical Electron Microscopy and Database](http://www.globalsino.com/EM/), in the next posts, I will only reference it in the end of the post.
+Relative information is summarised from the Online Book of the [Practical Electron Microscopy and Database](http://www.globalsino.com/EM/), in the next posts, I will only reference it in the end of the post.
 
 In TEM imaging, the conventional modes of high-resolution imaging are mainly determined by the objective lens defocus. There are four generally used defocus settings:
 1. "Standard" defocus
 2. Scherzer defocus maximizing the phase contrast of a weak-phase object
 3. Lichte defocus of least confusion, minimizing contrast delocalization
 4. Minimum phase-contrast defocus
+
+**Except the first defocus is in-focus, underfocuses are applied to all the other defocus settings because of the existing, positive spherical aberration of the objective lens, which has to be counterbalanced in a certain way by a negative defocus aberration related to underfocus.**
+
+The defocus value (Δf) can be determined from the position of the first crossover of contrast transfer function:
+
+[figure4](http://www.globalsino.com/EM/image1/3874.gif)
+
+Here, n = 0, ±1. That means different integers n give different defoci. For instance, a TEM system has a spherical aberration constant Cs 1.38 mm, is operating at 200 kV (the wavelength is 0.0025 nm), and has the first crossover of Fourier transform at u = 2.75 nm-1. Therefore, three possible defocus values are -15 nm (for n = -1), -70 nm (for n = 0), and 53 nm (for n = 1).
+
+The values of Δf (defocus value), Cs (spherical aberration coefficient), and D (standard deviation of the Gaussian distribution of defocus due to the chromatic aberration) can be obtained by TEM image deconvolution.
 
 #### Where is defocus from
 
