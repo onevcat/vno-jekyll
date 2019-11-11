@@ -17,7 +17,7 @@ In TEM imaging, the conventional modes of high-resolution imaging are mainly det
 
 The defocus value (Δf) can be determined from the position of the first crossover of contrast transfer function:
 
-[figure4](http://www.globalsino.com/EM/image1/3874.gif)
+![figure4](http://www.globalsino.com/EM/image1/3874.gif)
 
 Here, n = 0, ±1. That means different integers n give different defoci. For instance, a TEM system has a spherical aberration constant Cs 1.38 mm, is operating at 200 kV (the wavelength is 0.0025 nm), and has the first crossover of Fourier transform at u = 2.75 nm-1. Therefore, three possible defocus values are -15 nm (for n = -1), -70 nm (for n = 0), and 53 nm (for n = 1).
 
