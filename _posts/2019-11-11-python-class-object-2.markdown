@@ -71,3 +71,31 @@ AttributeError: 'People' object has no attribute '__name'
 >>>A._People__name
 'A'
 ```
+
+> 问题1
+
+```python
+class MyClass:
+    name = 'FishC'
+    def myFun(self):
+        print("Hello FishC!")
+
+>>> MyClass.name
+TypeErr: myFun() missing 1 required positional argument: 'self'
+>>>
+```
+这里报错的原因，我们常说的类指的是类定义，当类定义完之后，自然就是类对象。在这个时候，你可以对类的属性（变量）进行直接访问（MyClass.name）。
+
+一个类可以实例化出无数个实例对象，**Python为了区分是哪个实例对象调用了方法，于是要求必须绑定（通过self参数）才可以调用，而未实例化的类对象直接调用方法，因为缺少self参数，所以会报错。
+
+这里有两种解决方案，第一种创建一个实例对象：
+
+```python
+P = MyClass()
+```
+第二种方式为给类MyClass加入self参数：
+
+```python
+MyClass.self.MyFun()
+```
+
