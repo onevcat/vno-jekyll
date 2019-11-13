@@ -211,6 +211,7 @@ TypeError: __init__() should return None, not 'str'
 > 注意2：当子类方法覆盖了父类方法时，不会删除父类方法，只是该子类看不到父类方法了而已
 
 > 注意3：当我们想故意覆盖掉父类的方法时，可以定义一个方法直接pass掉，如下：
+
 ```python
 class Bird:
     def fly(self):
@@ -220,6 +221,7 @@ class Penguin(Bird):
     def fly(self):
         pass
 ```
+
 > 练习：定义一个点（Point）类和直线（Line）类，使用getLen方法可以获得直线长度
 
 提示：
