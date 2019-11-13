@@ -99,3 +99,123 @@ P = MyClass()
 MyClass.self.MyFun()
 ```
 
+> 问题0 按照以下要求定义一个游乐园门票的类，并尝试计算2个成人和1个小孩的平日票价。
+
+1. 平日票价100元
+2. 周末票价为平日的120%
+3. 儿童半票
+
+代码如下：
+
+```python
+class Ticket():
+    def __init__(self, child = False, weekend = False):
+        self.price = 100
+        if weekend:
+            self.inc1 = 1.2
+        else:
+            self.inc1 = 1
+        if child:
+            self.inc2 = 0.5
+        else:
+            self.inc2 = 1
+    def calculatePrice(self, num):    #注意类中函数必须要绑定self参数, 不然后面实力对象无法正确调用
+        return self.price*self.inc1*self.inc2*num
+adult = Ticket()
+child = Ticket(child = True)
+print('2个成人与1一个小孩的票价为%.2f元' % (adult.calculatePrice(2)+child.calculatePrice(1)))
+```
+
+> 要按要求定义一个乌龟类和一个鱼类并尝试编写游戏。
+
+1. 假设游戏场景为范围(x, y)为0 <= x <= 10, 0 <= y <= 10
+2. 游戏生成1只乌龟和10条鱼
+3. 他们的移动方法均随机
+4. 乌龟的最大移动能力是2(可以随机选择移动1还是移动2)，鱼的最大移动能力是1
+5. 当移动到场景边缘，自动向反方向移动
+6. 乌龟初始化体力为100
+7. 乌龟每移动一次，体力消耗1
+8. 当乌龟和鱼坐标重叠，乌龟吃掉鱼，乌龟体力增加20
+9. 鱼暂不计算体力
+10. 当乌龟体力为0或者鱼数量为0时，游戏结束
+
+代码如下：
+```python
+import random as r
+legalX = [0, 10]
+legalY = [0, 10]
+
+class Turtle():
+    def __init__(self):
+        self.HP = 100
+        self.x = r.randint(legalX[0], legalX[1])
+        self.y = r.randint(legalY[0], legalY[1])
+    def move(self):
+        self.newX = self.x + r.choice([2, 1, 0, -1, -2])
+        self.newY = self.y + r.choice([2, 1, 0, -1, -2])
+        if self.newX > 10:
+            self.newX = legalX[1] - (self.newX - legalX[1])
+        elif self.newX < 0:
+            self.newX = legalX[0] + (legalX[0] - self.newX)
+        else:
+            self.x = self.newX
+        if self.newY > 10:
+            self.newY = legalY[1] - (self.newY - legalY[1])
+        elif self.newY < 0:
+            self.newY = legalY[0] + (legalY[0] - self.newY)
+        else:
+            self.y = self.newY
+
+        self.HP -= 1
+        return (self.x, self.y)
+
+    def eat(self):
+        self.HP += 20
+        if self.HP > 100:
+            self.HP = 100
+
+class Fish():
+    def __init__(self):
+        self.x = r.randint(legalX[0], legalX[1])
+        self.y = r.randint(legalY[0], legalY[1])
+    def move(self):
+        self.newX = self.x + r.choice([1, 0, -1])
+        self.newY = self.y + r.choice([1, 0, -1])
+        if self.newX > 10:
+            self.newX = legalX[1] - (self.newX - legalX[1])
+        elif self.newX < 0:
+            self.newX = legalX[0] + (legalX[0] - self.newX)
+        else:
+            self.x = self.newX
+        if self.newY > 10:
+            self.newY = legalY[1] - (self.newY - legalY[1])
+        elif self.newY < 0:
+            self.newY = legalY[0] + (legalY[0] - self.newY)
+        else:
+            self.y = self.newY
+        return (self.x, self.y)    #注意使用return来返回数值的方法
+
+turtle = Turtle()
+fish = []
+
+for i in range(10):
+    new_fish = Fish()
+    fish.append(new_fish)
+
+while True:
+    if not len(fish):
+        print('鱼被吃完了，游戏结束！')
+        break
+    
+    if not turtle.HP:
+        print('乌龟累死了，游戏结束!')
+        break
+    
+    pos = turtle.move()    #这里的while可以反复调用实例对象turtle的move方法
+
+    for each in fish:
+        if new_fish.move() == pos:
+            turtle.eat()
+            fish.remove(each)
+            print('有条鱼被吃了！')
+```
