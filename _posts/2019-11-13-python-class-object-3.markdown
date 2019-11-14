@@ -214,6 +214,7 @@ TypeError: __init__() should return None, not 'str'
 
 > 注意3：当我们想故意覆盖掉父类的方法时，可以定义一个方法直接pass掉，如下：
 
+
 ```python
 class Bird:
     def fly(self):
@@ -223,6 +224,7 @@ class Penguin(Bird):
     def fly(self):
         pass
 ```
+
 
 > 练习：定义一个点（Point）类和直线（Line）类，使用getLen方法可以获得直线长度
 
