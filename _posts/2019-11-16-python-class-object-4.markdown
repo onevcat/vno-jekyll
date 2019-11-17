@@ -36,7 +36,7 @@ def print_num(self):
 
 ### Mixin
 
-Mixin编程是一种开发模式，是一种将多个类中的功能单元的进行组合的利用的方式。**通常Mixin不作为任何类的基类，也不关心与什么类一起使用，而是在运行时动态的同其他零散的类一起组合使用。
+Mixin编程是一种开发模式，是一种将多个类中的功能单元的进行组合的利用的方式。**通常Mixin不作为任何类的基类，也不关心与什么类一起使用，而是在运行时动态的同其他零散的类一起组合使用**。
 
 其具有以下有点：
 
@@ -55,8 +55,7 @@ class B:
     def GetB(self):
         print('b')
   # 这里应用的是python的多继承机制
-class C(A, B):
-    pass
+class C(A, B): pass
 
 a = A()
 b = B()
@@ -242,6 +241,72 @@ mappingproxy({'__module__': '__main__', 'setXY': <function C.setXY at 0x00000166
 | top()     | 显示当前栈顶的一个数据                  |
 | bottom()  | 显示当前栈底的一个数据                  |
 
+自己的代码：
 
+```python
+class Stack():
+    def __init__(self):
+        self.LIST = []
 
+    def isEmpty(self):
+        if self.LIST == []:
+            return 'TRUE'
+        else:
+            return 'FALSE'
+    def push(self, data):
+        self.LIST.append(data)
+    def pop(self):
+        self.LIST.pop()
+    def top(self):
+        return self.LIST[-1]
+    def bottom(self):
+        return self.LIST[0]
+
+data1 = 1
+data2 = 2
+data3 = 3
+a = Stack()
+print(a.isEmpty())
+a.push(data1)
+a.push(data2)
+print(a.isEmpty())
+print(a.top())
+print(a.bottom())
+a.push(data3)
+print(a.top())
+a.pop()
+print(a.top())
+```
+答案代码：
+
+```python
+class Stack:
+    def __init__(self, start=[]):    #考虑到了栈的初始情况
+            self.stack = []
+            for x in start:
+                self.push(x)
+    def isEmpty(self):
+        return not self.stack    #简洁的判断栈是否为空的方法，优于两个if
+
+    def push(self, obj):
+        self.stack.append(obj)
+
+    def pop(self):
+        if not self.stack:
+            print('警告，栈为空!')    #考虑到了栈空的情况
+        else:
+            return self.stack.pop()
+
+    def top(self):
+        if not self.stack:
+            print('警告，栈为空！')
+        else:
+            return self.stack[-1]
+
+    def bottom(self):
+        if not self.stack:
+            print('警告：栈为空！')
+        else:
+            return self.stack[0]
+```
 
