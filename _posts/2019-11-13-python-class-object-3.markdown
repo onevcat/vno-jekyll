@@ -40,7 +40,7 @@ class Shark(Fish):
         else:
             print("不吃")
 ```
-运行代码后，在Carp和Shark类中分别调用```move()```方法，观察是否能运行。
+运行代码后，在Carp和Shark类中分别调用`move()`方法，观察是否能运行。
 
 ```python
 >>>fish = Fish()
@@ -230,3 +230,34 @@ class Penguin(Bird):
 
 提示：
 Python中开根号使用math模块中的sqrt函数
+
+```python
+import math
+class Point():
+    def __init__(self, valX, valY):
+        self.x = valX
+        self.y = valY
+    def getX(self):
+        return self.x
+    def getY(self):
+        return self.y
+
+class Line():
+    def __init__(self, pointA, pointB):
+        self.diffX = pointA.getX() - pointB.getX()
+        self.diffY = pointA.getY() - pointB.getY()
+
+    def getLen(self):
+        return math.sqrt(self.diffX * self.diffX + self.diffY * self.diffY)
+
+pointA               = Point(1, 1)
+pointB               = Point(4, 5)
+line                 = Line(pointA, pointB)
+print(line.getLen())
+```
+
+本例子中获得的经验：
+
+1. 定义的类可以作为后面类的参数
+2. 注意math.sqrt的用法
+3. 在python中不能用"^2"来表示平方，平方用"**2"来表示
