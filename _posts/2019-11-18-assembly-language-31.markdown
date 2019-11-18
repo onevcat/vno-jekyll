@@ -48,31 +48,31 @@ datasg segment
 datasg ends
 
 codesg segment
-	start: mov ax, stacksg
-				 mov ss, ax
-				 mov sp, 16  ;这里要把指针指到空栈的位置
-				 mov ax, datasg
-				 mov ds, ax
-				 mov bx, 0
+  start: mov ax, stacksg
+         mov ss, ax
+         mov sp, 16  ;这里要把指针指到空栈的位置
 
-				 mov cx, 4
-		 s0: push cx
-				 mov si, 0
+         mov ds, ax
+         mov bx, 0
 
-				 mov cx, 4
-		  s: mov al, [bx+3+si]
-				 and al, 11011111b
-				 mov [bx+3+si], al
+         mov cx, 4
+     s0: push cx
+         mov si, 0
 
-				 inc si
-				 loop s
+         mov cx, 4
+      s: mov al, [bx+3+si]
+         and al, 11011111b
+         mov [bx+3+si], al
 
-			  add bx, 16
-				pop cx
-				loop s0
-				
-				mov ax, 4c00H
-				int 21H
+         inc si
+         loop s
+
+         add bx, 16
+         pop cx
+         loop s0
+
+         mov ax, 4c00H
+         int 21H
 codesg ends
 end start
 ```
