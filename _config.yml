@@ -17,13 +17,13 @@ cover_color: green
 
 # The blog button should not be removed.
 blog_button:
-    title: 博客Blog
-    description: Visit blog
+    title: Back2Home
+    description: return to home
 
 # Navigation buttons in the front page.
 nav:
     - {title: 简历CV, description: Curriculum Vitae, url: 'https://zququcv.netlify.com'}
-    # - {title: Another Button, description: A button, url: 'http://example.com'}
+    - {title: 标签Tags, description: Tags Page, url: 'http://life.zququ.fun/tags/'}
 
 # Pagination
 plugins: [jekyll-paginate]
