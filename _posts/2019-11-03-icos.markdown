@@ -2,7 +2,7 @@
 layout: post
 title: 二十面体不同转向的命名
 date: 2019-11-3 22:06:24.000000000 +09:00
-tags: cryoEM
+tags: cryo-EM
 ---
 
 以下是常用的二十面体转向名称，方便参考
