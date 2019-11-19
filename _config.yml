@@ -17,8 +17,8 @@ cover_color: green
 
 # The blog button should not be removed.
 blog_button:
-    title: Back2Home
-    description: return to home
+    title: 博客Blog
+    description: To Home Page
 
 # Navigation buttons in the front page.
 nav:
