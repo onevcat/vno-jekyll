@@ -1,6 +1,6 @@
 ---
 layout: post
-title: python 类和对象复习 (5) 一些相关的BIF
+title: python 类和对象 (5) 一些相关的BIF
 date: 2019-11-18 14:30:24.000000000 +09:00
 tags: python
 ---

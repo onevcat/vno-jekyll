@@ -1,6 +1,6 @@
 ---
 layout: post
-title: python 类和对象复习(2) self 构造方法 Name Mangling
+title: python 类和对象 (2) self 构造方法 Name Mangling
 date: 2019-11-11 21:26:24.000000000 +09:00
 tags: python
 ---

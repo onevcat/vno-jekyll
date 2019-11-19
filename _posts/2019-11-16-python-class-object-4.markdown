@@ -1,6 +1,6 @@
 ---
 layout: post
-title: python 类和对象复习 (4) 组合 Mixin 类，类对象与实例对象 绑定
+title: python 类和对象 (4) 组合 Mixin 类，类对象与实例对象 绑定
 date: 2019-11-16 21:58:24.000000000 +09:00
 tags: python
 ---

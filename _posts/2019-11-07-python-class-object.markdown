@@ -1,6 +1,6 @@
 ---
 layout: post
-title: python 类和对象复习 (1)
+title: python 类和对象 (1) 对象以及面向对象编程
 date: 2019-11-7 16:16:24.000000000 +09:00
 tags: python
 ---
