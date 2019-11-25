@@ -21,7 +21,7 @@ For the inelastically primary electrons (not given in the figure), which has los
 
 For the elastically (in green), it will be interesting, because as mentioned before, although there will be no energy transfer during interaction with the sample (which means they will not filtered out by eneryg filter), some electrons will scattered with a very high angles or even returning from the original road, which will do no contribution to the image. So, there will be the aperture to limit the elastically scattered electrons into some fixed angle range. The result is, the amplitude of the scattered electrons will decrease and make the fisrt contrast with the unscattered electrons. It is the so-called **amplitude contrast**.
 
-### Phase conrast
+### Phase contrast
 
 Like double slit experiment, an electron microscope is like a billion slit experiment each electron idividually feels all the atoms of the sample and collecting all of their scattering to produce an image.
 
@@ -53,7 +53,7 @@ Let's go on, in the next figure, I showed a more complex situation, when the sca
 
 ![figure8](/assets/201911/2019-11-25_10-58-53.png)
 
-$$α1 < α2 < ... <αn$$
+$ α\_1 < α\_2 < ... <α\_n $
 
 From this example, we can also get a conclusion, the higher angle of the incident angle, the higher resolution of the structural information we will get. As seen in the figure bellow,
 
