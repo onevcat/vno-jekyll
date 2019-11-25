@@ -51,7 +51,9 @@ We think of the repeating unit as every integrate protein structures, in other w
 
 Let's go on, in the next figure, I showed a more complex situation, when the scattering center is more and more 'detailed', will gives a bigger and bigger 'α', and
 
-$$α\_1 < α\_2 < ... <α\_n$$
+![figure8](/assets/201911/2019-11-25_10-58-53.png)
+
+$$α1 < α2 < ... <αn$$
 
 From this example, we can also get a conclusion, the higher angle of the incident angle, the higher resolution of the structural information we will get. As seen in the figure bellow,
 
