@@ -17,7 +17,8 @@ But, not all of the components in the image appear equally stong, some of the fo
 
 This figure gives why some information will miss out. When there is only one plane wave with amplitude $A\_1$, at different phases (θ) will give different Ψ, and
 
-$|ψ\_{total}|^2=$ Probability of detection in any particular pixel
+$|ψ\_{total}|^2=$
+Probability of detection in any particular pixel
 
 In the argand, we get get a round circle to show this.
 
