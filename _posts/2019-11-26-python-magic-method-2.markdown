@@ -1,9 +1,10 @@
 ---
 layout: post
-title: python 魔法方法2 算术运算
+title: python 魔法方法 (2) 算术运算
 date: 2019-11-26 16:14:24.000000000 +09:00
 tags: python
 ---
+
 ### 算数运算
 
 Python 2.2以后，对类和类型进行了统一，做法就是将int(), float(), str(), list(), tuple()这些BIF转换为工厂函数：
