@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 汇编语言 9.1 9.2 9.3 offet jmp 依据位移进行转移的jmp指令
+title: 汇编语言 9.1 9.2 9.3 offset jmp 依据位移进行转移的jmp指令
 date: 2019-11-28 11:58:24.000000000 +09:00
 tags: 汇编语言
 ---
