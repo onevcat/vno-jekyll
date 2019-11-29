@@ -4,7 +4,7 @@ title: python 类和对象 (3) 继承 super函数 多重继承 钻石继承
 date: 2019-11-13 21:34:24.000000000 +09:00
 tags: python
 ---
-
+整理自小甲鱼[鱼C论坛](https://fishc.com.cn/)
 ### 继承
 
 继承的语法为：

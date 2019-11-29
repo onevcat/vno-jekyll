@@ -4,7 +4,7 @@ title: python 类和对象 (5) 一些相关的BIF
 date: 2019-11-18 14:30:24.000000000 +09:00
 tags: python
 ---
-
+整理自小甲鱼[鱼C论坛](https://fishc.com.cn/)
 ### 对类或者对象从属判断的内置函数
 #### issubclass(class, classinfo)
 

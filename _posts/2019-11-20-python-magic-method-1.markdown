@@ -4,7 +4,7 @@ title: python 魔方方法 (1) 构造与析构
 date: 2019-11-20 22:13:24.000000000 +09:00
 tags: python
 ---
-
+整理自小甲鱼[鱼C论坛](https://fishc.com.cn/)
 ### 构造与析构
 
 #### `__init__(self[,...])`

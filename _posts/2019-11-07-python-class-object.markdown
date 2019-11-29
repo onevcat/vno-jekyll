@@ -1,10 +1,10 @@
 ---
 layout: post
-title: python 类和对象 (1) 对象以及面向对象编程
+title: python 类和对象 (1)
 date: 2019-11-7 16:16:24.000000000 +09:00
 tags: python
 ---
-
+整理自小甲鱼[鱼C论坛](https://fishc.com.cn/)
 ### 对象 = 属性 + 方法
 
 代码示例：
