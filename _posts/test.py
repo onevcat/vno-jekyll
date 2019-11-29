@@ -8,3 +8,4 @@ class TOASCII(int):
         return int.__new__(cls, INPUT)
 
 print(TOASCII('A'))
+
