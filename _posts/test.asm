@@ -1,27 +1,65 @@
-assume cs:codesg
+assume cs:codesg ds:datasg ss:stacksg
+
+datasg segment
+	db 'welcome to masm!'
+	db 02h, 24h, 71h
+datasg ends
+
+stacksg segment
+	dw 8 dup(0)
+stacksg ends
+
 codesg segment
+start: 	mov ax, datasg
+				mov ds, ax
+				mov ax, stacksg
+				mov ss, ax
+				mov sp, 10h  ;指向栈顶
+				
+				xor bx, bx
+				mov ax, 07C8h
 
-       mov ax, 4c00h
-       int 21h
+				mov cs, 3
+	 s3:  push cs
+				push ax
+				push bx
 
-start: mov ax, 0
-    s: nop
-       nop
+				mov es, ax
+				mov si, 0
+				mov di, 0
 
-       mov di, offset s
-       mov si, offset s2
-       mov ax, cs:[si]
-       mov cs:[di], ax
+				mov cx, 10h
 
-   s0: jmp short s
+	 s1:  mov al, ds:[si]
+				mov es:[di], al
+				
+				inc si
+				add di, 2
 
-   s1: mov ax, 0
-       int 21h
-       mov ax, 0
+				loop s1
+				
+				mov di, 1
+				pop bx
+				mov al, ds:10h[bx]
+				inc bx
 
-   s2: jmp short s1
-       nop
+				mov cx, 10h
+	 s2:  mov es:[di], al
+				add di, 2
+				loop s2
+
+				pop ax
+				add ax, 086B
+				pop cx
+
+				loop s3
 
 codesg ends
 end start
-```
+
+
+
+
+
+
+
