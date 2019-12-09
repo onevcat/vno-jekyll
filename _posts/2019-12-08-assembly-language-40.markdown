@@ -66,55 +66,54 @@ stacksg segment
 stacksg ends
 
 codesg segment
-start: 	mov ax, datasg
-				mov ds, ax
-				mov ax, stacksg
-				mov ss, ax
-				mov sp, 10h  ;指向栈顶
-				xor bx, bx
-				mov ax, 0B872h    ;地址指向B8000h:8720h
+start:  mov ax, datasg
+        mov ds, ax
+        mov ax, stacksg
+        mov ss, ax
+        mov sp, 10h  ;指向栈顶
+        xor bx, bx
+        mov ax, 0B872h    ;地址指向B8000h:8720h
 
-				mov cx, 3h        ;外层循环，按行不同要求打印字符串
-	 s3:  push cx           ;保护外层循环的三个通用寄存器值
-				push ax
-				push bx
+        mov cx, 3h        ;外层循环，按行不同要求打印字符串
+   s3:  push cx           ;保护外层循环的三个通用寄存器值
+        push ax
+        push bx
 
-				mov es, ax     ;把当前显示缓存指针调整至屏幕中心
-				mov si, 0
-				mov di, 0
+        mov es, ax     ;把当前显示缓存指针调整至屏幕中心
+        mov si, 0
+        mov di, 0
 
-				mov cx, 10h       ;对数据段中第一部分的16个ASCII码进行依次添加至显示缓存器
+        mov cx, 10h       ;对数据段中第一部分的16个ASCII码进行依次添加至显示缓存器
 
-	 s1:  mov al, ds:[si]		;在低位按顺序放置字符ASCII码
-				mov es:[di], al   
-				
-				inc si
-				add di, 2    ;每次空一格字符串的位置准备放置属性信息
+   s1:  mov al, ds:[si]		;在低位按顺序放置字符ASCII码
+        mov es:[di], al   
 
-				loop s1
-				
-				mov di, 1   ;从第二个字符串的位置处开始放置颜色属性
-				pop bx      ;将bx中的值从栈中释放，用于提取出不同的颜色属性
-				mov al, ds:10h[bx]
-				inc bx       ;提取下一条颜色属性
+        inc si
+        add di, 2    ;每次空一格字符串的位置准备放置属性信息
 
-				mov cx, 10h
-	 s2:  mov es:[di], al    ;在显示缓冲器中添加颜色属性
-				add di, 2
-				loop s2
+        loop s1
 
-				pop ax       ;取出显示屏的中心的地址
-				add ax, 0Ah  ;在屏幕的下一行继续写入信息
-				pop cx
+        mov di, 1   ;从第二个字符串的位置处开始放置颜色属性
+        pop bx      ;将bx中的值从栈中释放，用于提取出不同的颜色属性
+        mov al, ds:10h[bx]
+        inc bx       ;提取下一条颜色属性
 
-				loop s3
+        mov cx, 10h
+   s2:  mov es:[di], al    ;在显示缓冲器中添加颜色属性
+        add di, 2
+        loop s2
 
-				mov ax, 4c00h
-				int 21h
+        pop ax       ;取出显示屏的中心的地址
+        add ax, 0Ah  ;在屏幕的下一行继续写入信息
+        pop cx
+
+        loop s3
+
+        mov ax, 4c00h
+        int 21h
 
 codesg ends
 end start
-
 ```
 
 结果如图：
