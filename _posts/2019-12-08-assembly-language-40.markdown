@@ -93,7 +93,7 @@ start:  mov ax, datasg
 
         loop s1
 
-        mov di, 1   ;从第二个字符串的位置处开始放置颜色属性
+        mov di, 1   ;从第一个字符串的位置处开始放置颜色属性
         pop bx      ;将bx中的值从栈中释放，用于提取出不同的颜色属性
         mov al, ds:10h[bx]
         inc bx       ;提取下一条颜色属性
