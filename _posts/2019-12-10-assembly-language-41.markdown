@@ -193,7 +193,7 @@ jmp near ptr 标号
 
 在1处，ax = 0, IP --> 1000:3<br>
 在2处，IP --> 1000:7, 入栈call指令后第一个字节的IP地址，即ax = 6<br>
-在3处, inc ax, ax = 6 + 1 = 7<br>
+在3处，被跳过<br>
 在4处，pop ax，ax = 6
 
 
