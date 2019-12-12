@@ -96,9 +96,68 @@ class Mytimer:
             result.append(self.result[i] + other.result[i])
             if result[i]:
                 prompt += (str(result[i]) + self.unit[i])
-                
         return prompt
 ```
+但是以上的统计运行时间方法只能计算短时间以内的时间，当我们想要计算比较长时间的间隔就会出现问题，比如如果开始计时的时间是2022年2月22日16:30:30，停止时间是2025年1月23日15:30:30就会出现负数(小时:分钟:秒可以通过程序解决，但是月份就会出现闰年问题，变得很难处理)。
+
+对于这一问题，可以用time模块的perf\_counter()和procee\_time()来计算，其中, <br>
+
+**perf\_counter()返回计时器的精准时间(系统的运行时间)**；<br>
+**process\_time()返回当前进程执行CPU的时间总和**。
+
+尝试通过perf\_counter()以及process\_time()这两个函数来改写程序，并加入能够连续统计多次运行程序的时间总长：
+
+
+```python
+import time as t
+
+class Mytimer:
+    def __init__(self, func, number = 1000000):
+        self.prompt = "还未开始计时"
+        self.default_timer = t.perf_counter
+        self.begin = 0    # 这里如果使用self.start = 0，
+                          # 会因为在__init__()方法中使用
+                          # 与类中方法相同的名的属性，而覆盖方法
+        self.end = 0
+        self.lasted = 0.0
+
+
+    def __str__(self):
+        return self.prompt
+
+    __repr__ = __str__    # 实现print(实例对象)和
+                          # 直接调用实例对象都会
+                          # 显示结果
+
+    __add__(self, other):
+        prompt = '总共运行了'
+        result = []
+        for i in range(6):
+            result.append(self.result[i] + other.result[i])
+            if result[i]:
+                prompt += (str(result[i]) + self.unit[i])
+        return prompt
+
+    def set_timer(self.timer):
+        if timer == "process_time":
+            self.default_timer = process_time
+        elif timer:
+            self.default_timer = perf_counter
+        else:
+            print("输入无效，请重新输入perf_counter或process_time")
+
+    def timing(self):
+        self.start = self.defalt_timer()
+
+        for i in range(number):
+            self.func()
+        self.end = self.default_timer()
+        self.lasted = self.end - self.start
+        self.prompt = "总共运行了%0.2f秒" % self.lasted
+```
+
+这一讲主要告诉了一个道理，千万不要自己编辑程序计时器。失败代价成本太高
+
 
 
 
