@@ -118,9 +118,9 @@ class Mytimer:
         self.begin = 0    # 这里如果使用self.start = 0，
                           # 会因为在__init__()方法中使用
                           # 与类中方法相同的名的属性，而覆盖方法
+
         self.end = 0
         self.lasted = 0.0
-
 
     def __str__(self):
         return self.prompt
@@ -129,13 +129,9 @@ class Mytimer:
                           # 直接调用实例对象都会
                           # 显示结果
 
-    __add__(self, other):
-        prompt = '总共运行了'
-        result = []
-        for i in range(6):
-            result.append(self.result[i] + other.result[i])
-            if result[i]:
-                prompt += (str(result[i]) + self.unit[i])
+    def __add__(self, other):
+        result = self.lasted + other.lasted
+        prompt = '总共运行了%0.2f秒' % result
         return prompt
 
     def set_timer(self.timer):
@@ -156,7 +152,7 @@ class Mytimer:
         self.prompt = "总共运行了%0.2f秒" % self.lasted
 ```
 
-这一讲主要告诉了一个道理，千万不要自己编辑程序计时器。失败代价成本太高
+这一讲主要告诉了一个道理，千万不要自己编辑程序计时器。计时器出现问题，失败代价成本太高!
 
 
 
