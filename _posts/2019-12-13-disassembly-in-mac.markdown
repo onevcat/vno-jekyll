@@ -18,7 +18,7 @@ tags: C语言
 (6) 在main.c中输入测试程序，如图，
 ![figure4](/assets/201912/2019-12-13_11-04-54.png)
 (7) 依次在菜单栏选择：Debug --> Debug Workflow --> Always Show Disassembly，勾选此项
-(8) 在main.c中加入breakpoint准备对程序进行调试，快捷键：Command + \\
+(8) 在main.c中加入breakpoint准备对程序进行调试，快捷键：Command + \\\
 ![figure5](/assets/201912/2019-12-13_11-09-23.png)
 (9) 运行程序，快捷键：Command + R
 (10) 运行后，反汇编的x86代码就会以分Thread的形式给出，如图所示，
