@@ -216,5 +216,65 @@ call与ret指令共同支持了汇编语言编程中的模块化设计。在实�
 
 **其实，我们讨论参数和返回值传递的问题，实际上就是在探讨，应该如何存储子程序需要的参数和产生的返回值**。
 
+比如设计一个子程序，可以根据提供的N，来计算N的3次方。
 
+这里有两个问题：
+
+1. 将参数N存储在什么地方？
+2. 计算得到的数值，存储在什么地方？
+
+对于该模块，代码如下：
+```x86asm
+;说明：计算N的3次方
+;参数：(bx)=N
+;结果：(dx:ax)=N^3
+
+cube: mov ax, bx
+      mul bx
+      mul bx
+      ret
+```
+
+用寄存器来存储参数和结果是最常使用的方法。对于存放参数的寄存器和存放结果的寄存器，调用者或子程序的读写操作恰恰相反:
+
+1. 调用者将参数送入参数寄存器，从结果寄存器中取到返回值；
+2. 子程序从参数寄存器中取到参数，将返回值送入结果寄存器中。
+
+下面编程，计算data段中的第一组数据的3次方，结果保存在后面一组dword单元中。
+
+```x86asm
+assume cs:code
+  data segment
+    dw 1,2,3,4,5,6,7,8
+    dw 0,0,0,0,0,0,0,0
+  data ends
+
+  code segment
+    start: mov ax, data
+           mov ds, ax
+           mov si, 0
+           mov di, 16
+
+           mov cx, 8
+        s: mov bx, [si]
+           call cube
+           mov [di], ax
+           mov [di].2, dx
+
+           add si, 2
+           add di, 4
+           loop s
+
+           mov ax, 4c00h
+           int 21h
+
+     cube: mov bx, ax
+           mul bx
+           mul bx
+           ret
+
+code ends
+end start
+```
+注意一开始对于内存单元的分配，决定了对于后面整个程序的把握。
 
