@@ -29,13 +29,13 @@ tags: C语言
 
 (7) 依次在菜单栏选择：Debug --> Debug Workflow --> Always Show Disassembly，勾选此项
 
-(8) 在main.c中加入breakpoint准备对程序进行调试，快捷键：Command + \\\
+(8) 在main.c中加入breakpoint准备对程序进行调试，快捷键：Command + '\\'
 
 ![figure5](/assets/201912/2019-12-13_11-09-23.png)
 
 (9) 运行程序，快捷键：Command + R
 
-(10) 运行后，反汇编的x86代码就会以分Thread的形式给出，如图所示，
+(10) 运行后，反汇编的x86代码就会以函数(main，love)的形式给出，如图所示，
 
 ![figure6](/assets/201912/2019-12-13_11-11-38.png)
 
