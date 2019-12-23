@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A pythonic Card Deck
+title: A Pythonic Card Deck
 date: 2019-12-22 21:10:24.000000000 +09:00
 tags: python
 ---
