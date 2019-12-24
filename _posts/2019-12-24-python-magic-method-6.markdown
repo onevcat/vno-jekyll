@@ -1,3 +1,11 @@
+---
+layout: post
+title: python 魔法方法(6) 描述符，property()函数的原理
+date: 2019-12-24 13:48:24.000000000 +09:00
+tags: python
+---
+
+```python
 class MyDesprition:
     def __init__(self, value = None, name = None):
         self.value = value
@@ -22,3 +30,5 @@ test.x = 8
 del test.x
 test.x
 print(test.x)
+```
+_

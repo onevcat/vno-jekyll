@@ -29,7 +29,7 @@ class FrenchDeck:
         return self._cards[positions]
 ```
 
-### collections.nametuple()
+### collections.namedtuple()
 
 Create a class named with 'Card', which has two attributes, 'rank' and 'suit', when you call this class and transfer the atrributes, the order of the atrribute should be the same with defined atrribute.
 
