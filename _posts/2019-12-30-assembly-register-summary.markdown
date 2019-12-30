@@ -4,7 +4,7 @@ title: 汇编语言 寄存器总结 (转载)
 date: 2019-12-30 20:55:24.000000000 +09:00
 tags: 汇编语言
 ---
-![转自CSDN论坛，Dask Jhonson](https://blog.csdn.net/qq_41115702/article/details/82763383)
+[转自CSDN论坛，Dask Jhonson](https://blog.csdn.net/qq_41115702/article/details/82763383)
 
 8086CPU总共有14个寄存器：<br>
 即AX，BX，CX，DX，SP，BP，SI，DI，IP，FLAG，CS，DS，SS，ES共14个。
