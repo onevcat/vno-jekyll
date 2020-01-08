@@ -1,40 +1,27 @@
-import os
-import pickle
+class MyRev():
+    def __init__(self, seq):
+        self.seq = seq
+        self.len = len(seq)
+        self.n = 0
 
-class MyDes:
-    saved = []
-    def __init__(self, name, value = None):
-        self.name = name
-        self.value = value
-        self.filename = self.name + '.pkl'
+    def seq2list(seq):
+        list = []
+        for i in seq:
+            list.append(i)
+        return list
 
-    def __get__(self, instance, owner):
-        if self.name not in MyDes.saved:
-            raise AttributeError('%s 属性还没有赋值' % self.name)
-        with open(self.filename, 'rb') as f:
-            value = pickle.load(f)
-        return value
+    def __iter__(self):
+        return self
 
-    def __set__(self, instance, value):
-        with open(self.filename, 'wb') as f:
-            pickle.dump(value, f)
-            MyDes.saved.append(self.name)
-
-    def __delete__(self, instance):
-        os.remove(self.filename)
-        MyDes.saved.remove(self.name)
+    def __next__(self):
+        temp = MyRev.seq2list(self.seq)
+        if self.len == 0:
+            raise StopIteration
+        self.len -= 1
+        return self.seq[self.len]
 
 
-class Test:
-    x = MyDes('x')
-    y = MyDes('y')
+myRev = MyRev("FishC")
+for i in myRev:
+    print(i, end='')
 
-test = Test()
-test.x = 123
-test.y = 'I love FishC.com!'
-print(test.x)
-123
-print(test.y)
-
-del test.x
-del test.y
