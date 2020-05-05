@@ -57,7 +57,7 @@ double d;   /*在内存中找到一个双精度浮点型数据大小的位置，
 
 ```c
 //test.c
-#include <studio.h>
+#include <stdio.h>
 int main(void)
 {
     float c;
