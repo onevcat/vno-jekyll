@@ -220,6 +220,9 @@ Use the arrow keys to resize the current window.
 | `t` `m` `l` | Move tab right   |
 
 ### 4 Terminal Keyboard Shortcuts
+
+**This works after `<SPACE>/` (after opening the terminal)**
+
 | Shortcut    | Action                                                      |
 |-------------|-------------------------------------------------------------|
 | `Ctrl` `n`  | Escape from terminal input mode                             |
