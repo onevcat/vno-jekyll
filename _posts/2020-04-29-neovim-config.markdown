@@ -130,6 +130,7 @@ Please **DO NOT** just copy this configuration folder without really looking at 
   Since the `i` key has been mapped to `u`, every command (combination) that involves `i` should use `u` instead (for example, `cuw` should be `cuw`).
 
 #### 1.2 Remapped Cursor Movement
+
 | Shortcut   | Action                                                    | Equivalent |
 |------------|-----------------------------------------------------------|------------|
 | `i`        | Cursor up a terminal line                                 | `k`        |
@@ -147,12 +148,14 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 | `B`        | Move cursor five words forward                            | `5b`       |
 
 #### 1.3 Remapped Insert Mode Keys
+
 | Shortcut | Action                                                               |
 |----------|----------------------------------------------------------------------|
 | `A`      | Move cursor to the end of the line                                   |
 | `U`      | Move the character on the right of the cursor to the end of the line |
 
 #### 1.4 Remapped Text Manipulating Commands in Normal Mode
+
 | Shortcut        | Action                             |
 |-----------------|------------------------------------|
 | `h`             | **undo**                           |
@@ -161,6 +164,7 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 | `SPACE` `SPACE` | Goto the next placeholder (`<++>`) |
 
 #### 1.5 Other Useful Normal Mode Remappings
+
 | Shortcut        | Action                                         |
 |-----------------|------------------------------------------------|
 | `r`             | **Compile/Run the current file**               |
@@ -174,6 +178,7 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 | `SPACE` `/`     | Create a new terminal below the current window |
 
 #### 1.6 Remapped Commands in Visual Mode
+
 | Shortcut        | Action                                 |
 |-----------------|----------------------------------------|
 | `Y`             | Copy selected text to system clipboard |
@@ -181,6 +186,7 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 
 ### 2 Window Management
 #### 2.1 Creating Window Through Split Screen
+
 | Shortcut    | Action                                                                      |
 |-------------|-----------------------------------------------------------------------------|
 | `s` `i`     | Create a new horizontal split screen and place it above the current window  |
@@ -193,6 +199,7 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 | `s` `r` `h` | Rotate splits and arrange splits horizontally                               |
 
 #### 2.2 Moving the Cursor Between Different Windows
+
 | Shortcut      | Action                         |
 |---------------|--------------------------------|
 | `SPACE` + `w` | Move cursor to the next window |
@@ -205,12 +212,14 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 Use the arrow keys to resize the current window.
 
 #### 2.4 Closing Windows
+
 | Shortcut    | Action                                                                                                     |
 |-------------|------------------------------------------------------------------------------------------------------------|
 | `Q`         | Close the current window                                                                                   |
 | `SPACE` `q` | Close the window below the current window. (The current window will be closed if there is no window below) |
 
 ### 3 Tab Management
+
 | Shortcut    | Action           |
 |-------------|------------------|
 | `t` `u`     | Create a new tab |
@@ -230,6 +239,7 @@ Use the arrow keys to resize the current window.
 ## Plugins Keybindings (Screenshots/GIF provided!)
 ### AutoCompletion
 #### COC (AutoCompletion)
+
 | Shortcut        | Action                    |
 |-----------------|---------------------------|
 | `Space` `y`     | **Get yank history list** |
@@ -242,6 +252,7 @@ Use the arrow keys to resize the current window.
 <img alt="Gif" src="https://user-images.githubusercontent.com/251450/55285193-400a9000-53b9-11e9-8cff-ffe4983c5947.gif" width="60%" />
 
 #### Ultisnips
+
 | Shortcut   | Action                                           |
 |------------|--------------------------------------------------|
 | `Ctrl` `e` | Expand a snippet                                 |
@@ -252,6 +263,7 @@ Use the arrow keys to resize the current window.
 
 ### Debugger
 #### vimspector (debugger-plugin)
+
 | Key   | Function                                                  |
 |-------|-----------------------------------------------------------|
 | `F5`  | When debugging, continue. Otherwise start debugging.      |
@@ -268,6 +280,7 @@ Use the arrow keys to resize the current window.
 
 ### File Navigation
 #### coc-explorer (file browser)
+
 | Shortcut | Action                  |
 |----------|-------------------------|
 | `tt`     | **Open file browser**   |
@@ -281,6 +294,7 @@ Use the arrow keys to resize the current window.
 Press `R` to open Ranger (file selector)
 
 And Within rnvimr (ranger), you can:
+
 | Shortcut   | Action                             |
 |------------|------------------------------------|
 | `Ctrl` `t` | Open the file in a new tab         |
@@ -290,6 +304,7 @@ And Within rnvimr (ranger), you can:
 <img alt="Gif" src="https://user-images.githubusercontent.com/17562139/74416173-b0aa8600-4e7f-11ea-83b5-31c07c384af1.gif" width="60%" />
 
 #### FZF - the fuzzy file finder
+
 | Shortcut   | Action             |
 |------------|--------------------|
 | `Ctrl` `p` | **FZF Files**      |
@@ -303,6 +318,7 @@ And Within rnvimr (ranger), you can:
 <img alt="Gif" src="https://jesseleite.com/uploads/posts/2/tag-finder-opt.gif" width="60%" />
 
 #### xtabline (the fancy tab line)
+
 | Shortcut | What it creates   |
 |----------|-------------------|
 | `to`     | Cycle tab mode    |
@@ -312,6 +328,7 @@ And Within rnvimr (ranger), you can:
 
 ### Text Editing Plugins
 #### vim-table-mode
+
 | Shortcut        | Action            |
 |-----------------|-------------------|
 | `SPACE` `t` `m` | Toggle table mode |
@@ -320,6 +337,7 @@ And Within rnvimr (ranger), you can:
 See `:help table-mode.txt` for more.
 
 #### Undotree
+
 | Shortcut      | Action        |
 |---------------|---------------|
 | `Shift` + `L` | Open Undotree |
@@ -329,6 +347,7 @@ See `:help table-mode.txt` for more.
 <img alt="Png" src="https://camo.githubusercontent.com/56430626a5444ea2f0249d71f9288775277c7f5d/68747470733a2f2f73697465732e676f6f676c652e636f6d2f736974652f6d6262696c6c2f756e646f747265655f6e65772e706e67" width="60%" />
 
 #### vim-multiple-cursors
+
 | Shortcut   | Action                                 |
 |------------|----------------------------------------|
 | `Ctrl`+`k` | **Select next key (multiple cursors)** |
@@ -395,6 +414,7 @@ Press `T` to toggle function and variable list
 <img alt="Gif" src="https://user-images.githubusercontent.com/8850248/56469894-14d40780-6472-11e9-802f-729ac53bd4d5.gif" width="60%" />
 
 #### vim-signiture - Bookmarks
+
 | Shortcut    | Action                          |
 |-------------|---------------------------------|
 | `m<letter>` | Add/remove mark at current line |
@@ -421,6 +441,7 @@ Press `SPACE` `f` `r` to search in cwd.
 
 ### Git Related
 #### vim-gitgutter
+
 | Shortcut        | Action                            |
 |-----------------|-----------------------------------|
 | `H`             | **Show git hunk at current line** |
@@ -437,6 +458,7 @@ Press `Space` `g` `i` to create a `.gitignore` file
 
 ### Others
 #### vim-calendar
+
 | Shortcut | Action        |
 |----------|---------------|
 | `\` `\`  | Show clock    |
@@ -459,6 +481,7 @@ Press `ts` to **translate word under cursor**.
 
 ## Custom Snippets
 ### Markdown
+
 | Shortcut | What it creates     |
 |----------|---------------------|
 | `,n`     | ---                 |
