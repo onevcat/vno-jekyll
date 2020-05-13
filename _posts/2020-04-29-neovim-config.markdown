@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The Neovim Config of Normal Users
+title: The Neovim Config of Mac Users (Normal Keyboard)
 date: 2020-04-29 11:26:24.000000000 +09:00
 tags: vim
 ---
@@ -15,7 +15,7 @@ I make it just for myself,or maybe someone else who needs it as well.
 
 **I highly recommand** you to visit and support the original author of the this post here ([https://github.com/theniceboy/nvim](https://github.com/theniceboy/nvim)).
 
-And you can find my nvim config here ([https://github.com/zququ/nvim](https://github.com/zququ/nvim)).
+And you can find my nvim config here ([https://github.com/zququ/nvim-config-for-mac](https://github.com/zququ/nvim-config-for-mac)).
 
 ## <center>The Ultimate NeoVim Config of Normal Users</center>
 
@@ -255,14 +255,16 @@ Use the arrow keys to resize the current window.
 
 | Shortcut   | Action                                           |
 |------------|--------------------------------------------------|
-| `Ctrl` `e` | Expand a snippet                                 |
-| `Ctrl` `n` | (in snippet) Previous Cursor position in snippet |
-| `Ctrl` `e` | (in snippet) Next Cursor position in snippet     |
+| `Ctrl` `s` | Expand a snippet                                 |
+| `Ctrl` `s` | (in snippet) Previous Cursor position in snippet |
+| `Ctrl` `b` | (in snippet) Next Cursor position in snippet     |
 
 ![GIF Demo](https://raw.github.com/SirVer/ultisnips/master/doc/demo.gif)
 
 ### Debugger
 #### vimspector (debugger-plugin)
+
+**First of all, you need to copy the .vimspector.json config file to the root dictionary of your coding project.**
 
 | Key   | Function                                                  |
 |-------|-----------------------------------------------------------|
@@ -340,7 +342,7 @@ See `:help table-mode.txt` for more.
 
 | Shortcut      | Action        |
 |---------------|---------------|
-| `Shift` + `L` | Open Undotree |
+| `Shift` + `H` | Open Undotree |
 | `u`           | Newer Version |
 | `e`           | Older Version |
 
