@@ -167,7 +167,7 @@ $$
 
 用一个数轴来描述a的 $\varepsilon$ 邻域，
 
-![figure4](/assets/202004/f4.png)
+![figure4](/assets/202004/fig4.png)
 
 对 $\forall \varepsilon > 0$，$\exists N \in N^{*}$ 当 $n > N$ 时， 
 
