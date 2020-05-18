@@ -22,9 +22,7 @@ $$r = \frac{p}{q}$$
 
 ### 1.1.2 建立数轴后引出的2个问题
 
-#### **问题1** 
-
-> 数轴上每一个点对应一个实数为其坐标，那么每一个实数是否都是数轴上某一点坐标呢？
+#### **问题1.** 数轴上每一个点对应一个实数为其坐标，那么每一个实数是否都是数轴上某一点坐标呢？
 
 + 对固定的正整数 $q$，让 $p$ 取遍所有整数，则 $p/q$ 这些数字把数轴分成了长度为 $1/q$ 的区间。
 
@@ -61,9 +59,7 @@ $$
 + 同样的，在充分小的区间内有一个有理数，也就相当于有无穷多个有理数。
 2. **任何实数，都可以由无理数来任意逼近**
 
-#### **问题2**
-
-> 有理数是连续的吗？即是否存在着非有理数 
+#### **问题2.** 有理数是连续的吗？即无理数的引出
 
 例题：若 $n$不是平方数，那么 $\sqrt{n}$ 不是有理数。
 
@@ -118,6 +114,145 @@ $$
 $$
 
 但由于 $p$ 与 $q$ 均为正整数，所以不可能无限制 (4) 中的关系，所以假设不成立，所以 $\sqrt{n}$ 不是有理数。
+
+## § 1.2 无尽小数
+
+任何一个*有理数*是有穷小数或者*无穷循环小数*，我们可以从以下实例中得到证明。
+
+$$
+\begin{array}{l}
+a=1.\dot{2}3\dot{4} =1+0.\dot{2}3 \dot{4}=1+b \\
+\\
+b=0 . \dot{2}3\dot{4} \\
+\\
+10^{3} b=234. \dot{2}3\dot{4}=234+b \\
+\\
+(10^3-1) b=234, \quad b=\frac{234}{999}=\frac{26}{111} \\
+\\
+\rightarrow a=1+\frac{26}{111}=\frac{137}{111}
+\end{array}
+$$
+
+实际上，实数都可以表示为无尽小数。
+
+$$
+n. a_{1} a_{2} a_{3}...
+$$
+
+而实数本身可以分为有理数 (循环小数) 及无理数 (不循环小数)。
+
+数轴上的任何一个点一定对应着一个实数，但大多数在数轴上是对不准的。
+
+这里就引入另外一个定理，**区间套定理**，如对于点，
+
+$$
+a=n.a_{1} a_{2} a_{3}
+$$
+
+![figure3](/assets/202004/f3.png)
+
+$
+\left[a_{1}, a_{2}\right] > \left[a_{1}, b_{2}\right]>\left[a_{3}, b_{3}\right]>\ldots
+$ 不断循环嵌套下去，存在唯一一个点与之对应。
+
+**即实数与数轴上的点是一一对应的。**
+
+## § 1.3 收敛和收敛数列
+
+当 $n$ 很大时，$a_{n}$ 无限接近，即
+
+$$
+a_{n} \rightarrow a \Rightarrow n \rightarrow \infty时 \lim _{i \rightarrow \infty} a_{n}=a
+$$
+
+用一个数轴来描述a的 $\varepsilon$ 邻域，
+
+![figure4](/assets/202004/f4.png)
+
+对 $\forall \varepsilon > 0$，$\exists N \in N^{*}$ 当 $n > N$ 时， 
+
+$$
+a-\varepsilon<a_{n}<a+\varepsilon
+$$
+
+当 $n>N$ 时，
+
+$$
+a_{1} a_{2} ... a_{N}(有限项)|a_{N+1}...(无限项)
+$$
+
+#### 定义1.2.1
+
+$$
+\left|a_{n}-a\right|<\varepsilon \Rightarrow a-\varepsilon<a<a+\varepsilon
+$$
+
+#### 几个重要的结论及证明
+
+**结论一**
+
+$$
+|q|<| \quad \lim _{n \rightarrow \infty} q^{n}=0
+$$
+
+证明：
+
++ 方法 1
+
+	- $q=0$ 时，显然成立
+
+	- $0<|q|<1$ 时，
+
+$$
+\begin{array}{c}
+\alpha=\frac{1}{|q|}-1>0, \quad \frac{1}{|q|}=1+\alpha, \quad|q|=\frac{1}{1+\alpha} \\
+\\
+\forall \varepsilon>0, \quad \exists N \in N^{*}, \quad n>N \quad\left|q^{n}\right|<\varepsilon \\
+\\
+\left|q^{n}\right|=|q|^{n}=\frac{1}{(1+\alpha)^{n}}=\frac{1}{1+n \alpha+\cdots \cdots \alpha^{n}}<\frac{1}{n a}<\varepsilon \\
+\\
+n>\frac{1}{\alpha \varepsilon} \quad, \quad N=\left[\frac{1}{\alpha \varepsilon}\right]
+\end{array}
+$$
+
++ 方法 2
+
+$$
+|q|^{n}<\varepsilon, \quad n \cdot \log |q|<\log \varepsilon, \quad n>\frac{\log \varepsilon}{\log |q|},  \quad N=\left[\frac{\log \varepsilon}{\log |q|}\right]
+$$
+
+**结论二**
+
+$$
+\lim _{n \rightarrow \infty} \sqrt[n]{n}=1
+$$
+
+证明：
+
+$$
+\forall \varepsilon>0, \quad \exists N, \quad n>N 时, \quad |^{n}\sqrt{n}-1 |<\varepsilon
+$$
+
+$$
+^n\sqrt{n} = ^n\sqrt{1*1*...*1((n-2)个1)*\sqrt{n}} <\frac{n-2+2 \sqrt{n}}{n}=\frac{n+2(\sqrt{n}-1)}{n}=1+\frac{2(\sqrt{n}-1)}{n}
+$$
+
+$$
+0 \leqslant {^n\sqrt{n}}-1<\frac{2(\sqrt{n}-1)}{n}=\frac{2(\sqrt{n}-1)}{\sqrt{n} \cdot \sqrt{n}}<\frac{2}{\sqrt{n}} \Rightarrow n>\frac{4}{\varepsilon^{2}}
+$$
+
+$$
+N=\left[\frac{4}{\varepsilon^{2}}\right]
+$$
+
+
+
+
+
+
+
+
+
 
 
 
