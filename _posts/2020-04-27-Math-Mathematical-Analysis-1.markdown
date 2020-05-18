@@ -192,7 +192,7 @@ $$
 **结论一**
 
 $$
-|q|<| \quad \lim _{n \rightarrow \infty} q^{n}=0
+|q|<1, \quad \lim _{n \rightarrow \infty} q^{n}=0
 $$
 
 证明：
@@ -200,7 +200,7 @@ $$
 + 方法 1
 
 	- $q=0$ 时，显然成立
-	- 当 $0< |q| <1$ 时，
+	- $q\neq 0$时，
 
 
 $$
@@ -234,7 +234,7 @@ $$
 $$
 
 $$
-^n\sqrt{n} = ^n\sqrt{1*1*...*1((n-2)个1)*\sqrt{n}} <\frac{n-2+2 \sqrt{n}}{n}=\frac{n+2(\sqrt{n}-1)}{n}=1+\frac{2(\sqrt{n}-1)}{n}
+^n\sqrt{n} = ^n\sqrt{1*1*...*1\bigl((n-2)个1\bigr)*\sqrt{n}} <\frac{n-2+2 \sqrt{n}}{n}=\frac{n+2(\sqrt{n}-1)}{n}=1+\frac{2(\sqrt{n}-1)}{n}
 $$
 
 $$
@@ -244,6 +244,8 @@ $$
 $$
 N=\left[\frac{4}{\varepsilon^{2}}\right]
 $$
+
+
 
 
 
