@@ -245,6 +245,22 @@ $$
 N=\left[\frac{4}{\varepsilon^{2}}\right]
 $$
 
+**总结**
+
++ $\lim _{n \rightarrow \infty} a_{n}=a$的描述方法
+
+$$
+\forall \varepsilon>0 \quad \exists N \in N^{*}, \quad \forall n>N，有 \quad\left|a_{n}-a\right|<\varepsilon
+$$
+
++ $\lim _{n \rightarrow \infty} a_{n} \neq a$的描述方法
+
+$$
+\exists \varepsilon_0 > 0, \quad 不论 \quad N^* 多大，总是 \exists n > N，有\quad |a_n-a|\geqslant \varepsilon_0
+$$
+
+![figure5](/assets/202004/f5.png)
+
 
 
 
