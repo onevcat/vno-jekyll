@@ -247,19 +247,113 @@ $$
 
 **总结**
 
-+ $\lim _{n \rightarrow \infty} a_{n}=a$的描述方法
+$\lim_{n \to \infty} a_{n}=a$的描述方法
 
 $$
 \forall \varepsilon>0 \quad \exists N \in N^{*}, \quad \forall n>N，有 \quad\left|a_{n}-a\right|<\varepsilon
 $$
 
-+ $\lim _{n \rightarrow \infty} a_{n} \neq a$的描述方法
+$\lim_{n \rightarrow \infty} a_{n} \neq a$的描述方法
 
 $$
 \exists \varepsilon_0 > 0, \quad 不论 \quad N^* 多大，总是 \exists n > N，有\quad |a_n-a|\geqslant \varepsilon_0
 $$
 
 ![figure5](/assets/202004/f5.png)
+
+## § 1.4 收敛数列的性质
+
+收敛 $\rightarrow$ 有极限
+
+不收敛 $\rightarrow$ 发散
+
+用数轴来描述 $lim_{n\rightarrow\infty}a_n = a$, 如图：
+
+
+![figure6](/assets/202004/f6.png)
+
+下面来介绍收敛数列的几个重要的性质。
+
+### 定理 1.4.1
+
++ 收敛数列极限是唯一的。
+
+对于这个定理，我们可以首先从数轴上考虑, 如下图所示：
+
+![figure7](/assets/202004/f7.png)
+
+由于b区间内存在有限项，但在a中是无限多项，所以矛盾。
+
+证明如下：
+
+$$
+\lim _{n \rightarrow \infty} a_{n}=a, \quad \lim _{n \rightarrow \infty} a_{n}=b \quad \Rightarrow \quad a=b
+$$
+
+$$
+\begin{array}{l}
+\forall \varepsilon>0, \quad N_{1}, \quad n>N_{1} \quad\left|a_{1}-a\right|<\frac{\varepsilon}{2} \\
+\\
+\forall \varepsilon>0, \quad N_{2}, \quad n>N_{2} \quad\left|a_{1}-b\right|<\frac{\varepsilon}{2}
+\end{array}
+$$
+
+$$
+取\quad N=\max \left(N_{1}, N_{2}\right), n>N\quad时
+$$
+
+$$
+\begin{array}{c}
+|a-b|=\left|a-a_{n}+a_{n}-b\right| \leq\left|a-a_{n}\right|+\left|a_{n}-b\right|<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon \\
+\\
+\Rightarrow a=b
+\end{array}
+$$
+
+### 定理 1.4.2
+
+首先引出**有界**的概念：
+
++ $a_n \leq B \Rightarrow$ 有上界
++ $a_n \geq A \Rightarrow$ 有下界
++ $A \leq a_n \leq B \Rightarrow$ 有界
+	- 同 $\left|a_n\right|\leq M$
+
+下面为定理1.4.2：
+
++ 数列一定是有界的。
+
+数轴上描述如下，
+
+![figure8](/assets/202004/f8.png)
+
+证明如下，
+
+$$
+\begin{array}{c}
+\lim_{n \rightarrow \infty}a_n = a \\
+\\
+\varepsilon = 1，\exists N，n>N时，\left|a_n-a\right|<1 \\
+\\
+\left|a_n\right|\leq\left|a\right|+1，n>N\\
+\\
+取\quad M = |a_1|+|a_2|+...+|a_N|+|a|+1\quad (|a_1|+...+|a_N|代表外面的有限项)\\
+\\
+即\quad |a_n|<M，n=1, 2, 3...\\
+
+\\
+\end{array}
+$$
+
+
+
+
+
+
+
+
+
+
 
 
 
