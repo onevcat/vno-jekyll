@@ -317,7 +317,10 @@ $$
 + $a_n \leq B \Rightarrow$ 有上界
 + $a_n \geq A \Rightarrow$ 有下界
 + $A \leq a_n \leq B \Rightarrow$ 有界
-	- 同 $\left|a_n\right|\leq M$
+
+同于 
+
++ $\left\|a_n\right\|\leq M$
 
 下面为定理1.4.2：
 
@@ -330,9 +333,11 @@ $$
 证明如下，
 
 $$
-\begin{array}{c}
 \lim_{n \rightarrow \infty}a_n = a \\
-\\
+$$
+
+$$
+\begin{array}{c}
 \varepsilon = 1，\exists N，n>N时，\left|a_n-a\right|<1 \\
 \\
 \left|a_n\right|\leq\left|a\right|+1，n>N\\
@@ -344,6 +349,8 @@ $$
 \\
 \end{array}
 $$
+
+
 
 
 
