@@ -317,10 +317,7 @@ $$
 + $a_n \leq B \Rightarrow$ 有上界
 + $a_n \geq A \Rightarrow$ 有下界
 + $A \leq a_n \leq B \Rightarrow$ 有界
-
-同于 
-
-+ $\left\|a_n\right\|\leq M$
+	- $\left\|a_n\right\|\leq M$
 
 下面为定理1.4.2：
 
@@ -333,7 +330,7 @@ $$
 证明如下，
 
 $$
-\lim_{n \rightarrow \infty}a_n = a \\
+\lim_{n \rightarrow \infty}a_n = a
 $$
 
 $$
@@ -345,10 +342,172 @@ $$
 取\quad M = |a_1|+|a_2|+...+|a_N|+|a|+1\quad (|a_1|+...+|a_N|代表外面的有限项)\\
 \\
 即\quad |a_n|<M，n=1, 2, 3...\\
-
 \\
 \end{array}
 $$
+
+### 定理 1.4.3
+
+对于一个数列，如下，
+
+$$
+a_1，a_2，a_3，...，a_n，...
+$$
+
+从中选取**无穷项**称为原来数列的**子数列** (不能改变顺序)，如下，
+
+$$
+a_{k1}，a_{k2}，a_{k3}，a_{k4}，...\quad \Rightarrow \quad k_n \geq n
+$$
+
+定理 1.4.3 如下:
+
++ 设$lim_{n\to\infty}a_n=a$，那么$\{a_n\}$的任何子数列必以 $a$ 为极限。
+
+证明如下：
+
+$$
+\begin{array}{c}
+\lim_{n\to\infty}a_n=a，a_{kn}=b_n \\
+\\
+\varepsilon > 0，\forall\varepsilon > 0，\exists N，当n>N，\left|a_n-a\right|<\varepsilon \\
+\\
+n>N时，\left|b_n-a\right| = \left|a_{kn}-a\right| \\
+\\
+由 k_n \geq n > N，\left|b_n-a\right|=\left|a_{kn}-a\right|<\varepsilon \\
+\\
+\end{array}
+$$
+
+定理 1.4.3 有两个应用：
++ 根据子数列不收敛来判断原数列不收敛
+	
+	例 判断 $\{(-1)^{n-1}\}$ $(1，-1，1，-1，...)$ 的收敛性质。
+	
+		即通过 (1，1，1，...) 以及 (-1，-1，...) 两个数列收敛的极限不同。
+
++ 判断周期函数是否收敛
+
+	例 判断 $a_n=\sin{n}$ 数列是否收敛。
+		
+	证明：找一个子数列 $\{\sin{k_n}\}
+
+$$
+k_n\in(n \pi + \frac{\pi}{3}，n \pi + \frac{2\pi}{3})，长度为\frac{\pi}{3} > 1
+$$
+
+如果一个区间比1大，则这个区间中至少有一个正整数。
+
+![figure11](/assets/202004/f11.png)
+
+$$
+k_1 \in (\pi+\frac{\pi}{3}，π+\frac{2\pi}{3}) ，k_2 \in (2\pi+\frac{\pi}{3}，2\pi+\frac{2\pi}{3})
+$$
+
+则有，
+
+$$
+\begin{array}{c}
+\sin{k_1} < \sin{\pi+\frac{\pi}{3}} = - \frac{\sqrt{3}}{2}\\
+\\
+\sin{k_2} > \sin{2\pi+\frac{\pi}{3}}= \frac{\sqrt{3}}{2}\\
+\\
+\end{array}
+$$
+
+所以，两个子数列收敛到了不同的极限，所以$\sin{n}$不收敛。
+
+### 定理 1.4.4
+
++ 设 $\{a_n\}$，$\{b_n\}$是两个收敛数列，则
+
+	1. $\lim(a_n \cdot b_n)=\lim(a_n) \pm \lim(b_n)$
+	2. $\lim(a_n \cdot b_n)=\lim(a_n) \cdot \lim(b_n)$
+	3. $若\lim(b_n) \neq 0，则 \lim{\frac{a_n}{b_n}}=\frac{\lim(a_n)}{\lim(b_n)}$
+
+- 证明 1：$\lim{a_n}=a, \lim{b_n}=b \Rightarrow \lim{(a_n \pm b_n)}=a \pm b$
+
+$$
+\begin{array}{c}
+\forall \varepsilon >0，\exists N，n>N时，|(a_n+b_n)-(a+b)| < \varepsilon \\
+\\
+\forall \varepsilon >0，\exists N_1，n>N_1时，|a_n-a|<\frac{\varepsilon}{2} \quad (1)\\
+\\
+\forall \varepsilon >0，\exists N_2，n>N_2时，|b_n-b|<\frac{\varepsilon}{2} \quad (2)\\
+\\
+N = max(N_1，N_2)，当n>N时，(1)(2)均成立\\
+\\
+|(a_n+b_n)-(a+b)| \leq |a_n-a|+|b_n-b| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2}=\varepsilon\\
+\end{array}
+$$
+
+- 证明 2：$\lim{a_n}=a，\lim{b_n}=b \Rightarrow \lim{a_n\cdot b_n}=ab$
+
+$$
+\begin{array}{c}
+\forall \varepsilon >0 \exists N，n > N时，|a_nb_n - ab|< \varepsilon \\
+\\
+|a_nb_n - ab|=|a_nb_n-ab_n+ab_n-ab|\leq|a_nb_n-ab_n|+|ab_n-ab|=|b_n||a_n- a|+|a||b_n-b| \quad (1) \\
+\\
+假定 |b_n|\leq M，n=1，2... \\
+\\
+\varepsilon > 0，\exists N_1，n>N_1时，|b_n-b|<\frac{1}{|a|+1}\cdot \frac{\varepsilon}{2} \\
+\\
+\varepsilon > 0，\exists N_2，n>N_2时，|a_n-a|<\frac{\varepsilon}{2M} \\
+\\
+当n>N=max(N_1，N_2)时，\\
+\\
+(1)式 \Rightarrow |b_n||a_n-a|+|a||b_n-b|\leq M\cdot \frac{\varepsilon}{2M} + |a|\cdot \frac{1}{|a|+1}\cdot \frac{\varepsilon}{2}< \varepsilon \\
+\end{array}
+$$
+
+- 证明 3：$\lim\frac{1}{b_n} = \frac{1}{b}$
+
+$$
+\begin{array}{c}
+\forall \varepsilon >0，\exists N，当n>N时，|\frac{1}{b_n}-\frac{1}{b}|<\varepsilon \\
+\\
+\forall \varepsilon > 0，\exists N_1，n > N_1时，|b_n-b|< \frac{|b|}{2} \Rightarrow |b_n| > \frac{|b|}{2} > 0 \\
+\\
+又令 |b - b_n|< \frac{|b|^2}{2} \cdot \varepsilon \\
+\\
+\Rightarrow |\frac{1}{b_n} - \frac{1}{b}|=\frac{|b-b_n|}{b\cdot b_n} < \frac{2|b-b_n|}{|b|\cdot \frac{|b|}{2}} = \frac{2|b-b_n|}{|b|^2}< \frac{2}{|b|^2}\cdot \frac{|b|^2}{2}\cdot \varepsilon = \varepsilon \\
+\end{array}
+$$
+
+### 定理 1.4.5
+
+首先引入**无穷小量 (无穷小数列)** 的概念:
+
++ 若 $\lim_{n\to \infty}a_n = 0$，则称 $\{a_n\}$是**无穷小量或称为无穷小数列**。
+
+下面为定理 1.4.5：
+
+1. $\{a_n\}$ 是无穷小 $\Rightarrow \{|a_n|\}$ 是无穷小
+2. $\{a_n\}，\{b_n\}$是无穷小，则$\{a_n\pm b_n\}$
+3. 若$\{c_n\}$是有界数列，$\{a_n\}$是无穷小，则$\{c_n\cdot a_n\}$是无穷小
+	+ 注意: 如$a_n=\frac{1}{n}，b_n=\frac{1}{n^2}$，由于$\frac{a_n}{b_n}=\frac{1}{n} / \frac{1}{n^2} = n$，所以**两个无穷小的商可能发散**。
+4. 若 $0\leq a_n\leq b_n，则当$\{bn\}$是无穷小量时，$\{a_n\}也是无穷小
+5. $\lim_{n\to\infty}a_n = a \Rightarrow \{a_n-a\}$是无穷小量
+
+
+### 定理 1.4.6
+
++ 若$a_n\leq b_n\leq c_n，n \in N^* 且\lim_{n\to\infty}a_n=\lim_{n\to\infty}c_n=a$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
