@@ -35,7 +35,7 @@ $$\frac{p}{q} \leq x<\frac{p+1}{q} \qquad (1)$$
 由 (1) 可得，
 
 $$
-\frac{p}{q} \leq x<\frac{p+1}{q}
+|x-\frac{p}{q}|<\frac{1}{q}
 $$
 
 即，$\forall x$ ，总能找到一个有理数 $p/q$ 和$x$的距离可以小于 $1/q$ 。
@@ -516,7 +516,27 @@ $$
 
 ### 定理 1.4.6
 
-+ 若$a_n\leq b_n\leq c_n，n \in N^* 且\lim_{n\to\infty}a_n=\lim_{n\to\infty}c_n=a$
++ $若a_n\leq b_n\leq c_n，n \in N^* 且\lim_{n\to\infty}a_n=\lim_{n\to\infty}c_n=a，则 \lim_{n\to\infty} b_n = a$
+
+注：$a_n< b_n< c_n$ 时同样成立。
+
+证明如下：
+
+$$
+\begin{array}{c}
+b_n-a_n\geq 0\leq c_n-a_n \\
+\\
+由 \lim{a_n}=\lim{c_n} \\
+\\
+\Rightarrow 0\leq b_n-a_n\leq c_n-a_n \Rightarrow \lim_{n\to\infty}{(b_n-a_n)} \\
+\\
+b_n = b_n - a_n + a_n \rightarrow (n \rightarrow \infty)\\
+\end{array}
+$$
+
+
+
+
 
 
 
