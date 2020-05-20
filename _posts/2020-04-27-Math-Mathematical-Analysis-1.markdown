@@ -490,6 +490,31 @@ $$
 4. 若 $0\leq a_n\leq b_n，则当$\{bn\}$是无穷小量时，$\{a_n\}也是无穷小
 5. $\lim_{n\to\infty}a_n = a \Rightarrow \{a_n-a\}$是无穷小量
 
+例 若 $\lim_{n\to\infty}a_n=a，则  $\lim\frac{a_1+...a_n}{n} = a
+
+证明如下：
+
+$$
+\begin{array}{c}
+设 a=0，\lim_{n\to\infty}a_n=0 \Rightarrow \lim\frac{a_1+...+a_n}{n}=0 \\
+\\
+\forall \varepsilon > 0，\exists N，n> N时，|\frac{a_1+...+a_n}{n}|<\varepsilon \\
+\\
+\forall \varepsilon > 0，\exists N，n> N时，a_n< \frac{\varepsilon}{2} \quad (1) \\
+\\
+由 (1)得， \\
+\\
+|\frac{a_1+...+a_n}{n}|=|\frac{a_1+...+a_N+a_{N+1}+...+a_n}{n}|\leq \frac{|a_1+...+a_N}{n} + \frac{|a_{N+1}+...+a_n|}{n}\leq \frac{M}{n} + \frac{n-N}{n}\cdot \frac{varepsilon}{2}< \frac{M}{n}+ \frac{\varepsilon}{2} \\
+\\
+即n>N_1>max(N，[\frac{2M}{\varepsilon}])时，(\frac{M}{n}< \frac{\varepsilon}{2}，n > \frac{2M}{\varepsilon} \\
+\\
+当a \neq 0，令b_n = a_n -a \rightarrow 0 \\
+\\
+\lim_{n\to\infty}{\frac{b_1+...+b_n}}=\lim{\frac{(a_1-a)+...+(a_n-a)}}{n}=\lim(\frac{a_1+...+a_n}{n}-a)=0 \\
+\\
+\Rightarrow \lim{\frac{a_1+...+a_n}{n}}=a \\
+\end{array}
+$$
 
 ### 定理 1.4.6
 
