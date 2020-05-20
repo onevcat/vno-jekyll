@@ -490,7 +490,7 @@ $$
 4. 若 $0\leq a_n\leq b_n，则当$\{bn\}$是无穷小量时，$\{a_n\}也是无穷小
 5. $\lim_{n\to\infty}a_n = a \Rightarrow \{a_n-a\}$是无穷小量
 
-例 若 $\lim_{n\to\infty}a_n=a，则  $\lim\frac{a_1+...a_n}{n} = a$
+例 若 $\lim_{n\to\infty}a_n=a，则 \lim\frac{a_1+...a_n}{n} = a$
 
 证明如下：
 
