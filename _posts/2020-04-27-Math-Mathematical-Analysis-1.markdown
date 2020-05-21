@@ -559,7 +559,7 @@ $$
 \\
 \Rightarrow 0\leq b_n-a_n\leq c_n-a_n \Rightarrow \lim_{n\to\infty}{(b_n-a_n)}=0 \\
 \\
-\lim_{b\to\infty}{b_n} = \lim{b_n - a_n + a_n} = \lim{a_n} = a\rightarrow 0 (n \rightarrow \infty)\\
+\lim_{b\to\infty}{b_n} = \lim{(b_n - a_n + a_n)} = \lim{a_n} \rightarrow a (n \rightarrow \infty)\\
 \end{array}
 $$
 
