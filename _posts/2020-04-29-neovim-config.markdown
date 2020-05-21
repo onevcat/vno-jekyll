@@ -484,6 +484,8 @@ Press `ts` to **translate word under cursor**.
 ## Custom Snippets
 ### Markdown
 
+In the 'Input Mode':
+
 | Shortcut | What it creates     |
 |----------|---------------------|
 | `,n`     | ---                 |
