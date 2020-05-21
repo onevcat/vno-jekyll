@@ -553,13 +553,13 @@ $$
 
 $$
 \begin{array}{c}
-b_n-a_n\geq 0\leq c_n-a_n \\
+0 \leq b_n-a_n \leq c_n-a_n \\
 \\
 由 \lim{a_n}=\lim{c_n} \\
 \\
-\Rightarrow 0\leq b_n-a_n\leq c_n-a_n \Rightarrow \lim_{n\to\infty}{(b_n-a_n)} \\
+\Rightarrow 0\leq b_n-a_n\leq c_n-a_n \Rightarrow \lim_{n\to\infty}{(b_n-a_n)}=0 \\
 \\
-b_n = b_n - a_n + a_n \rightarrow (n \rightarrow \infty)\\
+\lim_{b\to\infty}{b_n} = \lim{b_n - a_n + a_n} = \lim{a_n} = a\rightarrow 0 (n \rightarrow \infty)\\
 \end{array}
 $$
 
