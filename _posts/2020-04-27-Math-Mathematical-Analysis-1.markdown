@@ -190,7 +190,7 @@ $$
 
 用一个数轴来描述a的 $\varepsilon$ 邻域，
 
-![figure4](/assets/202004/fig4.png)
+![figure4](/assets/202004/f4.png)
 
 对 $\forall \varepsilon > 0$，$\exists N \in N^{*}$ 当 $n > N$ 时， 
 
@@ -622,7 +622,7 @@ $$
 
 **例:** 
 
-求 $\lim_(n\to\infty)(n^2-n+2)^{\frac{1}{n}}$
+求 $\lim_{n\to\infty}(n^2-n+2)^{\frac{1}{n}}$
 
 $$
 \begin{array}{c}
