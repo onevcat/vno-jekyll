@@ -21,6 +21,8 @@ tags: 数学
 	- [1.4.4 极限的运算性质](#144-极限的运算性质)
 	- [1.4.5 无穷小的性质](#145-无穷小的性质)
 	- [1.4.6 夹逼定理](#146-夹逼定理)
+	- [1.4.7 通过不等式表达的收敛数列性质](#147-通过不等式表达的收敛数列性质)
+* [§ 1.5 极限概念的推广](#-15-极限概念的推广)
 
 <!-- /TOC -->
 
@@ -584,6 +586,129 @@ $$
 \lim\frac{n^k}{a^n}=\lim(\frac{n}{(a^{\frac{1}{k}})^n})^k=\lim(\frac{n}{b^n})^k= 0\\
 \end{array}
 $$
+
+**例：**  
+
+$\forall a>0，证明\lim_{n\to\infty}{^n\sqrt{a}}=1$
+
+证明如下：
+
+首先证明 $lim_{n\to\infty}{^n\sqrt{n}}=1$，如下，
+$$
+\begin{array}{c}
+\lim_{n\to\infty}(1\cdot 1\cdot 1\cdot ...\sqrt{n}\cdot \sqrt{n})^{\frac{1}{n}}\leq \frac{n-2+2\sqrt{n}}{n}=1+ \frac{2(\sqrt{n}-1)}{n} \\
+\\
+\Rightarrow 0\leq n^{\frac{1}{n}}-1 <\frac{2}{\sqrt{n}}\\
+\\
+\forall \varepsilon > 0，取N=[\frac{4}{\varepsilon ^2}]\\
+\\
+当n>N时，有|n^{\frac{1}{n}}-1|<\frac{2}{\sqrt{n}}<\varepsilon\\
+\\
+\Rightarrow \lim_{n\to\infty}{^n\sqrt{n}}=1\\
+\\
+当a> 1时，1< ^n\sqrt{a}< ^n\sqrt{n}，n> a\\
+\\
+\Rightarrow \lim{1}< \lim{^n\sqrt{a}< \lim{^n\sqrt{n}}}\\
+\\
+由夹逼定理得，\lim{^n\sqrt{n}}=1\\
+\\
+当0< a< 1时，^n\sqrt{a}=\frac{1}{^n\sqrt{\frac{1}{a}}}，(n\to\infty) \\
+\\
+令b=\frac{1}{a}\\
+\\
+\Rightarrow \lim{^n\sqrt{a}} = \lim{\frac{1}{^n\sqrt{b}}}\\
+\end{array}
+$$
+
+**例:** 
+
+求 $\lim_(n\to\infty)(n^2-n+2)^{\frac{1}{n}}$
+
+$$
+\begin{array}{c}
+n^2-n+2=n^2-(n-2)< n^2，n> 2时成立 \\
+\\
+n>2时，有 n^2> 2(n-1)=2n-2，即 n^2-n+2> n\\
+\\
+\Rightarrow n< n^2-n+2=n^2-(n-2)< n^2\\
+\\
+\Rightarrow (n)^{\frac{1}{n}}< (n^2-n+2)^{\frac{1}{n}}< (n^2)^{\frac{1}{n}}\\
+\\
+\lim{^n\sqrt{n}}=\lim(^n\sqrt{n}\cdot ^n\sqrt{n})= \lim(n^2)^{\frac{1}{n}}=1\\
+\\
+\Rightarrow \lim(n^2-n+2)^{\frac{1}{n}}=1\\
+\end{array}
+$$
+
+**例：** 
+
+证明 $\lim_{n\to\infty}(\frac{1}{\sqrt{n^2+1}}+ \frac{1}{\sqrt{n^2+2}}+ ...+ \frac{1}{\sqrt{n^2+n}})=0$
+
+注意，不能应用极限的运算性质解决无限项的问题
+
+证明如下：
+
+$$ 
+\begin{array}{c}
+a_n = \frac{1}{\sqrt{n^2+1}}+ \frac{1}{\sqrt{n^2+2}}+ ...+ \frac{1}{\sqrt{n^2+n}}\\
+\\
+a_1 = \frac{1}{\sqrt{1+1}}，a_2= \frac{1}{\sqrt{5}} + \frac{1}{\sqrt{6}}，a_3 = ...\\
+\\
+\frac{n}{\sqrt{n^2+n}} \leq 原式 \leq \frac{n}{\sqrt{n^2+1}}\\
+\\
+\lim{n}{\sqrt{n^2+n}}=\lim{\frac{1}{\sqrt{1+\frac{1}{n}}}}=1=\lim\frac{n}{n^2+1}=\lim\frac{1}{1+\frac{1}{n^2}}\\
+\end{array}
+$$
+
+### 1.4.7 通过不等式表达的收敛数列性质
+<br>
+
++ $\lim_{a\to\infty}{a_n=a}，\alpha < a < \beta，\exists N，当n> N时有，$
+
+$$ \alpha < a_n < \beta $$
+
+![figure12](\assets\202004\f12.png)
+
++ $\lim_{n\to\infty}{a_n=a}，\lim_{n\to\infty}{b_n=b}，若a< b，则n > N时有，$
+
+$$ a_n < b_n $$
+
+![figure13](\assets\202004\f13.png) 
+
++ $\lim_{n\to\infty}{a_n=a}，\lim_{n\to\infty}{b_n=b}，如果n> N时，a_n \leq b_n时，则有，$
+
+$$ a \leq b $$
+
+$\qquad 证：若a>b，与n> N时，a_n \leq b_n矛盾$
+
+## § 1.5 极限概念的推广
+
++ $\lim_{n\to\infty}a_n = +\infty$
+
+	定义：对$\forall A>0，\exists N，当n> N时，有a_n > A$
+
+![figure14](\assets\202004\f14.png) 
+
++ $\lim_{n\to\infty}a_n = -\infty$
+
+	定义：对$\forall A>0，\exists N，当n> N时，有a_n <-A$
+
+![figure15](\assets\202004\f15.png) 
+
++ $\lim_{n\to\infty}a_n = \infty$
+
+	定义：对$\forall A>0，\exists N，当n> N时，有|a_n|>A$
+
+![figure16](\assets\202004\f16.png)
+
+如 ${(-1)^n\cdot n}$ 这个数列，可以是围绕A点左右跳跃的，如上图所示。
+
+
+
+
+
+
+
 
 
 
