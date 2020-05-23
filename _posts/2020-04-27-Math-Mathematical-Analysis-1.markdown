@@ -593,7 +593,8 @@ $\forall a>0，证明\lim_{n\to\infty}{^n\sqrt{a}}=1$
 
 证明如下：
 
-首先证明 $lim_{n\to\infty}{^n\sqrt{n}}=1$，如下，
+首先证明 $\lim{^n\sqrt{n}}=1$
+
 $$
 \begin{array}{c}
 \lim_{n\to\infty}(1\cdot 1\cdot 1\cdot ...\sqrt{n}\cdot \sqrt{n})^{\frac{1}{n}}\leq \frac{n-2+2\sqrt{n}}{n}=1+ \frac{2(\sqrt{n}-1)}{n} \\
