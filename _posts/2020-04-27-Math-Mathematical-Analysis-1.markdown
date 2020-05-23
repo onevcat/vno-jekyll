@@ -697,11 +697,11 @@ $\qquad 证：若a>b，与n> N时，a_n \leq b_n矛盾$
 
 + $\lim_{n\to\infty}a_n = \infty$
 
-	定义：对$\forall A>0，\exists N，当n> N时，有|a_n|>A$
+	定义：对$\forall A>0，\exists N，当n> N时，有\|a_n\|>A$
 
 ![figure16](\assets\202004\f16.png)
 
-如 ${(-1)^n\cdot n}$ 这个数列，可以是围绕A点左右跳跃的，如上图所示。
+如 $\{(-1)^n\cdot n\}$ 这个数列，可以是围绕A点左右跳跃的，如上图所示。
 
 
 
