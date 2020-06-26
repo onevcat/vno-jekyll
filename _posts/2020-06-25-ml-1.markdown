@@ -86,6 +86,32 @@ tags: blog
 
 + Life-long learning：让机器一连串的任务，终生不断学习。又称为Continuous Learning或者Never Ending Learning
 
+## General Regulations
+
++ Environment
+
+	- 建议用Linux或macOS
+	- python 3.6.8
+	- Pyenv
+
++ Kaggle：是一个庞大的资料科学社群，上面有各种资料分析的竞赛。
+
++ Github
+
+	```
+	git config --global user.name "name" # 设置用户名
+	git config --global user.email "name@gmail.com" 
+	git config --list # 检查是否设定完成
+	git init
+	git add example.sh # 将特定档案加入追踪
+	git add --all
+	git rm --cache train.csv
+	git commit -m "Description"
+	git remote add origin http://... # 与Github地址连起来
+	git push -u origin
+	```
+
+	
 
 
 
