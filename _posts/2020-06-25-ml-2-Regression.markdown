@@ -97,7 +97,9 @@ $$
 	- Consider loss function $L(w)$ with one parameter w:
 		+ 首先随机选一个起始值 $w^0$
 
-		+ Compute $\frac{dL}{dw} | _{w=w^0}$
+		+ Compute 
+
+			$$\frac{dL}{dw} | _{w=w^0}$$
 
 			用图像来表示即为，
 
@@ -105,11 +107,12 @@ $$
 
 			寻找下一个$w^1$的值，即为
 
-			$$w^1 \leftarrow w^0 - \eta \frac{dL}{dw} | \\_{w=w^0}$$
+			$$w^1 \leftarrow w^0 - \eta \frac{dL}{dw}|_{w=w^0}$$
 
 			其中 $\eta$ 被称为 "**learning rate**"，越大学习速度越快。
 
-		+ 下一步重复 Compute $\frac{dL}{dw} | \\_{w=w^1}$
+		+ 下一步重复 Compute 
+			$$\frac{dL}{dw}| _{w=w^1}$$
 
 		+ ... Many iterations ( T times )
 
