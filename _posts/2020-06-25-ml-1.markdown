@@ -2,7 +2,7 @@
 layout: post
 title: ml-P1 Machine Learning Introduction
 date: 2020-06-25 21:31:24.000000000 +09:00
-tags: blog
+tags: Machine Learning
 ---
 
 ## 什么是机器学习
