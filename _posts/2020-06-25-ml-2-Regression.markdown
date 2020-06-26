@@ -32,7 +32,7 @@ $$
 	用$x$代表宝可梦，其中$x_{s}$代表宝可梦的名称，$x_{cp}$，$x_{w}$代表重量，$x_{h}$代表身高。
 
 $$
-f("宝可梦的参数\rarr x") = "CP\ after \ evolution \rightarrow y"
+f("宝可梦的参数\rightarrow x") = "CP\ after \ evolution \rightarrow y"
 $$
 
 #### Step 1: Model
@@ -48,7 +48,7 @@ $$
 
 	用以上去描述宝可梦的函数式:
 
-	$$f(x)="CP\ after\ evolution" \rarr y$$
+	$$f(x)="CP\ after\ evolution" \rightarrow y$$
 
 	这叫做 **Linear model**，
 
@@ -105,7 +105,7 @@ $$
 
 			寻找下一个$w^1$的值，即为
 
-			$$w^1 \larr w^0 - \eta \frac{dL}{dw}|_{w=w^0}$$
+			$$w^1 \leftarrow w^0 - \eta \frac{dL}{dw}|\_{w=w^0}$$
 
 			其中 $\eta$ 被称为 "**learning rate**"，越大学习速度越快。
 
@@ -117,7 +117,7 @@ $$
 
 			![figure4](/assets/202006/2020-06-26-23-00-53.png)
 
-			这时获得了 **Local optimal** $\rarr w^*$，但注意是并非 **Global optimal** 。
+			这时获得了 **Local optimal** $\rightarrow w^*$，但注意是并非 **Global optimal** 。
 
 			
 
