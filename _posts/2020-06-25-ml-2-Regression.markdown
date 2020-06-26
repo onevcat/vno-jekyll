@@ -120,7 +120,7 @@ $$
 
 			![figure4](/assets/202006/2020-06-26-23-00-53.png)
 
-			这时获得了 **Local optimal** $\rightarrow w^*$，但注意是并非 **Global optimal** 。
+			这时获得了 **Local optimal** $\rightarrow w^T$，但注意是并非 **Global optimal** 。
 
 			
 
