@@ -125,13 +125,14 @@ $$
 	+ 如果有两个参数呢?
 	
 		对应公式如下，
+
 		$$w^*, b^* = \arg \min_{w, b}L(w, b)$$
 
 		- 随机 Pick an initial value $w^0, b^0$
 		 
 		- Compute
 
-		$$\left.\frac{\partial L}{\partial w}\right|_{w=w^{0}, b=b^{0}},\left.\frac{\partial L}{\partial b}\right|_{w=w^0, b=b^0} $$
+			$$\left.\frac{\partial L}{\partial w}\right|_{w=w^{0}, b=b^{0}},\left.\frac{\partial L}{\partial b}\right|_{w=w^0, b=b^0}$$
 
 		- 分别更新 $w$ 与 $b$ 的值
 
