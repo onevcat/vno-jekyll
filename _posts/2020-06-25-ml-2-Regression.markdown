@@ -5,6 +5,8 @@ date: 2020-06-26 21:08:24.000000000 +09:00
 tags: Machine Learning
 ---
 
+整理自[李宏毅教授 2020 机器学习课程](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html)
+
 ## Regression
 
 + Stock Market Forecast
