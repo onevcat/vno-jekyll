@@ -2,7 +2,7 @@
 layout: post
 title: ml-P2 Regression Case Study
 date: 2020-06-26 21:08:24.000000000 +09:00
-tags: Machine Learning
+tags: MachineLearning
 ---
 
 整理自[李宏毅教授 2020 机器学习课程](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html)
