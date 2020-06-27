@@ -140,7 +140,7 @@ $$
 
 		- Compute
 
-		$$ \left.\frac{\partial L}{\partial w}\right|_{w=w^1, b=b^1}, \left.\frac{\partial L}{\partial b}\right|_{w=w^1, b=b^1}
+		$$ \left.\frac{\partial L}{\partial w}\right|_{w=w^1, b=b^1}, \left.\frac{\partial L}{\partial b}\right|_{w=w^1, b=b^1}$$
 
 		- 再次更新 $w$，$b$ 的值
 
