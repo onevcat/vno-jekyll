@@ -132,7 +132,7 @@ $$
 		 
 		- Compute
 
-			$$\left.\frac{\partial L}{\partial w}\right|_{w=w^{0}, b=b^{0}},\left.\frac{\partial L}{\partial b}\right|_{w=w^0, b=b^0}$$
+		$$\left.\frac{\partial L}{\partial w}\right|_{w=w^{0}, b=b^{0}},\left.\frac{\partial L}{\partial b}\right|_{w=w^0, b=b^0}$$
 
 		- 分别更新 $w$ 与 $b$ 的值
 
