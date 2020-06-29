@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ml-P2 Regression Case Study
+title: ml-P2 Regression Case Study and Basic Concept
 date: 2020-06-26 21:08:24.000000000 +09:00
 tags: MachineLearning
 ---
@@ -339,39 +339,247 @@ $$
 
 		- Following lectures: validation 来解决上面的问题。
 
-	
+## Basic Concept - Where does the error come from?
 
-	
-		
+在之前的实例中，我们发现选择不同的 Function Set，也就是选择不同的 Model，往往会给出不同的 Average error，而且越复杂的 Model，不见得会给出越低的 Error。
 
+![figure21](/assets/202006/2020-06-28_21-22-38.png)
 
+而其中 error 有两个来源：
 
+1. 来自于 "**bias**"
+2. 以及 "**variance**"
 
+### Estimator
 
+对于一个 Estimator, 如
 
+$$\hat{y} = \hat{f}(\text{Pokemon CP})$$
 
-		
+From this training data, we find $f^*$ ，那么有 **$f^*$ is an estimator of $\hat{f}$**。二者关系可以用下图表示，
 
+![figure22](/assets/202006/2020-06-28_21-34-48.png)
 
+靶标的中心点是 $\hat{f}$，而 $f^*$ 则在偏离靶中心的位置，而这个偏离，就是又 **Bias** 以及 **Variance** 共同决定的。
 
+### Bias and Variance of Estimator
 
++ Estimate the mean of a variable x
+
+	- assume the mean of x is $\mu$ 
+	- assume the variance of x is $\sigma^2$
+
++ Estimator of mean $\mu$
+
+	- Sample N points: ${x^1, x^2, ..., x^N}$
+
+	$$ m = \frac{1}{N}\sum_n{n^n} \neq \mu$$
+
+		这时 $m$ 和 $\mu$ 的值是不相等的，示意图如下
+
+	![figure23](/assets/202006/2020-06-28_23-07-07.png)
+
+	- 但是如果我们计算这些 $m$ 的期望值，就会得到我们想要的 $\mu$
+
+	$$E[m] = E\biggl[\frac{1}{N}\sum_n x^n\biggr] = \frac{1}{N}\sum_n E[x^n] = \mu$$
+
+		这个问题就像打靶，每次打靶都会偏离中心，但当打靶次数足够多，最终这些偏离中心的打点的中心就是最终的期望。
+
+	- 这个散布在期望周围, 散的有多开取决于 $m$ 的 **Variance** ，这个 Variance 的表达式为，
+
+		$$Var[m] = \frac{\sigma^2}{N}$$
+
+		**Varicance depends on the number of samples**，如图所示
+
+		![figure24](/assets/202006/2020-06-29_09-40-36.png)
+
++ Estimator of variance $\sigma^2$
+
+	- Sample N points: {$x^1, x^2, ..., x^N$}
+
+		1. 首先估计 $m$ 的值，
 			
+			 $$ m = \frac{1}{N}\sum_n x^n $$
 
+		2. 之后再计算估计 $s^2$，
 
+			 $$ s^2 = \frac{1}{N}\sum_n (x^n - m)^2 $$
 
+			 这个 $s^2$ 可以用来估计 $\sigma^2$
 
+		但是，需要注意，这个对于 $\sigma ^2$ 的估计是**Biased estimator**，
 
+		$$ E[s^2] = \frac{N-1}{N} \sigma ^2$$
 
+		也就是说 $s^2$ 的期望值并不正好等于 $\sigma^2$ ，如果我们增加样本量，这一现象就会减轻：
 
+		![figure25](/assets/202006/2020-06-29_10-03-27.png)
 
+		用打靶来描述这件事情，如下图
 
++ Parallel Universes
 
+	![figure26](/assets/202006/2020-06-29_10-18-48.png)
 
+	而打靶打的准或不准是由 **Variance** 和 **Bias** 两部分共同决定的。
 
-	
+#### Variance
 
+In all the universes, we are collecting (catching) 10 Pokemons as training data to find $f^*$
 
+![figure27](/assets/202006/2020-06-29_10-24-39.png)
 
+我们在不同宇宙中抓到的宝可梦是不一样的。
+
+In different universes, we use the same model, but obtain different $f^*$ 
+
+![figure28](/assets/202006/2020-06-29_10-28-31.png)
+
+最终的结果如果我们用越来越复杂的 model ，就会给出越来越崩溃的结果,
+
+![figure29](/assets/202006/2020-06-29_10-31-14.png)
+
+而这几种越来越复杂的 model 所带来的混乱的情况，用打靶来形容，如下图所示，
+
+![figure30](/assets/202006/2020-06-29_10-35-57.png)
+
+可以看出，越简单的 model，对应的 Variance 越小，这可以认为是因为，**Simpler model is less influenced by the sampled data** 。可以考虑一个极端的例子：
+
+$$ f(x) = c $$
+
+对于这个常值函数的 model，其 Variance = 0，不会受到 sampled data 影响。
+
+#### Bias
+
+$$ E[f^*] = \overline{f}$$
+
++ Bias: If we average all the $f^*$, is it close to $\hat{f}$
+
+	- 先引入打靶问题，来描述 Bias 大小对于靶标的影响，
+
+		![figure31](/assets/202006/2020-06-29_15-35-04.png)
+
+		可见，如果 Bias 很小，即使数据很离散，其平均值 $\overline{f}$ 也会很接近 $\hat{f}$。
+
+	- 下面需要确定一条 $\hat{y}$，我们只能先假设一个 $\hat{f}$
+
+		![figure32](/assets/202006/2020-06-29_15-35-05.png)
+
+	- 然后我们分别对不同复杂程度下的 model 给出的 $\overline{f}$ 与 $\hat{f}$ 之间的关系，如下图
+
+		![figure32](/assets/202006/2020-06-29_15-47-58.png)
+
+		+ 上图是描述一次的 Model，图中曲线标注情况如下：
+
+			**Black curve: the true function $\hat{f}$**
+
+			**Red curves: 5000 $f^*$**
+
+			**Blue curve: the average of 5000 $f^* = \overline{f}$**
+
+		+ 当考虑一个较为复杂的三次 Model，如下图
+
+			![figure33](/assets/202006/2020-06-29_16-06-38.png)
+
+			虽然单独每一次和 $\hat{f}$ 可能相差很多，但平均下来与 $\hat{f}$ 却较为接近。
+
+		+ 当复杂程度继续升高，即考虑五次的 Model，$\overline{f}$ 则进一步趋近于 $\hat{f}$，如下图所示:
+
+			![figure34](/assets/202006/2020-06-29_16-10-08.png)
+
+对于以上现象，可以从 **function space** 的角度来解释，即如果 Model 没有那么复杂，它对应的 function space 就相对较小，可能并没有包含 Target，如下图，
+
+![figure35](/assets/202006/2020-06-29_16-14-02.png)
+
+相反如果 Model 比较复杂，对应上述 5 次的 Model，其 function space 较大，就可能包含了 Target，如下图，
+
+![figure36](/assets/202006/2020-06-29_16-17-16.png)
+
+#### What to do with large bias?
+
+综合起来，存在两种 error，即：
+
+1. **Error from bias** 
+2. **Error from variance** 
+
+这两种对应的 Error 的关系如下图，
+
+![figure37](/assets/202006/2020-06-29_16-56-40.png)
+
+而由于 bias 引起 Error，我们称之为 **Underfitting** ；由于 variance 引起的 Error，我们称之为 **Overfitting**。
+
++ Diagnosis:
+
+	- If your model cannot even fit the training examples, then you have large bias: **Underfitting** 
+		
+		![figure38](/assets/202006/2020-06-29_17-04-50.png)
+
+	- If you can fit the training data, but large error on testing data, then you probably have large variance: **Overfitting** 
+
++ For bias, redesign your model:
+
+	- Add more features as input
+	 
+	- A more complex model
+
+### What to do with large variance?
+
++ more data
+
+	![figure39](/assets/202006/2020-06-29_17-08-27.png)
+
+	It's very effective, but not always practical. 也可以根据经验给一个经验的 Model
+
++ Regularization
+
+	通过 Regularization，使得曲线更加平滑，如下图所示：
+
+	![figure40](/assets/202006/2020-06-29_17-12-27.png)
+
+	但是这样做，**会伤害到 bias**
+
+### Model Selection
+
++ There is usually a trade-off between bias and variance.
+
++ Select a model that balances two kinds of error to minimize total error
+
++ What you should NOT do:
+
+	![figure41](/assets/202006/2020-06-29_17-17-13.png)
+
+	**注意不要直接选择 Model 3，因为绿色的 Testing Set 本身有着自己的 bias，而与实际上的 橙色的 Testing Set 不同 ( $Err > 0.5$ )。**
+
+> 这个问题为了更好的理解，给出下面的举例：**Homework** 中的情况
+
+	![figure42](/assets/202006/2020-06-29_17-22-53.png)
+
+	更好地理解，比如说小明在班级里排名第一，但在全校可能排不上名次。
+
+	那么如何解决这个问题呢？
+
+### Cross Validation
+
+![figure43](/assets/202006/2020-06-29_17-32-58.png)
+
+1. 可以将 Training Set，分成两部分，即 Training Set 和 Validation Set
+2. 再通过新的 Training Set 计算出 Error 以后，选出最佳的 Model
+3. 再将全部 Training Set 加进去，计算public Tesing Set 的 Error，这时的 Error 会比之前的 Error 更大，但更加接近真实的 private Testing Set。
+4. 但不建议在知道 pulic Error 很大以后，再返回去修改前面的 Model，因为这样会引入这次 Public Testing Set 中的 bias。
+
++ Using the results of public testing data to tune your model
+
++ You are making public set better than private set，在 public 看到的 performance 没办法反应在 private 上的 performance了
+
+> 如果将 Training Set 分开 Validation Set 时，发现 Validation 的 bias 也有问题怎么处理呢？
+
+#### N-fold Cross Validation
+
+如果你不相信某一次 Training 结果，可以按下图方式进行：
+
+![figure44](/assets/202006/2020-06-29_17-44-42.png)
+
+利用这种方法，根据三次实验后的 Average Error，再去进行比较。原则上，少去根据 Testing Set 调整 Model 的话，往往最终得到的 Testing Set 会比较小。
 
 
 
