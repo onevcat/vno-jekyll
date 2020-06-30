@@ -373,7 +373,7 @@ From this training data, we find $f^*$ ，那么有 **$f^*$ is an estimator of $
 
 	- Sample N points: ${x^1, x^2, ..., x^N}$
 
-	$$ m = \frac{1}{N}\sum_n{n^n} \neq \mu$$
+		$$ m = \frac{1}{N}\sum_n{n^n} \neq \mu$$
 
 		这时 $m$ 和 $\mu$ 的值是不相等的，示意图如下
 
@@ -381,7 +381,7 @@ From this training data, we find $f^*$ ，那么有 **$f^*$ is an estimator of $
 
 	- 但是如果我们计算这些 $m$ 的期望值，就会得到我们想要的 $\mu$
 
-	$$E[m] = E\biggl[\frac{1}{N}\sum_n x^n\biggr] = \frac{1}{N}\sum_n E[x^n] = \mu$$
+		$$E[m] = E\biggl[\frac{1}{N}\sum_n x^n\biggr] = \frac{1}{N}\sum_n E[x^n] = \mu$$
 
 		这个问题就像打靶，每次打靶都会偏离中心，但当打靶次数足够多，最终这些偏离中心的打点的中心就是最终的期望。
 
@@ -550,7 +550,7 @@ $$ E[f^*] = \overline{f}$$
 
 	**注意不要直接选择 Model 3，因为绿色的 Testing Set 本身有着自己的 bias，而与实际上的 橙色的 Testing Set 不同 ( $Err > 0.5$ )。**
 
-> 这个问题为了更好的理解，给出下面的举例：**Homework** 中的情况
+	为了更好的理解这个问题，给出下面的举例：**Homework** 中的情况
 
 	![figure42](/assets/202006/2020-06-29_17-22-53.png)
 
@@ -571,7 +571,7 @@ $$ E[f^*] = \overline{f}$$
 
 + You are making public set better than private set，在 public 看到的 performance 没办法反应在 private 上的 performance了
 
-> 如果将 Training Set 分开 Validation Set 时，发现 Validation 的 bias 也有问题怎么处理呢？
+如果将 Training Set 分开 Validation Set 时，发现 Validation 的 bias 也有问题怎么处理呢？
 
 #### N-fold Cross Validation
 

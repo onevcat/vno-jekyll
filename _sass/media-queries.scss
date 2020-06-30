@@ -199,3 +199,95 @@
   }
 
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+      background-color: $dark-background-color;
+      color: darken($gray, 5%);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        color: $gray;
+    }
+
+    a {
+        &:hover {
+            color: $dark-hover-color;
+        }
+    }
+
+    .post-list__post-title {
+        a {
+            color: $gray;
+            &:hover {
+                color: $dark-hover-color;
+            }
+            }
+    }
+
+    .post-list__divider {
+        border-top: 1px solid $gray-dark;
+    }
+
+    table {
+        color: $gray-dark;
+        border: 2px solid darken($primary-color, 20%);
+        thead tr:first-child {
+            background-color: darken($primary-color, 20%);
+            color: $gray;
+        }
+        thead tr:last-child th {
+            border-bottom: 1px solid $gray-dark;
+        }
+        tbody td {
+            border-bottom: 1px solid $gray-dark;
+        }
+    }
+
+    summary {
+        background: lighten($dark-background-color, 10%);
+        color: $gray-dark;
+    }
+
+    details {
+        background: darken($gray-darkest, 5%);
+    }
+
+    details[open] summary {
+        background: darken($primary-color, 20%);
+        color: $gray-dark;
+    }
+
+    details p {
+        color: $gray-darker;
+    }
+
+    code {
+        background: lighten($gray-darkest, 7%);
+    }
+
+    pre {
+        background: darken($gray-darkest, 5%);
+        border: none;
+    }
+
+    .highlight {
+        .n {
+            color: $gray-dark;
+        }
+        .nv {
+            color: $gray-dark;
+        }
+        .p {
+            color: darken($gray-dark, 10%);
+        }
+    }
+
+    .read-more-item-dim {
+        color: $dark-hover-color;
+    }
+}
