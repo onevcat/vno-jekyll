@@ -7,6 +7,22 @@ tags: python
 
 整理自小甲鱼[鱼C论坛](https://fishc.com.cn/)
 
+<!-- TOC GFM -->
+
+- [什么是生成器](#什么是生成器)
+- [协同程序](#协同程序)
+- [生成器表达式](#生成器表达式)
+	+ [列表推导式 ( list comprehensions )](#列表推导式--list-comprehensions-)
+	+ [字典推导式 （ dictionary comprehension ）](#字典推导式--dictionary-comprehension-)
+	+ [结合推导式 （ set comprehension ）](#结合推导式--set-comprehension-)
+- [作业](#作业)
+- [关于 yield 与 Generator 提高篇](#关于-yield-与-generator-提高篇)
+	+ [协同（协同程序）与子例程](#协同协同程序与子例程)
+- [`next()`和`send()`用法](#next和send用法)
+- [总结](#总结)
+
+<!-- /TOC -->
+
 ### 什么是生成器
 
 生成器（ iterator ）和迭代器（ generator ）是 Python 今年来引入的最强大的两个特性，但其不涉及魔法方法，可以巧妙避开类和对象，仅通过普通的函数即可实现。
@@ -112,8 +128,8 @@ for i in range(100):
 	 >>> (i for i in range(10))
 	 <generator object <genexpr> at 0x03135300>
 	 ```
-	 
-	 ```
+
+	 ```python
 	 >>> e = (i for i in range(10))
 	 0
 	 >>> next (e)
@@ -271,7 +287,7 @@ number += 1
 
 + 如果`send`不携带参数，那么`send(None)` 和`next()`的作用的相同的
 
-	```
+	```python
 	>>> def a():
 		print('aaa')
 		p = yield '123'
@@ -287,7 +303,6 @@ number += 1
 	aaa
 	123
 	```
-
 
 + 如果`send`的参数不是`None`，则是把`yield xx`当成一个表达式，且把`send`的参数的值赋给了p；而后的操作同next一样，如：
 

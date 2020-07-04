@@ -7,6 +7,24 @@ tags: MachineLearning
 
 整理自[李宏毅教授 2020 机器学习课程](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html)
 
+<!-- TOC GFM -->
+
+* [Regression](#regression)
+* [Example Application](#example-application)
+		+ [Step 1: Model](#step-1-model)
+* [Basic Concept - Where does the error come from?](#basic-concept---where-does-the-error-come-from)
+	- [Estimator](#estimator)
+	- [Bias and Variance of Estimator](#bias-and-variance-of-estimator)
+		+ [Variance](#variance)
+		+ [Bias](#bias)
+		+ [What to do with large bias?](#what-to-do-with-large-bias)
+	- [What to do with large variance?](#what-to-do-with-large-variance)
+	- [Model Selection](#model-selection)
+	- [Cross Validation](#cross-validation)
+		+ [N-fold Cross Validation](#n-fold-cross-validation)
+
+<!-- /TOC -->
+
 ## Regression
 
 + Stock Market Forecast
