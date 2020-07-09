@@ -1,0 +1,212 @@
+I"8<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+<h3 id="反运算">反运算</h3>
+
+<p>执行反运算时首先观察加法规则：</p>
+
+\[a + b\]
+
+<p>这个加法中，首先来确定谁是加法的主动一方，谁是被加一方。a 是主动实施加法的一方，而b则是被加一方。而反运算描述的就是被加一方的相关的算数性质。</p>
+
+<p>如下：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">calss</span> <span class="n">Nint</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">.</span><span class="n">__sub__</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Nint</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Nint</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>    <span class="c1">#当存在主动加法施加的a时，将会调用a的__add__()
+</span><span class="mi">8</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">b</span>    <span class="c1">#当第一个数是常数，不具备__add__()时，就只会调用b的被加一方的__radd__()方法
+</span><span class="o">-</span><span class="mi">2</span>
+</code></pre></div></div>
+<p>这里要注意<code class="language-plaintext highlighter-rouge">other</code>和<code class="language-plaintext highlighter-rouge">self</code>的顺序，如下，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Nint</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">.</span><span class="n">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Nint</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">a</span>
+<span class="mi">2</span>
+</code></pre></div></div>
+
+<p>除了例子中的<code class="language-plaintext highlighter-rouge">__rsub__()</code>方法外，还有以下的反运算相关的魔法方法，</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>魔法方法</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>__radd__(self, other)</td>
+      <td>定义加法行为：+</td>
+    </tr>
+    <tr>
+      <td>__rsub__(self, other)</td>
+      <td>定义减法行为：-</td>
+    </tr>
+    <tr>
+      <td>__rmul__(self, other)</td>
+      <td>定义乘法行为：*</td>
+    </tr>
+    <tr>
+      <td>__rtruediv__(self, other)</td>
+      <td>定义真除法行为：/</td>
+    </tr>
+    <tr>
+      <td>__rfllordiv__(self, other)</td>
+      <td>定义整数除法：//</td>
+    </tr>
+    <tr>
+      <td>__rmod__(self, other)</td>
+      <td>定义取模算法：%</td>
+    </tr>
+    <tr>
+      <td>__rpow__(self, other)</td>
+      <td>定义当被power()调用算法：**</td>
+    </tr>
+    <tr>
+      <td>以下为汇编行为</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>__rlshift__(self, other)</td>
+      <td>定义按位左移位行为：«</td>
+    </tr>
+    <tr>
+      <td>__rrshift__(self, other)</td>
+      <td>定义按位右移位行为：»</td>
+    </tr>
+    <tr>
+      <td>__rand__(self, other)</td>
+      <td>定义按位与操作行为：&amp;</td>
+    </tr>
+    <tr>
+      <td>__rxor__(self, other)</td>
+      <td>定义按位异或操作行为：^</td>
+    </tr>
+    <tr>
+      <td>__ror__(self, other)</td>
+      <td>定义按位或操作行为：|</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>需要注意的是，<strong>以上操作都在相应操作数不支持相应操作时被调用</strong></p>
+</blockquote>
+
+<h3 id="一元操作符">一元操作符</h3>
+
+<p>Python 支持的一元操作符：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>一元操作符</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>__neg__()</td>
+      <td>表示负号行为</td>
+    </tr>
+    <tr>
+      <td>__pos__()</td>
+      <td>表示正号行为</td>
+    </tr>
+    <tr>
+      <td>__abs__()</td>
+      <td>表示取绝对值时被调用的行为</td>
+    </tr>
+    <tr>
+      <td>__invert__()</td>
+      <td>表示定义按位取反的行为</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>问题：</p>
+</blockquote>
+
+<p>(1) 如何在继承的类中调用基类的方法?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">meth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Derived</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">meth</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>(2) 如果继承的基类是动态的，如何部署代码？</p>
+
+<p>可以先为基类定义一个别名，在类定义时，使用别名代替你要继承的基类。如此，当想要改变基类的时候，只需要修改给别名赋值的那个语句即可。<strong>当资源是视情况而定的时候，这个方法很好用</strong>。代码示例如下,</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BaseAlias</span> <span class="o">=</span> <span class="n">BaseClass</span>
+
+<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">BaseAlias</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">meth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BaseAlias</span><span class="p">.</span><span class="n">meth</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="p">...</span>
+</code></pre></div></div>
+
+<p>(3) 举例说明静态，并指出使用类的静态方法的优点</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+    <span class="o">@</span><span class="nb">staticmethod</span> <span class="c1"># 该修饰符表示static()是静态方法
+</span>    <span class="k">def</span> <span class="nf">static</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">arg3</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">arg3</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">nostatic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'nostatic
+</span></code></pre></div></div>
+
+<p>静态方法最大的优点，就是不会绑定到<strong>实例对象上，节省开销</strong>。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="c1"># 静态方法只在内存中生成一个，节省开销
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span><span class="p">.</span><span class="n">static</span> <span class="ow">is</span> <span class="n">C</span><span class="p">.</span><span class="n">static</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span><span class="p">.</span><span class="n">nostatic</span> <span class="ow">is</span> <span class="n">C</span><span class="p">.</span><span class="n">nostatic</span>
+<span class="bp">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span><span class="p">.</span><span class="n">static</span>
+<span class="o">&lt;</span><span class="n">function</span> <span class="n">C</span><span class="p">.</span><span class="n">static</span> <span class="n">at</span> <span class="mh">0x03001420</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c2</span><span class="p">.</span><span class="n">static</span>
+<span class="o">&lt;</span><span class="n">function</span> <span class="n">C</span><span class="p">.</span><span class="n">static</span> <span class="n">at</span> <span class="mh">0x03001420</span><span class="o">&gt;</span>    <span class="c1">#注意这里c1和c2实例对象的静态方法地址相同
+# 以下是动态方法，注意与静态方法的比较，开销很大
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span><span class="p">.</span><span class="n">nostatic</span>
+<span class="o">&lt;</span><span class="n">bound</span> <span class="n">method</span> <span class="n">C</span><span class="p">.</span><span class="n">nostatic</span> <span class="n">of</span> <span class="o">&lt;</span><span class="n">__main__</span><span class="p">.</span><span class="n">C</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x03010590</span><span class="o">&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c2</span><span class="p">.</span><span class="n">nostatic</span>
+<span class="o">&lt;</span><span class="n">bound</span> <span class="n">method</span> <span class="n">C</span><span class="p">.</span><span class="n">nostatic</span> <span class="n">of</span> <span class="o">&lt;</span><span class="n">__main__</span><span class="p">.</span><span class="n">C</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x032809D0</span><span class="o">&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">C</span><span class="p">.</span><span class="n">nostatic</span>
+<span class="o">&lt;</span><span class="n">function</span> <span class="n">C</span><span class="p">.</span><span class="n">nostatic</span> <span class="n">at</span> <span class="mh">0x038D2B8</span><span class="o">&gt;</span>
+</code></pre></div></div>
+<blockquote>
+  <p>需要注意，静态方法不需要self参数，因此即使是使用对象去访问，self参数也无法传输进去</p>
+</blockquote>
+
+<p>(4) 定义一个类，当实例化该类时，自动判断传入了多少参数，并显示出来。效果如下，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="n">并没有传入参数</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">传入3个参数</span><span class="err">，</span><span class="n">分别是</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
+</code></pre></div></div>
+<p>代码如下：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ShowNum</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'并没有输入参数'</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'传入%d个参数'</span><span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">each</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">' '</span><span class="p">)</span>
+</code></pre></div></div>
+
+:ET

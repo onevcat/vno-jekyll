@@ -1,0 +1,70 @@
+I"%<p>In TEM, there are two kinds of contrast:</p>
+
+<h3 id="amplitude-contrast">Amplitude Contrast</h3>
+
+<p>As you can see in the figure,</p>
+
+<p><img src="/assets/201911/2019-11-25_10-11-03.png" alt="figure1" /></p>
+
+<p>When the incident electrons ‘light’ on the sample, there will be three kinds of resulted electrons, which is also mentioned before in the <a href="http://life.zququ.fun/2019/11/amplitude-and-phase-contrast-1/">‘The interaction between the electron and the sample’</a>, they are unscattered primary electrons, inelastically scattered primary electrons and elastically scattered primary respectively.</p>
+
+<p>For the unscattered primary electrons (in pink), they are not influenced by the sample and no energy or amplitude (intensity) is changed.</p>
+
+<p>For the inelastically primary electrons (not given in the figure), which has lost part of energy transfered by interaction with the sample, which can be filtered out by the inelastically primary electrons. So basecally, we don’t need to discuss the inelastically primary.</p>
+
+<p>For the elastically (in green), it will be interesting, because as mentioned before, although there will be no energy transfer during interaction with the sample (which means they will not filtered out by eneryg filter), some electrons will scattered with a very high angles or even returning from the original road, which will do no contribution to the image. So, there will be the aperture to limit the elastically scattered electrons into some fixed angle range. The result is, the amplitude of the scattered electrons will decrease and make the fisrt contrast with the unscattered electrons. It is the so-called <strong>amplitude contrast</strong>.</p>
+
+<h3 id="phase-contrast">Phase contrast</h3>
+
+<p>Like double slit experiment, an electron microscope is like a billion slit experiment each electron idividually feels all the atoms of the sample and collecting all of their scattering to produce an image.</p>
+
+<p>When the incident electrons interact with the electrons in the track of the sample atoms, electrons will go along any directions and angles which will create the wave as seen in the figure,</p>
+
+<p><img src="/assets/201911/2019-11-25_10-28-54.png" alt="figure2" /></p>
+
+<p>After which, many plane waves derived from the interactions between incident electrons and the atoms electrons will pass through the imaginary plane with different phase angle (Θ),</p>
+
+<p><img src="/assets/201911/2019-11-25_10-33-36.png" alt="figure3" /></p>
+
+<p>In this way, the create a very complex phase riples situations, different interactions make different plane waves with different spreading angles,</p>
+
+<p><img src="/assets/201911/2019-11-25_10-44-25.png" alt="figure4" /></p>
+
+<p>This angle, we call it ‘α’. First of all, let’s think of it in a more complex view step by step,</p>
+
+<p><img src="/assets/201911/2019-11-25_10-49-13.png" alt="figure5" /></p>
+
+<p>Before discussing, there is a very important equations in crystallography, braggs equation:</p>
+
+\[sinα = λ/d\]
+
+<p>, where α is the incident angle, λ is the wave length and d is the spacing of the crystal faces formed by the repeating unit.</p>
+
+<p>We think of the repeating unit as every integrate protein structures, in other words, think of the every whole proteins as the scattering centers. Referenced by the braggs equation, gives a α， we name it $α_1$.</p>
+
+<p>Let’s go on, in the next figure, I showed a more complex situation, when the scattering center is more and more ‘detailed’, will gives a bigger and bigger ‘α’, and</p>
+
+<p><img src="/assets/201911/2019-11-25_10-58-53.png" alt="figure8" /></p>
+
+<p>$ α_1 &lt; α_2 &lt; … &lt;α_n $</p>
+
+<p>From this example, we can also get a conclusion, the higher angle of the incident angle, the higher resolution of the structural information we will get. As seen in the figure bellow,</p>
+
+<p><img src="/assets/201911/2019-11-25_11-04-31.png" alt="figure6" /></p>
+
+<p>which Y-axis shows the density and showing how much this sin function would be needed to represent the density.</p>
+
+<p>In the end, let’s discuss something in crystallography. Because cryo-EM is very similar to the crystallography. The figure bellow gives a diffraction image model,</p>
+
+<p><img src="/assets/201911/2019-11-25_11-10-27.png" alt="figure7" /></p>
+
+<p>Where does the diffraction point come from?</p>
+
+<ol>
+  <li>Each spot represents a Fourier component (a 3-D sin wave)</li>
+  <li>Identify by miller index (h, k, l)</li>
+  <li>Each has an amplitude and a phase</li>
+  <li>Both must be known to recalculate the “real space” object</li>
+</ol>
+
+:ET

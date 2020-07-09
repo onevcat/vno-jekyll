@@ -1,0 +1,90 @@
+I"�%<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+<h3 id="构造与析构">构造与析构</h3>
+
+<h4 id="__init__self"><code class="language-plaintext highlighter-rouge">__init__(self[,...])</code></h4>
+
+<p><strong>init</strong>()相当于其他面向对象编程语言的构造方法，也就是<strong>类在实例化成对象时，首先会调用的方法</strong>。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">getArea</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">y</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>    <span class="c1">#这里输入__init__()中需要的参数。
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">rect</span><span class="p">.</span><span class="n">getArea</span><span class="p">()</span>
+<span class="mi">12</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>需要注意，<strong>init</strong>()方法不能return值，只能return None.</p>
+</blockquote>
+
+<h4 id="__new__cls"><code class="language-plaintext highlighter-rouge">__new__(cls[,...])</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">__new__()</code>方法是对象实例化时，调用的第一个方法。<strong>他的第一个参数不self，而是类cls</strong>，<strong>同时，其他参数会传入<code class="language-plaintext highlighter-rouge">__init__()</code>中</strong>。</p>
+
+<p><code class="language-plaintext highlighter-rouge">__new__()</code><strong>需要返回一个实例对象</strong>，通常是cls这个类实例化的对象，当然也可以返回其他对象。</p>
+
+<p>通常在<strong>继承一个不可变的类型的时候</strong>，需要使用<code class="language-plaintext highlighter-rouge">__new__()</code>方法。如下代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CapStr</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="p">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Capstr</span><span class="p">(</span><span class="s">'abc'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="s">'ABC'</span>
+</code></pre></div></div>
+<h4 id="__del__self"><code class="language-plaintext highlighter-rouge">__del__(self)</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">__del__()</code>方法只有在垃圾回收机制激活时才能调用，即对应数据完全删除以后。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">DelPrint</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'__delf__()方法被调用'</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">DelPrint</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">C</span> <span class="o">=</span> <span class="n">B</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">B</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">C</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">A</span>
+<span class="n">__delf__</span><span class="p">()</span><span class="n">方法被调用</span>
+</code></pre></div></div>
+
+<p>练习：</p>
+
+<p>(1) 写一个FileObject类，给文件对象进行包装，从而确认在删除对象时文件能自动关闭。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">FileObject</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">FILE</span><span class="o">=</span><span class="s">'example.txt'</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">FILE</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">FILE</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">FILE</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">FILE</span>
+</code></pre></div></div>
+
+<p>(2) 定义一个摄氏度到华氏度转换(华氏度 = 摄氏度*1.8 + 32)。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">C2F</span><span class="p">(</span><span class="nb">float</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">C</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span> <span class="mf">1.8</span> <span class="o">+</span> <span class="mi">32</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>(3) 定一个一个类继承int类型，当传入参数是字符串时候，返回该字符串所有字符的ASCII码的和（ord()）</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">TOASCII</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">INPUT</span> <span class="o">=</span> <span class="s">''</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">INPUT</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">INPUT</span><span class="p">:</span>
+                <span class="n">total</span> <span class="o">+=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+                <span class="n">INPUT</span> <span class="o">=</span> <span class="n">total</span>  <span class="c1">#最后要赋值回INPUT
+</span>        <span class="k">return</span> <span class="nb">int</span><span class="p">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">TOASCII</span><span class="p">(</span><span class="s">'A'</span><span class="p">))</span>
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,164 @@
+---
+layout: post
+title: HTML5 基础
+date: 2020-07-09 13:40:24.000000000 +09:00
+tags: blog
+---
+
+## 什么是HTML
+
++ HyperText Markup Language （超文本**标记语言**）
+
++ 不是编程语言
+
++ 告诉浏览器如何构造网页
+
+HTML 的模式如图所示，
+
+![figure1](/assets/202007/2020-07-09_13-46-08.png) 
+
+关于Taq可以在[这里找到](http://developer.mozilla.org/en-US/docs/Web/HTML/Element) 
+
+## 基础语法
+
+```html
+<!DOCTYPE html> <!--解释文档的类型-->
+<html>
+	<head>
+		<title>This is a page title</title>
+	</head>
+
+	<body>
+		<h1>This is a heading</hl>
+		<p>This is a paragraph</p>
+		<p>This is a paragraph</p>
+	</body>
+</html
+```
+
+## 实例
+
+```
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>HTML Crash Course For Beginners</title>
+</head>
+
+<body>
+	<!--Headings-->
+	<h1>Heading One</h1>
+	<h2>Heading Two</h2>
+	<h3>Heading Three</h3>
+	<h4>Heading Four</h4>
+	<h5>Heading Five</h5>
+	<h6>Heading Six</h6>
+
+	<!--Paragraph-->
+	<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum, ipsum.</p>
+	<p>Lorem ipsum
+		<strong>dolor, sit amet consecteturs</strong> adipisicing elit. Nisi expedita accusantium nulla.
+		<em>Numquam eaque id voluptas</em> ratione officia, voluptatibus dolore ullam quis repellat blanditiis ipsam
+		excepturi sint vero perspiciatis ad.</p>
+	<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum a provident iusto optio dolores quaerat, excepturi
+		voluptatibus, recusandae laboriosam perspiciatis nulla et aperiam
+		<a href="https://google.com" target="_blank">ex totam</a> fugiat doloribus pariatur enim iure.</p>
+
+	<!--Lists-->
+	<ul>
+		<li>List Item 1</li>
+		<li>List Item 2</li>
+		<li>List Item 3</li>
+		<li>List Item 4</li>
+		<li>List Item 5</li>
+	</ul>
+
+	<ol>
+		<li>List Item 1</li>
+		<li>List Item 2</li>
+		<li>List Item 3</li>
+		<li>List Item 4</li>
+		<li>List Item 5</li>
+	</ol>
+
+	<!--Table-->
+	<table>
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Age</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Leonard</td>
+				<td>Chan</td>
+				<td>99</td>
+				<td>abc@abc.com</td>
+			</tr>
+			<tr>
+				<td>Leonard</td>
+				<td>Chan</td>
+				<td>99</td>
+				<td>abc@abc.com</td>
+			</tr>
+			<tr>
+				<td>Leonard</td>
+				<td>Chan</td>
+				<td>99</td>
+				<td>abc@abc.com</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<!--Forms-->
+	<form action="form.js" method="" POST>
+		<div>
+			<label>First Name</label>
+			<input type="text" name="firstname" placeholder="Enter First Name">
+		</div>
+		<div>
+			<label>Last Name</label>
+			<input type="text" name="lastname" placeholder="Enter Last Name">
+		</div>
+		<div>
+			<label>Email</label>
+			<input type="email" name="email" placeholder="Enter Email">
+		</div>
+		<input type="submit" name="submit" value="Submit">
+	</form>
+	<br>
+
+	<!--Button-->
+	<button>This is a Button</button>
+
+	<!--Image-->
+	<img style="width: 100vw" src="img/pic.jpg" alt="This is a img tag">
+
+	<!--Quotation-->
+	<blockquote>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quibusdam ipsam rerum, voluptas quasi
+		dolorem exercitationem natus ipsa voluptatum enim, ad voluptates nihil ratione eligendi totam doloribus nesciunt
+		earum corrupti, cupiditate distinctio excepturi nobis praesentium. Sequi, delectus? Autem aspernatur fugiat,
+		consequuntur tempora magni excepturi deleniti, esse quia, temporibus explicabo optio?</blockquote>
+
+	<p><abbr title="Massachusetts Institute of Technology">MIT</abbr> is a presitigious college</p>
+
+	<p><cite>MIT is a prestigious college</cite> by DasAuto</p>
+
+	<div style="margin-top:1000px"></div>
+</body>
+
+</html>
+```
+
+[生成以后的网页渲染效果，请点击这里](http://life.zququ.fun/assets/202007/test.html) 
+
+

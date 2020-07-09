@@ -1,0 +1,114 @@
+I"1?<h2 id="something-about-parameter-binding">Something about parameter binding</h2>
+<p>Function is stored as the attribute of class, as you can see in the code followed.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+    <span class="k">def</span> <span class="nf">get_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">size</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Pizza</span><span class="p">.</span><span class="n">get_size</span><span class="p">)</span>
+</code></pre></div></div>
+<p>You can find the result like this, <code class="language-plaintext highlighter-rouge">&lt;unbound method Pizza.get_size&gt;</code>. It shows the attribute of the function <code class="language-plaintext highlighter-rouge">get_size</code> is not bound to any class. And if we try to make this fuction work like this.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Pizza</span><span class="p">.</span><span class="n">get_size</span><span class="p">()</span> 
+</code></pre></div></div>
+<p>Will traceback <code class="language-plaintext highlighter-rouge">unbound method get_size() must be called with Pizza instance as first argument</code>. And it is clear that, if we can’t call this function because it’s not bound to any instance of Pizza. And we need to make it like this.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Pizza</span><span class="p">.</span><span class="n">get_size</span><span class="p">(</span><span class="n">Pizza</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span>
+<span class="ow">or</span>
+<span class="n">Pizza</span><span class="p">(</span><span class="mi">42</span><span class="p">).</span><span class="n">get_size</span><span class="p">()</span>  <span class="c1">#self parameter will pass to Pizza(42), this instance
+</span><span class="ow">or</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Pizza</span><span class="p">(</span><span class="mi">42</span><span class="p">).</span><span class="n">get_size</span>
+<span class="n">m</span><span class="p">()</span>
+</code></pre></div></div>
+<p>If you want to see where the bound function binds to, try this.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span> <span class="o">=</span> <span class="n">Pizza</span><span class="p">(</span><span class="mi">42</span><span class="p">).</span><span class="n">get_size</span>
+<span class="n">m</span><span class="p">.</span><span class="n">__self__</span>
+</code></pre></div></div>
+<p>I will give some codes about staticmethod of Python</p>
+<h2 id="some-codes-to-learn-staticmethod-of-python">Some codes to learn Staticmethod of Python</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Pizza</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">cheese</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">vegetables</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="o">@</span><span class="nb">staticmethod</span> <span class="c1"># Here if you delete this code, program will go well too, because it runs as dynamic method
+</span>    <span class="k">def</span> <span class="nf">mix_ingredients</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+    <span class="k">def</span> <span class="nf">cook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Pizza</span><span class="p">.</span><span class="n">mix_ingredients</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">cheese</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">vegetables</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Pizza</span><span class="p">.</span><span class="n">mix_ingredients</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Pizza</span><span class="p">().</span><span class="n">cook</span><span class="p">())</span>
+</code></pre></div></div>
+<p>Here <code class="language-plaintext highlighter-rouge">@staticmethod</code> is a marker to begin the staticmethod which lead the defination of <code class="language-plaintext highlighter-rouge">mix_ingredients</code> a static fuction. When we make it a staticmethod, we can make the instance x, y not self. In this way, when we have the function, we don’t need to input <code class="language-plaintext highlighter-rouge">Pizza().mix_ingredients(1, 2)</code> again, input <code class="language-plaintext highlighter-rouge">Pizza.mix_ingredients(1, 2)</code>is OK. To make a comparation, we give another function, <code class="language-plaintext highlighter-rouge">cook</code>, which is not a statcimethod, and in this situation, we must define a instance to <code class="language-plaintext highlighter-rouge">Pizza()</code>, and only in this way, the function of self will pass to <code class="language-plaintext highlighter-rouge">Pizza()</code>.</p>
+
+<h2 id="the-class-method">The class method</h2>
+<p>See this code.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">math</span>
+<span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+    <span class="o">@</span><span class="nb">staticmethod</span>
+    <span class="k">def</span> <span class="nf">compute_circumference</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">math</span><span class="p">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="o">@</span><span class="nb">classmethod</span>
+    <span class="k">def</span> <span class="nf">compute_volume</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">height</span> <span class="o">*</span> <span class="n">cls</span><span class="p">.</span><span class="n">compute_circumference</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">Pizza</span><span class="p">.</span><span class="n">compute_volume</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div></div>
+<p>What is a class method, it’s a function bound to class not instance. And the first parameter must be the <code class="language-plaintext highlighter-rouge">cls</code> class itself. And when the function is bound to cls, if we delelte the base_class, the classmethod will still work well. The other side, the staticmethod will not be that lucky, it will call a error as seen followed:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Using the staticmethod
+</span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="s">'A'</span><span class="p">]</span>
+    <span class="o">@</span><span class="nb">staticmethod</span>
+    <span class="k">def</span> <span class="nf">sta</span><span class="p">(</span><span class="n">new_key</span><span class="p">):</span>
+        <span class="n">Pizza</span><span class="p">.</span><span class="n">key</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Pizza</span><span class="p">.</span><span class="n">key</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Pizza</span><span class="p">.</span><span class="n">sta</span><span class="p">(</span><span class="s">'B'</span><span class="p">))</span>
+<span class="k">del</span> <span class="n">Pizza</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Pizza</span><span class="p">.</span><span class="n">sta</span><span class="p">(</span><span class="s">'B'</span><span class="p">))</span>
+<span class="c1">#Output will be error:  
+</span><span class="o">&gt;</span> <span class="nb">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s">'Pizza'</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+
+<span class="c1"># Using the classmethod
+</span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="s">'A'</span><span class="p">]</span>
+    <span class="o">@</span><span class="nb">classmethod</span>
+    <span class="k">def</span> <span class="nf">Cls</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">new_key</span><span class="p">):</span>
+        <span class="n">cls</span><span class="p">.</span><span class="n">new_key</span> <span class="o">=</span> <span class="n">new_key</span>
+        <span class="n">cls</span><span class="p">.</span><span class="n">key</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Pizza</span><span class="p">.</span><span class="n">key</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Pizza</span><span class="p">.</span><span class="n">Cls</span><span class="p">(</span><span class="s">'B'</span><span class="p">))</span>
+<span class="k">del</span> <span class="n">Pizza</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Pizza</span><span class="p">.</span><span class="n">Cls</span><span class="p">(</span><span class="s">'B'</span><span class="p">))</span>
+<span class="c1"># Everything will go well (maybe)
+</span></code></pre></div></div>
+<h2 id="the-abstract-method">The abstract method</h2>
+<p>The abstract method is defined in a base_class, but will not get any achievement until this function is inherited to the subclass.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">abc</span>
+<span class="k">class</span> <span class="nc">BasePizza</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__meta__</span> <span class="o">=</span> <span class="n">abc</span><span class="p">.</span><span class="n">abstractmethod</span>
+    <span class="o">@</span><span class="n">abc</span><span class="p">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">{</span><span class="n">Method</span> <span class="n">that</span> <span class="n">should</span> <span class="n">do</span> <span class="n">something</span><span class="p">}</span>
+<span class="n">BasePizza</span><span class="p">()</span>
+<span class="c1"># it will make typeerr
+</span><span class="o">&gt;</span> <span class="nb">TypeError</span><span class="p">:</span> <span class="n">Can</span><span class="s">'t instantiate abstract class BasePizza with abstract mehtods get_radius
+</span></code></pre></div></div>
+<p>Ok let’s make an exercise mixed with all of the methods:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">abc</span>
+<span class="k">class</span> <span class="nc">BasePizza</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="p">.</span><span class="n">ABCMeta</span>
+    <span class="n">ingredient</span> <span class="o">=</span> <span class="p">[</span><span class="s">'cheese'</span><span class="p">]</span>
+    <span class="o">@</span><span class="nb">classmethod</span>
+    <span class="o">@</span><span class="n">abc</span><span class="p">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_ingredients</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="p">{</span><span class="n">Returns</span> <span class="n">the</span> <span class="n">ingredient</span> <span class="nb">list</span><span class="p">}}</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="p">.</span><span class="n">ingredient</span>
+
+<span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">BasePizza</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_ingredients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span><span class="p">[</span><span class="s">'egg'</span><span class="p">]</span> <span class="o">+</span> <span class="nb">super</span><span class="p">(</span><span class="n">Pizza</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">get_ingredients</span><span class="p">()</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">Pizza</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">get_ingredients</span><span class="p">())</span>
+</code></pre></div></div>
+
+:ET

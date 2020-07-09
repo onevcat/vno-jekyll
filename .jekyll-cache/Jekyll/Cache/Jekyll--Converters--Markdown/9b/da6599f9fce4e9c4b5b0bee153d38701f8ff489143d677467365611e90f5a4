@@ -1,0 +1,85 @@
+I"�<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+<h3 id="对类或者对象从属判断的内置函数">对类或者对象从属判断的内置函数</h3>
+<h4 id="issubclassclass-classinfo">issubclass(class, classinfo)</h4>
+
+<p>如果第一个参数(class)是第二个参数(classinfo)的一个子类，返回True否则返回False</p>
+
+<ol>
+  <li>一个类被认为是其自身的子类</li>
+  <li>classinfo可以是一个类对象组成的元组，只要class是其中任何一个候选类的子类，则返回True</li>
+  <li>其他情况会抛出TypeError</li>
+</ol>
+
+<h4 id="isinstanceobject-classinfo">isinstance(object, classinfo)</h4>
+
+<p>如果第一个参数(object)是第二个参数(classinfo)的实例对象，则返回True，否则返回False。</p>
+
+<ol>
+  <li>如果object是classinfo 的子类的一个实例，也符合条件</li>
+  <li>如果第一个参数不是对象，则永远返回False</li>
+  <li>classinfo可以是类对象组成的元组，只要object是其中任何一个候选类的子类，则返回True</li>
+  <li>如果第二个参数不是类或者由类对象组成的元组，会抛出一个TypeError异常</li>
+</ol>
+
+<h3 id="用于访问对象的属性">用于访问对象的属性</h3>
+<h4 id="hasattrobject-name">hasattr(object, name)</h4>
+
+<p>attr即attribute的缩写，属性的意思。hasattr()函数的作用就是测试一个对象里是否有指定的属性。</p>
+
+<p>第一个object是对象，第二个name是属性名。</p>
+
+<h4 id="getattrobject-name-default">getattr(object, name[, default])</h4>
+
+<p>返回对象指定的属性值，如果指定的属性不存在，则返回default的值；若没有设置default参数，抛出AttributeError。  <strong>注意属性要用字符串的形式给出</strong></p>
+
+<h4 id="setattrobject-name-value">setattr(object, name, value)</h4>
+
+<p>与getattr()对应，setattr()可以设置对象中指定属性的值，如果指定的属性不存在，则会新建属性并赋值。 <strong>注意属性要用字符串的形式给出</strong></p>
+
+<h4 id="delattrobject-name">delattr(object, name)</h4>
+
+<p>与setattr()相反，delattr()用于删除对象中指定的属性如果属性不存在，则抛出AttributeError。 <strong>注意属性要用字符串的形式给出</strong></p>
+
+<h4 id="propertyfgetnone-fsetnone-fdelnone-docnone">property(fget=None, fset=None, fdel=None, doc=None)</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_x</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">getx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_X</span>
+
+    <span class="k">def</span> <span class="nf">setx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">delx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">_x</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">getx</span><span class="p">,</span> <span class="n">setx</span><span class="p">,</span> <span class="n">delx</span><span class="p">,</span> <span class="s">"I'm the 'x' property"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>这样做可以避免大范围对代码中的变量getx, setx, delx进行修改，直接操作x的属性即可。</p>
+
+<p>另外property()也可以用来使用属性修饰符创建描述符：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_x</span> <span class="o">=</span> <span class="bp">None</span>
+    
+    <span class="o">@</span><span class="nb">property</span> 
+    <span class="k">del</span> <span class="n">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># I'm the 'x' property
+</span>        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_x</span>
+
+    <span class="o">@</span><span class="n">x</span><span class="p">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="o">@</span><span class="n">x</span><span class="p">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">_x</span>
+</code></pre></div></div>
+
+<p>注意：三个处理<code class="language-plaintext highlighter-rouge">_x</code>属性的方法名要相同(参数不同)</p>
+
+:ET

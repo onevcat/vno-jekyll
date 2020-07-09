@@ -4,12 +4,14 @@ title: python 魔方方法 (1) 构造与析构
 date: 2019-11-20 22:13:24.000000000 +09:00
 tags: python
 ---
+
 整理自小甲鱼[鱼C论坛](https://fishc.com.cn/)
+
 ### 构造与析构
 
 #### `__init__(self[,...])`
 
- __init__()相当于其他面向对象编程语言的构造方法，也就是**类在实例化成对象时，首先会调用的方法**。
+ `__init__()`相当于其他面向对象编程语言的构造方法，也就是**类在实例化成对象时，首先会调用的方法**。
 
 ```python
 class Rectangle:
@@ -24,7 +26,7 @@ class Rectangle:
 12
 ```
 
-> 需要注意，__init__()方法不能return值，只能return None.
+> 需要注意，`__init__()`方法不能return值，只能return None.
 
 #### `__new__(cls[,...])`
 
@@ -97,4 +99,3 @@ class TOASCII(int):
 
 >>> print(TOASCII('A'))
 ```
-

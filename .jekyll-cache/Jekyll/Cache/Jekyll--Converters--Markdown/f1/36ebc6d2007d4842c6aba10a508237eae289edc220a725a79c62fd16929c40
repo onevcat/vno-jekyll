@@ -1,0 +1,152 @@
+I"�<p>首先规定寄存器(reg，register): ax,bx,cx,dx,ah,al,bh,bl,ch,cl,dh,dl,sp,bp,si,di;</p>
+
+<p>规定段寄存器(sreg, segment register): ds,ss,cs,es。</p>
+
+<h3 id="81-bxsidi和bp">8.1 bx、si、di和bp</h3>
+
+<p>1.在8086CPU中只有<strong>bx,bp,si,di</strong>这四个寄存器可以在<code class="language-plaintext highlighter-rouge">[...]</code>, 中来进行内存单元的寻址。比如：</p>
+
+<pre><code class="language-x86asm">mov ax, [bx]
+mov ax, [bx+si]
+mov ax, [bx+di]
+mov ax, [bp]
+mov ax, [bp+si]
+mvo ax, [bp+di]
+</code></pre>
+
+<p>2.在[…]中，这4个寄存器可以单个出现，或者只能以4种组合出现：<strong>bx和si, bx和di, bp和si, bp和di</strong>，比如：</p>
+
+<pre><code class="language-x86asm">mov ax, [bx]
+mov ax, [si]
+mov ax, [di]
+mov ax, [bp]
+mov ax, [bx+si]
+mov ax, [bx+di]
+mov ax, [bp+si]
+mov ax, [bp+di]
+mov ax, [bx+si+idata]
+mov ax, [bx+di+idata]
+mov ax, [bp+si+idata]
+mov ax, [bp+di+idata]
+</code></pre>
+
+<p>3.只要在[…]中使用寄存器bp, 而指令中没有显性的给出段地址, 段地址就默认在ss中。比如：</p>
+
+<pre><code class="language-x86asm">mov ax, [bp]
+mov ax, [bp+idata]
+mov ax, [bp+si]
+mov ax, [bp+si+idata]    ;含义为(ax)=((ss)*16+(bp)+(si)+idata)
+</code></pre>
+
+<h3 id="82-机器指令处理的数据在什么地方">8.2 机器指令处理的数据在什么地方</h3>
+
+<p>绝大部分机器指令都是进行数据处理的指令，处理大致可分为3类：读取、写入、运算。在机器指令这一层来讲，并不关心数据的值是多少，而关心<strong>指令执行前一刻，它将要处理的数据所在位置</strong>。指令执行前，要处理的数据可以在三个地方：</p>
+
+<ol>
+  <li>CPU内部</li>
+  <li>内存</li>
+  <li>端口</li>
+</ol>
+
+<p>指令列举：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>机器码</th>
+      <th>汇编指令</th>
+      <th>指令执行前数据的位置</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8E1E0000</td>
+      <td>mov bx, [0]</td>
+      <td>内存，ds:0单元</td>
+    </tr>
+    <tr>
+      <td>89C3</td>
+      <td>mov bx, ax</td>
+      <td>CPU内部，ax寄存器</td>
+    </tr>
+    <tr>
+      <td>BB0100</td>
+      <td>mov bx, 1</td>
+      <td>CPU内部，指令缓冲器</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="83-汇编语言中数据位置表达">8.3 汇编语言中数据位置表达</h3>
+
+<p>1.立即数(idata)</p>
+
+<p>对于直接包含在机器指令中的数据(CPU的指令缓冲器中), 成为<strong>立即数(idata)</strong>。</p>
+
+<pre><code class="language-x86asm">mov ax, 1
+add bx, 2000H
+or bx, 00010000b
+mov al, 'a'
+</code></pre>
+<p>2.寄存器</p>
+
+<p>指令要处理的数据在寄存器中，在汇编指令中给出相应的寄存器名。</p>
+
+<pre><code class="language-x86asm">mov ax, bx
+mov ds, ax
+push bx
+mov ds:[0], bx
+push ds
+mov ss, ax
+mov sp, ax
+</code></pre>
+
+<p>3.段地址(SA)和偏移地址(EA)</p>
+
+<p>指令要处理的数据在内存中，在汇编指令中可用[X]的格式给出EA、SA在某个段寄存器中。</p>
+
+<p>存放段地址的寄存器可以是默认的，比如：</p>
+
+<pre><code class="language-x86asm">mov ax, [0]
+mov ax, [di]
+mov ax, [bx+9]
+mov ax, [bx+si]
+mov ax, [bx+si+8]
+</code></pre>
+<p>等指令，段地址默认在ds中。</p>
+
+<pre><code class="language-x86asm">mov ax, [bp]
+mov ax, [bp+8]
+mov ax, [bp+si]
+mov ax, [bp+si+8]
+</code></pre>
+<p>等指令，段地址默认在ss中。</p>
+
+<p>存放段地址的寄存器也可以是显性给出的，比如以下命令：</p>
+
+<pre><code class="language-x86asm">mov ax, ds:[bp]
+mov ax, es:[bx]
+mov ax, ss:[bx+si]
+mov ax, cs:[bx+si+8]    ;含义是 (ax)=((cs)*16+(bx)+(si)+8)
+</code></pre>
+<h3 id="84-寻址方式">8.4 寻址方式</h3>
+
+<p>当数据存放在内存中，我们可以用多种方式来给定这个内存单元的偏移地址，<strong>这种定位内存单元的方法一般被称为寻址方式</strong>。</p>
+
+<p>首先我们来看一下直接寻址的寻址方式：</p>
+
+<p>首先读取指令过程：</p>
+
+<p>第一步，代码段和代码段偏移地址在地址加法器中进行处理并给出相应地址：<code class="language-plaintext highlighter-rouge">2000E</code>, 在定位中定位相应的代码地址A10E00, 通过数据总线到达指令缓冲寄存器中。</p>
+
+<p><img src="/assets/201911/2019-11-19_11-25-01.png" alt="figure1" />
+<img src="/assets/201911/2019-11-19_11-26-02.png" alt="figure2" /></p>
+
+<p>注意偏移地址发生变化，ip从000E变为0011，指针只想了下一条指令。注意这里<strong>并未开始执行指令，这一步是将对应代码的地址从数据总线传输到指令缓冲寄存器</strong>。</p>
+
+<p>下一步，在指令缓冲器寄存器传入了上一步的地址后，<strong>由CPU读取指令缓冲器中的指令后</strong>，执行ip在2000E处的对应指令<code class="language-plaintext highlighter-rouge">mov ax, ds:[000E]</code>, 再次将地址加法器处理后，地址为2000E的对应在内存中的数据<code class="language-plaintext highlighter-rouge">A10E</code>(注意实际数据为<code class="language-plaintext highlighter-rouge">0EA1</code>)沿着数据总线传送到ax寄存器中。</p>
+
+<p><img src="/assets/201911/2019-11-19_11-27-44.png" alt="figure3" />
+<img src="/assets/201911/2019-11-19_11-27-58.png" alt="figure4" /></p>
+
+:ET

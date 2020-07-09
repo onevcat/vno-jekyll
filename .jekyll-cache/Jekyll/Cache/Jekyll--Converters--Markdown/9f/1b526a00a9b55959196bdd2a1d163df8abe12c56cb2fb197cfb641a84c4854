@@ -1,0 +1,115 @@
+I"<p>First of all, let’s introduce the definition of the Scannning EM and the Bright field EM respectively:</p>
+
+<blockquote>
+  <p>Scanning EM</p>
+</blockquote>
+
+<p>Take the incoming beam of electrons and focused on very small point, rather that small point back and forth across the image as if you are shining a flashlight on a poster.</p>
+
+<blockquote>
+  <p>Bright Field EM</p>
+</blockquote>
+
+<p>Illuminate the whole sample all at once, like lift your flashlight.</p>
+
+<p>When the incident electrons light on the conduction, as seen in the figure,</p>
+
+<p><img src="/assets/201911/2019-11-24_13-25-56.png" alt="figure1" /></p>
+
+<blockquote>
+  <p>Reflection:</p>
+</blockquote>
+
+<p>About the reflected electrons, there were two applications:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>.EXMA</td>
+      <td>..Hard x-ray</td>
+      <td>…Hard x-ray with high energy</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Soft x-ray</td>
+      <td>…Soft x-ray with lower energy</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Cathodoluminescene visible light</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>EXMA: measure wave length, get information about what elements are present in your sample (Because different elements will emit x-rays with different characteristics)</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>.SEM</td>
+      <td>..Back scattered primaries</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Secondaries angle</td>
+      <td>…Electrons interact with the electrons in the sample and cause sample electorns to be emitted</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Positive ions</td>
+      <td>…Electrons interacte with nuleus</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>SEM: Detector counting the number of charged particles coming back out of the sample, when it’s iluminated you can build up an image pixel by pixel by counting all of these charged particles as they emrge and correlating that counting with the position on the sample that your’re illuminating. Always you can find the detector this formations,</p>
+
+<p><img src="/assets/201911/2019-11-24_14-16-43.png" alt="figure2" /></p>
+
+<p>Get a much better looking image if you coat the surface with some form of metal often platinum.</p>
+
+<blockquote>
+  <p>About the Speciemn on the conduction:</p>
+</blockquote>
+
+<p>As electrons are being ejected from the sample they leave unmet positive charges within the sample and because the sample is clamped into a sample holder and that’s connected to the rest of the metal of the microscope, electrons will flow in from the mecroscope into the sample slowly to compensate for unmet charges, which is <strong>can be measured</strong>.</p>
+
+<blockquote>
+  <p>Transmission</p>
+</blockquote>
+
+<table>
+  <tbody>
+    <tr>
+      <td>.Primaries STEM (scanning + transmission)</td>
+      <td>..Wide-angle elastic</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Inelastic</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>.Primaries TEM</td>
+      <td>..Unscattered</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Inelastic</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Narrow-angle elastic</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Bright field mode, for the TEM, not only counting detector bu also an imaging detector like CCD.</p>
+
+:ET

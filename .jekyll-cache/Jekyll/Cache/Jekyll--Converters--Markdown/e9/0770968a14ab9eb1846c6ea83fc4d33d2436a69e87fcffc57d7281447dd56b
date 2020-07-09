@@ -1,0 +1,1150 @@
+I"8�<p><strong>ATTENTION! ALL THIS GUIDE IS PROVIDED BY theCW</strong>.</p>
+
+<p>TheCW very kindly provided this Neovim Config guide. However it is for Colemak user. For most nomal users, like me, need a normal keyboard version. So here comes this one.</p>
+
+<p>I have some modification to his guide, and the modificaitons are mainly about keyboard shortcuts.</p>
+
+<p>I make it just for myself,or maybe someone else who needs it as well.</p>
+
+<p><strong>I highly recommand</strong> you to visit and support the original author of the this post here (<a href="https://github.com/theniceboy/nvim">https://github.com/theniceboy/nvim</a>).</p>
+
+<p>And you can find my nvim config here (<a href="https://github.com/zququ/nvim-config-for-mac">https://github.com/zququ/nvim-config-for-mac</a>).</p>
+
+<h2 id="the-ultimate-neovim-config-of-normal-users"><center>The Ultimate NeoVim Config of Normal Users</center></h2>
+
+<center><img src="https://raw.githubusercontent.com/theniceboy/nvim/master/demo.png" /></center>
+
+<p>Please <strong>DO NOT</strong> just copy this configuration folder without really looking at it! Please, at least, read this README file!</p>
+
+<!-- TOC GFM -->
+
+<ul>
+  <li><a href="#after-installation-you-need-to">After Installation, You Need To</a></li>
+  <li><a href="#after-installation-you-might-want-to">After Installation, You Might Want To</a>
+    <ul>
+      <li><a href="#first-of-all">First of all</a></li>
+      <li><a href="#for-python-debugger-via-vimspector">For Python Debugger (via <code class="language-plaintext highlighter-rouge">vimspector</code>)</a></li>
+      <li><a href="#config-python-path">Config <code class="language-plaintext highlighter-rouge">Python</code> path</a></li>
+      <li><a href="#for-taglist">For Taglist:</a></li>
+      <li><a href="#for-fzf">For FZF</a></li>
+      <li><a href="#and-also">And also…</a></li>
+    </ul>
+  </li>
+  <li><a href="#keyboard-shortcuts">Keyboard Shortcuts</a>
+    <ul>
+      <li><a href="#1-basic-editor-features">1 Basic Editor Features</a>
+        <ul>
+          <li><a href="#11-the-most-basics">1.1 The Most Basics</a></li>
+          <li><a href="#12-remapped-cursor-movement">1.2 Remapped Cursor Movement</a></li>
+          <li><a href="#13-remapped-insert-mode-keys">1.3 Remapped Insert Mode Keys</a></li>
+          <li><a href="#14-remapped-text-manipulating-commands-in-normal-mode">1.4 Remapped Text Manipulating Commands in Normal Mode</a></li>
+          <li><a href="#15-other-useful-normal-mode-remappings">1.5 Other Useful Normal Mode Remappings</a></li>
+          <li><a href="#16-remapped-commands-in-visual-mode">1.6 Remapped Commands in Visual Mode</a></li>
+        </ul>
+      </li>
+      <li><a href="#2-window-management">2 Window Management</a>
+        <ul>
+          <li><a href="#21-creating-window-through-split-screen">2.1 Creating Window Through Split Screen</a></li>
+          <li><a href="#22-moving-the-cursor-between-different-windows">2.2 Moving the Cursor Between Different Windows</a></li>
+          <li><a href="#23-resizing-different-windows">2.3 Resizing Different Windows</a></li>
+          <li><a href="#24-closing-windows">2.4 Closing Windows</a></li>
+        </ul>
+      </li>
+      <li><a href="#3-tab-management">3 Tab Management</a></li>
+      <li><a href="#4-terminal-keyboard-shortcuts">4 Terminal Keyboard Shortcuts</a></li>
+    </ul>
+  </li>
+  <li><a href="#plugins-keybindings-screenshotsgif-provided">Plugins Keybindings (Screenshots/GIF provided!)</a>
+    <ul>
+      <li><a href="#autocompletion">AutoCompletion</a>
+        <ul>
+          <li><a href="#coc-autocompletion">COC (AutoCompletion)</a></li>
+          <li><a href="#ultisnips">Ultisnips</a></li>
+        </ul>
+      </li>
+      <li><a href="#debugger">Debugger</a>
+        <ul>
+          <li><a href="#vimspector-debugger-plugin">vimspector (debugger-plugin)</a></li>
+        </ul>
+      </li>
+      <li><a href="#file-navigation">File Navigation</a>
+        <ul>
+          <li><a href="#coc-explorer-file-browser">coc-explorer (file browser)</a></li>
+          <li><a href="#rnvimr---file-browser">rnvimr - file browser</a></li>
+          <li><a href="#fzf---the-fuzzy-file-finder">FZF - the fuzzy file finder</a></li>
+          <li><a href="#xtabline-the-fancy-tab-line">xtabline (the fancy tab line)</a></li>
+        </ul>
+      </li>
+      <li><a href="#text-editing-plugins">Text Editing Plugins</a>
+        <ul>
+          <li><a href="#vim-table-mode">vim-table-mode</a></li>
+          <li><a href="#undotree">Undotree</a></li>
+          <li><a href="#vim-multiple-cursors">vim-multiple-cursors</a></li>
+          <li><a href="#vim-surround">vim-surround</a></li>
+          <li><a href="#vim-subversive">vim-subversive</a></li>
+          <li><a href="#vim-easy-align">vim-easy-align</a></li>
+          <li><a href="#autoformat">AutoFormat</a></li>
+          <li><a href="#vim-markdown-toc-generate-table-of-contents-for-markdown-files">vim-markdown-toc (generate table of contents for markdown files)</a></li>
+        </ul>
+      </li>
+      <li><a href="#navigation-within-buffer">Navigation Within Buffer</a>
+        <ul>
+          <li><a href="#vim-easy-motion">vim-easy-motion</a></li>
+          <li><a href="#vistavim">Vista.vim</a></li>
+          <li><a href="#vim-signiture---bookmarks">vim-signiture - Bookmarks</a></li>
+        </ul>
+      </li>
+      <li><a href="#find-and-replace">Find and Replace</a>
+        <ul>
+          <li><a href="#farvim---find-and-replace">Far.vim - find and replace</a></li>
+        </ul>
+      </li>
+      <li><a href="#git-related">Git Related</a>
+        <ul>
+          <li><a href="#vim-gitgutter">vim-gitgutter</a></li>
+          <li><a href="#fzf-gitignore">fzf-gitignore</a></li>
+        </ul>
+      </li>
+      <li><a href="#others">Others</a>
+        <ul>
+          <li><a href="#vim-calendar">vim-calendar</a></li>
+          <li><a href="#goyo---work-without-distraction">Goyo - Work without distraction</a></li>
+          <li><a href="#sudavim">suda.vim</a></li>
+          <li><a href="#coc-translator">coc-translator</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#custom-snippets">Custom Snippets</a>
+    <ul>
+      <li><a href="#markdown">Markdown</a></li>
+    </ul>
+  </li>
+  <li><a href="#some-weird-stuff">Some Weird Stuff</a>
+    <ul>
+      <li><a href="#press-tx-and-enter-your-text">Press <code class="language-plaintext highlighter-rouge">tx</code> and enter your text</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /TOC -->
+
+<h2 id="after-installation-you-need-to">After Installation, You Need To</h2>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Install <code class="language-plaintext highlighter-rouge">pynvim</code> (pip)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Install <code class="language-plaintext highlighter-rouge">nodejs</code>, and do <code class="language-plaintext highlighter-rouge">npm install -g neovim</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Install nerd-fonts (actually it’s optional but it looks real good)</li>
+</ul>
+
+<h2 id="after-installation-you-might-want-to">After Installation, You Might Want To</h2>
+<h3 id="first-of-all">First of all</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Do <code class="language-plaintext highlighter-rouge">:checkhealth</code></li>
+</ul>
+
+<h3 id="for-python-debugger-via-vimspector">For Python Debugger (via <code class="language-plaintext highlighter-rouge">vimspector</code>)</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Install <code class="language-plaintext highlighter-rouge">debugpy</code> (<code class="language-plaintext highlighter-rouge">pip</code>)</li>
+</ul>
+
+<h3 id="config-python-path">Config <code class="language-plaintext highlighter-rouge">Python</code> path</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Well, make sure you have python</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />See <code class="language-plaintext highlighter-rouge">_machine_specific.vim</code></li>
+</ul>
+
+<h3 id="for-taglist">For Taglist:</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Install <code class="language-plaintext highlighter-rouge">ctags</code> for function/class/variable list</li>
+</ul>
+
+<h3 id="for-fzf">For FZF</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Install <code class="language-plaintext highlighter-rouge">fzf</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Install <code class="language-plaintext highlighter-rouge">ag</code> (<code class="language-plaintext highlighter-rouge">the_silver_searcher</code>)</li>
+</ul>
+
+<h3 id="and-also">And also…</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Install <code class="language-plaintext highlighter-rouge">figlet</code> for inputing text ASCII art</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Install <code class="language-plaintext highlighter-rouge">xclip</code> for system clipboard access (<code class="language-plaintext highlighter-rouge">Linux</code> and <code class="language-plaintext highlighter-rouge">xorg</code> only)</li>
+</ul>
+
+<h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
+<h3 id="1-basic-editor-features">1 Basic Editor Features</h3>
+<h4 id="11-the-most-basics">1.1 The Most Basics</h4>
+<p><strong><code class="language-plaintext highlighter-rouge">u</code></strong> : switchs to <strong><code class="language-plaintext highlighter-rouge">INSERT</code></strong> : mode (same as key <code class="language-plaintext highlighter-rouge">i</code> in vanilla vim)</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Q</code></strong> : quits current vim window (same as command <code class="language-plaintext highlighter-rouge">:q</code> in vanilla vim)</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">S</code></strong> : saves the current file (same as command <code class="language-plaintext highlighter-rouge">:w</code> in vanilla vim)</p>
+
+<p><strong><em>IMPORTANT</em></strong></p>
+
+<p>Since the <code class="language-plaintext highlighter-rouge">i</code> key has been mapped to <code class="language-plaintext highlighter-rouge">u</code>, every command (combination) that involves <code class="language-plaintext highlighter-rouge">i</code> should use <code class="language-plaintext highlighter-rouge">u</code> instead (for example, <code class="language-plaintext highlighter-rouge">cuw</code> should be <code class="language-plaintext highlighter-rouge">cuw</code>).</p>
+
+<h4 id="12-remapped-cursor-movement">1.2 Remapped Cursor Movement</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+      <th>Equivalent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">i</code></td>
+      <td>Cursor up a terminal line</td>
+      <td><code class="language-plaintext highlighter-rouge">k</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">k</code></td>
+      <td>Cursor down a terminal line</td>
+      <td><code class="language-plaintext highlighter-rouge">j</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">j</code></td>
+      <td>Cursor left</td>
+      <td><code class="language-plaintext highlighter-rouge">h</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">l</code></td>
+      <td>Cursor right</td>
+      <td><code class="language-plaintext highlighter-rouge">l</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">I</code></td>
+      <td>Cursor up 5 terminal lines</td>
+      <td><code class="language-plaintext highlighter-rouge">5k</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">K</code></td>
+      <td>Cursor down 5 terminal lines</td>
+      <td><code class="language-plaintext highlighter-rouge">5j</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">J</code></td>
+      <td>Cursor to the start of the line</td>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">L</code></td>
+      <td>Cursor to the end of the line</td>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">u</code></td>
+      <td>Move the view port up 5 lines without moving the cursor</td>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">y</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">e</code></td>
+      <td>Move the view port down 5 lines without moving the cursor</td>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">e</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">e</code></td>
+      <td>Move to the end of this word</td>
+      <td><code class="language-plaintext highlighter-rouge">e</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">W</code></td>
+      <td>Move cursor five words forward</td>
+      <td><code class="language-plaintext highlighter-rouge">5w</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">B</code></td>
+      <td>Move cursor five words forward</td>
+      <td><code class="language-plaintext highlighter-rouge">5b</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="13-remapped-insert-mode-keys">1.3 Remapped Insert Mode Keys</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">A</code></td>
+      <td>Move cursor to the end of the line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">U</code></td>
+      <td>Move the character on the right of the cursor to the end of the line</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="14-remapped-text-manipulating-commands-in-normal-mode">1.4 Remapped Text Manipulating Commands in Normal Mode</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">h</code></td>
+      <td><strong>undo</strong></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;</code></td>
+      <td>Un-indent</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;</code></td>
+      <td>Indent</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">SPACE</code></td>
+      <td>Goto the next placeholder (<code class="language-plaintext highlighter-rouge">&lt;++&gt;</code>)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="15-other-useful-normal-mode-remappings">1.5 Other Useful Normal Mode Remappings</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">r</code></td>
+      <td><strong>Compile/Run the current file</strong></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">s</code> <code class="language-plaintext highlighter-rouge">c</code></td>
+      <td>Toggle spell suggestion a</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">d</code> <code class="language-plaintext highlighter-rouge">w</code></td>
+      <td>Find adjacent duplicated word</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">t</code> <code class="language-plaintext highlighter-rouge">t</code></td>
+      <td>Convert every 4 Spaces to a tab</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">o</code></td>
+      <td>Fold</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">-</code></td>
+      <td>Previous quick-fix position</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>Next quick-fix position</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\</code> <code class="language-plaintext highlighter-rouge">p</code></td>
+      <td>Show the path of the current file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">/</code></td>
+      <td>Create a new terminal below the current window</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="16-remapped-commands-in-visual-mode">1.6 Remapped Commands in Visual Mode</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Y</code></td>
+      <td>Copy selected text to system clipboard</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="2-window-management">2 Window Management</h3>
+<h4 id="21-creating-window-through-split-screen">2.1 Creating Window Through Split Screen</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code> <code class="language-plaintext highlighter-rouge">i</code></td>
+      <td>Create a new horizontal split screen and place it above the current window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code> <code class="language-plaintext highlighter-rouge">k</code></td>
+      <td>Create a new horizontal split screen and place it below the current window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code> <code class="language-plaintext highlighter-rouge">j</code></td>
+      <td>Create a new vertical split screen and place it left to the current window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code> <code class="language-plaintext highlighter-rouge">l</code></td>
+      <td>Create a new vertical split screen and place it right to the current window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code> <code class="language-plaintext highlighter-rouge">v</code></td>
+      <td>Set the two splits to be vertical</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code> <code class="language-plaintext highlighter-rouge">h</code></td>
+      <td>Set the two splits to be horizontal</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code> <code class="language-plaintext highlighter-rouge">r</code> <code class="language-plaintext highlighter-rouge">v</code></td>
+      <td>Rotate splits and arrange splits vertically</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code> <code class="language-plaintext highlighter-rouge">r</code> <code class="language-plaintext highlighter-rouge">h</code></td>
+      <td>Rotate splits and arrange splits horizontally</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="22-moving-the-cursor-between-different-windows">2.2 Moving the Cursor Between Different Windows</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> + <code class="language-plaintext highlighter-rouge">w</code></td>
+      <td>Move cursor to the next window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> + <code class="language-plaintext highlighter-rouge">j</code></td>
+      <td>Move cursor one window left</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> + <code class="language-plaintext highlighter-rouge">l</code></td>
+      <td>Move cursor one window right</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> + <code class="language-plaintext highlighter-rouge">i</code></td>
+      <td>Move cursor one window up</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> + <code class="language-plaintext highlighter-rouge">k</code></td>
+      <td>Move cursor one window down</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="23-resizing-different-windows">2.3 Resizing Different Windows</h4>
+<p>Use the arrow keys to resize the current window.</p>
+
+<h4 id="24-closing-windows">2.4 Closing Windows</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Q</code></td>
+      <td>Close the current window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">q</code></td>
+      <td>Close the window below the current window. (The current window will be closed if there is no window below)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="3-tab-management">3 Tab Management</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">t</code> <code class="language-plaintext highlighter-rouge">u</code></td>
+      <td>Create a new tab</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">t</code> <code class="language-plaintext highlighter-rouge">j</code></td>
+      <td>Go one tab left</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">t</code> <code class="language-plaintext highlighter-rouge">l</code></td>
+      <td>Go One tab right</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">t</code> <code class="language-plaintext highlighter-rouge">m</code> <code class="language-plaintext highlighter-rouge">j</code></td>
+      <td>Move tab left</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">t</code> <code class="language-plaintext highlighter-rouge">m</code> <code class="language-plaintext highlighter-rouge">l</code></td>
+      <td>Move tab right</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="4-terminal-keyboard-shortcuts">4 Terminal Keyboard Shortcuts</h3>
+
+<p><strong>This works after <code class="language-plaintext highlighter-rouge">&lt;SPACE&gt;/</code> (after opening the terminal)</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">n</code></td>
+      <td>Escape from terminal input mode</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugins-keybindings-screenshotsgif-provided">Plugins Keybindings (Screenshots/GIF provided!)</h2>
+<h3 id="autocompletion">AutoCompletion</h3>
+<h4 id="coc-autocompletion">COC (AutoCompletion)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Space</code> <code class="language-plaintext highlighter-rouge">y</code></td>
+      <td><strong>Get yank history list</strong></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gd</code></td>
+      <td>Go to definition</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gr</code></td>
+      <td>List references</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gi</code></td>
+      <td>List implementation</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gy</code></td>
+      <td>Go to type definition</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Space</code> <code class="language-plaintext highlighter-rouge">r</code> <code class="language-plaintext highlighter-rouge">n</code></td>
+      <td>Rename a variable</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img alt="Gif" src="https://user-images.githubusercontent.com/251450/55285193-400a9000-53b9-11e9-8cff-ffe4983c5947.gif" width="60%" /></p>
+
+<h4 id="ultisnips">Ultisnips</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">s</code></td>
+      <td>Expand a snippet</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">s</code></td>
+      <td>(in snippet) Previous Cursor position in snippet</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">b</code></td>
+      <td>(in snippet) Next Cursor position in snippet</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="https://raw.github.com/SirVer/ultisnips/master/doc/demo.gif" alt="GIF Demo" /></p>
+
+<h3 id="debugger">Debugger</h3>
+<h4 id="vimspector-debugger-plugin">vimspector (debugger-plugin)</h4>
+
+<p><strong>First of all, you need to copy the .vimspector.json config file to the root dictionary of your coding project.</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Function</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F5</code></td>
+      <td>When debugging, continue. Otherwise start debugging.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F3</code></td>
+      <td>Stop debugging.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F4</code></td>
+      <td>Restart debugging with the same configuration.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F6</code></td>
+      <td>Pause debugee.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F9</code></td>
+      <td>Toggle line breakpoint on the current line.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F8</code></td>
+      <td>Add a function breakpoint for the expression under cursor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F10</code></td>
+      <td>Step Over</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F11</code></td>
+      <td>Step Into</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F12</code></td>
+      <td>Step out of current function scope</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img alt="Gif" src="https://puremourning.github.io/vimspector-web/img/vimspector-overview.png" width="60%" /></p>
+
+<h3 id="file-navigation">File Navigation</h3>
+<h4 id="coc-explorer-file-browser">coc-explorer (file browser)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tt</code></td>
+      <td><strong>Open file browser</strong></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?</code></td>
+      <td>show help (in explorer)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img alt="Png" src="https://user-images.githubusercontent.com/1709861/64966850-1e9f5100-d8d2-11e9-9490-438c6d1cf378.png" width="60%" /></p>
+
+<h4 id="rnvimr---file-browser">rnvimr - file browser</h4>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Make sure you have ranger installed</li>
+</ul>
+
+<p>Press <code class="language-plaintext highlighter-rouge">R</code> to open Ranger (file selector)</p>
+
+<p>And Within rnvimr (ranger), you can:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">t</code></td>
+      <td>Open the file in a new tab</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">x</code></td>
+      <td>Split up and down with the file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">v</code></td>
+      <td>Split left and right with the file</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img alt="Gif" src="https://user-images.githubusercontent.com/17562139/74416173-b0aa8600-4e7f-11ea-83b5-31c07c384af1.gif" width="60%" /></p>
+
+<h4 id="fzf---the-fuzzy-file-finder">FZF - the fuzzy file finder</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">p</code></td>
+      <td><strong>FZF Files</strong></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">u</code></td>
+      <td>Move up 1 item</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">e</code></td>
+      <td>Move down 1 item</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">w</code></td>
+      <td>FZF Buffers</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">f</code></td>
+      <td>FZF Files’ Content</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">h</code></td>
+      <td>FZF Recent Files</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code> <code class="language-plaintext highlighter-rouge">t</code></td>
+      <td>FZF Tags</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img alt="Gif" src="https://jesseleite.com/uploads/posts/2/tag-finder-opt.gif" width="60%" /></p>
+
+<h4 id="xtabline-the-fancy-tab-line">xtabline (the fancy tab line)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>What it creates</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">to</code></td>
+      <td>Cycle tab mode</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\p</code></td>
+      <td>Show current path</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img alt="Gif" src="https://i.imgur.com/yU6qbU5.gif" width="60%" /></p>
+
+<h3 id="text-editing-plugins">Text Editing Plugins</h3>
+<h4 id="vim-table-mode">vim-table-mode</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">t</code> <code class="language-plaintext highlighter-rouge">m</code></td>
+      <td>Toggle table mode</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">t</code> <code class="language-plaintext highlighter-rouge">r</code></td>
+      <td>Realign table</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>See <code class="language-plaintext highlighter-rouge">:help table-mode.txt</code> for more.</p>
+
+<h4 id="undotree">Undotree</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Shift</code> + <code class="language-plaintext highlighter-rouge">H</code></td>
+      <td>Open Undotree</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">u</code></td>
+      <td>Newer Version</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">e</code></td>
+      <td>Older Version</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img alt="Png" src="https://camo.githubusercontent.com/56430626a5444ea2f0249d71f9288775277c7f5d/68747470733a2f2f73697465732e676f6f676c652e636f6d2f736974652f6d6262696c6c2f756e646f747265655f6e65772e706e67" width="60%" /></p>
+
+<h4 id="vim-multiple-cursors">vim-multiple-cursors</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">k</code></td>
+      <td><strong>Select next key (multiple cursors)</strong></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Alt</code>+<code class="language-plaintext highlighter-rouge">k</code></td>
+      <td><strong>Select all keys (multiple cursors)</strong></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">p</code></td>
+      <td>Select previous key</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">s</code></td>
+      <td>Skip key</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Esc</code></td>
+      <td>Quit mutiple cursors</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img alt="Gif" src="https://raw.githubusercontent.com/terryma/vim-multiple-cursors/master/assets/example1.gif" width="60%" />
+<img alt="Gif" src="https://raw.githubusercontent.com/terryma/vim-multiple-cursors/master/assets/example2.gif" width="60%" />
+<img alt="Gif" src="https://raw.githubusercontent.com/terryma/vim-multiple-cursors/master/assets/example3.gif" width="60%" />
+<img alt="Gif" src="https://raw.githubusercontent.com/terryma/vim-multiple-cursors/master/assets/example4.gif" width="60%" /></p>
+
+<h4 id="vim-surround">vim-surround</h4>
+<p>To add surround (<code class="language-plaintext highlighter-rouge">string</code> -&gt; <code class="language-plaintext highlighter-rouge">"string"</code>):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>string
+</code></pre></div></div>
+<p>press: <code class="language-plaintext highlighter-rouge">yskw'</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'string'
+</code></pre></div></div>
+
+<p>To change surround</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'string'
+</code></pre></div></div>
+<p>press: <code class="language-plaintext highlighter-rouge">cs'"</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"string"
+</code></pre></div></div>
+
+<p><img alt="Gif" src="https://two-wrongs.com/image/surround_vim.gif" width="60%" /></p>
+
+<h4 id="vim-subversive">vim-subversive</h4>
+<p>New operator: <code class="language-plaintext highlighter-rouge">s</code>:</p>
+
+<p>You can execute <code class="language-plaintext highlighter-rouge">s&lt;motion&gt;</code> to substitute the text object provided by the motion with the contents of the default register (or an explicit register if provided). For example, you could execute <code class="language-plaintext highlighter-rouge">skw</code> to replace the current word under the cursor with the current yank, or <code class="language-plaintext highlighter-rouge">skp</code> to replace the paragraph, etc.</p>
+
+<h4 id="vim-easy-align">vim-easy-align</h4>
+<p>Press <code class="language-plaintext highlighter-rouge">ga</code> + <strong>symbol</strong> in normal or visual mode to align text based on <strong>symbol</strong></p>
+
+<p><img alt="Gif" src="https://raw.githubusercontent.com/junegunn/i/master/easy-align/equals.gif" width="60%" /></p>
+
+<h4 id="autoformat">AutoFormat</h4>
+<p>Press <code class="language-plaintext highlighter-rouge">\</code> <code class="language-plaintext highlighter-rouge">f</code> to format code</p>
+
+<h4 id="vim-markdown-toc-generate-table-of-contents-for-markdown-files">vim-markdown-toc (generate table of contents for markdown files)</h4>
+<p>In <code class="language-plaintext highlighter-rouge">markdown</code> files, type <code class="language-plaintext highlighter-rouge">:Gen</code> then tab, you’ll see your options.</p>
+
+<p><img alt="Gif" src="https://raw.githubusercontent.com/mzlogin/vim-markdown-toc/master/screenshots/english.gif" width="60%" /></p>
+
+<h3 id="navigation-within-buffer">Navigation Within Buffer</h3>
+<h4 id="vim-easy-motion">vim-easy-motion</h4>
+<p>Press <code class="language-plaintext highlighter-rouge">'</code> and a <code class="language-plaintext highlighter-rouge">character</code> jump to <code class="language-plaintext highlighter-rouge">character</code> (similar to Emacs’ <a href="https://www.emacswiki.org/emacs/AceJump">AceJump</a>)</p>
+
+<p><img alt="Gif" src="https://f.cloud.github.com/assets/3797062/2039359/a8e938d6-899f-11e3-8789-60025ea83656.gif" width="60%" /></p>
+
+<h4 id="vistavim">Vista.vim</h4>
+<p>Press <code class="language-plaintext highlighter-rouge">T</code> to toggle function and variable list</p>
+
+<p><img alt="Gif" src="https://user-images.githubusercontent.com/8850248/56469894-14d40780-6472-11e9-802f-729ac53bd4d5.gif" width="60%" /></p>
+
+<h4 id="vim-signiture---bookmarks">vim-signiture - Bookmarks</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">m&lt;letter&gt;</code></td>
+      <td>Add/remove mark at current line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">m/</code></td>
+      <td>List all marks</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mSPACE</code></td>
+      <td>Jump to the next mark in buffer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mt</code></td>
+      <td>Add/remove mark at current line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ma</code></td>
+      <td>Add annotation at current line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ml</code></td>
+      <td>Show all bookmarks</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mi</code></td>
+      <td>Next bookmark</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mn</code></td>
+      <td>Previous bookmark</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mC</code></td>
+      <td>Clear bookmarks</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mX</code></td>
+      <td>Clear all bookmarks</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mu</code></td>
+      <td>Move bookmark up a line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">me</code></td>
+      <td>Move bookmark down a line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPC</code> <code class="language-plaintext highlighter-rouge">g</code></td>
+      <td>Move bookmark to line…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img alt="Gif" src="https://camo.githubusercontent.com/bc2bf1746e30c72d7ff5b79331231e8c388d068a/68747470733a2f2f7261772e6769746875622e636f6d2f4d617474657347726f656765722f76696d2d626f6f6b6d61726b732f6d61737465722f707265766965772e676966" width="60%" /></p>
+
+<h3 id="find-and-replace">Find and Replace</h3>
+<h4 id="farvim---find-and-replace">Far.vim - find and replace</h4>
+<p>Press <code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">f</code> <code class="language-plaintext highlighter-rouge">r</code> to search in cwd.</p>
+
+<p><img alt="Gif" src="https://cloud.githubusercontent.com/assets/9823254/20861878/77dd1882-b9b4-11e6-9b48-8bc60f3d7ec0.gif" width="60%" /></p>
+
+<h3 id="git-related">Git Related</h3>
+<h4 id="vim-gitgutter">vim-gitgutter</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">H</code></td>
+      <td><strong>Show git hunk at current line</strong></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">g</code> <code class="language-plaintext highlighter-rouge">-</code></td>
+      <td>Go to previous git hunk</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">g</code> <code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>Go to next git hunk</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SPACE</code> <code class="language-plaintext highlighter-rouge">g</code> <code class="language-plaintext highlighter-rouge">f</code></td>
+      <td>Fold everything except hunks</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="fzf-gitignore">fzf-gitignore</h4>
+<p>Press <code class="language-plaintext highlighter-rouge">Space</code> <code class="language-plaintext highlighter-rouge">g</code> <code class="language-plaintext highlighter-rouge">i</code> to create a <code class="language-plaintext highlighter-rouge">.gitignore</code> file</p>
+
+<p><img alt="Png" src="https://user-images.githubusercontent.com/25827968/42945393-96c662da-8b68-11e8-8279-5bcd2e956ca9.png" width="60%" /></p>
+
+<p><img alt="Png" src="https://raw.githubusercontent.com/airblade/vim-gitgutter/master/screenshot.png" width="60%" /></p>
+
+<h3 id="others">Others</h3>
+<h4 id="vim-calendar">vim-calendar</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\</code> <code class="language-plaintext highlighter-rouge">\</code></td>
+      <td>Show clock</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\</code> <code class="language-plaintext highlighter-rouge">c</code></td>
+      <td>Show calendar</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img alt="Png" src="https://raw.githubusercontent.com/wiki/itchyny/calendar.vim/image/image.png" width="60%" /></p>
+
+<h4 id="goyo---work-without-distraction">Goyo - Work without distraction</h4>
+<p>Press <code class="language-plaintext highlighter-rouge">g</code> <code class="language-plaintext highlighter-rouge">y</code> to toggle Goyo</p>
+
+<p><img alt="Png" src="https://raw.github.com/junegunn/i/master/goyo.png" width="60%" /></p>
+
+<h4 id="sudavim">suda.vim</h4>
+<p>Forgot to <code class="language-plaintext highlighter-rouge">sudo vim ...</code>? Just do <code class="language-plaintext highlighter-rouge">:sudowrite</code> or <code class="language-plaintext highlighter-rouge">:sw</code></p>
+
+<h4 id="coc-translator">coc-translator</h4>
+<p>Press <code class="language-plaintext highlighter-rouge">ts</code> to <strong>translate word under cursor</strong>.</p>
+
+<p><img alt="Png" src="https://user-images.githubusercontent.com/20282795/72232547-b56be800-35fc-11ea-980a-3402fea13ec1.png" width="60%" /></p>
+
+<h2 id="custom-snippets">Custom Snippets</h2>
+<h3 id="markdown">Markdown</h3>
+
+<p>In the ‘Input Mode’:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>What it creates</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,n</code></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,b</code></td>
+      <td><strong>Bold</strong> text</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,s</code></td>
+      <td><del>sliced</del> text</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,i</code></td>
+      <td><em>italic</em> text</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,d</code></td>
+      <td><code class="language-plaintext highlighter-rouge">code block</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,c</code></td>
+      <td>big <code class="language-plaintext highlighter-rouge">block of code</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,m</code></td>
+      <td>- [ ] check mark</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,p</code></td>
+      <td>picture</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,a</code></td>
+      <td><a href="">link</a></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,1</code></td>
+      <td># H1</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,2</code></td>
+      <td>## H2</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,3</code></td>
+      <td>### H3</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,4</code></td>
+      <td>#### H4</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,l</code></td>
+      <td>——–</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">,f</code> to go to the next <code class="language-plaintext highlighter-rouge">&lt;++&gt;</code> (placeholder)</p>
+
+<p><code class="language-plaintext highlighter-rouge">,w</code> to go to the next <code class="language-plaintext highlighter-rouge">&lt;++&gt;</code> (placeholder) and then press <code class="language-plaintext highlighter-rouge">Enter</code> for you</p>
+
+<h2 id="some-weird-stuff">Some Weird Stuff</h2>
+<h3 id="press-tx-and-enter-your-text">Press <code class="language-plaintext highlighter-rouge">tx</code> and enter your text</h3>
+<p><code class="language-plaintext highlighter-rouge">tx Hello&lt;Enter&gt;</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> _   _      _ _
+| | | | ___| | | ___
+| |_| |/ _ \ | |/ _ \
+|  _  |  __/ | | (_) |
+|_| |_|\___|_|_|\___/
+</code></pre></div></div>
+
+:ET

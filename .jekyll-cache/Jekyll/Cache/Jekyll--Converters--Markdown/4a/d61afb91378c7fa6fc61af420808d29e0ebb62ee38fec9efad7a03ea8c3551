@@ -1,0 +1,110 @@
+I"<h3 id="97-jcxz-指令">9.7 jcxz 指令</h3>
+
+<p>jcxz 指令为有条件转移指令，<strong>所有的有条件转移指令都是短转移</strong>，在对应的机器码中包含转移的位移，而不是目的地址。对IP的修改范围都为：-128~127。</p>
+
+<p>指令格式：</p>
+
+<p>jcxz 标号(如果(cx)=0, 转移到标号处执行。)</p>
+
+<p>操作：</p>
+
+<p>当(cx)=0时，(IP)=(IP)+8位位移；</p>
+
+<p>8位位移 = 标号处的地址 - jcxz指令后的第一个字节的地址；</p>
+
+<p>8位位移的范围为-128~127，用补码表示；</p>
+
+<p>8位位移由编译程序在编译时算出。</p>
+
+<p>当(cx)!=0时，程序继续向下执行。</p>
+
+<p>我们从jcxz的功能中可以看出，<code class="language-plaintext highlighter-rouge">jcxz 标号</code> 的功能相当于：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">((</span><span class="n">cx</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="n">jmp</span> <span class="kt">short</span> <span class="err">标号；</span>
+</code></pre></div></div>
+
+<p>问题(1)</p>
+
+<p>补全编程，利用jcxz指令，实现在内存2000H段中查找第一个值为0的字节，找到后，将它的偏移地址存储在dx中。</p>
+
+<pre><code class="language-x86asm">assume cs:code
+code segment
+  start:mov ax, 2000H
+        mov ds, ax
+        mov bx, 0
+      s:______
+        ______
+        ______
+        ______
+        jmp short s
+     ok:mov dx, bx
+        mov ax, 4c00h
+        int 21h
+code ends
+end start
+</code></pre>
+<p>分析一下题意，即为按顺序将2000H段地址中的数据来给<code class="language-plaintext highlighter-rouge">cx</code>赋值，然后当<code class="language-plaintext highlighter-rouge">cx = 0</code>时，直接跳转到ok:处，将此时的偏移地址保存到<code class="language-plaintext highlighter-rouge">dx</code>中结束程序。但是要注意题中所讲为一个字节一个字节查找，所以应当将<code class="language-plaintext highlighter-rouge">cx</code>拆开两个高位和低位寄存器来考虑。</p>
+
+<p>所以横线处代码应该依次为，</p>
+
+<pre><code class="language-x86asm">mov cl, [bx]
+mov ch, 0
+jcxz ok
+inc bx
+</code></pre>
+
+<h3 id="98-loop指令">9.8 loop指令</h3>
+
+<p>loop指令与jcxz正好相反，为循环指令，<strong>所有的循环执行都是短转移</strong>，在对应的机器码中包含转移的位移，而不是目的地址。对IP的修改范围为：-128~127。</p>
+
+<p>指令格式：</p>
+
+<p>loop 标号((cx)=(cx)-1，如果(cx)!=0，转移到标号处执行。)</p>
+
+<p>操作：</p>
+
+<p>(1) (cx)=(cx)-1;</p>
+
+<p>(2) 如果(cx)!=0, (IP)=(IP)+8位位移。</p>
+
+<p>8位位移=标号处的地址-loop指令后的第一个字节的地址；</p>
+
+<p>8位位移的范围为-128~127，用补码表示；</p>
+
+<p>8位位移由编译程序在编译时算出。</p>
+
+<p>如果(cx)=0，什么也不做(程序向下执行)。</p>
+
+<p>我们从loop的功能中可以看出，<code class="language-plaintext highlighter-rouge">loop 标号</code>的功能相当于：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">cx</span><span class="p">)</span><span class="o">--</span>
+<span class="k">if</span><span class="p">((</span><span class="n">cx</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span> <span class="n">jmp</span> <span class="kt">short</span> <span class="err">标号；</span>
+</code></pre></div></div>
+
+<p>问题(2)</p>
+
+<p>补全编程，利用loop指令，实现在内存2000H段中查找第一个值为0的字节，找到后，将它的偏移地址存储在dx中。</p>
+
+<pre><code class="language-x86asm">asuume cs:code
+code segment
+  start:mov ax, 2000H
+        mov ds, ax
+        mov bx, 0
+      s:mov cl, [bx]
+        mov ch, 0
+        ______
+        inc bx
+        loop s
+     ok:dec bx
+        mov dx, bx
+        mov ax, 4cooh
+        int 21h
+code ends
+end start
+</code></pre>
+<p>分析题意，注意loop标号执行时候的规则，每次<code class="language-plaintext highlighter-rouge">loop s</code>都会令cx寄存器的值，<code class="language-plaintext highlighter-rouge">(cx)=(cx)-1</code>，但如果<code class="language-plaintext highlighter-rouge">(cx)-1=0</code>就会跳出循环，所以横线处的代码应该为，</p>
+
+<pre><code class="language-x86asm">inc cx
+</code></pre>
+
+:ET

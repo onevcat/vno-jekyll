@@ -1,0 +1,293 @@
+I"��<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+
+<h3 id="定制容器与协议protocol">定制容器与协议(protocol)</h3>
+
+<p>成功地实现容器定制，需要先了解一下协议(protocol)。Python中的协议与其他编程语言中的接口很相似，它规定哪些方法必须定义。然后，在Python中的协议就不那么正式。事实上，Python的协议更像是一种指南。</p>
+
+<p>这有点像Python极力推崇的鸭子类型。</p>
+
+<h3 id="鸭子类型duck-typing复习">鸭子类型(duck typing)复习</h3>
+
+<p>鸭子类型(duck typing)是动态类型的一种风格。这种风格中，一个对象有效的语义，不是由<strong>继承自特定的类或实现特定的接口，而是由当前方法和属性的集合决定</strong>。
+即关注的不是对象的类型本身，而是它是如何使用的。在使用鸭子类型的语言中，一个函数可以接受一个任意类型的对象，并调用它的方法。如果这些需要被调用的方法不存在，那么将引发一个运行时错误。任何拥有这样的正确的方法的对象，都可被函数接受的这种行为引出了以上表述，这种决定类型的方式因此得名。
+鸭子类型通常得益于不测试方法和函数中的参数的类型，而是依赖文档、清晰的代码和测试来确保正确的使用。</p>
+
+<p>从静态类型语言转向动态类型语言的用户通常试图添加一些静态的(在运行之前的)类型检查，从而影响了鸭子类型的益处和可伸缩性，并约束了语言的动态特性。</p>
+
+<p>代码示例，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Duck</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">quack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"呱呱呱!"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">feathers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"这个鸭子拥有灰白灰白的羽毛。"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">quack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"你才是鸭子，你们全家人都是鸭子！"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">feathers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"这个人穿着一件羽绒大衣。"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">in_the_forest</span><span class="p">(</span><span class="n">duck</span><span class="p">):</span>
+    <span class="n">duck</span><span class="p">.</span><span class="n">quack</span><span class="p">()</span>
+    <span class="n">duck</span><span class="p">.</span><span class="n">feathers</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">game</span><span class="p">():</span>
+    <span class="n">donald</span> <span class="o">=</span> <span class="n">Duck</span><span class="p">()</span>
+    <span class="n">john</span> <span class="o">=</span> <span class="n">Person</span><span class="p">()</span>
+    <span class="n">in_the_forest</span><span class="p">(</span><span class="n">donald</span><span class="p">)</span>
+    <span class="n">in_the_forest</span><span class="p">(</span><span class="n">john</span><span class="p">)</span>
+
+<span class="n">game</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>in_the_forest() 函数对参数duck只有一个要求：就是可以实现quack()和feathers()方。然而Duck类和Person类都实现了quack()和feathers()方法，因此它们的实例对象donald和john都可以用作in_the_forest()的参数。这就是鸭子类型。</p>
+
+<p>我们可以看出，鸭子类型给予Python这样的动态语言以多态。但是这种多态的实现完全由程序员来约束强制实现(文档、清晰的代码和测试)，并没有语言上的约束(如C++ 继承和虚函数)。因此这种方法即灵活，又提高了对程序员的要求。</p>
+
+<h3 id="与定制容器类型相关的魔法方法及含义">与定制容器类型相关的魔法方法及含义</h3>
+
+<p>在Python中，像序列类型(如列表、元组、字符串)或映射类型(如字典)都属于容器类型。</p>
+
+<p>下面讲一下与定制容器有关的一些协议：</p>
+
+<ul>
+  <li>如果希望定制的容器<strong>不可变</strong>，则只需要定义__len__()和__getitem__()方法。</li>
+  <li>如果希望地址的容器是<strong>可变的</strong>，除了__len__()和__getitem__()方法，还需要定义__setitem__()和__delitem__()两个方法。</li>
+</ul>
+
+<p>下表列举了与定制容器有关的魔法方法及含义。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>魔法方法</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>__len__(self)</td>
+      <td>定义当被len()函数调用时的行为，即返回容器中元素的个数</td>
+    </tr>
+    <tr>
+      <td>__getitem__(self, key)</td>
+      <td>定义获取容器中指定元素时的行为，相当于self[key]</td>
+    </tr>
+    <tr>
+      <td>__setitem__(self, key, value)</td>
+      <td>定义设置容器中指定元素的行为，相当于self[key]=value</td>
+    </tr>
+    <tr>
+      <td>__delitem__(self, key)</td>
+      <td>定义删除容器中指定元素的行为，相当于del self[key]</td>
+    </tr>
+    <tr>
+      <td>__iter__(self)</td>
+      <td>定义当迭代容器中的元素的行为</td>
+    </tr>
+    <tr>
+      <td>__reversed__(self)</td>
+      <td>定义当被reversed()函数调用时的行为</td>
+    </tr>
+    <tr>
+      <td>__contains__(self, item)</td>
+      <td>定义当使用成员测试运算符(in或not in)时的行为</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>实例，编写一个不可变的自定义列表，要求记录列表中的每个元素被访问的次数。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CountList</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
+        <span class="c1"># 使用列表的下标作为字典的键，注意不能用元素作为字典的键
+</span>        <span class="c1"># 因为列表的不同下标可能有数值相等的元素，但字典不可能有两个相同的键
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">count</span> <span class="o">=</span> <span class="p">{}.</span><span class="n">fromkeys</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># 这里可以注释掉，不用定义__len__()方法
+</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">CountList</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">CountList</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">c2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="mi">7</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span><span class="p">.</span><span class="n">count</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c2</span><span class="p">.</span><span class="n">count</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="练习">练习</h3>
+
+<p>根据上面的例子，定制一个列表，同样要求记录列表中每个元素被访问的次数。并且支持append()、pop()、extand()原生列表所拥有的方法。</p>
+
+<p>要求：</p>
+
+<ol>
+  <li>实现获取、设置和删除一个元素的行为(删除一个元素的时候对应的计数器也会被删除)</li>
+  <li>增加counter(index)方法，返回index参数所指定的元素记录的访问次数</li>
+  <li>实现append()、pop()、remove()、insert()、clear()和reverse()方法(重写这些方法时要注意考虑计数器的对应改变)</li>
+</ol>
+
+<p>自己的代码如下，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CountList</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">added_value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">added_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">reverse</span><span class="p">(),</span> <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">reverse</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">insert_pos</span><span class="p">,</span> <span class="n">inserted_value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">insert_pos</span><span class="p">,</span> <span class="n">inserted_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">insert_pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">pop</span><span class="p">(),</span> <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remove_value</span><span class="p">):</span>
+        <span class="n">remove_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="n">remove_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">remove_value</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">[</span><span class="n">remove_pos</span><span class="p">]</span>
+
+
+<span class="n">c1</span> <span class="o">=</span> <span class="n">CountList</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+
+<span class="c1"># 输出结果
+</span><span class="mi">2</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="mi">4</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="mi">3</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="mi">5</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="mi">8</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="mi">3</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="p">[]</span>
+</code></pre></div></div>
+
+<p>答案该出的代码类继承并严重依赖其父类(list)的行为，并按要求重写了一些方法，代码如下，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CountList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">count</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">().</span><span class="n">__getitem__</span><span class="p">(</span><span class="n">key</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__delitem__</span><span class="p">(</span><span class="n">key</span>
+
+    <span class="k">def</span> <span class="nf">counter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span>
+
+    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">append</span><span class="p">(</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">().</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span>
+
+    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">super</span><span class="p">().</span><span class="n">index</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">slef</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">remove</span><span class="p">(</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">insert</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">clear</span><span class="p">(</span>
+
+    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">reverse</span><span class="p">()</span>
+</code></pre></div></div>
+:ET

@@ -1,0 +1,4 @@
+I"@<p>代码1
+```x86asm
+assume cs:code, ds:data, ss:stack</p>
+:ET

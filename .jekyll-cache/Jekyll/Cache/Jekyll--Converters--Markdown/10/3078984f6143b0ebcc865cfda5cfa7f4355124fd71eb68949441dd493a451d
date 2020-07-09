@@ -1,0 +1,76 @@
+I"C<h3 id="54">5.4</h3>
+
+<h4 id="debug-指令复习">Debug 指令复习</h4>
+<p>首先复习一下Debug命令：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-r ;命令显示当前的通用寄存器情况
+</code></pre></div></div>
+<p><img src="/assets/201910/2019-10-27_12-08-53.png" alt="figure1" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-t ;分步执行命令
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-d ;查看目标地址的二进制码及ASC码
+</code></pre></div></div>
+<p><img src="/assets/201910/2019-10-27_12-15-22.png" alt="figure2" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-e ;改写目标地址的二进制代码
+</code></pre></div></div>
+<p><img src="/assets/201910/2019-10-27_12-24-09.png" alt="figure3" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-a ;从目标地址处开始添加代码
+</code></pre></div></div>
+<p><img src="/assets/201910/2019-10-27_12-26-50.png" alt="figure4" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-r ;更改代码段或偏移地址指针
+</code></pre></div></div>
+<p><img src="/assets/201910/2019-10-27_12-28-49.png" alt="figure5" /></p>
+
+<h4 id="masm访问内存单元的方法">masm访问内存单元的方法</h4>
+
+<p>之前在5.3提过，编译环境下并不能直接识别Debug中的<code class="language-plaintext highlighter-rouge">mov ax, [0]</code>命令，会将<code class="language-plaintext highlighter-rouge">[0]</code>识别为数值<code class="language-plaintext highlighter-rouge">0</code>写入ax寄存器中。而实现masm访问内存内存单元的方法有两个:</p>
+
+<p>第一种方法：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mov ax, 2000H ;这里注意必须标出H，因为masm默认10进制
+mov ds, ax
+mov bx, 0
+mov al,[bx]
+</code></pre></div></div>
+
+<p>第二种方法, 指出段地址：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mov ax, 2000H
+mov ds, ax
+mov al, ds:[0]
+</code></pre></div></div>
+
+<p>语言含义：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>code</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>mov al, [0]</td>
+      <td>(ax)=0</td>
+    </tr>
+    <tr>
+      <td>mov al, ds:[0]</td>
+      <td>(al)=((ds)*16+0)</td>
+    </tr>
+    <tr>
+      <td>mov al, [bx]</td>
+      <td>(al)=((ds)*16+(bx))</td>
+    </tr>
+    <tr>
+      <td>mov al, ds:[bx]</td>
+      <td>(al)=((ds)*16+(bx))</td>
+    </tr>
+  </tbody>
+</table>
+:ET

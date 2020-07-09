@@ -1,0 +1,19 @@
+I"<h2 id="i-have-decided">I have decided!</h2>
+
+<p>I have decided to restart my Calculus learning. Reference book is ‘Introduction to Calculus and Analysis’ by Richard Courant and Fritz John. <br /></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<h3 id="how-to-represent-rational-numbers">How to represent rational numbers</h3>
+
+<p>For better understand numbers, we need to represent the rational numbers at first.<br />
+Imagine a number axis L, with a unit length 1, we can rule the positive direction and negative direction.<br />
+<img src="/assets/1907/Snipaste_2019-07-11_13-14-13.png" alt="figure1" />
+And then we need to represent the rational numbers. Arbitrarily set a point ‘P’. Segment arbitrary unit, like +- 1, +-2 into smaller pieces, and one of the pieces is 1/p. As you can see in the Figure 2 below.<br />
+<img src="/assets/1907/Snipaste_2019-07-11_13-22-51.png" alt="figure2" /> 
+In this way, we can find the every point rational point p/q, the P is on the p/q or between two rational point p/q and (p+1)/q. In the other word, we find any rational point p/q on this number axis L.<br />
+We call this two quantities whose ratio is a rational number <strong>Commensurable Number</strong>. Because it can be expressed as integral multiples of a common unit. And there is <strong>Incommensurable Number</strong> too. But why?<br /></p>
+<h3 id="what-is-irrational-number">What is irrational number?</h3>
+<p>Imagine there is triangle with (1^2 + 1^2 = 2)<br />
+<img src="/assets/1907/Snipaste_2019-07-11_13-45-30.png" alt="figure3" /></p>
+:ET
