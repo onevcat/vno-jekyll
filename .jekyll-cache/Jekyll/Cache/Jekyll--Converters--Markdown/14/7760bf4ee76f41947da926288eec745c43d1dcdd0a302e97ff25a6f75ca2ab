@@ -1,8 +1,0 @@
-I"w<p>What will happen, when we multiply an elimination matrix from the other side?<br />
-You can see the process below,
-<img src="/assets/1907/1.png" alt="deduce process" /></p>
-
-<p>Multiplying by E21 on the right side will subtract 4 times column 2 from column 1. (4 times row 2 from 1 on the left side)<br />
-It is the same with Row Exchange Matrix (Permutation matrix)</p>
-
-:ET

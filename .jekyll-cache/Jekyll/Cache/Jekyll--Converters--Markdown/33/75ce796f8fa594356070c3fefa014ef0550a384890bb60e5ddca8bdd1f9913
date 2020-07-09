@@ -1,7 +1,0 @@
-I"><p>Summarized from ‘Introduction to Linear algebra’ from Gilbert Strang.</p>
-<h2 id="definition-of-the-vector-spaces">Definition of The Vector Spaces</h2>
-<p><strong>Vector space</strong> is a very important concept, which is denoted by $R^1, R^2, R^3 … R^n$, which consists of a <em>a whole collection of vectors</em>. For example, $R^5$ contains all column vectors with five components, the so-called “ive-dimentional space”.</p>
-<blockquote>
-  <p><strong>DEFINITION</strong> The space $R^n$ consists of all column vectors v with n components.</p>
-</blockquote>
-:ET
