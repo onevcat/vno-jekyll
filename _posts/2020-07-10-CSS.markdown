@@ -508,7 +508,7 @@ a:visited {
 #fixed {
 	position: fixed;
 	right: 0;
-	bottom: 200;
+	bottom: 200px;
 }
 ```
 
