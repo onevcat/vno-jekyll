@@ -1,0 +1,35 @@
+I"�<p>今天谈一下，如何利用mac系统下的xcode实现类似于windows系统下microsoft visual C++的反汇编功能。</p>
+
+<p>(1) 首先安装xcode</p>
+
+<p>(2) 按顺序在菜单栏目依次选择：file –&gt; new –&gt; Project…</p>
+
+<p>(3) 在新弹出的菜单栏中在最上面选择macos标签页下的Command Line Tool图标，如图所示：</p>
+
+<p><img src="/assets/201912/2019-12-13_10-56-11.png" alt="figure1" /></p>
+
+<p>(4) 在新弹出的菜单栏中的Language选项栏中选择C，</p>
+
+<p><img src="/assets/201912/2019-12-13_10-59-12.png" alt="figure2" /></p>
+
+<p>(5) 主界面上左侧菜单栏中会出现两个文件夹分别存放代码以及编译好的程序，</p>
+
+<p><img src="/assets/201912/2019-12-13_11-01-20.png" alt="figure3" /></p>
+
+<p>(6) 在main.c中输入测试程序，如图，</p>
+
+<p><img src="/assets/201912/2019-12-13_11-04-54.png" alt="figure4" /></p>
+
+<p>(7) 依次在菜单栏选择：Debug –&gt; Debug Workflow –&gt; Always Show Disassembly，勾选此项</p>
+
+<p>(8) 在main.c中加入breakpoint准备对程序进行调试，快捷键：Command + ‘\’</p>
+
+<p><img src="/assets/201912/2019-12-13_11-09-23.png" alt="figure5" /></p>
+
+<p>(9) 运行程序，快捷键：Command + R</p>
+
+<p>(10) 运行后，反汇编的x86代码就会以函数(main，love)的形式给出，如图所示，</p>
+
+<p><img src="/assets/201912/2019-12-13_11-11-38.png" alt="figure6" /></p>
+
+:ET

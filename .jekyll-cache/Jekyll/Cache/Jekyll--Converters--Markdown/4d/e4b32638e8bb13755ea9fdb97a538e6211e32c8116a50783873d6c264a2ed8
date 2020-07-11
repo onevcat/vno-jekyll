@@ -1,0 +1,108 @@
+I"{2<p>Referenced from Luciano Ramalho, ‘Fluent Python’</p>
+
+<p>Example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="n">Card</span> <span class="o">=</span> <span class="n">collections</span><span class="p">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s">'Card'</span><span class="p">,</span> <span class="p">[</span><span class="s">'rank'</span><span class="p">,</span> <span class="s">'suit'</span><span class="p">])</span>
+
+<span class="k">class</span> <span class="nc">FrenchDeck</span><span class="p">:</span>
+    <span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s">'JQKA'</span><span class="p">)]</span>
+    <span class="n">suits</span> <span class="o">=</span> <span class="s">'spades diamonds clubs heart'</span><span class="p">.</span><span class="n">split</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_cards</span> <span class="o">=</span> <span class="p">[</span><span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">suit</span><span class="p">)</span> <span class="k">for</span> <span class="n">suit</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">suits</span>
+                                        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">ranks</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_cards</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_cards</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_cards</span><span class="p">[</span><span class="n">positions</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="collectionsnamedtuple">collections.namedtuple()</h3>
+
+<p>Create a class named with ‘Card’, which has two attributes, ‘rank’ and ‘suit’, when you call this class and transfer the atrributes, the order of the atrribute should be the same with defined atrribute.</p>
+
+<p>Which is used to build classes of objects that are just the bundles of attributes with no custom methods, like a database record.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Card = collections.namedtuple('Card', ['rank', 'suit'])
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">beer_card</span> <span class="o">=</span> <span class="n">Card</span><span class="p">(</span><span class="s">'7'</span><span class="p">,</span> <span class="s">'diamonds'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">beer_card</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'7'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'diamonds'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="len-of-the-frenchdeck">len() of the ‘FrenchDeck’</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">deck</span> <span class="o">=</span> <span class="n">FrechDeck</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">deck</span><span class="p">)</span>
+<span class="mi">52</span>
+</code></pre></div></div>
+
+<h3 id="reading-specific-cards-from-the-deck">Reading specific cards from the deck</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># suits = 'spades diamonds clubs hearts'.split()
+# ranks = [str(n) for n in range(2, 11) + list('JQKA')]
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">deck</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'2'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'spades'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">deck</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'A'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'hearts'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="using-randomchoice-to-pick-a-random-card">Using random.choice to pick a random card</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">choice</span><span class="p">(</span><span class="n">deck</span><span class="p">)</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'3'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'hearts'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">choice</span><span class="p">(</span><span class="n">deck</span><span class="p">)</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'K'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'spades'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="__getitem__-makes-frenchdeck-implement-the-slice-and-iterable">__getitem__() makes FrenchDeck implement the slice and iterable</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">deck</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'2'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'spades'</span><span class="p">),</span> <span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'3'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'spades'</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">deck</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'2'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'spades'</span><span class="p">)</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">deck</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'A'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'hearts'</span><span class="p">)</span>
+</code></pre></div></div>
+<h3 id="in-instead-of-__contains__method">‘in’ instead of __contains__method</h3>
+
+<p>‘in’ operator does a sequential scan, and **‘in’ works with FrenchDeck class because it it iterable.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">Card</span><span class="p">(</span><span class="s">'Q'</span><span class="p">,</span> <span class="s">'hearts'</span><span class="p">)</span> <span class="ow">in</span> <span class="n">deck</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Card</span><span class="p">(</span><span class="s">'7'</span><span class="p">,</span> <span class="s">'beasts'</span><span class="p">)</span> <span class="ow">in</span> <span class="n">deck</span>
+<span class="bp">False</span>
+</code></pre></div></div>
+
+<h3 id="sorting-of-frenchdeck">Sorting of FrenchDeck</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">suit_values</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">spades</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">hearts</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">diamonds</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">clubs</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">spades_high</span><span class="p">(</span><span class="n">card</span><span class="p">):</span>
+    <span class="n">rank_value</span> <span class="o">=</span> <span class="n">FrenchDeck</span><span class="p">.</span><span class="n">ranks</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="n">card</span><span class="p">.</span><span class="n">rank</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rank_value</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">suit_values</span><span class="p">)</span> <span class="o">+</span> <span class="n">suit_values</span><span class="p">[</span><span class="n">card</span><span class="p">.</span><span class="n">suit</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">deck</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">spades_high</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre></div></div>
+
+<h3 id="summary">Summary</h3>
+
+<p>By implementing the special methods __len__ and __getitem__, our FrenchDeck behaves like a standard Python sequence, allowing it to benefit from <strong>core language features</strong> (e.g., iteration and slicing) and <strong>from the standard library</strong>, as shown by the examples using random.choice, reversed and sorted. Thanks to composition, the __len__ and __getitem__ implementations can hand off all the work to a list object, self._cards.</p>
+
+:ET

@@ -1,0 +1,35 @@
+I"�<p>流程备忘</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*** Cryosparc
+
+import
+  |
+  V
+MotionCorrection
+  |
+  V
+CTF Estimation
+  |
+  V
+Picker
+  |
+  V
+2D Class
+  |
+  V
+Down Sample
+  |
+  V
+Ab-initio  # 这里可以在eman2运行，见下
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*** relion           *** eman2
+
+particles -&gt; e2import particle sets
+  |                  |
+  V                  V
+csparc2star  e2initialmodel
+  |           |
+  V           |
+Class3D &lt;-----|
+</code></pre></div></div>
+:ET

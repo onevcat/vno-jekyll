@@ -1,0 +1,175 @@
+I"n<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+
+<h3 id="变量">变量</h3>
+
+<p>变量和常量是程序处理的两种基本数据对象。通常会在内存中找一个位置来存放CPU要处理的数据，每个存放数据的位置都有一个“地址”，通过这个地址，CPU就可以找到并使用它们。<strong>这个存放的位置就是变量</strong>。</p>
+
+<p><strong>变量名就是给一个数据的“地址“贴标签</strong>。</p>
+
+<h3 id="变量命名的规则">变量命名的规则：</h3>
+
+<ol>
+  <li>C语言变量名只能由<strong>英文字母和数字或者下划线</strong>来组成，<strong>其他特殊字母不行</strong>。</li>
+  <li>变量名必须以<strong>英文字母或者下划线开头</strong>，<strong>不能以数字开头</strong>。</li>
+  <li>便令名区分大小写。</li>
+  <li>不能使用关键字来命名。</li>
+</ol>
+
+<p>一下对C语言的关键字进行整理：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>传统C语言(ANSI C)</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>auto</td>
+      <td>break</td>
+      <td>case</td>
+      <td>char</td>
+      <td>const</td>
+      <td>continue</td>
+      <td>default</td>
+      <td>do</td>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>else</td>
+      <td>enum</td>
+      <td>extern</td>
+      <td>float</td>
+      <td>for</td>
+      <td>goto</td>
+      <td>if</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td>long</td>
+      <td>register</td>
+      <td>return</td>
+      <td>short</td>
+      <td>signed</td>
+      <td>sizeof</td>
+      <td>static</td>
+    </tr>
+    <tr>
+      <td>struct</td>
+      <td>switch</td>
+      <td>typedef</td>
+      <td>union</td>
+      <td>unsigned</td>
+      <td>void</td>
+      <td>volatile</td>
+      <td>while</td>
+    </tr>
+    <tr>
+      <td>C99标准</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>inline</td>
+      <td>restrict</td>
+      <td>_Bool</td>
+      <td>_Complex</td>
+      <td>_Imaginary</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>C11标准</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>_Alignas</td>
+      <td>_Alignof</td>
+      <td>_Atomic</td>
+      <td>_Static_assert</td>
+      <td>_Noreturn</td>
+      <td>_Thread_local</td>
+      <td>_Generic</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>为变量指定名字后，还需要为变量指定”坑位”大小，即指定该变量即将存放的数据类型。以防浪费。</p>
+
+<h3 id="c语言常用的基本数据类型">C语言常用的基本数据类型</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>数据类型</td>
+      <td>说明</td>
+    </tr>
+    <tr>
+      <td>char</td>
+      <td>字符型，占用一个字节</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td>整型，通常反映了所用机器中整数的自然长度</td>
+    </tr>
+    <tr>
+      <td>float</td>
+      <td>单精度浮点型</td>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>双精度浮点型</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>代码说明，</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">数据类型</span> <span class="err">变量名</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">a</span><span class="p">;</span>      <span class="cm">/* 在内存中找到一个整型大小的位置，并给它命名为a */</span>
+<span class="kt">char</span> <span class="n">b</span><span class="p">;</span>     <span class="cm">/* 在内存中找到一个字节大小的位置，并给它命名为b */</span>
+<span class="kt">float</span> <span class="n">c</span><span class="p">;</span>    <span class="cm">/*在内存中找到一个单精度浮点型数据大小的位置，并给它命名为c */</span>
+<span class="kt">double</span> <span class="n">d</span><span class="p">;</span>   <span class="cm">/*在内存中找到一个双精度浮点型数据大小的位置，并给它命名为d */</span>
+</code></pre></div></div>
+<blockquote>
+  <p>PS：单精度浮点型用于存放小数点后位数比较小的浮点数，对于比较大的，要用更大的空间来存储，这就是双精度浮点型。</p>
+</blockquote>
+
+<p>代码说明，</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//test.c</span>
+<span class="cp">#include &lt;stdio.h&gt;
+</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">c</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">d</span><span class="p">;</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">.</span><span class="mi">14</span><span class="p">;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">3</span><span class="p">.</span><span class="mi">141592653</span><span class="p">;</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"圆周率是：%.2f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"圆周率是：%11.9f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+:ET

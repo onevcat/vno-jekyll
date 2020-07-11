@@ -3,25 +3,30 @@ layout: default
 ---
 <!doctype html>
 <html>
+
 <head>
-  <div id='wx_pic' style='margin:0 auto;display:none;'>
-    <img src='/assets/avatar.jpg'>
-  </div>
-<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header">
-    <div class="post-meta">
-      <time datetime="{{page.date | date: date_to_xmlschema}}" itemprop="datePublished" class="post-meta__date date">{{page.date | date: "%F"}}</time> &#8226; <span class="post-meta__tags tags">{{page.tags | join:' '}}</span>
-    </div>
-       {% include post-tag.html %}
-    <h1 class="post-title">{{ page.title }}</h1>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="{{page.date | date: date_to_xmlschema}}" itemprop="datePublished"
+					class="post-meta__date date">{{page.date | date: "%F"}}</time> &#8226; <span
+					class="post-meta__tags tags">{{page.tags | join:' '}}</span>
+			</div>
 
-  </header>
+			{% include post-tag.html %}
+			<br>
 
-  <section class="post">
-    {{ content }}
-  </section>
-</article>
+			<h1 class="post-title">{{ page.title }}</h1>
 
-{% include read-more.html %}
-{% include comments.html %}
-{% include valine.html %}
+		</header>
+
+		<section class="post">
+			{{ content }}
+		</section>
+	</article>
+
+	{% include read-more.html %}
+	{% include comments.html %}
+	{% include valine.html %}
+
+</html>

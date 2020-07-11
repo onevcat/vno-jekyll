@@ -1,8 +1,8 @@
 # Basic
-title: Zququ's Blog
+title: Zququ's blog
 subtitle: 生而为学, 学而不老
-welcome_message: <a href="https://www.researchgate.net/profile/Zehui_Qu2">I am Zehui Qu (@Zququ), Phd candidate at CAU, you can find my publications at ResearchGate</a>
-description: About mathematics, cryo-em, crystallography and coding
+welcome_message: <a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a>
+description: 嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。
 creator: <a href="https://zququcv.netlify.com">@zququ</a>
 
 url: "http://life.zququ.fun"
@@ -13,17 +13,17 @@ permalink: /:year/:month/:title/
 highlighter: rouge
 
 # supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
-cover_color: red
+cover_color: red 
 
 # The blog button should not be removed.
 blog_button:
-    title: 博客Blog
+    title: 博客
     description: To Home Page
 
 # Navigation buttons in the front page.
 nav:
-    - {title: 简历CV, description: Curriculum Vitae, url: 'https://zququcv.netlify.com'}
-    - {title: 标签Tags, description: Tags Page, url: 'http://life.zququ.fun/tags/'}
+    - {title: 简历, description: Curriculum Vitae, url: 'https://zququcv.netlify.com'}
+    - {title: 标签, description: Tags Page, url: 'http://life.zququ.fun/tags/'}
 
 # Pagination
 plugins: [jekyll-paginate]

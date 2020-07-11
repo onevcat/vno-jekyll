@@ -1,0 +1,133 @@
+I"�<h3 id="86-寻址方式的综合应用">8.6 寻址方式的综合应用</h3>
+
+<p>按照王爽教材里给的例子：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>公司名称</td>
+      <td>DEC</td>
+    </tr>
+    <tr>
+      <td>总裁姓名</td>
+      <td>Ken Olsen</td>
+    </tr>
+    <tr>
+      <td>排名</td>
+      <td>137</td>
+    </tr>
+    <tr>
+      <td>收入</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>著名产品</td>
+      <td>PDP</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>以上是DEC公司1982年的情况，到了1988年DEC公司的信息放生了变化，如下：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>公司名称</td>
+      <td>DEC</td>
+    </tr>
+    <tr>
+      <td>总裁姓名</td>
+      <td>Ken Olsen</td>
+    </tr>
+    <tr>
+      <td>排名</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <td>收入</td>
+      <td>+70</td>
+    </tr>
+    <tr>
+      <td>著名产品</td>
+      <td>VAX</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>利用汇编语言来对对应数据进行修改。</p>
+
+<p><img src="/assets/201911/2019-11-21_15-53-09.png" alt="figure1" /></p>
+
+<p>代码如下：</p>
+
+<pre><code class="language-x86asm">mov ax, seg  ;seg:60
+mov ds, ax
+mov bx, 60h  ;设置seg的偏移地址
+
+mov word ptr [bx+0Ch], 38
+add word ptr [bx+0Eh], 70
+
+mov si, 0
+mov byte ptr [bx+10h+si], 'V'  ;字符串占用3个字节
+inc si
+mov byte ptr [bx+10h+si], 'A'
+inc si
+mov byte prt [bx+10h_si], 'X'
+</code></pre>
+
+<p>观察相同功能的C语言代码：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="nc">company</span> <span class="p">{</span>    <span class="cm">/*定义公司记录的结构体*/</span>
+    <span class="kt">char</span> <span class="n">cn</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>     <span class="cm">/*公司名称*/</span>
+    <span class="kt">char</span> <span class="n">hn</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>     <span class="cm">/*总裁姓名*/</span>
+    <span class="kt">int</span>  <span class="n">pm</span><span class="p">;</span>        <span class="cm">/*排    名*/</span>
+    <span class="kt">int</span>  <span class="n">sr</span><span class="p">;</span>        <span class="cm">/*收    入*/</span>
+    <span class="kt">char</span> <span class="n">cp</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>     <span class="cm">/*注明产品*/</span>
+    <span class="p">};</span>
+<span class="k">struct</span> <span class="nc">company</span> <span class="n">dec</span><span class="o">=</span><span class="p">{</span><span class="s">"DEC"</span><span class="p">,</span> <span class="s">"Ken Olsen"</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s">"PDP"</span><span class="p">};</span>
+<span class="cm">/*定义一个公司记录的变量，内存中将存有一条公司的记录*/</span>
+</code></pre></div></div>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+ <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+ <span class="n">dec</span><span class="p">.</span><span class="n">pm</span><span class="o">=</span><span class="mi">38</span><span class="p">;</span>
+ <span class="n">dec</span><span class="p">.</span><span class="n">sr</span><span class="o">=</span><span class="n">dec</span><span class="p">.</span><span class="n">sr</span><span class="o">+</span><span class="mi">70</span><span class="p">;</span>
+ <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+ <span class="n">dec</span><span class="p">.</span><span class="n">cp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="sc">'V'</span><span class="p">;</span>
+ <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+ <span class="n">dec</span><span class="p">.</span><span class="n">cp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="sc">'A'</span><span class="p">;</span>
+ <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+ <span class="n">dec</span><span class="p">.</span><span class="n">cp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="sc">'x'</span><span class="p">;</span>
+ <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>对应C语言风格，将汇编语言代码进行改写：</p>
+
+<pre><code class="language-x86asm">mov ax, seg
+mov ds, ax
+mov bx, 60h
+mov word ptr [bx].0ch, 38
+add word ptr [bx].0eh, 70
+
+mov si, 0
+mov byte ptr [bx].10h[si], 'V'
+inc si
+mov byte ptr [bx].10h[si], 'A'
+inc si
+mov byte ptr [bx].10h[si], 'X'
+</code></pre>
+
+<p>从这个例子看，有几个收获与结论：</p>
+
+<ol>
+  <li>我们再编程的时候，从结构化的角度去看待所要处理的数据。</li>
+  <li>一个结构化的数据包含了多个数据项。</li>
+  <li>8086CPU提供的[bx+si+idata]的寻址方式为结构化数据的处理提供了方便。</li>
+  <li>**我们可以用[bx+idata+si]的方式来访问结构体中的数据。用bx定位整体结构体，用idata定位结构体中的某一个数据项，用si定位数组项中的每一个元素。为此，汇编语言提供了更贴切的书写方式，<code class="language-plaintext highlighter-rouge">[bx].idata</code>、<code class="language-plaintext highlighter-rouge">[bx].idata[si]</code>。</li>
+</ol>
+
+<blockquote>
+  <p>对比C语言和汇编语言代码，我们可以看到，如<code class="language-plaintext highlighter-rouge">dec.cp[i]</code>与汇编语言的<code class="language-plaintext highlighter-rouge">bx.10h[si]</code>是很相似的。</p>
+</blockquote>
+
+:ET

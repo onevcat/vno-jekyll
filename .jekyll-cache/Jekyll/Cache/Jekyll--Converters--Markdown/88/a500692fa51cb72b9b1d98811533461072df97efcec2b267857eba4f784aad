@@ -1,0 +1,53 @@
+I"?
+<h4 id="34-mov-add-sub指令">3.4 mov, add, sub指令</h4>
+
+<p>mov 寄存器，数据      —&gt;   <code class="language-plaintext highlighter-rouge">mov ax, 8</code></p>
+
+<p>mov 寄存器，寄存器    —&gt;   <code class="language-plaintext highlighter-rouge">mov ax, bx</code></p>
+
+<p>mov 寄存器，内存单元  —&gt;   <code class="language-plaintext highlighter-rouge">mov ax, [0]</code></p>
+
+<p>mov 内存单元，寄存器  —&gt;   <code class="language-plaintext highlighter-rouge">mov [0], ax</code></p>
+
+<p>mov 段寄存器，寄存器  —&gt;   <code class="language-plaintext highlighter-rouge">mov ds, ax</code></p>
+
+<p>mov 寄存器，段寄存器  —&gt;   <code class="language-plaintext highlighter-rouge">mov ax, ds</code></p>
+
+<p>mov 内存单元，段寄存器—&gt;   <code class="language-plaintext highlighter-rouge">mov [0], cs</code></p>
+
+<p>mov 段寄存器，内存单元—&gt;   <code class="language-plaintext highlighter-rouge">mov ds, [0]</code></p>
+
+<h4 id="35-数据段">3.5 数据段</h4>
+
+<p>对于8086PC， 可以将一组长度为N(N&lt;=64KB)、地址连续、起始地址为16的倍数的内存你单元当做专门存储数据的内存空间，从而定义一个数据段。例如，用123B0H~123B9H这段内存空间来存放数据，我们就可以认为，123B0H~123B9H这段内存是一个数据段，它的地址为123BH，长度为10个字节。</p>
+
+<p>解释：</p>
+<ol>
+  <li>长度最大值为64KB，因为最大寻址能力为$2^16-10$ = 64KB。</li>
+  <li>123B0H, 段地址为123B，偏移地址为0~9所以为10个字节。</li>
+</ol>
+
+<p>如何访问数据段中的数据呢？将一段内存你当做数据段，是我们再编程时的一种安排，可以在具体操作的时候，用ds存放数据段的段地址，再根据需要，用相关指令访问数据段中的具体单元。</p>
+
+<p>比如，将123B0H~123B9H的内存单元定义为数据段。现在要累加这个数据段中的前三个单元数据：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mov ax, 123BH
+mov ds, ax
+mov al, 0     #这行以及下行可以合并为mov al, [0]
+add al, [0]
+add al, [1]
+add al, [2]
+</code></pre></div></div>
+
+<p>值得注意的是，如果要求累加3个字型数据，代码会发生改变：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mov ax, 123BH
+mov ds, ax
+mov ax, 0
+add ax, [0]
+add ax, [2]
+add ax, [4]
+</code></pre></div></div>
+
+<p>注意这里，一个字型占用两个单元，所以偏移地址是0, 2, 4。</p>
+:ET

@@ -1,0 +1,42 @@
+I"2<p>Keyboard setting is something boring in vim, and tell you the truth, it’s a little complex. However, vim setting is essential to us. I use the vim aimed to increase the efficiency of my daily writing, including blog and coding. And the keyboard setting is no doubly the most important.<br /></p>
+<h2 id="the-vimrc-build">The vimrc build</h2>
+<p>The keyboard setting of vim, is similar to the setting of terminal bashrc. Make a folder named with <strong><code class="language-plaintext highlighter-rouge">vim</code></strong> and create the <strong><code class="language-plaintext highlighter-rouge">vimrc</code></strong> document.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$mkdir</span> ~/.vim <span class="o">&amp;&amp;</span> <span class="nb">cd</span> .vim
+<span class="nv">$touch</span> vimrc
+</code></pre></div></div>
+<p>And then a vimrc will be created.<br /></p>
+<blockquote>
+  <p>One tricky thing I want to say is how to quickly set your vim. Maybe it’s a little early to talk about it, I recommend that you can skip this at first.<br /></p>
+</blockquote>
+
+<p>As vim is a very small and easy taken word editor, you may want to set up your vim more easily. And you can upload your vim setting to the github and setup vim on any computer you like. I got a very cool code to auto-detect if there is a vimrc, if your vimrc isn’t set, this code will help you set your vim.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span>empty<span class="o">(</span>glob<span class="o">(</span><span class="s1">'~/.vim/autoload/plug.vim'</span><span class="o">))</span>
+  silent <span class="o">!</span>curl <span class="nt">-fLo</span> ~/.vim/autoload/plug.vim <span class="nt">--create-dirs</span>
+    <span class="se">\ </span>https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter <span class="k">*</span> PlugInstall <span class="nt">--sync</span> | <span class="nb">source</span> <span class="nv">$MYVIMRC</span>
+endif
+</code></pre></div></div>
+<p>As all the plugin will be plugged by the <a href="https://github.com/junegunn/vim-plug">Vim plugin manager</a> and a file named plug.vim will be downloaded in <code class="language-plaintext highlighter-rouge">/autoload</code>. Copy the this code to your vimrc, and if your computer didn’t get your <code class="language-plaintext highlighter-rouge">/autoload/plug.vim</code> it will auto-install all of the plugins from the github. Cool!</p>
+
+<h2 id="the-keyboard-setting">The Keyboard setting</h2>
+<p>Next we will enter our topic. Two commands will help you resolve the keyboard setting.</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">noremap</span> 
+&amp;
+<span class="nb">map</span>
+</code></pre></div></div>
+
+<p>noremap is an easy command to change the simple key group. For example,</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">noremap</span> <span class="k">u</span> <span class="k">i</span> 
+</code></pre></div></div>
+<p>It will simply help you change i to u.
+<br />The other command <strong><code class="language-plaintext highlighter-rouge">map</code></strong> is more powerful and can handle more complex work. For example,</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">map</span> <span class="p">&lt;</span>LEADER<span class="p">&gt;</span>rc <span class="p">:</span><span class="k">e</span> <span class="p">~</span><span class="sr">/.vim/</span>vimrc<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+</code></pre></div></div>
+<p>Means to set <strong><code class="language-plaintext highlighter-rouge">&lt;LEADER&gt; + r + c</code></strong> can help you edit vimrc document directly.<br />
+As I introduced <a href="../../06/basic-op-vim">before</a>, <strong><code class="language-plaintext highlighter-rouge">operation + motivation</code></strong> will help you make a more flexible setting like,</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">map</span> <span class="p">&lt;</span>LEADER<span class="p">&gt;&lt;</span>LEADER<span class="p">&gt;</span> <span class="p">&lt;</span>Esc<span class="p">&gt;</span>/<span class="p">&lt;++&gt;&lt;</span>CR<span class="p">&gt;:</span><span class="k">nohlsearch</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>c4l
+</code></pre></div></div>
+<p>Means when you tap <strong><code class="language-plaintext highlighter-rouge">&lt;LEADER&gt; + &lt;LEADER&gt;</code></strong>, will at first execute <strong><code class="language-plaintext highlighter-rouge">Esc</code></strong> command, and then search for <strong><code class="language-plaintext highlighter-rouge">&lt;++&gt;</code></strong> (some defined tag working as a place holder), then execute <strong><code class="language-plaintext highlighter-rouge">:nohlsearch</code></strong> to cancel highlight search mode and change the 4 units on the right (<strong><code class="language-plaintext highlighter-rouge">c4l</code></strong>), in another word, make a change of the <strong><code class="language-plaintext highlighter-rouge">&lt;++&gt;</code></strong> into other word.</p>
+
+:ET

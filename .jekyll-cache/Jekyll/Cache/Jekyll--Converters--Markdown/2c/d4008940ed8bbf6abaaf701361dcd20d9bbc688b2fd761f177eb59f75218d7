@@ -1,0 +1,118 @@
+I"j<h3 id="710-不同寻址方式的灵活运用1">7.10 不同寻址方式的灵活运用(1)</h3>
+
+<p>之前有介绍过几种定位内存地址的方法（寻址方式）：</p>
+<ol>
+  <li>[idata]用一个<strong>常量</strong>来表示内存地址，可用于直接定义一个内存单元，注意的是，单独使用[idata]只能在debug中被正确识别，如果在masm中，需要表明[idata]对应的段，即<code class="language-plaintext highlighter-rouge">ds:[idata]</code>。</li>
+  <li>[bx]用一个<strong>变量</strong>来表示内存地址，可用于间接定位一个内存单元。其使用时不用表明对应的段，默认[bx]就是在ds中。</li>
+  <li>[bx+idata]。</li>
+  <li>[bx+si]。</li>
+  <li>[bx+si+idata]用两个变量和一个常量表示地址。</li>
+</ol>
+
+<p>这有利于我们可以从更加<strong>结构化</strong>的角度来看待所要处理的数据。</p>
+
+<blockquote>
+  <p>问题1</p>
+</blockquote>
+
+<p>编程，将datasg段中的每个单词的首字母改写为大写字母。</p>
+
+<pre><code class="language-x86asm">assume cs:codesg, ds:datasg
+datasg segment
+  db '1. file         '
+  db '2. edit         '
+  db '3. search       '
+  db '4. view         '
+  db '5. options      '
+  db '6. help         '
+datasg ends
+</code></pre>
+<p>这里可以观察数据结构，如图。</p>
+
+<p><img src="/assets/201911/2019-11-13_16-05-36.png" alt="figure1" /></p>
+
+<p>从图中可见，行需要进行6次循环操作（换行操作），列操作因为每一行需要改写的都是第3行，所以列处理为一个常数3。</p>
+
+<p>处理过程如下：</p>
+<pre><code class="language-x86asm">    R=第一行的地址
+    mov cx, 6
+s:  改变R行，3列的字母为大写
+    R=下一行的地址
+    loop s
+</code></pre>
+<p>最终的代码段为：</p>
+<pre><code class="language-x86asm">codesg segment
+  start:  mov ax, datasg
+          mov ds, ax
+          mov bx, 0
+
+          mov cx, 6
+      s:  mov al, [bx+3]
+          and al, 11011111b
+          mov [bx+3], al
+          add bx, 16    ;通过对bx+16来换到下一行，对下一行[bx+3]进行定位
+          loop s
+codesg ends
+</code></pre>
+<p>这里应用了[bx+idata]的方法，对通过一个变量和一个常量组成的二位数组进行定位。</p>
+
+<p>而如果我们遇到了需要两个变量来定位二维数组的情况又要如何处理呢？</p>
+
+<blockquote>
+  <p>问题2 编程，将datasg段中的每个单词改写为大写字母。</p>
+</blockquote>
+
+<pre><code class="language-x86asm">assume cs:codesg, ds:datasg
+datasg segment
+  db 'ibm             '
+  db 'dec             '
+  db 'dos             '
+  db 'vax             '
+datasg ends
+</code></pre>
+<p>首先我们来分析数据结构，如下图：</p>
+
+<p><img src="/assets/201911/2019-11-13_16-16-29.png" alt="figure2" /></p>
+
+<p>从图中我们可以看出，我们需要进行4*3次的二重循环才能将每一行里的每个单词都改写为大写。</p>
+
+<p>这里需要使用两层循环对数据进行处理（外层循环和内层循环），处理方法如下：</p>
+
+<pre><code class="language-x86asm">    R=第一行的地址；
+    mov cx, 4
+s0: C=第一列的地址  ;外层循环
+    mov cx, 3
+ s: 改写R行，C列的字母为大写 ;内层循环
+    C=下一列的地址；
+    loop s
+    R=下一行的地址
+    loop s0
+</code></pre>
+
+<p>我们用bx来定位每一行的起始地址，用si定位要修改的列，用[bx+si]的方式来对目标单元进行寻址，代码段如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>codesg segment
+  start:  mov ax, datasg
+          mov ds, ax
+          mov bx, 0
+
+          mov cx, 4
+     s0:  mov si, 0         ;外层循环
+
+          mov cx, 3
+      s:  mov al, [bx+si]   ;内层循环
+          and al, 11011111b
+          mov [bx+si], al
+          inc si
+
+          loop s
+
+          add bx, 16
+          loop s0
+codesg ends
+</code></pre></div></div>
+
+<p>但是这个代码是有问题的，因为在进行二重循环时，在第一次执行内层循环时，外层循环的cx就会被覆盖为内层循环的3。</p>
+
+<p>下一个post将介绍如何解决这个问题。</p>
+:ET

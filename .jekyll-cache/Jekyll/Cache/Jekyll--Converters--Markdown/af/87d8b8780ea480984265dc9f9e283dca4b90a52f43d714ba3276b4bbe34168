@@ -1,0 +1,683 @@
+I"nV<!-- TOC GFM -->
+
+<ul>
+  <li><a href="#-11-实数">§ 1.1 实数</a>
+    <ul>
+      <li><a href="#111-数轴的建立">1.1.1 数轴的建立</a></li>
+      <li><a href="#112-建立数轴后引出的2个问题">1.1.2 建立数轴后引出的2个问题</a></li>
+    </ul>
+  </li>
+  <li><a href="#-12-无尽小数">§ 1.2 无尽小数</a></li>
+  <li><a href="#-13-收敛和收敛数列">§ 1.3 收敛和收敛数列</a>
+    <ul>
+      <li><a href="#131-极限的数学定义">1.3.1 极限的数学定义</a></li>
+      <li><a href="#132-几个结论及证明">1.3.2 几个结论及证明</a></li>
+    </ul>
+  </li>
+  <li><a href="#-14-收敛数列的性质">§ 1.4 收敛数列的性质</a>
+    <ul>
+      <li><a href="#141-收敛数列极限的唯一性">1.4.1 收敛数列极限的唯一性</a></li>
+      <li><a href="#142-数列的有界性质">1.4.2 数列的有界性质</a></li>
+      <li><a href="#143-子数列的性质">1.4.3 子数列的性质</a></li>
+      <li><a href="#144-极限的运算性质">1.4.4 极限的运算性质</a></li>
+      <li><a href="#145-无穷小的性质">1.4.5 无穷小的性质</a></li>
+      <li><a href="#146-夹逼定理">1.4.6 夹逼定理</a></li>
+      <li><a href="#147-通过不等式表达的收敛数列性质">1.4.7 通过不等式表达的收敛数列性质</a></li>
+    </ul>
+  </li>
+  <li><a href="#-15-极限概念的推广">§ 1.5 极限概念的推广</a></li>
+</ul>
+
+<!-- /TOC -->
+
+<h2 id="-11-实数">§ 1.1 实数</h2>
+
+<p>任何有理数 $r$ 都可以表示为两个整数之商：</p>
+
+\[r = \frac{p}{q}\]
+
+<h3 id="111-数轴的建立">1.1.1 数轴的建立</h3>
+
+<p>其中 $p,q\in Z$ 且$q\neq 0$。根据以上定义首先建立数轴:</p>
+
+<p><img src="/assets/202004/f1.png" alt="fig1" /></p>
+
+<p>建立坐标轴后，就可以建立平面和空间坐标系，从而<strong>建立解析几何学</strong>。</p>
+
+<h3 id="112-建立数轴后引出的2个问题">1.1.2 建立数轴后引出的2个问题</h3>
+
+<p><strong>问题1.</strong> 数轴上每一个点对应一个实数为其坐标，那么每一个实数是否都是数轴上某一点坐标呢？</p>
+
+<ul>
+  <li>
+    <p>对固定的正整数 $q$，让 $p$ 取遍所有整数，则 $p/q$ 这些数字把数轴分成了长度为 $1/q$ 的区间。</p>
+  </li>
+  <li>
+    <p>令每一个实数 $x$ 位于这些中的一个区间，也就是说对任意固定的实数 $x$ 一定可以找出一个整数 $p$ ，使得，</p>
+  </li>
+</ul>
+
+\[\frac{p}{q} \leq x&lt;\frac{p+1}{q} \qquad (1)\]
+
+<p><img src="/assets/202004/f2.png" alt="fig2" /></p>
+
+<p>由 (1) 可得，</p>
+
+\[|x-\frac{p}{q}|&lt;\frac{1}{q}\]
+
+<p>即，$\forall x$ ，总能找到一个有理数 $p/q$ 和$x$的距离可以小于 $1/q$ 。</p>
+
+<p>如一个新的实数点 $x’$，要证明 $x-\varepsilon$ 与 $x+\varepsilon$ 之间有无穷多个数，则</p>
+
+\[\left|x-\frac{p}{q}\right|&lt;\frac{1}{q}&lt;\varepsilon \Rightarrow q&gt;\frac{1}{\varepsilon}\]
+
+<p>故有，</p>
+
+\[\left|x-\frac{p}{q}\right|&lt;\varepsilon\]
+
+<p>即找到了一个有理数 $p/q$ 确实落在 $\varepsilon$ 的区间内部。</p>
+
+<p>根据这个问题，我们得到两个结论：</p>
+
+<ol>
+  <li><strong>有理数在数轴上是稠密的</strong><br />
+    <ul>
+      <li>即随便取一个实数，在充分小的区间就能找到无穷多有理数。</li>
+      <li>同样的，在充分小的区间内有一个有理数，也就相当于有无穷多个有理数。</li>
+    </ul>
+  </li>
+  <li><strong>任何实数，都可以由无理数来任意逼近</strong></li>
+</ol>
+
+<p><strong>问题2.</strong> 有理数是连续的吗？即无理数的引出</p>
+
+<p><strong>例：</strong></p>
+
+<p>若 $n$不是平方数，那么 $\sqrt{n}$ 不是有理数。</p>
+
+<p>证明：假定</p>
+
+<p>\(\sqrt{n}=\frac{p}{q}\)
+就有，
+\(n=\frac{p^{2}}{q^{2}} \quad, \quad p^{2}=n q^{2} \qquad (2)\)</p>
+
+<p>其中，$p$ 和 $q$ 的定义同 <strong>问题1</strong>。</p>
+
+<p>由 $p/q$ 一定不是整数得到，</p>
+
+\[m&lt;\frac{p}{q}&lt;m+1 \quad\left(m \in N^{*}\right) \quad \rightarrow \quad mq&lt;p&lt;m q+q\]
+
+<p>即，</p>
+
+\[0&lt;p-m q&lt;q\]
+
+<p>由 (2) 得，</p>
+
+\[p^{2}-p m q=n q^{2}-p m q\]
+
+\[p(p-m q)=q(n q-p m) \rightarrow \frac{p}{q}=\frac{n q-p m}{p-m q} \quad (3)\]
+
+<p>令 (3) 等于 $p_1/q_1$，由</p>
+
+\[p-m q&gt;0 \rightarrow q_{1}&gt;0 \rightarrow 0&lt;q_{1}&lt;q\]
+
+\[p_{1}=\frac{q_{1}}{q} \times p&lt;p\]
+
+<p>推出以下关系式，</p>
+
+\[\sqrt{n}=\frac{p}{q}=\frac{n q-p m}{p-m q}=\frac{p_{1}}{q_{1}}=\frac{p_{2}}{q_{2}}= \cdots \quad (4)\]
+
+<p>但由于 $p$ 与 $q$ 均为正整数，所以不可能无限制 (4) 中的关系，所以假设不成立，所以 $\sqrt{n}$ 不是有理数。</p>
+
+<h2 id="-12-无尽小数">§ 1.2 无尽小数</h2>
+
+<p>任何一个<em>有理数</em>是有穷小数或者<em>无穷循环小数</em>，我们可以从以下实例中得到证明。</p>
+
+\[\begin{array}{l}
+a=1.\dot{2}3\dot{4} =1+0.\dot{2}3 \dot{4}=1+b \\
+\\
+b=0 . \dot{2}3\dot{4} \\
+\\
+10^{3} b=234. \dot{2}3\dot{4}=234+b \\
+\\
+(10^3-1) b=234, \quad b=\frac{234}{999}=\frac{26}{111} \\
+\\
+\rightarrow a=1+\frac{26}{111}=\frac{137}{111}
+\end{array}\]
+
+<p>实际上，实数都可以表示为无尽小数。</p>
+
+\[n. a_{1} a_{2} a_{3}...\]
+
+<p>而实数本身可以分为有理数 (循环小数) 及无理数 (不循环小数)。</p>
+
+<p>数轴上的任何一个点一定对应着一个实数，但大多数在数轴上是对不准的。</p>
+
+<p>这里就引入另外一个定理，<strong>区间套定理</strong>，如对于点，</p>
+
+\[a=n.a_{1} a_{2} a_{3}\]
+
+<p><img src="/assets/202004/f3.png" alt="figure3" /></p>
+
+<p>$
+\left[a_{1}, a_{2}\right] &gt; \left[a_{1}, b_{2}\right]&gt;\left[a_{3}, b_{3}\right]&gt;\ldots
+$ 不断循环嵌套下去，存在唯一一个点与之对应。</p>
+
+<p><strong>即实数与数轴上的点是一一对应的。</strong></p>
+
+<h2 id="-13-收敛和收敛数列">§ 1.3 收敛和收敛数列</h2>
+
+<p>当 $n$ 很大时，$a_{n}$ 无限接近，即</p>
+
+\[a_{n} \rightarrow a \Rightarrow n \rightarrow \infty时 \lim _{i \rightarrow \infty} a_{n}=a\]
+
+<p>用一个数轴来描述a的 $\varepsilon$ 邻域，</p>
+
+<p><img src="/assets/202004/f4.png" alt="figure4" /></p>
+
+<p>对 $\forall \varepsilon &gt; 0$，$\exists N \in N^{*}$ 当 $n &gt; N$ 时，</p>
+
+\[a-\varepsilon&lt;a_{n}&lt;a+\varepsilon\]
+
+<p>当 $n&gt;N$ 时，</p>
+
+\[a_{1} a_{2} ... a_{N}(有限项)|a_{N+1}...(无限项)\]
+
+<h3 id="131-极限的数学定义">1.3.1 极限的数学定义</h3>
+
+\[\left|a_{n}-a\right|&lt;\varepsilon \Rightarrow a-\varepsilon&lt;a&lt;a+\varepsilon\]
+
+<h3 id="132-几个结论及证明">1.3.2 几个结论及证明</h3>
+
+<p><strong>结论一</strong></p>
+
+\[|q|&lt;1, \quad \lim _{n \rightarrow \infty} q^{n}=0\]
+
+<p>证明：</p>
+
+<ul>
+  <li>
+    <p>方法 1</p>
+
+    <ul>
+      <li>$q=0$ 时，显然成立</li>
+      <li>$q \neq 0$ 时，</li>
+    </ul>
+  </li>
+</ul>
+
+\[\begin{array}{c}
+\alpha=\frac{1}{|q|}-1&gt;0, \quad \frac{1}{|q|}=1+\alpha, \quad|q|=\frac{1}{1+\alpha} \\
+\\
+\forall \varepsilon&gt;0, \quad \exists N \in N^{*}, \quad n&gt;N \quad\left|q^{n}\right|&lt;\varepsilon \\
+\\
+\left|q^{n}\right|=|q|^{n}=\frac{1}{(1+\alpha)^{n}}=\frac{1}{1+n \alpha+\cdots \cdots \alpha^{n}}&lt;\frac{1}{n a}&lt;\varepsilon \\
+\\
+n&gt;\frac{1}{\alpha \varepsilon} \quad, \quad N=\left[\frac{1}{\alpha \varepsilon}\right]
+\end{array}\]
+
+<ul>
+  <li>方法 2</li>
+</ul>
+
+\[|q|^{n}&lt;\varepsilon, \quad n \cdot \log |q|&lt;\log \varepsilon, \quad n&gt;\frac{\log \varepsilon}{\log |q|},  \quad N=\left[\frac{\log \varepsilon}{\log |q|}\right]\]
+
+<p><strong>结论二</strong></p>
+
+\[\lim _{n \rightarrow \infty} \sqrt[n]{n}=1\]
+
+<p>证明：</p>
+
+\[\forall \varepsilon&gt;0, \quad \exists N, \quad n&gt;N 时, \quad |^{n}\sqrt{n}-1 |&lt;\varepsilon\]
+
+\[^n\sqrt{n} = ^n\sqrt{1*1*...*1\bigl((n-2)个1\bigr)*\sqrt{n}} &lt;\frac{n-2+2 \sqrt{n}}{n}=\frac{n+2(\sqrt{n}-1)}{n}=1+\frac{2(\sqrt{n}-1)}{n}\]
+
+\[0 \leqslant {^n\sqrt{n}}-1&lt;\frac{2(\sqrt{n}-1)}{n}=\frac{2(\sqrt{n}-1)}{\sqrt{n} \cdot \sqrt{n}}&lt;\frac{2}{\sqrt{n}} \Rightarrow n&gt;\frac{4}{\varepsilon^{2}}\]
+
+\[N=\left[\frac{4}{\varepsilon^{2}}\right]\]
+
+<p><strong>总结</strong></p>
+
+<p>$\lim_{n \to \infty} a_{n}=a$的描述方法</p>
+
+\[\forall \varepsilon&gt;0 \quad \exists N \in N^{*}, \quad \forall n&gt;N，有 \quad\left|a_{n}-a\right|&lt;\varepsilon\]
+
+<p>$\lim_{n \rightarrow \infty} a_{n} \neq a$的描述方法</p>
+
+\[\exists \varepsilon_0 &gt; 0, \quad 不论 \quad N^* 多大，总是 \exists n &gt; N，有\quad |a_n-a|\geqslant \varepsilon_0\]
+
+<p><img src="/assets/202004/f5.png" alt="figure5" /></p>
+
+<h2 id="-14-收敛数列的性质">§ 1.4 收敛数列的性质</h2>
+
+<p>收敛 $\rightarrow$ 有极限</p>
+
+<p>不收敛 $\rightarrow$ 发散</p>
+
+<p>用数轴来描述 $lim_{n\rightarrow\infty}a_n = a$, 如图：</p>
+
+<p><img src="/assets/202004/f6.png" alt="figure6" /></p>
+
+<p>下面来介绍收敛数列的几个重要的性质。</p>
+
+<h3 id="141-收敛数列极限的唯一性">1.4.1 收敛数列极限的唯一性</h3>
+<p><br /></p>
+
+<ul>
+  <li>收敛数列极限是唯一的。</li>
+</ul>
+
+<p>对于这个定理，我们可以首先从数轴上考虑, 如下图所示：</p>
+
+<p><img src="/assets/202004/f7.png" alt="figure7" /></p>
+
+<p>由于b区间内存在有限项，但在a中是无限多项，所以矛盾。</p>
+
+<p>证明如下：</p>
+
+\[\lim _{n \rightarrow \infty} a_{n}=a, \quad \lim _{n \rightarrow \infty} a_{n}=b \quad \Rightarrow \quad a=b\]
+
+\[\begin{array}{l}
+\forall \varepsilon&gt;0, \quad N_{1}, \quad n&gt;N_{1} \quad\left|a_{1}-a\right|&lt;\frac{\varepsilon}{2} \\
+\\
+\forall \varepsilon&gt;0, \quad N_{2}, \quad n&gt;N_{2} \quad\left|a_{1}-b\right|&lt;\frac{\varepsilon}{2}
+\end{array}\]
+
+\[取\quad N=\max \left(N_{1}, N_{2}\right), n&gt;N\quad时\]
+
+\[\begin{array}{c}
+|a-b|=\left|a-a_{n}+a_{n}-b\right| \leq\left|a-a_{n}\right|+\left|a_{n}-b\right|&lt;\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon \\
+\\
+\Rightarrow a=b
+\end{array}\]
+
+<h3 id="142-数列的有界性质">1.4.2 数列的有界性质</h3>
+<p><br /></p>
+
+<p>首先引出<strong>有界</strong>的概念：</p>
+
+<ul>
+  <li>$a_n \leq B \Rightarrow$ 有上界</li>
+  <li>$a_n \geq A \Rightarrow$ 有下界</li>
+  <li>$A \leq a_n \leq B \Rightarrow$ 有界
+    <ul>
+      <li>$\left|a_n\right|\leq M$</li>
+    </ul>
+  </li>
+</ul>
+
+<p>下面为定理1.4.2：</p>
+
+<ul>
+  <li>数列一定是有界的。</li>
+</ul>
+
+<p>数轴上描述如下，</p>
+
+<p><img src="/assets/202004/f8.png" alt="figure8" /></p>
+
+<p>证明如下，</p>
+
+\[\lim_{n \rightarrow \infty}a_n = a\]
+
+\[\begin{array}{c}
+\varepsilon = 1，\exists N，n&gt;N时，\left|a_n-a\right|&lt;1 \\
+\\
+\left|a_n\right|\leq\left|a\right|+1，n&gt;N\\
+\\
+取\quad M = |a_1|+|a_2|+...+|a_N|+|a|+1\quad (|a_1|+...+|a_N|代表外面的有限项)\\
+\\
+即\quad |a_n|&lt;M，n=1, 2, 3...\\
+\\
+\end{array}\]
+
+<h3 id="143-子数列的性质">1.4.3 子数列的性质</h3>
+<p><br /></p>
+
+<p>对于一个数列，如下，</p>
+
+\[a_1，a_2，a_3，...，a_n，...\]
+
+<p>从中选取<strong>无穷项</strong>称为原来数列的<strong>子数列</strong> (不能改变顺序)，如下，</p>
+
+\[a_{k1}，a_{k2}，a_{k3}，a_{k4}，...\quad \Rightarrow \quad k_n \geq n\]
+
+<p>定理 1.4.3 如下:</p>
+
+<ul>
+  <li>设$lim_{n\to\infty}a_n=a$，那么${a_n}$的任何子数列必以 $a$ 为极限。</li>
+</ul>
+
+<p>证明如下：</p>
+
+\[\begin{array}{c}
+\lim_{n\to\infty}a_n=a，a_{kn}=b_n \\
+\\
+\varepsilon &gt; 0，\forall\varepsilon &gt; 0，\exists N，当n&gt;N，\left|a_n-a\right|&lt;\varepsilon \\
+\\
+n&gt;N时，\left|b_n-a\right| = \left|a_{kn}-a\right| \\
+\\
+由 k_n \geq n &gt; N，\left|b_n-a\right|=\left|a_{kn}-a\right|&lt;\varepsilon \\
+\\
+\end{array}\]
+
+<p>定理 1.4.3 有两个应用：</p>
+<ul>
+  <li>
+    <p>根据子数列不收敛来判断原数列不收敛</p>
+
+    <p><strong>例</strong> 判断 ${(-1)^{n-1}}$ $(1，-1，1，-1，…)$ 的收敛性质。</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  即通过 (1，1，1，...) 以及 (-1，-1，...) 两个数列收敛的极限不同。
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>判断周期函数是否收敛</p>
+
+    <p><strong>例</strong> 判断 $a_n=\sin{n}$ 数列是否收敛。</p>
+
+    <p>证明：找一个子数列 {$\sin{k_n}$}</p>
+  </li>
+</ul>
+
+\[k_n\in(n \pi + \frac{\pi}{3}，n \pi + \frac{2\pi}{3})，长度为\frac{\pi}{3} &gt; 1\]
+
+<p>如果一个区间比1大，则这个区间中至少有一个正整数。</p>
+
+<p><img src="/assets/202004/f11.png" alt="figure11" /></p>
+
+\[k_1 \in (\pi+\frac{\pi}{3}，π+\frac{2\pi}{3}) ，k_2 \in (2\pi+\frac{\pi}{3}，2\pi+\frac{2\pi}{3})\]
+
+<p>则有，</p>
+
+\[\begin{array}{c}
+\sin{k_1} &lt; \sin{\pi+\frac{\pi}{3}} = - \frac{\sqrt{3}}{2}\\
+\\
+\sin{k_2} &gt; \sin{2\pi+\frac{\pi}{3}}= \frac{\sqrt{3}}{2}\\
+\\
+\end{array}\]
+
+<p>所以，两个子数列收敛到了不同的极限，所以$\sin{n}$不收敛。</p>
+
+<h3 id="144-极限的运算性质">1.4.4 极限的运算性质</h3>
+<p><br /></p>
+
+<ul>
+  <li>
+    <p>设 ${a_n}$，${b_n}$是两个收敛数列，则</p>
+
+    <ol>
+      <li>$\lim(a_n \cdot b_n)=\lim(a_n) \pm \lim(b_n)$</li>
+      <li>$\lim(a_n \cdot b_n)=\lim(a_n) \cdot \lim(b_n)$</li>
+      <li>$若\lim(b_n) \neq 0，则 \lim{\frac{a_n}{b_n}}=\frac{\lim(a_n)}{\lim(b_n)}$</li>
+    </ol>
+  </li>
+  <li>
+    <p>证明 1：$\lim{a_n}=a, \lim{b_n}=b \Rightarrow \lim{(a_n \pm b_n)}=a \pm b$</p>
+  </li>
+</ul>
+
+\[\begin{array}{c}
+\forall \varepsilon &gt;0，\exists N，n&gt;N时，|(a_n+b_n)-(a+b)| &lt; \varepsilon \\
+\\
+\forall \varepsilon &gt;0，\exists N_1，n&gt;N_1时，|a_n-a|&lt;\frac{\varepsilon}{2} \quad (1)\\
+\\
+\forall \varepsilon &gt;0，\exists N_2，n&gt;N_2时，|b_n-b|&lt;\frac{\varepsilon}{2} \quad (2)\\
+\\
+N = max(N_1，N_2)，当n&gt;N时，(1)(2)均成立\\
+\\
+|(a_n+b_n)-(a+b)| \leq |a_n-a|+|b_n-b| &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2}=\varepsilon\\
+\end{array}\]
+
+<ul>
+  <li>证明 2：$\lim{a_n}=a，\lim{b_n}=b \Rightarrow \lim{a_n\cdot b_n}=ab$</li>
+</ul>
+
+\[\begin{array}{c}
+\forall \varepsilon &gt;0 \exists N，n &gt; N时，|a_nb_n - ab|&lt; \varepsilon \\
+\\
+|a_nb_n - ab|=|a_nb_n-ab_n+ab_n-ab|\leq|a_nb_n-ab_n|+|ab_n-ab|=|b_n||a_n- a|+|a||b_n-b| \quad (1) \\
+\\
+假定 |b_n|\leq M，n=1，2... \\
+\\
+\varepsilon &gt; 0，\exists N_1，n&gt;N_1时，|b_n-b|&lt;\frac{1}{|a|+1}\cdot \frac{\varepsilon}{2} \\
+\\
+\varepsilon &gt; 0，\exists N_2，n&gt;N_2时，|a_n-a|&lt;\frac{\varepsilon}{2M} \\
+\\
+当n&gt;N=max(N_1，N_2)时，\\
+\\
+(1)式 \Rightarrow |b_n||a_n-a|+|a||b_n-b|\leq M\cdot \frac{\varepsilon}{2M} + |a|\cdot \frac{1}{|a|+1}\cdot \frac{\varepsilon}{2}&lt; \varepsilon \\
+\end{array}\]
+
+<ul>
+  <li>证明 3：$\lim\frac{1}{b_n} = \frac{1}{b}$</li>
+</ul>
+
+\[\begin{array}{c}
+\forall \varepsilon &gt;0，\exists N，当n&gt;N时，|\frac{1}{b_n}-\frac{1}{b}|&lt;\varepsilon \\
+\\
+\forall \varepsilon &gt; 0，\exists N_1，n &gt; N_1时，|b_n-b|&lt; \frac{|b|}{2} \Rightarrow |b_n| &gt; \frac{|b|}{2} &gt; 0 \\
+\\
+又令 |b - b_n|&lt; \frac{|b|^2}{2} \cdot \varepsilon \\
+\\
+\Rightarrow |\frac{1}{b_n} - \frac{1}{b}|=\frac{|b-b_n|}{b\cdot b_n} &lt; \frac{2|b-b_n|}{|b|\cdot \frac{|b|}{2}} = \frac{2|b-b_n|}{|b|^2}&lt; \frac{2}{|b|^2}\cdot \frac{|b|^2}{2}\cdot \varepsilon = \varepsilon \\
+\end{array}\]
+
+<h3 id="145-无穷小的性质">1.4.5 无穷小的性质</h3>
+<p><br /></p>
+
+<p>首先引入<strong>无穷小量 (无穷小数列)</strong> 的概念:</p>
+
+<ul>
+  <li>若 $\lim_{n\to \infty}a_n = 0$，则称 {$a_n$} 是<strong>无穷小量或称为无穷小数列</strong>。</li>
+</ul>
+
+<p>下面为定理 1.4.5：</p>
+
+<ol>
+  <li>{$a_n$} 是无穷小 $\Rightarrow$ { $|a_n|$ } 是无穷小</li>
+  <li>{$a_n$}，{$b_n$}是无穷小，则{$a_n\pm b_n$}</li>
+  <li>若{$c_n$}是有界数列，{$a_n$}是无穷小，则{$c_n\cdot a_n$}是无穷小
+    <ul>
+      <li>注意: 如$a_n=\frac{1}{n}，b_n=\frac{1}{n^2}$，由于$\frac{a_n}{b_n}=\frac{1}{n} / \frac{1}{n^2} = n$，所以<strong>两个无穷小的商可能发散</strong>。</li>
+    </ul>
+  </li>
+  <li>若 $0\leq a_n\leq b_n$，则当{$bn$}是无穷小量时，{$a_n$}也是无穷小</li>
+  <li>$\lim_{n\to\infty}a_n = a \Rightarrow$ {$a_n-a$}是无穷小量</li>
+</ol>
+
+<p><strong>例：</strong></p>
+
+<p>若 $\lim_{n\to\infty}a_n=a，则 \lim\frac{a_1+…a_n}{n} = a$</p>
+
+<p>证明如下：</p>
+
+\[\begin{array}{c}
+设 a=0，\lim_{n\to\infty}a_n=0 \Rightarrow \lim\frac{a_1+...+a_n}{n}=0 \\
+\\
+\forall \varepsilon &gt; 0，\exists N，n&gt; N时，|\frac{a_1+...+a_n}{n}|&lt;\varepsilon \\
+\\
+\forall \varepsilon &gt; 0，\exists N，n&gt; N时，a_n&lt; \frac{\varepsilon}{2} \quad (1) \quad 由 (1)得， \\
+\\
+|\frac{a_1+...+a_n}{n}|=|\frac{a_1+...+a_N+a_{N+1}+...+a_n}{n}|\leq \frac{|a_1+...+a_N}{n} + \frac{|a_{N+1}+...+a_n|}{n}\leq \frac{M}{n} + \frac{n-N}{n}\cdot \frac{\varepsilon}{2}&lt; \frac{M}{n}+ \frac{\varepsilon}{2} \\
+\\
+即n&gt;N_1&gt;max(N，[\frac{2M}{\varepsilon}])时，(\frac{M}{n}&lt; \frac{\varepsilon}{2}，n &gt; \frac{2M}{\varepsilon}) \\
+\\
+当a \neq 0，令b_n = a_n -a \rightarrow 0 \\
+\\
+\lim_{n\to\infty}{\frac{b_1+...+b_n}{n}}=\lim{\frac{(a_1-a)+...+(a_n-a)}{n}}=\lim(\frac{a_1+...+a_n}{n}-a)=0 \\
+\\
+\Rightarrow \lim{\frac{a_1+...+a_n}{n}}=a \\
+\end{array}\]
+
+<h3 id="146-夹逼定理">1.4.6 夹逼定理</h3>
+<p><br /></p>
+
+<ul>
+  <li>$若a_n\leq b_n\leq c_n，n \in N^* 且\lim_{n\to\infty}a_n=\lim_{n\to\infty}c_n=a，则 \lim_{n\to\infty} b_n = a$</li>
+</ul>
+
+<p>注：$a_n&lt; b_n&lt; c_n$ 时同样成立。</p>
+
+<p>证明如下：</p>
+
+\[\begin{array}{c}
+0 \leq b_n-a_n \leq c_n-a_n \\
+\\
+由 \lim{a_n}=\lim{c_n} \\
+\\
+\Rightarrow 0\leq b_n-a_n\leq c_n-a_n \Rightarrow \lim_{n\to\infty}{(b_n-a_n)}=0 \\
+\\
+\lim_{b\to\infty}{b_n} = \lim{(b_n - a_n + a_n)} = \lim{a_n} \rightarrow a (n \rightarrow \infty)\\
+\end{array}\]
+
+<p><strong>例：</strong></p>
+
+<p>证明 $a&gt;1，k \in Z^+$ 时，$lim_{n\to\infty}{\frac{n^k}{a^n}}=0$</p>
+
+<p>证明如下：</p>
+
+\[\begin{array}{c}\\
+当k=1时，令a=1+\alpha，有 \\
+\\
+0&lt;\frac{n}{a^n}=\frac{n}{(1+\alpha)^n}=\frac{n}{1+n\alpha+\frac{n(n-1)}{2}\cdot\alpha^2+...+\alpha^n}&lt;\frac{n}{\frac{1}{2}\cdot n\cdot (n-1)\cdot \alpha^2}=\frac{2}{(n-1)\cdot \alpha}\\
+\\
+\Rightarrow 0&lt;\frac{n}{a^n}&lt;\frac{2}{(n-1)\cdot \alpha}\\
+\\
+由夹逼定理得，lim{\frac{n}{a^n}}=0 \\
+\\
+当k\neq 1时，\\
+\\
+\lim\frac{n^k}{a^n}=\lim(\frac{n}{(a^{\frac{1}{k}})^n})^k=\lim(\frac{n}{b^n})^k= 0\\
+\end{array}\]
+
+<p><strong>例：</strong></p>
+
+<p>$\forall a&gt;0，证明\lim_{n\to\infty}{^n\sqrt{a}}=1$</p>
+
+<p>证明如下：</p>
+
+<p>首先证明 $\lim{^n\sqrt{n}}=1$</p>
+
+\[\begin{array}{c}
+\lim_{n\to\infty}(1\cdot 1\cdot 1\cdot ...\sqrt{n}\cdot \sqrt{n})^{\frac{1}{n}}\leq \frac{n-2+2\sqrt{n}}{n}=1+ \frac{2(\sqrt{n}-1)}{n} \\
+\\
+\Rightarrow 0\leq n^{\frac{1}{n}}-1 &lt;\frac{2}{\sqrt{n}}\\
+\\
+\forall \varepsilon &gt; 0，取N=[\frac{4}{\varepsilon ^2}]\\
+\\
+当n&gt;N时，有|n^{\frac{1}{n}}-1|&lt;\frac{2}{\sqrt{n}}&lt;\varepsilon\\
+\\
+\Rightarrow \lim_{n\to\infty}{^n\sqrt{n}}=1\\
+\\
+当a&gt; 1时，1&lt; ^n\sqrt{a}&lt; ^n\sqrt{n}，n&gt; a\\
+\\
+\Rightarrow \lim{1}&lt; \lim{^n\sqrt{a}&lt; \lim{^n\sqrt{n}}}\\
+\\
+由夹逼定理得，\lim{^n\sqrt{n}}=1\\
+\\
+当0&lt; a&lt; 1时，^n\sqrt{a}=\frac{1}{^n\sqrt{\frac{1}{a}}}，(n\to\infty) \\
+\\
+令b=\frac{1}{a}\\
+\\
+\Rightarrow \lim{^n\sqrt{a}} = \lim{\frac{1}{^n\sqrt{b}}}\\
+\end{array}\]
+
+<p><strong>例:</strong></p>
+
+<p>求 $\lim_{n\to\infty}(n^2-n+2)^{\frac{1}{n}}$</p>
+
+\[\begin{array}{c}
+n^2-n+2=n^2-(n-2)&lt; n^2，n&gt; 2时成立 \\
+\\
+n&gt;2时，有 n^2&gt; 2(n-1)=2n-2，即 n^2-n+2&gt; n\\
+\\
+\Rightarrow n&lt; n^2-n+2=n^2-(n-2)&lt; n^2\\
+\\
+\Rightarrow (n)^{\frac{1}{n}}&lt; (n^2-n+2)^{\frac{1}{n}}&lt; (n^2)^{\frac{1}{n}}\\
+\\
+\lim{^n\sqrt{n}}=\lim(^n\sqrt{n}\cdot ^n\sqrt{n})= \lim(n^2)^{\frac{1}{n}}=1\\
+\\
+\Rightarrow \lim(n^2-n+2)^{\frac{1}{n}}=1\\
+\end{array}\]
+
+<p><strong>例：</strong></p>
+
+<p>证明 $\lim_{n\to\infty}(\frac{1}{\sqrt{n^2+1}}+ \frac{1}{\sqrt{n^2+2}}+ …+ \frac{1}{\sqrt{n^2+n}})=0$</p>
+
+<p>注意，不能应用极限的运算性质解决无限项的问题</p>
+
+<p>证明如下：</p>
+
+\[\begin{array}{c}
+a_n = \frac{1}{\sqrt{n^2+1}}+ \frac{1}{\sqrt{n^2+2}}+ ...+ \frac{1}{\sqrt{n^2+n}}\\
+\\
+a_1 = \frac{1}{\sqrt{1+1}}，a_2= \frac{1}{\sqrt{5}} + \frac{1}{\sqrt{6}}，a_3 = ...\\
+\\
+\frac{n}{\sqrt{n^2+n}} \leq 原式 \leq \frac{n}{\sqrt{n^2+1}}\\
+\\
+\lim{n}{\sqrt{n^2+n}}=\lim{\frac{1}{\sqrt{1+\frac{1}{n}}}}=1=\lim\frac{n}{n^2+1}=\lim\frac{1}{1+\frac{1}{n^2}}\\
+\end{array}\]
+
+<h3 id="147-通过不等式表达的收敛数列性质">1.4.7 通过不等式表达的收敛数列性质</h3>
+<p><br /></p>
+
+<ul>
+  <li>$\lim_{a\to\infty}{a_n=a}，\alpha &lt; a &lt; \beta，\exists N，当n&gt; N时有，$</li>
+</ul>
+
+\[\alpha &lt; a_n &lt; \beta\]
+
+<p><img src="\assets\202004\f12.png" alt="figure12" /></p>
+
+<ul>
+  <li>$\lim_{n\to\infty}{a_n=a}，\lim_{n\to\infty}{b_n=b}，若a&lt; b，则n &gt; N时有，$</li>
+</ul>
+
+\[a_n &lt; b_n\]
+
+<p><img src="\assets\202004\f13.png" alt="figure13" /></p>
+
+<ul>
+  <li>$\lim_{n\to\infty}{a_n=a}，\lim_{n\to\infty}{b_n=b}，如果n&gt; N时，a_n \leq b_n时，则有，$</li>
+</ul>
+
+\[a \leq b\]
+
+<p>$\qquad 证：若a&gt;b，与n&gt; N时，a_n \leq b_n矛盾$</p>
+
+<h2 id="-15-极限概念的推广">§ 1.5 极限概念的推广</h2>
+
+<ul>
+  <li>
+    <p>$\lim_{n\to\infty}a_n = +\infty$</p>
+
+    <p>定义：对$\forall A&gt;0，\exists N，当n&gt; N时，有a_n &gt; A$</p>
+  </li>
+</ul>
+
+<p><img src="\assets\202004\f14.png" alt="figure14" /></p>
+
+<ul>
+  <li>
+    <p>$\lim_{n\to\infty}a_n = -\infty$</p>
+
+    <p>定义：对$\forall A&gt;0，\exists N，当n&gt; N时，有a_n &lt;-A$</p>
+  </li>
+</ul>
+
+<p><img src="\assets\202004\f15.png" alt="figure15" /></p>
+
+<ul>
+  <li>
+    <p>$\lim_{n\to\infty}a_n = \infty$</p>
+
+    <p>定义：对$\forall A&gt;0，\exists N，当n&gt; N时，有|a_n|&gt;A$</p>
+  </li>
+</ul>
+
+<p><img src="\assets\202004\f16.png" alt="figure16" /></p>
+
+<p>如 {$(-1)^n\cdot n$} 这个数列，可以是围绕A点左右跳跃的，如上图所示。</p>
+
+:ET

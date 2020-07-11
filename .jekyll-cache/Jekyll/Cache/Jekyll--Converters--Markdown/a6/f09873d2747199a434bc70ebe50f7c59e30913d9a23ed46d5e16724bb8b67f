@@ -1,0 +1,11 @@
+I"z<p>Keyboard setting is something boring in vim, and tell you the truth, it’s a little complex. However, vim setting is essential to us. I use the vim aimed to increase the efficiency of my daily writing, including blog and coding. And the keyboard setting is no doubly the most important.<br /></p>
+<h2 id="the-vimrc-build">The vimrc build</h2>
+<p>The keyboard setting of vim, is similar to the setting of terminal bashrc. Make a folder named with <strong><code class="language-plaintext highlighter-rouge">vim</code></strong> and create the <strong><code class="language-plaintext highlighter-rouge">vimrc</code></strong> document.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$mkdir</span> ~/.vim <span class="o">&amp;&amp;</span> <span class="nb">cd</span> .vim
+<span class="nv">$touch</span> vimrc
+</code></pre></div></div>
+<p>And then a vimrc will be created.<br /></p>
+<blockquote>
+  <p>One tricky thing I want to say is how to quickly set your vim. Maybe it’s a little early to talk about it, I recommend that you can skip this at first.<br /></p>
+</blockquote>
+:ET

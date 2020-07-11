@@ -1,0 +1,176 @@
+I"�<h3 id="42后半">4.2后半</h3>
+
+<h4 id="标号">标号</h4>
+
+<p>汇编源程序中，除了汇编指令和伪指令外，还有一些标号，比如”codesg”。一个标号指代了一个地址。比如codesg在segment的前面，作为一个段名称，这个段的名称最终将被编译、连接程序处理为一个段的段地址。</p>
+
+<blockquote>
+  <p>标号 —&gt; 段名称 —&gt; 编译、连接处理为一个段的段地址</p>
+</blockquote>
+
+<h4 id="程序的结构">程序的结构</h4>
+
+<p>之前对于较为简短的程序我们可以在debug中直接运行，但是如果程序比较大，我们就需要写出能让编译器进行编译的程序，这样的源程序应该具备起码的结构。</p>
+
+<p>源程序有一些段构成，用来存放<strong>代码、数据、或者将整个段当做栈空间</strong>。</p>
+
+<p>(1) 首先，我们要定义一个段，其名称为abc。</p>
+
+<pre><code class="language-asm">abc segment
+...
+abc ends
+</code></pre>
+<p>(2) 在定义好的段中，输入汇编指令。</p>
+
+<pre><code class="language-asm">abc segment
+    mov ax, 2
+    add ax, ax
+    add ax, ax
+abc ends
+</code></pre>
+
+<p>(3) 指出程序在何处结束</p>
+
+<pre><code class="language-asm">abc segment
+    mov ax, 2
+    add ax, ax
+    add ax, ax
+abc ends
+end
+</code></pre>
+
+<p>(4) abc被当做代码段来用，所以，应该将abc和cs联系起来。</p>
+
+<pre><code class="language-asm">assume cs:abc    ; 将abc处理为cs代码段
+abc segment
+    mov ax, e
+    add ax, ax
+    add ax, ax
+abc ends
+end
+</code></pre>
+<h4 id="程序返回">程序返回</h4>
+
+<p>程序最先以汇编指令的形式存在源程序中，经编译、连接后转变为机器码，存储在可执行文件中。</p>
+
+<p>一个程序P2在可执行文件中，则必须有一个正在运行的程序P1, 将P2从可执行文件中加载入内存后，将CPU的控制权交给P2，P2才能得以运行。P2开始运行后，P1暂停运行。而当P2运行完以后，将CPU的控制权交还给使它得以运行的程序P1，此后P1继续运行。</p>
+
+<p>这个过程就被称为<strong>程序返回</strong></p>
+
+<blockquote>
+  <p>程序返回：一个程序结束后，将CPU的控制权交还给使它得以运行的程序。</p>
+</blockquote>
+
+<p>这一过程的代码如下：</p>
+
+<pre><code class="language-asm">mov ax, 4c00H
+int 21H
+</code></pre>
+
+<p>到目前为止，已经遇到了几个和结束相关的内容：段结束、程序结束、程序返回，如下表：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>目的</th>
+      <th>相关指令</th>
+      <th>指令性质</th>
+      <th>指令执行者</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>通知编译器一个段结束</td>
+      <td>段名 ends</td>
+      <td>伪指令</td>
+      <td>编译时，由编译器执行</td>
+    </tr>
+    <tr>
+      <td>通知编译器程序结束</td>
+      <td>end</td>
+      <td>伪指令</td>
+      <td>编译时，由编译器执行</td>
+    </tr>
+    <tr>
+      <td>程序返回</td>
+      <td>mov ax,4c00H; int21H</td>
+      <td>汇编指令</td>
+      <td>执行时，由CPU执行</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="语法错误和逻辑错误">语法错误和逻辑错误</h4>
+
+<p>编译器能够发现的叫做语法错误，逻辑错误编译器一般不容易发现。</p>
+
+<p>最终的程序如下，</p>
+
+<pre><code class="language-asm">assume cs:abc
+abc segment
+    mov ax, 2
+    add ax, ax
+    add ax, ax
+
+    mov ax, 4cooH
+    int 21H
+abc ends
+end
+</code></pre>
+
+<h3 id="43-编辑源程序">4.3 编辑源程序</h3>
+
+<p>程序编写在<code class="language-plaintext highlighter-rouge">.asm</code>后缀的文本类文件中。</p>
+
+<h3 id="44-编译">4.4 编译</h3>
+
+<p>完成对源程序的编辑后，得到name.asm文件，可以对其通过masm汇编编译器，进行编译。</p>
+
+<pre><code class="language-asm">C:\masm&gt;masm
+...
+Source filename [.ASM]: c:\name.asm  ;文件名
+Object filename [name.OBJ]:  ;[]中为默认文件名
+Source listing  [NUL.LST]:   ;这项以及后面一项先不用考虑
+Cross-reference [NUL.CRF]:
+</code></pre>
+<p>目的文件为以<code class="language-plaintext highlighter-rouge">.obj</code>后缀结尾的文件。打开该目标文件后,发现将源程序编译为了二进制语言。</p>
+
+<h3 id="45-连接">4.5 连接</h3>
+
+<p>在得到目标文件后，我们需要对其进行连接，从而得到可执行文件<code class="language-plaintext highlighter-rouge">name.exe</code>。</p>
+
+<pre><code class="language-asm">Object Modules [.OBJ]: name
+Run File [name.EXE]: c:\windows\desktop\name.exe   ;这里可以规定输出地址
+List File [NUL.MAP]:
+Libraries [.LIB]:
+</code></pre>
+<p>获得<code class="language-plaintext highlighter-rouge">name.exe</code>文件。</p>
+
+<blockquote>
+  <p>连接的任务是什么？</p>
+</blockquote>
+
+<ol>
+  <li>当源程序很到时候，可以分为多个原程序文件来编译，每个源程序编译为<code class="language-plaintext highlighter-rouge">.obj</code>文件以后，利用连接程序将他们连接到一起成为一个可执行文件。</li>
+  <li>程序中调用了某个<strong>库文件中的子程序</strong>, 需要将这个库文件和该程序生成的目标文件连接到一起，生成一个可执行文件。</li>
+  <li>连接程序可以将目标文件处理为最终的可执行信息。所以在只有一个源程序文件，而又不需要调用某个库中的子程序的情况下，<strong>也必须用连接程序对目标文件进行处理，生成可执行文件</strong>。</li>
+</ol>
+
+<blockquote>
+  <p>值得注意的是，对于连接过程而言，<strong>可执行文件是我们要得到的最终结果</strong>。</p>
+</blockquote>
+
+<h3 id="以简化的方式来进行编译和连接">以简化的方式来进行编译和连接</h3>
+
+<p>在执行编译或者连接时，在命令后面加“;”可以直接按照默认（即[]内的默认参数）直接输出文件。如：</p>
+
+<pre><code class="language-asm">masm name.asm;
+
+or
+
+link name.asm;
+</code></pre>
+
+<p>也可以直接运行ml程序直接连续执行编译与连接。</p>
+
+:ET

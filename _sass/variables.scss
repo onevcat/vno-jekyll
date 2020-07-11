@@ -13,7 +13,7 @@ $red:               #E25440;
 $orange:            #FB9C50;
 $slate:             #3D4260;
 $blue:              #2568A3;
-$catred:            #BF1827;
+$catred:            #c0363f;
 
 $primary-color:     $catred;
 $secondary-color:   #5BA4E5;
@@ -25,4 +25,8 @@ $body-color:        darken($gray-darker, 15%);
 $sans-font:         "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
 $serif-font:        "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
 
-$border-radius:     3px;
+$pre-border-radius: 12px;
+$border-radius:     5px;
+
+$dark-background-color: $gray-darkest;
+$dark-hover-color:      lighten($link-color, 15%);

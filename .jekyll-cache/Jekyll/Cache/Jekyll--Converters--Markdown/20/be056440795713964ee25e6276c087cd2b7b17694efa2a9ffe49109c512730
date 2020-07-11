@@ -1,0 +1,72 @@
+I"M<h3 id="61-在代码段中使用数据">6.1 在代码段中使用数据</h3>
+
+<p>这里有个问题，我们希望使用loop的方法将如下数据累加和。</p>
+
+<p>数据如下：</p>
+
+<p>0123H、0456H、0789H、0ABCH、0DEFH、0FEDH、0CBAH、0987H</p>
+
+<p>为此我们进行了编程，代码如下：</p>
+
+<pre><code class="language-x86asm">assume cs:code
+code segment
+  dw 0123H, 0456H, 0789H, 0ABCH, 0DEFH, 0FEDH, 0CBAH, 0987H  ;dw意为define word
+
+  mov bx, 0
+  mov ax, 0
+
+  mov cx, 8
+
+s:add ax, cs:[bx]
+  add bx, 2
+  loop s
+
+  mov ax, 4c00h
+  int 21h
+
+code ends
+end
+</code></pre>
+
+<p>对此我们进行编译与连接，并使用debug对其进行调试。</p>
+
+<p><img src="/assets/201910/2019-10-31_17-10-03.png" alt="figure1" /></p>
+
+<p>图中我们可以看到数据已经被拷贝到了对应的代码段内（<code class="language-plaintext highlighter-rouge">076A:0000~076A:000F</code>），然后我们通过<code class="language-plaintext highlighter-rouge">-u</code>命令查看机器指令。</p>
+
+<p><img src="/assets/201910/2019-10-31_17-13-43.png" alt="figure2" /></p>
+
+<p>奇怪的是，即使到了<code class="language-plaintext highlighter-rouge">076A:000F</code>，偏移地址已经超过了CS中所存储数据的总长度，仍然见不到我们所需要的指令。</p>
+
+<p>原来，CPU错把存储在CS中的数据也当成了指令并进行了编译，运行程序一定会出错。</p>
+
+<p>解决办法很简单，只需要人为指定一个入口，代码如下：</p>
+
+<pre><code class="language-x86asm">assume cs:code
+code segment
+  dw 0123H, 0456H, 0789H, 0ABCH, 0DEFH, 0FEDH, 0CBAH, 0987H  ;dw意为define word
+
+start:  mov bx, 0   ;给定入口，供CPU识别出从哪里开始是指令代码
+        mov ax, 0
+      
+        mov cx, 8
+      
+      s:add ax, cs:[bx]
+        add bx, 2
+        loop s
+      
+        mov ax, 4c00h
+        int 21h
+      
+code ends
+end start
+</code></pre>
+
+<p>总结一下end的用法：</p>
+
+<ol>
+  <li>通知编译器程序结束</li>
+  <li>通知编译器程序的入口在什么地方，所以入口的名称’start’可以自定义</li>
+</ol>
+
+:ET

@@ -1,0 +1,127 @@
+I"�<h3 id="87-div-指令">8.7 div 指令</h3>
+
+<p><code class="language-plaintext highlighter-rouge">div</code>是除法指令，有以下注意事项：</p>
+
+<ol>
+  <li>除数：有8位和16位两种，在一个reg或者内存单元中。</li>
+  <li>被除数：默认放在ax或dx和ax中，如果除数为8位，被除数则为16位，默认在ax中存放；如果除数为16位，则被除数则为32位，在dx和ax中存放，dx存放高16位，ax存放在低16位。</li>
+  <li>结果：如果除数为8位，则<strong>al存储除法操作的商, ah存储除法操作的余数</strong>；如果除数为16位，则<strong>ax存储除法操作的商，dx存储除法操作的余数</strong>。</li>
+</ol>
+
+<p>除数和被除数的规格总结：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>除数</th>
+      <th>被除数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8位</td>
+      <td>16位</td>
+    </tr>
+    <tr>
+      <td>16位</td>
+      <td>32位</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>ps:</p>
+
+<ol>
+  <li>被除数的规格受除数控制</li>
+  <li>被除数规格往往比除数要大，是为了防止数据溢出问题</li>
+</ol>
+
+<p>伪代码表示如下：</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">div byte ptr ds:[0]</code></p>
+</blockquote>
+
+<p>(al) = (ax) / ((ds) * 16 + 0)—商
+(ah) = (ax) / ((ds) * 16 + 0)—余数</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">div word ptr es:[0]</code></p>
+</blockquote>
+
+<p>(ax) = [(dx) * 10000H + (ax)] / ((es) * 16 + 0)   商
+(dx) = [(dx) * 10000H + (ax)] / ((es) * 16 + 0)   余数</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">div byte ptr [bx + si + 8]</code></p>
+</blockquote>
+
+<p>(al) = (ax) / ((ds) * 16 + (bx) + (si) + 8)    商
+(ah) = (ax) / ((ds) * 16 + (bx) + (si) + 8)    余数</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">div word ptr [bx + si + 8]</code></p>
+</blockquote>
+
+<p>(ax) = [(dx) * 10000H + (ax)] / ((ds) * 16 + (bx) + (si) + 8)    商
+(dx) = [(ds) * 10000H + (ax)] / ((ds) * 16 + (bx) + (si) + 8)    余数</p>
+
+<p>例1. 利用div计算100001/100</p>
+
+<p>代码如下：</p>
+
+<pre><code class="language-x86asm">mov dx, 1
+mov ax, 86A1H    ;(dx) * 10000H + (ax) = 100001
+                 ;100001 = 186A1H = 10000H + 86A1H
+mov bx, 100
+div bx
+</code></pre>
+<h3 id="88-伪指令dd">8.8 伪指令dd</h3>
+
+<p>dd用来定义dword (double word, 32bit) 型数据。</p>
+
+<pre><code class="language-x86asm">data segment
+  db 1
+  dw 1
+  dd 1
+data ends
+</code></pre>
+<p>第一个数据为01H，在data:0处，1 bit。
+第二个数据为0001H，在data:1处，1 word。
+第三个数据为00000001H, 在data:3处，占2 words。</p>
+
+<p>例2. 用data段第一个数据段除以第二个数据后的商，放于第三个数据的存储单元中。</p>
+
+<pre><code class="language-x86asm">data segment
+  dd 100001
+  dw 100
+  dw 0
+data ends
+</code></pre>
+
+<p>代码段为：</p>
+
+<pre><code class="language-x86asm">mov ax, data
+mov ds, ax
+mov ax, ds:[0]  ;ds:[0]指向dd中的低16位，并存放于ax中
+mov dx, ds:[2]  ;ds:[2]指向dd中的高16位，并存放于dx中
+div word ptr ds:[4]
+mov ds:[6], ax
+</code></pre>
+
+<h3 id="89-dup">8.9 dup</h3>
+
+<p>用法：</p>
+
+<pre><code class="language-x86asm">db num dup  ;相当于定义重复的字节型数据
+dw num dup
+dd num dup
+</code></pre>
+<p>如下代码：</p>
+
+<pre><code class="language-x86asm">stack segment
+  db 200 dup (0)
+stack ends
+</code></pre>
+
+:ET
