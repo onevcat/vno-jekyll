@@ -2,7 +2,7 @@
 title: Zququ's blog
 subtitle: 生而为学, 学而不老
 welcome_message: <a href="https://www.researchgate.net/profile/Zehui_Qu2"> 病毒学、免疫学及结构生物学背景，可以在 RG 上找到我已发表的论文</a>。
-description: 嗨，欢迎！我是曲泽慧(@zququ)，预防兽医学博士。
+description: 嗨！我是曲泽慧(@zququ)，预防兽医学博士。
 creator: <a href="https://zququcv.netlify.com">@zququ</a>
 
 url: "http://life.zququ.fun"
@@ -13,7 +13,7 @@ permalink: /:year/:month/:title/
 highlighter: rouge
 
 # supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
-cover_color: red 
+cover_color: blue 
 
 # The blog button should not be removed.
 blog_button:
