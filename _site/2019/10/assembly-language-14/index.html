@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 4.8 4.9 程序装载内存以及执行过程跟踪</title>
+  <meta name="description" content="4.8 程序装载进入内存并使用">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 4.8 4.9 程序装载内存以及执行过程跟踪">
+  <meta name="twitter:description" content="4.8 程序装载进入内存并使用">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 4.8 4.9 程序装载内存以及执行过程跟踪">
+  <meta property="og:description" content="4.8 程序装载进入内存并使用">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/10/assembly-language-14/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-10-20 13:55:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-10-20</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 4.8 4.9 程序装载内存以及执行过程跟踪</h1>
+
+		</header>
+
+		<section class="post">
+			<h3 id="48-程序装载进入内存并使用">4.8 程序装载进入内存并使用</h3>
+
+<p>之前讲过，在DOS中，可执行文件中P1若要运行，必须有一个正在运行的程序P2，将P1从可执行文件中加载入内存，将CPU的控制权交给它，P1才能得以运行；当P1运行完毕后，应该将CPU的控制权交还给使它得以运行的程序P2。</p>
+
+<blockquote>
+  <p>操作系统的shell</p>
+</blockquote>
+
+<p>操作系统是由多个功能模块组成的庞大、复杂的软件系统。任何通用的操作系统，都要提供一个成为shell（外壳）的程序，用户使用这个程序来操作计算机系统运行工作。</p>
+
+<ol>
+  <li>在DOS中直接运行<code class="language-plaintext highlighter-rouge">.exe</code>时，是正在运行的<code class="language-plaintext highlighter-rouge">command</code>，将<code class="language-plaintext highlighter-rouge">.exe</code>中的程序加载入内存；</li>
+  <li>command<strong>设置CPU的CS:IP指向程序的第一条指令（即程序入口）</strong>，从而使得程序得以运行；</li>
+  <li>程序运行结束后，返回到command中，CPU继续运行command。</li>
+</ol>
+
+<blockquote>
+  <p>汇编程序从写出到执行的过程<br />
+<br />编程(edit) –&gt; <code class="language-plaintext highlighter-rouge">.asm</code> –&gt; 编译(masm) –&gt; <code class="language-plaintext highlighter-rouge">.obj</code> –&gt; 连接(link) –&gt; <code class="language-plaintext highlighter-rouge">.exe</code> 加载(command) –&gt; 内存中的程序 –&gt; 运行(CPU)</p>
+</blockquote>
+
+<h3 id="程序执行过程的跟踪">程序执行过程的跟踪</h3>
+
+<p>下面我们用Debug来对一个程序进行跟踪，来检查运行过程中不容易发现的逻辑问题。</p>
+
+<p>我们知道当DOS中运行一个程序的时候，是由command将程序从可执行文件中加载入内存，并使其得以执行。但是，这样我们不能逐条指令，因为command的程序加载，设置CS:IP指向程序的入口操作是连续完成的，而当CS:IP一指向程序的入口，command就放弃了CPU的控制权，CPU立即开始运行程序，直至程序结束。</p>
+
+<p>Debug可以将程序载入内存，设置CS:IP指向程序的入口，但Debug并不放弃对CPU的控制，这样，我们就可以使用Debug的相关命令来单步执行程序，查看每一条指令的执行结果。</p>
+
+<p>这里我们编程程序：</p>
+
+<pre><code class="language-asm">assume cs:codesg
+codesg segment
+start: mov ax, 0123H    ; 这里start为命名，给与一个入口地址，也可换位其他名称
+       mov bx, 0456H
+       add ax, bx
+       add ax, ax
+
+       mov ax, 4C00H
+       int 21H
+codesg ends
+end start
+</code></pre>
+
+<p>注意start: 添加与否的区别，如果不添加start命名，link时则会如下提示：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LINK : warning L4038: program has no starting address
+</code></pre></div></div>
+
+<p>在获得目标程序<code class="language-plaintext highlighter-rouge">1.exe</code>后，用debug运行程序，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>debug 1.exe
+</code></pre></div></div>
+<p>在输入结果后输入r好看各个寄存器的地址情况。</p>
+
+<p><img src="/assets/201910/2019-10-20_15-50-43.png" alt="figure1" /></p>
+
+<p>我们发现<code class="language-plaintext highlighter-rouge">DS=075A</code>而<code class="language-plaintext highlighter-rouge">CS=076A</code>，这里的段地址和代码段地址不同，相差$076A-075A=10$ （段寄存器相差10, 意味着<strong>物理地址相差100</strong>）。同时由于<code class="language-plaintext highlighter-rouge">1.exe</code>中含有15个字节，所以cx通用寄存器为<code class="language-plaintext highlighter-rouge">CX=000F</code>共15个字节。</p>
+
+<p>下面来讲一下为什么CS和DS差10，如下图：</p>
+
+<p><img src="/assets/201910/2019-10-20_16-02-58.png" alt="figure2" /></p>
+
+<ol>
+  <li>程序加在后，DS中存放着程序所在内存区的段地址，这个内存区的偏移地址为0，则程序所在的内存区的地址为ds:0。</li>
+  <li>这个内存区的前256个字节中存放的是PSP， DOS用来和程序进行通信。从256字节处向后的空间存放的程序。PSP占256字节（100H）</li>
+  <li>程序物理地址为：SA<em>16+0+256=SA</em>16+16<em>16+0=(SA+16)</em>16+0 即 SA+10H:0 ，值得注意的是，这里也可以写成 SA:256 但为了更好的区分PSP和程序，DOS一般将二者划分到不同的段。</li>
+</ol>
+
+<p>我们可以查看PSP,</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-u 075A:0 100
+</code></pre></div></div>
+
+<p>和<code class="language-plaintext highlighter-rouge">1.exe</code>中程序代码,</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-u 076A:0
+</code></pre></div></div>
+
+<p>最后，我们通过t命令来进行逐步跟踪：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-t
+</code></pre></div></div>
+
+<p>如下图所示，</p>
+
+<p><img src="/assets/201910/2019-10-20_16-17-04.png" alt="figure3" /></p>
+
+<p>这里需要注意当执行到最后一步，<code class="language-plaintext highlighter-rouge">INT 21</code>时，要输入p命令才能正常终止程序：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-p
+
+Program terminated normally
+</code></pre></div></div>
+
+<p>否则将会跳转到其他的地址并无法正常终止！</p>
+
+<p>使用Q命令退出Debug，将返回到command中，因为Debug是由command加载运行的。在DOS中用<code class="language-plaintext highlighter-rouge">debug 1.exe</code>运行Debug对1.EXE进行跟踪式，程序加在顺序为：command加载Debug，Debug加载1.EXE。返回的顺序为：从1.EXE中的程序返回到Debug，再从Debug返回到command。</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/cross-correlation/"
+				title="link to Cross Correlation">Cross Correlation</a></h2>
+		<p class="excerpt">% A demonstration of cross correlation in action.% Hit the space bar during the demo to execute% % https://dadorran.wordpress.com/2014/04/25/cross-correlation-demo/clc;close alla = [0.1 0.2  -0.1 4.1 -2 1.5 0 ];b = [0.1 4 -2.2 1.6 0.1 0.1 0.2]; le...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-21 08:41:24 +0800"
+				class="post-list__meta--date date">2019-10-21</time> &#8226; <span
+				class="post-list__meta--tags tags">数学</span><a class="btn-border-small"
+				href=/2019/10/cross-correlation/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/assembly-language-13/"
+				title="link to 汇编语言 4.3 4.4 4.5 4.6 4.7 源程序标号结构返回以及编译连接">汇编语言 4.3 4.4 4.5 4.6 4.7 源程序标号结构返回以及编译连接</a></h2>
+		<p class="excerpt">4.2后半标号汇编源程序中，除了汇编指令和伪指令外，还有一些标号，比如”codesg”。一个标号指代了一个地址。比如codesg在segment的前面，作为一个段名称，这个段的名称最终将被编译、连接程序处理为一个段的段地址。  标号 —&gt; 段名称 —&gt; 编译、连接处理为一个段的段地址程序的结构之前对于较为简短的程序我们可以在debug中直接运行，但是如果程序比较大，我们就需要写出能让编译器进行编译的程序，这样的源程序应该具备起码的结构。源程序有一些段构成，用来存放代码、数据、或...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-19 16:48:24 +0800"
+				class="post-list__meta--date date">2019-10-19</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/assembly-language-13/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/10/assembly-language-14/";
+        this.page.identifier = "/2019/10/assembly-language-14/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 实验10 (2) 解决除法溢出的问题</title>
+  <meta name="description" content="div 复习">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 实验10 (2) 解决除法溢出的问题">
+  <meta name="twitter:description" content="div 复习">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 实验10 (2) 解决除法溢出的问题">
+  <meta property="og:description" content="div 复习">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/12/assembly-language-46/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-12-29 14:48:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-12-29</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 实验10 (2) 解决除法溢出的问题</h1>
+
+		</header>
+
+		<section class="post">
+			<h3 id="div-复习">div 复习</h3>
+
+<p>div指令可以做除法。当进行8位除法的时候，用al存储结果的商，ah存储结果的余数；进行16位除法的时候，用ax存储结果的商，dx存储结果的余数，</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>数据类型</th>
+      <th>寄存器</th>
+      <th>存放内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8位</td>
+      <td>al</td>
+      <td>商</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>ah</td>
+      <td>余数</td>
+    </tr>
+    <tr>
+      <td>16位</td>
+      <td>ax</td>
+      <td>商</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>dx</td>
+      <td>余数</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>可是，现在有一个问题，如果结果的商大于al或ax的所能存储的最大值，将如何？</p>
+
+<p>如下，进行的是8位除法，结果的商为1000，而1000在al中放不下。</p>
+
+<pre><code class="language-x86asm">mov bh, 1
+mov ax, 1000
+div bh
+</code></pre>
+
+<p>又如，进行的是16位除法，结果的商为11000H，而11000H在ax中存放不下。</p>
+
+<pre><code class="language-x86asm">mov ax, 1000H
+mov dx, 1
+mov bx, 1
+div bx
+</code></pre>
+
+<p>当结果的商过大，超出了寄存器所能存储的范围。当CPU执行div等除法指令的时候，如果发生这样的情况，将引发CPU的一个内部错误，这个错误被称为：<strong>除法溢出</strong>。我们可以通过特殊的程序来处理这个错误。</p>
+
+<p>所以，由于有这样的问题，我们再进行除法运算的时候要注意除数和被除数的值，比如1000000/10就不能用div指令来执行计算。</p>
+
+<h3 id="问题">问题</h3>
+
+<p>设计子程序，</p>
+
+<p>名称：divdw</p>
+
+<p>功能：进行不会产生溢出的除法运算，被除数为dword型，除数为word型，结果为dword型。</p>
+
+<p>参数：</p>
+
+<p>(ax) = dword型数据的低16位，<br />
+(dx) = dword型数据的高16位，<br />
+(cx) = 除数</p>
+
+<p>返回：</p>
+
+<p>(ax) = 结果的低16位，<br />
+(dx) = 结果的高16位，<br />
+(cx) = 余数</p>
+
+<p>应用举例：计算1000000/10(F4240H/0AH)</p>
+
+<pre><code class="language-x86asm">mov ax, 4240H
+mov dx, 000FH
+mov cx, 0AH
+call divdw
+</code></pre>
+<p>结果：</p>
+
+<p>(ax) = 86A0H，<br />
+(dx) = 0001H，<br />
+(cx) = 0</p>
+
+<p>提示：</p>
+
+<p>给出一个公式:</p>
+
+<p>X：被除数，范围：[0, FFFFFFFF]<br />
+N：除数，范围：[0, FFFF]<br />
+H：X高16位，范围：[0, FFFF]<br />
+L：X低16位，范围：[0, FFFF]<br />
+int()：描述性运算符，取商，比如，int(38/10)=3<br />
+rem()：描述性运算符，取余数，比如，rem(38/10)=8</p>
+
+<p>公式：X/N = int(H/N)*65536+[rem(H/N)*65536+L]/N</p>
+
+<p>关于公式的详细解析：</p>
+
+<p>X/N代表着目标可能会存在溢出问题的除法，可以被分解为两个因式。第一个分式，int(H/N)意味着X的高16位与除数之间的除法后的商，由于本身是高16位所以要乘以一个65526($2^{16}$)系数，这个时候同样会产生一个余数，即位rem(H/N)，同样的也要乘以65526并加X的低16位，并将二者相加除以除数N。最终再将高位的商与低位(高位余数与低位的和)的商相加即为X/N的商，而低位的余数即位X/N的余数。</p>
+
+<p>这个公式将可能产生溢出的除法运算：X/N，转变为多个不会产生溢出的除法运算。公式中，等号右边的所有除法运算都可以用div指令来做，肯定不会导致除法溢出。</p>
+
+<p>代码，</p>
+
+<pre><code class="language-x86asm">start: mov ax, 4240H
+       mov dx, 000F
+       mov cx, 0AH
+       call divdw
+
+divdw: push si
+       push bx
+       push ax
+
+       mov ax, dx
+       mov dx, 0  ;dx寄存器清零，用于稍后存放余数
+       div cx  ;执行int(H/N)*65536，高16位的商在ax，余数在dx
+       mov si, ax  ;将高16位商存放在si
+       pop ax    ;低位被除数出栈
+       div cx  ;此时，ax中是低位被除数，dx中存放高位除法余数，
+               ;所以这里执行的即：[rem(H/N)*65536+L]/N
+               ;低位的商在ax，低位的余数在dx
+       mov cx, dx   ;低位的余数即为最终的余数
+       mov dx, si   ;高位的商即为最终的商的高位
+
+       pop bx
+       pop si
+       ret
+
+code ends
+end start
+</code></pre>
+
+<h3 id="公式防溢出的证明">公式防溢出的证明</h3>
+
+<p>1.(X/N) = (H*65536)/N + (L/N) <br />
+2.(X/N) = [int(H/N) + rem(H/N)]*65536/N + (L/N)<br />
+3.(X/N) = int(H/N)*65536 + [rem(H/N)*65536 + L]/N<br />
+由3可知，高16位除法的商即为最终的高16位商</p>
+
+<p>本实验共执行了两次除法，</p>
+
+<p>第一次，H/N
+的二次，[rem(H/N)*65536 + L]/N</p>
+
+<p>因为H ≤ 65535，所以H/N不会溢出</p>
+
+<p>1.L ≤ 65535<br />
+2.rem(H/N) ≤ (N-1)<br />
+由2得，<br />
+3.rem(H/N)*65536 ≤ (N-1)*65536<br />
+由1,3有，<br />
+4.rem(H/N)*65536+L ≤ (N-1)*65536 + 65535<br />
+5.[rem(H/N)*65536+L]/N ≤ [(N-1)*65536 + 65535]/N<br />
+6.[rem(H/N)*65536+L]/N ≤ [65536-(1/N)]<br /></p>
+
+<p>所以不会发生溢出。</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/assembly-register-summary/"
+				title="link to 汇编语言 寄存器总结 (转载)">汇编语言 寄存器总结 (转载)</a></h2>
+		<p class="excerpt">转自CSDN博客，Dask Jhonson转自CSDN博客，iteye_10501表格总结：            寄存器的分类             寄存器      主要用途                  通用寄存器      数据寄存器      AX      乘、除运算，字的输入输出，中间结果的缓存                            AL      字节的乘、除运算，字节的输入输出，十进制算数运算                            A...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-30 19:55:24 +0800"
+				class="post-list__meta--date date">2019-12-30</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/12/assembly-register-summary/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/python-magic-method-6/"
+				title="link to python 魔法方法 (6) 描述符，property()函数的原理">python 魔法方法 (6) 描述符，property()函数的原理</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛描述符的概念描述符就是将某种特殊类型的类的实例指派给另一个类的属性。而这个特殊类型的类，就是至少要再这个类里面定义__get__()、__set__()或__delete__()三个特殊方法中的任意一个。            魔法方法      含义                  __get__(self, instance, owner)      用于访问属性，它返回属性的值              __set__(self, instance, value...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-24 12:48:24 +0800"
+				class="post-list__meta--date date">2019-12-24</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/12/python-magic-method-6/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/12/assembly-language-46/";
+        this.page.identifier = "/2019/12/assembly-language-46/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

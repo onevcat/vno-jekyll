@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 9.1 9.2 9.3 offset jmp 依据位移进行转移的jmp指令</title>
+  <meta name="description" content="9.1 操作符offset">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 9.1 9.2 9.3 offset jmp 依据位移进行转移的jmp指令">
+  <meta name="twitter:description" content="9.1 操作符offset">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 9.1 9.2 9.3 offset jmp 依据位移进行转移的jmp指令">
+  <meta property="og:description" content="9.1 操作符offset">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/11/assembly-language-36/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-11-28 10:58:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-11-28</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 9.1 9.2 9.3 offset jmp 依据位移进行转移的jmp指令</h1>
+
+		</header>
+
+		<section class="post">
+			<h3 id="91-操作符offset">9.1 操作符offset</h3>
+
+<p>offset在汇编语言中是由编译器处理的符号，它的功能是<strong>取得标号的偏移地址</strong>。</p>
+
+<p>如下代码，</p>
+
+<pre><code class="language-x86asm">assume cs:codesg
+
+codesg segment
+  start: mov ax, offset start  ;equal to: mov ax, 0
+      s: mov ax, offset s      ;equal to: mov ax, 3
+codesg ends
+
+end start
+</code></pre>
+
+<p>这里<code class="language-plaintext highlighter-rouge">offset start</code>相当于指明并取得start处的偏移地址0，<code class="language-plaintext highlighter-rouge">offset s</code>相当于指明并取得标号s处的偏移地址3。</p>
+
+<blockquote>
+  <p>问题9.1</p>
+</blockquote>
+
+<p>在<code class="language-plaintext highlighter-rouge">__________</code>处填写指令，使该程序在运行中将s处的一条指令复制到s0处。</p>
+
+<pre><code class="language-x86asm">assume cs:codesg
+codesg segment
+  s:  mov ax, bx    ;机器码占两个字节
+      mov si, offset s
+      mov di, offset s0
+      __________
+      __________
+
+ s0:  nop   ;这里nop的机器码占一个字节
+      nop
+codesg ends
+end s
+</code></pre>
+<p>通过offset分别获得了s和s0处的偏移地址，就可以直接通过通用寄存器ax将代码段中的数据拷贝的目标偏移地址。</p>
+<pre><code class="language-x86asm">mov ax, cs:[si]
+mov cs:[di], ax
+</code></pre>
+
+<p>同时给出了汇编语言处理问题的思路：</p>
+<ol>
+  <li>s和s0处的指令所在的内存单元的地址是多少？cs:offset s 和cs:0ffset s0。</li>
+  <li>将s处的指令复制到s0处，就是将cs:offset s 处的数据复制到cs:offset s0处。</li>
+  <li>段地址已知在cs中，偏移地址offset s和offset s0已经送入了si和di中。</li>
+  <li>要复制的数据多长？mov ax, bx指令的长度为2个字节。</li>
+</ol>
+
+<h3 id="92-jmp指令">9.2 jmp指令</h3>
+
+<p>jmp为<strong>无条件转移指令</strong>，可以只修改IP也可以同时修改CS和IP。</p>
+
+<ol>
+  <li>转移的目的地址</li>
+  <li>转移的距离（段间转移、段内转移、段内近转移）</li>
+</ol>
+
+<h3 id="93-依据位移进行转移的jmp指令">9.3 依据位移进行转移的jmp指令</h3>
+
+<p>jmp short 标号（转移到标号处执行指令）</p>
+
+<p>这种格式的jmp指令实现的是段内短转移，它对IP的修改范围是-128~127 （共256个字节, 一个8进制单位), 标号指明转移目的地，CS:IP应该指向标号处的指令。</p>
+
+<p>例如代码，</p>
+
+<pre><code class="language-x86asm">assume cs:codesg
+codesg segment
+start:mov ax, 0
+      jmp short s
+      add ax, 1    ;跳过该指令的执行
+    s:inc ax
+codesg ends
+end start
+</code></pre>
+
+<p>这里将直接跳过<code class="language-plaintext highlighter-rouge">add ax, 1</code>指令。</p>
+
+<p>首先，我们来观察一下相关指令对应的机器码：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>汇编指令</th>
+      <th>机器指令</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>mov ax, 0123h</td>
+      <td>B8 23 01</td>
+      <td>这里需要注意字节类型存储</td>
+    </tr>
+    <tr>
+      <td>mov ax, ds:[0123h]</td>
+      <td>A1 23 01</td>
+      <td>机器码中高位数据在左侧</td>
+    </tr>
+    <tr>
+      <td>push ds:[0123h]</td>
+      <td>FF 36 23 01</td>
+      <td>与汇编指令中的数据顺序相反</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>可以看出，一般汇编指令中，idata（立即数）无论代表数据或者内存单元偏移地址都会在对应的及其指令中出现，因为CPU执行的是及其指令，它必须要处理这些数据或者地址。</p>
+
+<p>下面来通过debug探索一下<code class="language-plaintext highlighter-rouge">jmp short</code>指令的原理，我们对上面代码进行编译，并通过使用U命令来查看对应代码段中的机器码，</p>
+
+<p><img src="/assets/201911/2019-11-28_13-08-14.png" alt="figure1" /></p>
+
+<p>从图中可以看出，在CPU执行JMP命令时，对应的及其指令为<code class="language-plaintext highlighter-rouge">EB03</code>，而并未给出对应的目标偏移地址。这说明执行该命令时并不知道转移的目的地址。</p>
+
+<p>我们对以上代码进行改写，</p>
+
+<pre><code class="language-x86asm">assume cs:codesg
+codesg segment
+start:mov ax, 0
+      jmp short s
+      add ax, 1    ;跳过该指令的执行
+      add ax, ax
+    s:inc ax
+codesg ends
+end start
+</code></pre>
+
+<p>同样在debug中跟踪程序，</p>
+
+<p><img src="/assets/201911/2019-11-28_13-17-39.png" alt="figure2" /></p>
+
+<p>从图中可以看出，通过添加一条长度为两个字节的指令<code class="language-plaintext highlighter-rouge">add ax, ax</code>，JMP的机器指令从<code class="language-plaintext highlighter-rouge">EB03</code>变为了<code class="language-plaintext highlighter-rouge">EB05</code>，这说明这里<code class="language-plaintext highlighter-rouge">EB</code>后面代表了跳过的指令的字节长度。</p>
+
+<p>同样的，也可以通过下面这个例子代码得到相同的结论，</p>
+
+<pre><code class="language-x86asm">assume cs:codesg
+codesg segment
+start:mov ax, 0
+      mov bx, 0
+      jmp short s
+      add ax, 1    ;跳过该指令的执行
+      add ax, ax
+    s:inc ax
+codesg ends
+end start
+</code></pre>
+
+<p>debug跟踪程序结果，</p>
+
+<p><img src="/assets/201911/2019-11-28_13-24-54.png" alt="figure3" /></p>
+
+<p>这说明CPU在执行JMP指令时，并不需要转移目的地址。</p>
+
+<p>第一步，CPU运行到了相应的地址即20008，准备执行<code class="language-plaintext highlighter-rouge">jmp s</code>指令。</p>
+
+<p><img src="/assets/201911/2019-11-28_13-29-47.png" alt="figure4" /></p>
+
+<p>然后获取对应机器指令<code class="language-plaintext highlighter-rouge">EBF6</code>，放入指令缓冲寄存器，并且这是的IP地址会发生改变增加2，指向2000A。</p>
+
+<p><img src="/assets/201911/2019-11-28_13-49-09.png" alt="figure5" /></p>
+
+<p>之后F6会与现在的IP地址求和并输出对应的结果，更改当前IP为00000，即s:mov ax, 4c00h处。</p>
+
+<p><img src="/assets/201911/2019-11-28_13-34-27.png" alt="figure6" /></p>
+
+<p>而这里的计算：</p>
+
+\[00F6 + 000A = 0000\]
+
+<p>是因为这里的F6是以补码的形式存在的，其值为-10，即:</p>
+
+\[-000A + 000A = 0000\]
+
+<p>补码的方式为：</p>
+
+<p>F6H = 11110110B –&gt; 11110110B - 1B = 11110101B –&gt; 转化为字节型 1010 –&gt; 并取反(not) –&gt; -10</p>
+
+<p>关于补码的方法以后会详细介绍。</p>
+
+<p>与<code class="language-plaintext highlighter-rouge">jmp short</code>相类似，<code class="language-plaintext highlighter-rouge">jmp near ptr 标号</code>功能如下：</p>
+
+<ol>
+  <li>16位位移=标号处的地址-jmp指令后的第一个字节的地址;</li>
+  <li>near ptr指明此处的位移为16位位移，进行的是段内近转移。</li>
+  <li>16位位移的范围是-32768~32767，用补码表示。</li>
+  <li>16位位移由编译程序在编译时算出。</li>
+</ol>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/python-magic-method-3/"
+				title="link to python 魔法方法 (3) 反运算 一元操作符">python 魔法方法 (3) 反运算 一元操作符</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛反运算执行反运算时首先观察加法规则：\[a + b\]这个加法中，首先来确定谁是加法的主动一方，谁是被加一方。a 是主动实施加法的一方，而b则是被加一方。而反运算描述的就是被加一方的相关的算数性质。如下：calss Nint(int):    def __rsub__(self, other)        return int.__sub__(other, self)&gt;&gt;&gt; a = Nint(5)&gt;&gt;&gt; b = Nint(3)&gt...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-28 21:21:24 +0800"
+				class="post-list__meta--date date">2019-11-28</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/11/python-magic-method-3/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/assembly-language-35/"
+				title="link to 汇编语言 实验7 寻址方式在结构化数据访问中的应用">汇编语言 实验7 寻址方式在结构化数据访问中的应用</a></h2>
+		<p class="excerpt">题目如下：assume cs:codesg, ds:data, es:table data segment	db '1975', '1976', '1977', '1978', '1979', '1980', '1981', '1982', '1983'	db '1984', '1985', '1986', '1987', '1988', '1989', '1990', '1991', '1992'	db '1993', '1994', '1995'; 以上是表示21年的21个字符串	dd...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-27 16:02:24 +0800"
+				class="post-list__meta--date date">2019-11-27</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/11/assembly-language-35/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/11/assembly-language-36/";
+        this.page.identifier = "/2019/11/assembly-language-36/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

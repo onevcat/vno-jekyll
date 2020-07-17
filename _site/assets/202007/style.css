@@ -1,0 +1,179 @@
+body {
+	background-color: #f4f4f4; 
+	color: #555555;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+
+	font: normal 16px Arial, Helvetica, sans-serif;
+	line-height: 1.5em;
+}
+
+button {
+	background-color: #444444;
+	color: #fff;
+	padding: 10px 15px;
+}
+
+/*当鼠标放在button上时*/
+button:hover {
+	background-color: red;
+}
+
+/*按下按钮时*/
+button:active {
+	background-color: #fff;
+}
+
+a {
+	text-decoration: none;
+	color: #555555;
+}
+
+a:hover {
+	color: cyan;
+}
+
+/*如果访问过如何处理*/
+a:visited {
+	color: red;
+}
+
+.box1 {
+	background-color: antiquewhite;
+	color: royalblue;
+	border: 5px blue solid;
+	border-right: 5px red solid;
+	border-left: 8px blue solid;
+	border-top: 10px green dotted;
+	border-bottom: 1px firebrike double;
+
+	border-bottom-width: 8px;
+	border-bottom-style: dashed;
+
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+/*整体下移 20px*/
+	margin-top: 20px;
+}
+
+.clearfix {
+	/*去除 left和 right*/
+	clear: both;
+}
+
+.box1 h1 {
+	font-family: 'Times New Roman', Times, serif;
+	font-weight: 800;
+	font-style: italic;
+	text-decoration: underline;
+	text-transform:uppercase;
+	letter-spacing: 1em;
+	word-spacing: 2em;
+}
+
+.box2 {
+	border: 5px dotted #cccccc;
+	border-radius: 35px;
+	padding: 20px;
+	margin: 20px, 0;
+
+	/*相对定位*/
+	/*position: relative;*/
+	/*top: 30px;*/
+	/*left: 30px;*/
+	/*保留原来位置，并发生偏转，不浮动*/
+
+	/*[>绝对定位，在没有上下文 relative 时，是参考当前视窗页面做偏移的<]*/
+	/*position: absolute;*/
+	/*top: 30px;*/
+	/*left: 30px;*/
+	/*同时决定平移会使整个盒子浮动起来，不会保留原来位置*/
+}
+
+.container {
+	width: 80%;
+	margin: auto;
+}
+
+.box2 {
+	text-align: center;
+}
+
+.list li {
+	/*改变list前的图片标识*/
+	/*可以自定义图片*/
+	/*list-style-image: url(../image/check.jpg);*/
+
+	/*也可以用自带的*/
+	list-style: square;
+	background-color: red;
+}
+
+.block {
+	float: left;
+	/*改为三列的形式*/
+	width: 33.3%;
+	border: 1px solid #ccc;
+	/*这时会破坏三列，因为加了边框*/
+	/*需要用box-sizing来解决*/
+	box-sizing: border-box;
+}
+
+#mian-block {
+	float: left;
+	width: 70%;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+#sidebar {
+	float: right;
+	width: 30%;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+/*较为高级的选择方式 ---- 伪类*/
+
+.list2 li:nth-child(even) {
+	background-color: grey;
+}
+
+.list2 li:first-child {
+	background-color: red;
+}
+
+/*注意不是从0开始计数*/
+.list2 li:nth-child(3) {
+	color: aqua;
+}
+
+.position-box {
+	width: 500px;
+	height: 500px;
+	border: 1px solid black;
+	position: relative;
+}
+
+/*relative 和 absolute结合*/
+/*box 1,2的偏移量是根据 box 说的*/
+/*如果将 box的position 去掉relative，则移到页面开头*/
+.position-box h1 {
+	position: absolute;
+	top: 50px;
+}
+
+.position-box h2 {
+	position: absolute;
+	left: 30px;
+}
+
+/*固定位置*/
+#fixed {
+	position: fixed;
+	right: 0;
+	bottom: 200px;
+}

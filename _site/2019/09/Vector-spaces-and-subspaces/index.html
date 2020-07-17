@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Vector Spaces and Subspaces</title>
+  <meta name="description" content="Summarized from ‘Introduction to Linear algebra’ from Gilbert Strang.Definition of The Vector SpacesVector space is a very important concept, which is denote...">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vector Spaces and Subspaces">
+  <meta name="twitter:description" content="Summarized from ‘Introduction to Linear algebra’ from Gilbert Strang.Definition of The Vector SpacesVector space is a very important concept, which is denote...">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Vector Spaces and Subspaces">
+  <meta property="og:description" content="Summarized from ‘Introduction to Linear algebra’ from Gilbert Strang.Definition of The Vector SpacesVector space is a very important concept, which is denote...">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/09/Vector-spaces-and-subspaces/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-09-03 11:30:00 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-09-03</time> &#8226; <span
+					class="post-meta__tags tags">数学</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#数学">数学</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">Vector Spaces and Subspaces</h1>
+
+		</header>
+
+		<section class="post">
+			<p>Summarized from ‘Introduction to Linear algebra’ from Gilbert Strang.</p>
+<h2 id="definition-of-the-vector-spaces">Definition of The Vector Spaces</h2>
+<p><strong>Vector space</strong> is a very important concept, which is denoted by $R^1, R^2, R^3 … R^n$, which consists of a <em>a whole collection of vectors</em>. For example, $R^5$ contains all column vectors with five components, the so-called “ive-dimentional space”.</p>
+<blockquote>
+  <p><strong>DEFINITION</strong> The space $R^n$ consists of all column vectors v with n components.</p>
+</blockquote>
+
+<p>Here are three vector spaces other than $R^n$:</p>
+<blockquote>
+  <p><strong>M</strong> The vector space of <strong><em>all real 2 by 2 matrices</em></strong> <br />
+<strong>F</strong> <em>The vector space of <strong>*all real functions $f(x)$</strong></em> <br />
+<strong>Z</strong> The vector sapce that consists only of a <strong><em>zero vector</em></strong></p>
+</blockquote>
+
+<p><strong>PS</strong>*:The function space F is infinite-dimensional. A smaller function space is $P$, or $P_n$ containing all polynomials $a_0 + a_1x … a_nx^n$ of degree n.</p>
+<h2 id="subspaces">Subspaces</h2>
+<p>A plane in three-dimensional space is not $R^2$ (even if it looks like $R^2$). The vectors have three components and they belong to $R^3$. The plane is a vector space <strong><em>inside $R^3$</em></strong>.</p>
+<blockquote>
+  <p><strong>DEFINITION</strong> A subspace of a vector space is a set of vectors (including 0) that satisfies two requirements: <strong><em>If $v$ and $w$ are vectors in the subspace and $c$ is any scalar, then<br /></em></strong>
+( i ) $v+w$ is in the subspace <br />
+( ii ) $cv$ is in the subspace</p>
+</blockquote>
+
+<p>There are two facts,</p>
+<ol>
+  <li>Every subspace contains the zero vector.</li>
+  <li>Lines through the origin are also subspaces.</li>
+</ol>
+
+<blockquote>
+  <p>( $L$ ) Any line through (0, 0, 0)<br />
+( $P$ ) Any plane through (0, 0, 0)<br />
+( $R^3$ ) The whole space<br />
+( $Z$ ) The single vector (0, 0, 0)</p>
+</blockquote>
+
+<h2 id="the-column-space-of-a">The Column Space of A</h2>
+<p>Start with the columns of A and <strong><em>take all their linear combinations. This produces the column space of A, <code class="language-plaintext highlighter-rouge">It is a vector space made up of column vectors</code></em></strong>. $C(A)$ contains not just the $n$ columns of $A$, but all their combinations $Ax$.</p>
+<blockquote>
+  <p>DEFINITION The <strong><em>column space</em></strong> consists of <strong><em>all linear combinations of the columns</em></strong>. The combinations are all possible vectors $Ax$. They fill the column space $C(A)$.</p>
+</blockquote>
+
+<p>To solve $Ax = b$ is to express b as a combination of the columns.</p>
+
+<blockquote>
+  <p><strong><em>The system $Ax = b$ is solvable if and only if b is in the column space of $A$.</em></strong></p>
+</blockquote>
+
+<p><strong>Important:</strong> Instead of columns in $R^m$, we could start with any set $S$ of vectors in a vector space $V$. To get a subspace $SS$ of $V$, we take all combinations of the vectors in that set:</p>
+
+<blockquote>
+  <p>$S$ = set of vectors in V (probabley not a subspace)<br />
+$SS$ = all combinations of vectors in $S$<br />
+$SS$ = all $c_1v_1 + …+ c_Nv_N$ = the subspace of $V$ “spannd” by $S$.</p>
+</blockquote>
+
+<p>When $S$ is the set of columns, $SS$ is the column space. When there is noly one nonzero vector $v$ in $S$, the subspace $SS$ is the line through $v$. ALways $SS$ is the smallest subspace containing $S$.</p>
+
+<blockquote>
+  <p>The subspace $SS$ is the “span” of $S$, containing all combinaitons of vectors in $S$.</p>
+</blockquote>
+
+<h2 id="some-problems-to-learn">Some Problems to Learn</h2>
+<p>In the definition of a vector space, vector spaces are not necessarily column vectors. In the definition of a vector space, vector addition $x+y$ and scalar multiplicaiton $cx$ must obey the following eight rules:</p>
+<ol>
+  <li>$x+y=y+x$</li>
+  <li>$x+(y+z)=(x+y)+z$</li>
+  <li>There is a unique ‘zero vector’ such that $x+0=x$ for all $x$</li>
+  <li>For each $x$ there is a unique vector $-x$ such that $x + (-x) = 0$</li>
+  <li>1 times $x$ equals $x$</li>
+  <li>$(c_1c_2)x=c_1(c_2x)$</li>
+  <li>$c(x+y)=cx + cy$</li>
+  <li>$(c_1+c_2)x = c_1x + c_2x$</li>
+</ol>
+
+<p>For example:<br />
+Problems, <br /></p>
+<ol>
+  <li>The possitive numbers with $x + y$ and $cx$ redefined to equal the usual $xy$ and $x^c$ do satisfy the eight rules. Test rule 7 when $c =3, x = 2, y =1$. (Then $x+y=2$ and $cx=8$.) Which number acts as the “zero vector”?
+    <blockquote>
+      <p>$c(x+y)\to(xy)^c$, and zero vector is 1</p>
+    </blockquote>
+  </li>
+  <li>$A$ = 
+\(\begin{bmatrix}
+ 1 &amp; 0\\
+ 0 &amp; 0\\
+ \end{bmatrix}\)
+and $B$ = 
+\(\begin{bmatrix}
+ 0 &amp; 0\\
+ 0 &amp; -1\\
+ \end{bmatrix}\)
+, if a subspace of M does contain $A$ and $B$, must it contain $I$?
+    <blockquote>
+      <p>From the DIFINITION of subspace, we can find when $u$ and $w$ are two vectors in the subspace. $u + w$ is also in the subspace is also in the subspace. Because that $A - B$ = 
+\(\begin{bmatrix}
+ 1 &amp; 0\\
+ 0 &amp; 1\\
+ \end{bmatrix}\)
+= $I$, this subspace must contain $I$.</p>
+    </blockquote>
+  </li>
+  <li>The subspaces of $R^3$ are planes, lines , $R^3$ itself, or $Z$ containing only (0, 0 ,0).</li>
+  <li>Show that the set of singular matrices in $M$ is not a subspace.
+    <blockquote>
+      <p>Import two singular matrices, $A$ =
+\(\begin{bmatrix}
+ 1&amp;0\\
+ 0&amp;0\\
+ \end{bmatrix}\)
+, and $B$ = 
+\(\begin{bmatrix}
+ 0&amp;0\\
+ 0&amp;1\\
+ \end{bmatrix}\)
+. It’s because that the sum of $A,B$ is 
+\(\begin{bmatrix}
+ 1&amp;0\\
+ 0&amp;1\\
+ \end{bmatrix}\)
+which is invertible, so the set of singular matrices in $M$ is not a subspace.</p>
+    </blockquote>
+  </li>
+  <li>The columns of $AB$ are combinations of the columns of $A$. This means: The column space of $AB$ is contained in (possibly equal to) the column space of A. Give an example where the column spaces of $A$ and $AB$ are not equal.
+    <blockquote>
+      <p>If $B$ is a zero matrix, while $A!=0$, then $AB$ is smaller than $A$ and not equal to each other.</p>
+    </blockquote>
+  </li>
+  <li>If $A$ is any n by n invertible matrix, then its column space is $R^n$, WHY?
+    <blockquote>
+      <p>$Ax = b$ is always solved by $x = A^{-1}b$</p>
+    </blockquote>
+  </li>
+</ol>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/09/static-class-abstract-method/"
+				title="link to Python - Binding and the Static, Class, Abstract Method">Python - Binding and the Static, Class, Abstract Method</a></h2>
+		<p class="excerpt">Something about parameter bindingFunction is stored as the attribute of class, as you can see in the code followed.class Pizza(object):    def __init__(self, size):        self.size = size    def get_size(self):        return self.sizeprint(Pizza....&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-09-04 15:45:24 +0800"
+				class="post-list__meta--date date">2019-09-04</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/09/static-class-abstract-method/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/08/inverse-matrices/"
+				title="link to Inverse Matrices">Inverse Matrices</a></h2>
+		<p class="excerpt">Something to note  The matrix A is invertible if there exists a matrix $A^{-1}$Two-sided inverse: \(A^{-1}\cdot A = I\) Not all matrices have inverses. There are six note:  The inverse exists if and only if elimination produces n pivots (row excha...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-08-02 07:33:24 +0800"
+				class="post-list__meta--date date">2019-08-02</time> &#8226; <span
+				class="post-list__meta--tags tags">数学</span><a class="btn-border-small"
+				href=/2019/08/inverse-matrices/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/09/Vector-spaces-and-subspaces/";
+        this.page.identifier = "/2019/09/Vector-spaces-and-subspaces/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

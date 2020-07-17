@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Some Keyboard Setting of Vim</title>
+  <meta name="description" content="Keyboard setting is something boring in vim, and tell you the truth, it’s a little complex. However, vim setting is essential to us. I use the vim aimed to i...">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Some Keyboard Setting of Vim">
+  <meta name="twitter:description" content="Keyboard setting is something boring in vim, and tell you the truth, it’s a little complex. However, vim setting is essential to us. I use the vim aimed to i...">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Some Keyboard Setting of Vim">
+  <meta property="og:description" content="Keyboard setting is something boring in vim, and tell you the truth, it’s a little complex. However, vim setting is essential to us. I use the vim aimed to i...">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/07/some-keyboard-setting-of-vim/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-07-02 18:39:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-07-02</time> &#8226; <span
+					class="post-meta__tags tags">vim</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#vim">vim</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">Some Keyboard Setting of Vim</h1>
+
+		</header>
+
+		<section class="post">
+			<p>Keyboard setting is something boring in vim, and tell you the truth, it’s a little complex. However, vim setting is essential to us. I use the vim aimed to increase the efficiency of my daily writing, including blog and coding. And the keyboard setting is no doubly the most important.<br /></p>
+<h2 id="the-vimrc-build">The vimrc build</h2>
+<p>The keyboard setting of vim, is similar to the setting of terminal bashrc. Make a folder named with <strong><code class="language-plaintext highlighter-rouge">vim</code></strong> and create the <strong><code class="language-plaintext highlighter-rouge">vimrc</code></strong> document.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$mkdir</span> ~/.vim <span class="o">&amp;&amp;</span> <span class="nb">cd</span> .vim
+<span class="nv">$touch</span> vimrc
+</code></pre></div></div>
+<p>And then a vimrc will be created.<br /></p>
+<blockquote>
+  <p>One tricky thing I want to say is how to quickly set your vim. Maybe it’s a little early to talk about it, I recommend that you can skip this at first.<br /></p>
+</blockquote>
+
+<p>As vim is a very small and easy taken word editor, you may want to set up your vim more easily. And you can upload your vim setting to the github and setup vim on any computer you like. I got a very cool code to auto-detect if there is a vimrc, if your vimrc isn’t set, this code will help you set your vim.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span>empty<span class="o">(</span>glob<span class="o">(</span><span class="s1">'~/.vim/autoload/plug.vim'</span><span class="o">))</span>
+  silent <span class="o">!</span>curl <span class="nt">-fLo</span> ~/.vim/autoload/plug.vim <span class="nt">--create-dirs</span>
+    <span class="se">\ </span>https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter <span class="k">*</span> PlugInstall <span class="nt">--sync</span> | <span class="nb">source</span> <span class="nv">$MYVIMRC</span>
+endif
+</code></pre></div></div>
+<p>As all the plugin will be plugged by the <a href="https://github.com/junegunn/vim-plug">Vim plugin manager</a> and a file named plug.vim will be downloaded in <code class="language-plaintext highlighter-rouge">/autoload</code>. Copy the this code to your vimrc, and if your computer didn’t get your <code class="language-plaintext highlighter-rouge">/autoload/plug.vim</code> it will auto-install all of the plugins from the github. Cool!</p>
+
+<h2 id="the-keyboard-setting">The Keyboard setting</h2>
+<p>Next we will enter our topic. Two commands will help you resolve the keyboard setting.</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">noremap</span> 
+&amp;
+<span class="nb">map</span>
+</code></pre></div></div>
+
+<p>noremap is an easy command to change the simple key group. For example,</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">noremap</span> <span class="k">u</span> <span class="k">i</span> 
+</code></pre></div></div>
+<p>It will simply help you change i to u.
+<br />The other command <strong><code class="language-plaintext highlighter-rouge">map</code></strong> is more powerful and can handle more complex work. For example,</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">map</span> <span class="p">&lt;</span>LEADER<span class="p">&gt;</span>rc <span class="p">:</span><span class="k">e</span> <span class="p">~</span><span class="sr">/.vim/</span>vimrc<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+</code></pre></div></div>
+<p>Means to set <strong><code class="language-plaintext highlighter-rouge">&lt;LEADER&gt; + r + c</code></strong> can help you edit vimrc document directly.<br />
+As I introduced <a href="../../06/basic-op-vim">before</a>, <strong><code class="language-plaintext highlighter-rouge">operation + motivation</code></strong> will help you make a more flexible setting like,</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">map</span> <span class="p">&lt;</span>LEADER<span class="p">&gt;&lt;</span>LEADER<span class="p">&gt;</span> <span class="p">&lt;</span>Esc<span class="p">&gt;</span>/<span class="p">&lt;++&gt;&lt;</span>CR<span class="p">&gt;:</span><span class="k">nohlsearch</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>c4l
+</code></pre></div></div>
+<p>Means when you tap <strong><code class="language-plaintext highlighter-rouge">&lt;LEADER&gt; + &lt;LEADER&gt;</code></strong>, will at first execute <strong><code class="language-plaintext highlighter-rouge">Esc</code></strong> command, and then search for <strong><code class="language-plaintext highlighter-rouge">&lt;++&gt;</code></strong> (some defined tag working as a place holder), then execute <strong><code class="language-plaintext highlighter-rouge">:nohlsearch</code></strong> to cancel highlight search mode and change the 4 units on the right (<strong><code class="language-plaintext highlighter-rouge">c4l</code></strong>), in another word, make a change of the <strong><code class="language-plaintext highlighter-rouge">&lt;++&gt;</code></strong> into other word.</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/07/introduction-of-plugins-in-vim/"
+				title="link to Introduction of Plugins In Vim">Introduction of Plugins In Vim</a></h2>
+		<p class="excerpt">There are many very nice plugins in vim, which make vim a very charming one. As I introduced at first, why people like vim, the most reliable reason is the powerful plugins in Vim.Vim-plugEvery great success begins with a dream, and why vim become...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-07-03 12:52:24 +0800"
+				class="post-list__meta--date date">2019-07-03</time> &#8226; <span
+				class="post-list__meta--tags tags">vim</span><a class="btn-border-small"
+				href=/2019/07/introduction-of-plugins-in-vim/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/06/the-front-matter-issue/"
+				title="link to The Front Matter Issue">The Front Matter Issue</a></h2>
+		<p class="excerpt">&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-06-29 00:00:00 +0800"
+				class="post-list__meta--date date">2019-06-29</time> &#8226; <span
+				class="post-list__meta--tags tags"></span><a class="btn-border-small"
+				href=/2019/06/the-front-matter-issue/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/07/some-keyboard-setting-of-vim/";
+        this.page.identifier = "/2019/07/some-keyboard-setting-of-vim/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 10.1 10.2 10.3 ret和retf call指令 依据位移进行转移的call指令</title>
+  <meta name="description" content="call和ret指令都是转移指令，它们都修改IP，或同时修改CS和IP。它们经常被共同用来实现子程序的设计。">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 10.1 10.2 10.3 ret和retf call指令 依据位移进行转移的call指令">
+  <meta name="twitter:description" content="call和ret指令都是转移指令，它们都修改IP，或同时修改CS和IP。它们经常被共同用来实现子程序的设计。">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 10.1 10.2 10.3 ret和retf call指令 依据位移进行转移的call指令">
+  <meta property="og:description" content="call和ret指令都是转移指令，它们都修改IP，或同时修改CS和IP。它们经常被共同用来实现子程序的设计。">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/12/assembly-language-41/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-12-10 09:28:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-12-10</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 10.1 10.2 10.3 ret和retf call指令 依据位移进行转移的call指令</h1>
+
+		</header>
+
+		<section class="post">
+			<p>call和ret指令都是转移指令，它们都修改IP，或同时修改CS和IP。它们经常被共同用来实现子程序的设计。</p>
+
+<h3 id="101-ret和retf">10.1 ret和retf</h3>
+
+<p>ret指令用栈中的数据，修改IP的内容，从而实现近转移；<br />
+retf指令用栈中的数据，修改CS和IP的内容，从而实现远转移。</p>
+
+<blockquote>
+  <p>CPU执行ret指令时，进行下面两步操作：</p>
+</blockquote>
+
+<ol>
+  <li>(IP)=((ss)*16+(sp))</li>
+  <li>(sp)=(sp)+2</li>
+</ol>
+
+<p>栈模拟图如下，</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>1</th>
+      <th>IP</th>
+    </tr>
+    <tr>
+      <th>2</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3</td>
+      <td>stack</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>stack</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>这时在栈顶1，2处存放着IP地址，执行ret后，会将IP从栈顶弹出并将指针向下指向3处。注意，这时只是指针被调到3，但是1，2处的IP仍然存在。</p>
+
+<blockquote>
+  <p>CPU执行retf指令时，进行下面4步操作：</p>
+</blockquote>
+
+<ol>
+  <li>(IP)=((ss)*16+(sp))</li>
+  <li>(sp)=(sp)+2</li>
+  <li>(CS)=((ss)*16+(sp))</li>
+  <li>(sp)=(sp)+2</li>
+</ol>
+
+<p>栈模拟图如下，</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>1</th>
+      <th>IP</th>
+    </tr>
+    <tr>
+      <th>2</th>
+      <th> </th>
+    </tr>
+    <tr>
+      <th>3</th>
+      <th>CS</th>
+    </tr>
+    <tr>
+      <th>4</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5</td>
+      <td>stack</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>stack</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>这时在栈顶1，2处存放着IP地址；在3，4中存放着段地址，执行retf后，会将IP和CS分别从栈顶弹出并将指针向下指向5处。</p>
+
+<p>如果我们用汇编语法来解释ret和retf指令，</p>
+
+<p>CPU执行ret指令相当于，</p>
+
+<pre><code class="language-x86asm">pop IP
+</code></pre>
+
+<p>CPU执行retf指令相当于，</p>
+
+<pre><code class="language-x86asm">pop IP
+pop CS
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">ret</code>代码示例，</p>
+
+<pre><code class="language-x86asm">assume cs:code
+
+stack segment
+  db 16 dup (0)
+stack ends
+
+code segment
+        mov ax, 4c00h
+        int 21h
+
+start:  mov ax, stack
+        mov ss, ax
+        mov sp, 16    ;栈顶指针调整
+        mov ax, 0     ;将0推到栈顶
+        push ax
+        mov bx, 0
+        ret           ;执行"pop IP"(IP = 0)，调到最代码段最开始终止程序运行
+code ends
+end start
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">retf</code>代码示例，</p>
+
+<pre><code class="language-x86asm">assume cs:code
+
+stack segment
+  db 16 dup (0)
+stack ends
+
+code segment
+        mov ax, 4c00h
+        int 21h
+start:  mov ax, stack
+        mov ss, ax
+        mov sp, 16
+        mov ax, 0
+        push cs     ;这里由于不需要改变cs的地址，所以直接"push cs"
+        push ax
+        mov bx, 0
+        retf
+code ends
+end start
+</code></pre>
+
+<h3 id="102-call指令">10.2 call指令</h3>
+
+<p>CPU执行call指令时，进行两步操作：</p>
+<ol>
+  <li>将当前的IP或CS和IP压入栈；</li>
+  <li>转移</li>
+</ol>
+
+<p>call指令不能实现短转移，除此之外，call指令的实现转移方法与jmp指令的原理相同。</p>
+
+<h3 id="103-依据位移进行转移的call指令">10.3 依据位移进行转移的call指令</h3>
+
+<p>call 标号(将当前的IP压栈后，转到标号处执行指令)</p>
+
+<p>CPU执行此种格式的call指令时，进行如下操作，</p>
+
+<ol>
+  <li>(sp)=(sp)-2</li>
+  <li>((ss)*16+(sp))=(IP)</li>
+  <li>(IP)=(IP)+16位移</li>
+</ol>
+
+<p>用栈模拟图表示，</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>1</th>
+      <th>stack</th>
+    </tr>
+    <tr>
+      <th>2</th>
+      <th> </th>
+    </tr>
+    <tr>
+      <th>3</th>
+      <th>stack</th>
+    </tr>
+    <tr>
+      <th>4</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5</td>
+      <td>IP</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>空栈</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>开始时指针指向7的位置，即为空栈，在执行call指令时，push IP入栈，指针指向5的位置。</p>
+
+<p><strong>16位位移=标号处的地址-call指令后的第一个字节的地址</strong>；
+16位位移的范围为-32768~32767，用补码表示；
+16位位移由编译程序在编译时算出。</p>
+
+<p>用汇编语法来解释此种格式的call指令，</p>
+
+<pre><code class="language-x86ams">push IP
+jmp near ptr 标号
+</code></pre>
+
+<p>用示意图表示整个过程，</p>
+
+<p>第一步cs和IP在地址加法器中生成物理地址并沿地址总线传入，提取数据并沿着数据总线进入指令缓冲寄存器，</p>
+
+<p><img src="/assets/201912/2019-12-10_10-10-11.png" alt="figure1" />
+<img src="/assets/201912/2019-12-10_10-10-02.png" alt="figure2" />
+<img src="/assets/201912/2019-12-10_10-10-50.png" alt="figure3" /></p>
+
+<p>这是缓冲寄存器中的机器码E80500，E8为call机器码。随后，0500会传入IP地址和现在的IP地址进行加成：0005h+0005h=000A，值得注意，这时<strong>call 指令后的第一个字节的IP地址0005(注意，这里0005与之前参与地址加和的0005只是巧合相等，不要混淆！)会入栈</strong>，</p>
+
+<p><img src="/assets/201912/2019-12-10_10-11-46.png" alt="figure4" /></p>
+
+<p>之后加成之后的物理地址2000A会再次沿地址总线传入，提取对应的代码并沿数据总线传入指令缓冲寄存器，并且执行对应指令，(ax) = (ax) + 1</p>
+
+<p><img src="/assets/201912/2019-12-10_10-12-05.png" alt="figure5" />
+<img src="/assets/201912/2019-12-10_10-12-15.png" alt="figure6" /></p>
+
+<p>最后，cs(2000)和IP(000D)在地址加法器合成物理地址2000D并沿地址总线传入，提取对应指令C3即ret指令，沿数据总线传入指令缓冲寄存器，并执行pop，将栈中的IP替换当前的cs与IP，</p>
+
+<p><img src="/assets/201912/2019-12-10_10-16-10.png" alt="figure7" />
+<img src="/assets/201912/2019-12-10_10-16-27.png" alt="figure8" /></p>
+
+<p>最后执行20005处的终止程序指令。</p>
+
+<p><img src="/assets/201912/2019-12-10_10-16-53.png" alt="figure9" /></p>
+
+<p>问题：</p>
+
+<p>下面的程序执行后，ax中的值为多少？</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>内存地址</th>
+      <th>机器码</th>
+      <th>汇编指令</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>1000:0</td>
+      <td>b80000</td>
+      <td>mov ax, 0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1000:3</td>
+      <td>e80100</td>
+      <td>call s</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1000:6</td>
+      <td>40</td>
+      <td>inc ax</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1000:7</td>
+      <td>58</td>
+      <td>s:pop ax</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>在1处，ax = 0, IP –&gt; 1000:3<br />
+在2处，IP –&gt; 1000:7, 入栈call指令后第一个字节的IP地址，即ax = 6<br />
+在3处，被跳过<br />
+在4处，pop ax，ax = 6</p>
+
+<blockquote>
+  <p>PS：注意这里在2处执行的是近转移，</p>
+</blockquote>
+
+<p>$ 2^8 = 256 $ –&gt; 一个字节 –&gt; 短转移</p>
+
+<p>$ 2^{16} = 65536 $ –&gt; 两个字节 –&gt; 近转移</p>
+
+<p>机器码e8 0100 是近转移(两个字节)。</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/python-magic-method-4/"
+				title="link to python 魔法方法 (4) 简单定制">python 魔法方法 (4) 简单定制</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛简单定制下面来做一个案例，要求如下：  定制一个计时器的类  start和stop方法代表启动定时和停止计时  假设计时器对象t1，print(t1)和直接调用t1均显示结果  当计时器未启动或已经停止计时，调用stop方法会给予温馨的提示  像个计时器对象可以相加：t1+t2  只能使用提供的有限资源完成需要用到下面的资源：  使用time模块的localtime方法获取时间  time.localtime返回struct_time的时间格式  __str__()和_...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-10 21:24:24 +0800"
+				class="post-list__meta--date date">2019-12-10</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/12/python-magic-method-4/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/c-constant-marco-define/"
+				title="link to C语言 常量 宏定义">C语言 常量 宏定义</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛常量在程序运行的过程中，它的值不能够被改变，成为常量。C语言中常见的常量如下：  整型常量：520，1314，123  实型常量：3.14，5.12，8.97  字符常量：          普通字符：’A’, ‘B’      转义字符：’\n’, ‘\t’        字符串常量：’ABCD’  符号常量：使用之前必须定义定义符号常量符号常量的定义格式：#define 标识符 常量#define是一条预处理命令(预处理命令都以”#”开头)，也称为宏定义命令。#de...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-09 13:46:24 +0800"
+				class="post-list__meta--date date">2019-12-09</time> &#8226; <span
+				class="post-list__meta--tags tags">C语言</span><a class="btn-border-small"
+				href=/2019/12/c-constant-marco-define/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/12/assembly-language-41/";
+        this.page.identifier = "/2019/12/assembly-language-41/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 3.1 3.2 3.3 内存中字的存储 DS [assdress] 字的传送</title>
+  <meta name="description" content="第二章中，主要讲CPU如何执行指令的角度讲解了8086的逻辑结构、形成物理地址的方法、相关的寄存器以及一些指令。这一章将从访问内存的角度继续学习几个寄存器。">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 3.1 3.2 3.3 内存中字的存储 DS [assdress] 字的传送">
+  <meta name="twitter:description" content="第二章中，主要讲CPU如何执行指令的角度讲解了8086的逻辑结构、形成物理地址的方法、相关的寄存器以及一些指令。这一章将从访问内存的角度继续学习几个寄存器。">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 3.1 3.2 3.3 内存中字的存储 DS [assdress] 字的传送">
+  <meta property="og:description" content="第二章中，主要讲CPU如何执行指令的角度讲解了8086的逻辑结构、形成物理地址的方法、相关的寄存器以及一些指令。这一章将从访问内存的角度继续学习几个寄存器。">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/10/assembly-language-7/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-10-02 13:39:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-10-02</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 3.1 3.2 3.3 内存中字的存储 DS [assdress] 字的传送</h1>
+
+		</header>
+
+		<section class="post">
+			<p>第二章中，主要讲CPU如何执行指令的角度讲解了8086的逻辑结构、形成物理地址的方法、相关的寄存器以及一些指令。这一章将从访问内存的角度继续学习几个寄存器。</p>
+
+<h3 id="31-内存中字的存储">3.1 内存中字的存储</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>20H</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>4EH</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>12H</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>00H</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>本例中，我们用0、1两个内存单元存放数据20000(4E20H)。其中0位为地地址单元，1号为高地址单元，同理在2、3号单元中存放数据18（0012H)。</p>
+
+<blockquote>
+  <p>子单元的概念，即存放一个<strong>字形数据</strong>（16位）的内存单元，由两个地址连续的内存单元组成。高低地址内存单元分别存放字型数据的高低字节。</p>
+</blockquote>
+
+<blockquote>
+  <p>注意这里引入的几个概念：</p>
+</blockquote>
+
+<ol>
+  <li>字节单元，字节型数据。我们一般所指的地址单元，如0地址单元所指的就是字节单元，所以在例子中的0地址单元中存放的字节型数据为20，一个内存地址存放的就是一个字节。</li>
+  <li>字单元，字型数据。这里的字单元与字型数据值得为一个字，均考虑两个字节。而当提及字型数据时，记住要将数据延伸到其对应高位，如本例中1地址单元中存放的字型数据为124EH。</li>
+</ol>
+
+<h3 id="32-ds和address">3.2 DS和[address]</h3>
+
+<p>下面代码来实现读取10000H单元的内容：</p>
+
+<pre><code class="language-assembly">mov bx, 1000H
+mov ds, bx
+mov al, [0]
+</code></pre>
+
+<blockquote>
+  <p>这里有两点需要注意：</p>
+</blockquote>
+
+<ol>
+  <li>8086CPU<strong>不支持将数据直接送入段寄存器的操作，ds是一个段寄存器</strong>，所以<code class="language-plaintext highlighter-rouge">mov ds, 1000H</code>这两条指令是非法的。</li>
+  <li>8086CPU自动取ds中的数据为内存单元的段地址。</li>
+  <li>第三行中[…]表示一个内存单元，<code class="language-plaintext highlighter-rouge">[...]</code>中的0表示内存单元的<strong>偏离地址</strong>。</li>
+  <li>也可以将通用寄存器存储到偏移地址中，命令为<code class="language-plaintext highlighter-rouge">mov [0], al</code></li>
+</ol>
+
+<p>总结：</p>
+
+<blockquote>
+  <p>数据 —&gt; 通用寄存器 —&gt; 段寄存器</p>
+</blockquote>
+
+<h3 id="33-字的传送">3.3 字的传送</h3>
+
+<p>前面我们用mov指令在寄存器和内存之间进行字节型的传送。因为8086CPU是16位结构，有16根数据线，所以，可以一次性传送16位的数据，也就是说可以一次性传送<strong>一个字</strong>。只要在mov指令中给出16位的寄存器就可以进行16位的数据传送。</p>
+
+<pre><code class="language-assembly">mov bx, 1000H
+mov ds, bx
+mov ax, [0]
+mov [0], cx
+</code></pre>
+
+<blockquote>
+  <p>代码中有几个需要注意的地方：</p>
+</blockquote>
+
+<ol>
+  <li>第三行中如果给出的不是ax而是al，则存入的是8位的数据</li>
+  <li>第三行，1000:0处的字型数据送入ax, 字型数据为16位的，高位为10001，低位为10000，因为内存单元中只能存放8位数据</li>
+</ol>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/assembly-language-8/"
+				title="link to 汇编语言 3.4 3.5 数据段 mov add sub">汇编语言 3.4 3.5 数据段 mov add sub</a></h2>
+		<p class="excerpt">3.4 mov, add, sub指令mov 寄存器，数据      —&gt;   mov ax, 8mov 寄存器，寄存器    —&gt;   mov ax, bxmov 寄存器，内存单元  —&gt;   mov ax, [0]mov 内存单元，寄存器  —&gt;   mov [0], axmov 段寄存器，寄存器  —&gt;   mov ds, axmov 寄存器，段寄存器  —&gt;   mov ax, dsmov 内存单元，段寄存器—&gt;   mov [0], cs...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-14 10:48:24 +0800"
+				class="post-list__meta--date date">2019-10-14</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/assembly-language-8/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/09/assembly-language-6/"
+				title="link to 汇编语言 Debug的用法">汇编语言 Debug的用法</a></h2>
+		<p class="excerpt">什么是DebugDebug是DOS、Windows都提供的实模式（8086方式）程序的调试工具。使用它，可以查看CPU各种寄存器中的内容、内存的情况和在及其码级跟踪程序的运行。Debug的使用  R命令查看、改变CPU寄存器的内容；  D命令查看内存中的内容；  E命令改写内存中的内容；  U命令将内存中的机器指令翻译成汇编指令；  T命令执行一条机器指令；  A命令以汇编指令的格式在内存中写入一条及其指令。指令详解  R命令：-rAX=0000  BX=0000  CX=0000  DX...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-09-30 08:39:24 +0800"
+				class="post-list__meta--date date">2019-09-30</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/09/assembly-language-6/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/10/assembly-language-7/";
+        this.page.identifier = "/2019/10/assembly-language-7/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

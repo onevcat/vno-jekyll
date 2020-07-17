@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Correlation of Discrete Signals</title>
+  <meta name="description" content="The related information of correlation is mostly from David Dorran video at youtube, it is very clear and easy understanding.">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Correlation of Discrete Signals">
+  <meta name="twitter:description" content="The related information of correlation is mostly from David Dorran video at youtube, it is very clear and easy understanding.">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Correlation of Discrete Signals">
+  <meta property="og:description" content="The related information of correlation is mostly from David Dorran video at youtube, it is very clear and easy understanding.">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/10/correlation-of-discrete-signals/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-10-18 10:34:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-10-18</time> &#8226; <span
+					class="post-meta__tags tags">数学</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#数学">数学</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">Correlation of Discrete Signals</h1>
+
+		</header>
+
+		<section class="post">
+			<p>The related information of correlation is mostly from <a href="https://www.youtube.com/watch?v=_r_fDlM0Dx0&amp;list=PLJ8LTUMGG9U6IcCrKDUGavUTsBn-0ajIX">David Dorran video at youtube</a>, it is very clear and easy understanding.</p>
+
+<h3 id="what-is-correlation">What Is Correlation</h3>
+
+<p>Correlation is a measure of <strong>how similar signals are</strong>. They are present in things like discrete Fourier transform.</p>
+
+<p>Which is always present as equation:</p>
+
+<p>Eq. (1)</p>
+
+\[Corr_{x,y} = \sum_{n=0}^{N-1}x[n]\cdot y[n]\]
+
+<p>Where $x[n]$ and $y[n]$ are two discrte function.</p>
+
+<p>Here gives an example,</p>
+
+<p>$x=$
+\(\begin{bmatrix}1&amp;3&amp;-2&amp;4\\\end{bmatrix}\)</p>
+
+<p>$y=$
+\(\begin{bmatrix}2&amp;3&amp;-1&amp;3\\\end{bmatrix}\)</p>
+
+<p>$z=$
+\(\begin{bmatrix}2&amp;-1&amp;4&amp;-2\\\end{bmatrix}\)</p>
+
+<p>plot them in matlab, we get this</p>
+
+<p><img src="/assets/201910/figure1.png" alt="figure1" /></p>
+
+<p>From this figure we can find x is similar with y but not similar with z. How we can describe this in mathematics?</p>
+
+<p>We substitute x, y and y, z into Eq. (1),</p>
+
+\[\begin{aligned} \operatorname{Corr}_{x, y} &amp;=x[0] y[0]+x[1] y[1]+x[2] y[2]+x[3] y[3] \\ &amp;=(1)(2)+(3)(3)+(-2)(-1)+(4)(3) \\ &amp;=2+9+2+12=25 \end{aligned}\]
+
+<p>and</p>
+
+\[\begin{aligned} \operatorname{Corr}_{y,z} &amp;= y[0]z[0] + y[1]z[1] + y[2]z[2] + y[3]z[3] \\ &amp;= (2)(2)+(3)(-1)+(-1)(4)+(3)(-2) \\ &amp;= -9 \end{aligned}\]
+
+<p>However if we substitute the first 2 in Z into 100, which will lead to $Corr_{y,z} = 187$, and we will become confused, because we can’t get clearly which two are more similar with the other. as seen in the figure:</p>
+
+<p><img src="/assets/201910/figure2.png" alt="figure2" /></p>
+
+<p>So here we need <strong>Normalised Correlation</strong>.</p>
+
+\[\operatorname{Corr}_{norm_{x,y}}=\frac{\sum_{n=0}^{N-1} x[n]y[n]}{\sqrt{\sum_{n=0}^{N-1} x^{2}[n] \sum_{n=0}^{N-1} y^{2}[n]}}\]
+
+<p>The two terms at denominator are the measure of energy in signal X and Y respectively, which make the denominator the overall scaling factor.</p>
+
+<p>Basically, this normalised correlation function is this result divided by a scaling factor which is related to the energy that’s contained in the signals that you are measuring the similarity.</p>
+
+<p>For $Corr_{x,y}=0.95$ and $Corr_{y,z}=0.38$, $Corr$ ranges in $[-1, 1]$. Which can well score the similarity.</p>
+
+<p>It’s worth noting that, sometimes, as seen in the code demo:</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% This code highlights where non normalised correlation is</span>
+<span class="c1">% be more beneficial than normalised correlation</span>
+<span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="o">-</span><span class="mi">1</span><span class="p">]/</span><span class="mi">100</span><span class="p">;</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="nb">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="mi">1</span><span class="o">*</span><span class="n">t</span><span class="p">);</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="nb">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="n">t</span><span class="p">);</span>
+<span class="n">s3</span> <span class="o">=</span> <span class="nb">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="mi">10</span><span class="o">*</span><span class="n">t</span><span class="p">);</span>
+
+<span class="c1">% The following signals contain the three sinusoids above</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">s1</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">s2</span><span class="o">+</span><span class="n">s3</span><span class="p">;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span><span class="p">;</span>
+
+<span class="c1">% Comparing the results it can be seen that non-normalised</span>
+<span class="c1">% correlation is useful for identifying how strongly present</span>
+<span class="c1">% one signal is in another</span>
+<span class="n">corr_res1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="o">.*</span><span class="n">s1</span><span class="p">)</span>
+<span class="n">norm_corr_res1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="o">.*</span><span class="n">s1</span><span class="p">)/</span><span class="nb">sqrt</span><span class="p">((</span><span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span><span class="o">.*</span><span class="nb">sum</span><span class="p">(</span><span class="n">s1</span><span class="o">.^</span><span class="mi">2</span><span class="p">)))</span>
+
+<span class="n">corr_res2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">b</span><span class="o">.*</span><span class="n">s1</span><span class="p">)</span>
+<span class="n">nor_corr_res2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">b</span><span class="o">.*</span><span class="n">s1</span><span class="p">)/</span><span class="nb">sqrt</span><span class="p">((</span><span class="nb">sum</span><span class="p">(</span><span class="n">b</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span><span class="o">.*</span><span class="nb">sum</span><span class="p">(</span><span class="n">s1</span><span class="o">.^</span><span class="mi">2</span><span class="p">)))</span>
+</code></pre></div></div>
+<p>The output is:</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;</span> <span class="n">NormalisedCorrelation</span>
+
+<span class="n">corr_res1</span> <span class="o">=</span>
+
+   <span class="mi">100</span>
+
+
+   <span class="n">norm_corr_res1</span> <span class="o">=</span>
+
+       <span class="mf">0.4364</span>
+
+
+       <span class="n">corr_res2</span> <span class="o">=</span>
+
+          <span class="mf">50.0000</span>
+
+
+          <span class="n">nor_corr_res2</span> <span class="o">=</span>
+
+              <span class="mf">0.7071</span>
+</code></pre></div></div>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/how-to-build-masm-enviroment-with-dosbox/"
+				title="link to 如何利用dosbox搭建mac, linux masm环境">如何利用dosbox搭建mac, linux masm环境</a></h2>
+		<p class="excerpt">之前介绍过如何dosbox运性debug，这里介绍一下如何用doxbox运行汇编语言的调试包。首先下载MASM5.0软件包。安装好后，运用之前的方法进行虚拟盘挂载。挂载好后，将masm5 软件包所有内容进行拷贝，为了方便可以将测试用的汇编程序test.asm 放在相同文件夹之后就可以执行相关编译连接指令&gt;&gt;&gt;masm test.asm&gt;&gt;&gt;link test.asm&gt;&gt;&gt;ml test.asm...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-19 11:03:24 +0800"
+				class="post-list__meta--date date">2019-10-19</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/how-to-build-masm-enviroment-with-dosbox/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/assembly-language-12/"
+				title="link to 汇编语言 4.1 4.2 源程序">汇编语言 4.1 4.2 源程序</a></h2>
+		<p class="excerpt">4.1 一个源程序从写出到执行的过程做一个程序从写出到执行分为以下步骤。  第一步：编写汇编源程序。  第二步：对源程序进行编译连接。使用汇编语言编译程序对源程序文件中的源程序进行编译，产生目标文件。再用连接程序对目标文件进行连接，生成可以在操作系统中直接运行的可执行文件。可执行文件包含两部分内容：  程序（从源程序中的汇编指令翻译过来的机器码）以及数据（原程序中定义的数据）  相关的描述信息  第三步：执行可执行文件中的程序。操作系统依照可执行文件中的描述信息，将可执行文件中的机器码和数...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-18 08:24:24 +0800"
+				class="post-list__meta--date date">2019-10-18</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/assembly-language-12/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/10/correlation-of-discrete-signals/";
+        this.page.identifier = "/2019/10/correlation-of-discrete-signals/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

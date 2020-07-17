@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 2.1 2.2 通用寄存器, 与几条简单的汇编指令</title>
+  <meta name="description" content="汇编 第二章：一个典型的CPU由运算器、控制器、寄存器等器件构成，这些器件靠内部总线相连。相对的，外部总线实现CPU和主板上其他器件的联系。  运算器进行信息处理寄存器进行信息储存控制器控制各种器件进行工作内部总线连接各种器件，在它们之间进行数据的传送">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 2.1 2.2 通用寄存器, 与几条简单的汇编指令">
+  <meta name="twitter:description" content="汇编 第二章：一个典型的CPU由运算器、控制器、寄存器等器件构成，这些器件靠内部总线相连。相对的，外部总线实现CPU和主板上其他器件的联系。  运算器进行信息处理寄存器进行信息储存控制器控制各种器件进行工作内部总线连接各种器件，在它们之间进行数据的传送">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 2.1 2.2 通用寄存器, 与几条简单的汇编指令">
+  <meta property="og:description" content="汇编 第二章：一个典型的CPU由运算器、控制器、寄存器等器件构成，这些器件靠内部总线相连。相对的，外部总线实现CPU和主板上其他器件的联系。  运算器进行信息处理寄存器进行信息储存控制器控制各种器件进行工作内部总线连接各种器件，在它们之间进行数据的传送">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/09/assembly-language-2/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-09-22 08:22:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-09-22</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 2.1 2.2 通用寄存器, 与几条简单的汇编指令</h1>
+
+		</header>
+
+		<section class="post">
+			<h2 id="汇编-第二章">汇编 第二章：</h2>
+<p>一个典型的CPU由运算器、控制器、寄存器等器件构成，这些器件靠内部总线相连。相对的，外部总线实现CPU和主板上其他器件的联系。</p>
+<blockquote>
+  <p>运算器进行信息处理<br />
+寄存器进行信息储存<br />
+控制器控制各种器件进行工作<br />
+内部总线连接各种器件，在它们之间进行数据的传送</p>
+</blockquote>
+
+<h3 id="21-通用寄存器">2.1 通用寄存器</h3>
+<p>8086寄存器CPU的所有寄存器都是16位的，可以存放两个字节(Byte)。AX、BX、CX、DX这四个寄存器通常用来存放一般性数据，被通常成为通用寄存器。</p>
+
+<p>以AX为例。</p>
+
+<p>AX可以分为AH和AL，其为两个可独立使用的8位寄存器。例如AX中0100111000100000 所代表16进制2E20H, 其可以被分为AH中01001110(4EH)以及AL中00100000(20H)这两个独立的16进制值。</p>
+
+<h3 id="22-字在寄存器中的存储">2.2 字在寄存器中的存储</h3>
+<p>字记为word，由两个字节组成，这两个字节分别称为这个字的高位字节和低位字节。
+关于数制，十六进制一位可以存放4位二进制，而一个内存单元可以存放8位数据, 例如20000写成4E20就可以直观地看出，这个数据是由4E和20两个8位数据构成的，如果AX中存放4E20, 则AH里是4E，AL是20。计算机的数据大多是由1~N个8位数据构成的，而每一位16进制又可以存放两为8进制。</p>
+
+<h3 id="23-几条汇编指令">2.3 几条汇编指令</h3>
+
+<p>mov ax, 18</p>
+
+<p>mov ah, 78</p>
+
+<p>add ax, 8</p>
+
+<p>mov ax, bx</p>
+
+<p>add ax, bx</p>
+
+<p>mov为赋值，add为相加，注意操作方向为从后往前</p>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/09/assembly-language-3/"
+				title="link to 汇编语言 2.4 2.5 2.6 物理地址与8086CPU">汇编语言 2.4 2.5 2.6 物理地址与8086CPU</a></h2>
+		<p class="excerpt">2.4 物理地址所有的内存单元构成的存储空间使一个一维的线性空间，每一个内存单元在这个空间中都有唯一的地址，我们称这个唯一的地址为物理地址。2.5 16位结构的CPU8086CPU的上一代CPU(8080、8085)等是8位机，而8086位16位机，即16位结构的CPU。其具有以下特点：  运算器一次最多可以处理16位的数据  寄存器的最大宽度为16位  寄存器和运算器之间的通路为16位8086内部，能够一次性处理、传输、存储的信息的最大长度是16位的。内存单元的地址在送上地址总线之前，必...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-09-25 19:08:24 +0800"
+				class="post-list__meta--date date">2019-09-25</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/09/assembly-language-3/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/09/assembly-language-1/"
+				title="link to 汇编语言第一章总结">汇编语言第一章总结</a></h2>
+		<p class="excerpt">汇编 第一章 小结：  汇编是及其指令的助记符  每一种CPU都有自己的汇编指令集  CPU可以直接使用的信息在存储器中存放（存储器就是内存，数据交换的地方）  在存储器中指令和数据没有任何区别，都是二进制信息，放在不同的路上  存储单元从零开始顺序编号  一个存储单元可以存储8个bit(b, 位)，即8位二进制数  1B = 8b, 1KB = 1024B, 1MB = 1024KB, 1GB = 1024MB  每个CPU芯片都有许多管脚，与总线相连，也可以说，这些管脚引出总线。一个C...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-09-20 08:22:24 +0800"
+				class="post-list__meta--date date">2019-09-20</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/09/assembly-language-1/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/09/assembly-language-2/";
+        this.page.identifier = "/2019/09/assembly-language-2/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

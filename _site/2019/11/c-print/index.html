@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>C语言 打印</title>
+  <meta name="description" content="整理自小甲鱼鱼C论坛">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="C语言 打印">
+  <meta name="twitter:description" content="整理自小甲鱼鱼C论坛">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="C语言 打印">
+  <meta property="og:description" content="整理自小甲鱼鱼C论坛">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/11/c-print/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-11-27 09:36:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-11-27</time> &#8226; <span
+					class="post-meta__tags tags">C语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#C语言">C语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">C语言 打印</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+
+<h3 id="打印">打印</h3>
+
+<p>C语言的打印命令，<code class="language-plaintext highlighter-rouge">printf</code>，将制定的内容打印到屏幕上。</p>
+
+<p>printf最后的f是formatted的缩写，格式，也因此通常把printf命令成为<strong>格式化输出函数</strong>。</p>
+
+<p>代码示例：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="err">
+</span><span class="s">        **             *</span><span class="err">
+</span><span class="s">      *******         **</span><span class="err">
+</span><span class="s">    ************     ***</span><span class="err">
+</span><span class="s">  ***************** ****</span><span class="err">
+</span><span class="s">****** @ ***************</span><span class="err">
+</span><span class="s">  ***************** ****</span><span class="err">
+</span><span class="s">    ************     ***</span><span class="err">
+</span><span class="s">      *******         **</span><span class="err">
+</span><span class="s">        **             *"</span><span class="p">);</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>注意这样打印会报错，应该做一下修改：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">\
+        **             *</span><span class="se">\n</span><span class="s">\
+      *******         **</span><span class="se">\n</span><span class="s">\
+    ************     ***</span><span class="se">\n</span><span class="s">\
+  ***************** ****</span><span class="se">\n</span><span class="s">\
+****** @ ***************</span><span class="se">\n</span><span class="s">\
+  ***************** ****</span><span class="se">\n</span><span class="s">\
+    ************     ***</span><span class="se">\n</span><span class="s">\
+      *******         **</span><span class="se">\n</span><span class="s">\
+        **             *</span><span class="se">\n\"</span><span class="s">);</span><span class="err">
+
+</span><span class="s">	return 0;</span><span class="err">
+</span><span class="s">}</span><span class="err">
+</span></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">\n</code>的含义是换行。</p>
+
+<p>字符串可以由<strong>可见字符和转义字符</strong>组成。</p>
+
+<p>常用转义字符如下，</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>转义字符</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>\a</td>
+      <td>响铃(BEL)</td>
+    </tr>
+    <tr>
+      <td>\b</td>
+      <td>退格(BS)，将当前位置移到前一列</td>
+    </tr>
+    <tr>
+      <td>\f</td>
+      <td>换页(FF)，将当前位置移到下一页开头</td>
+    </tr>
+    <tr>
+      <td>\n</td>
+      <td>换行(LF)，将当前位置移到下一行开头</td>
+    </tr>
+    <tr>
+      <td>\r</td>
+      <td>回车(CR)，将当前位置移到本行开头</td>
+    </tr>
+    <tr>
+      <td>\t</td>
+      <td>水平制表(HT)，跳到下一个TAB位置</td>
+    </tr>
+    <tr>
+      <td>\v</td>
+      <td>垂直制表(VT)</td>
+    </tr>
+    <tr>
+      <td>\</td>
+      <td>表示反斜杠本身()</td>
+    </tr>
+    <tr>
+      <td>'</td>
+      <td>表示单引号(‘)</td>
+    </tr>
+    <tr>
+      <td>"</td>
+      <td>表示双引号(“)</td>
+    </tr>
+    <tr>
+      <td>\?</td>
+      <td>表示问号(?)</td>
+    </tr>
+    <tr>
+      <td>\0</td>
+      <td>表示空字符(NULL)</td>
+    </tr>
+    <tr>
+      <td>\ddd</td>
+      <td>1~3位八进制数所代表的任意字符</td>
+    </tr>
+    <tr>
+      <td>\xhh</td>
+      <td>1~2位十六进制数所代表的任意字符</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>注意换页转义字符( \ )后面的反斜杠，其作用是分行符。</p>
+
+<p>因此代码可以改写如下：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">print</span>\
+<span class="n">f</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">\
+        **             *</span><span class="se">\n</span><span class="s">\
+      *******         **</span><span class="se">\n</span><span class="s">\
+    ************     ***</span><span class="se">\n</span><span class="s">\
+  ***************** ****</span><span class="se">\n</span><span class="s">\
+****** @ ***************</span><span class="se">\n</span><span class="s">\
+  ***************** ****</span><span class="se">\n</span><span class="s">\
+    ************     ***</span><span class="se">\n</span><span class="s">\
+      *******         **</span><span class="se">\n</span><span class="s">\
+        **             *</span><span class="se">\n\"</span><span class="s">);</span><span class="err">
+
+</span><span class="s">	return 0;</span><span class="err">
+</span><span class="s">}</span><span class="err">
+
+</span></code></pre></div></div>
+
+<p><strong>但注意，换行符反斜杠后不能加空格，必须定格！</strong></p>
+
+<h3 id="printf函数详解">printf函数详解</h3>
+
+<h4 id="函数概要">函数概要：</h4>
+
+<p>pintf函数用于打印格式化字符串到标准输出流。</p>
+
+<h4 id="函数原型">函数原型：</h4>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+</span><span class="p">...</span>
+<span class="kt">int</span> <span class="nf">printf</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">format</span><span class="p">,</span> <span class="p">...);</span>
+</code></pre></div></div>
+
+<h4 id="参数分析">参数分析：</h4>
+
+<p>(1) format参数</p>
+
+<p>其参数为格式化字符串，由格式化占位符和普通字符组成。
+<strong>格式化占位符以%开头</strong>,  用于指明输出参数值如何格式化。</p>
+
+<p>格式化语法：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%[flag][width][.precision][length]specifier
+</code></pre></div></div>
+<blockquote>
+  <p>每一个格式化占位符均以%开始，以转换字符结束。</p>
+</blockquote>
+
+<p>specifer( 转换字符，必选 )的内容:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>转换字符</th>
+      <th>参数类型；转换结果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>c</td>
+      <td>char；字符</td>
+    </tr>
+    <tr>
+      <td>d</td>
+      <td>int；有符号十进制整数</td>
+    </tr>
+    <tr>
+      <td>i</td>
+      <td>同上</td>
+    </tr>
+    <tr>
+      <td>e</td>
+      <td>double；以指数形式输出单、双精度浮点数（小写 e）</td>
+    </tr>
+    <tr>
+      <td>E</td>
+      <td>同上（大写 E）</td>
+    </tr>
+    <tr>
+      <td>f</td>
+      <td>double；以小数形式输出单、双精度浮点数</td>
+    </tr>
+    <tr>
+      <td>g</td>
+      <td>double；以 %f 或 %e 中较短的输出宽度输出单、双精度浮点数（指数显示小写 e）</td>
+    </tr>
+    <tr>
+      <td>G</td>
+      <td>同上（指数显示大写 E）</td>
+    </tr>
+    <tr>
+      <td>o</td>
+      <td>unsigned int；无符号八进制（无前导 0）</td>
+    </tr>
+    <tr>
+      <td>s</td>
+      <td>char *；字符串</td>
+    </tr>
+    <tr>
+      <td>u</td>
+      <td>int；无符号十进制</td>
+    </tr>
+    <tr>
+      <td>x</td>
+      <td>unsigned int；无符号十六进制（无前导 0x）</td>
+    </tr>
+    <tr>
+      <td>X</td>
+      <td>同上（无前导 0X）</td>
+    </tr>
+    <tr>
+      <td>p</td>
+      <td>void *；指针值</td>
+    </tr>
+    <tr>
+      <td>n</td>
+      <td>int *；存放已写字符的个数</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>flags(标志，可选):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>标志</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-</td>
+      <td>指定被转换的参数在其字段内左对齐（默认是右对齐）</td>
+    </tr>
+    <tr>
+      <td>+</td>
+      <td>指定在输出的数前面加上正负号</td>
+    </tr>
+    <tr>
+      <td>空格</td>
+      <td>如果第一个字符不是正负号，则在其前面加上一个空格</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>对于数值转换，当输出长度小于字段宽度时，添加前导 0 进行填充</td>
+    </tr>
+    <tr>
+      <td>#</td>
+      <td>指定另一种输出形式：</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>1. 如果转换字符为 o，则第一个数字为 0</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>2. 如果转换字符为 x 或 X，则指定在输出的非 0 值前加 0x 或 0X</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>3. 对于转换字符为 e、E、f、g 或 G 的情况，</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>指定输出总是包含一个小数点。另外，对于转换字符为 g 或 G，</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>还指定输出值尾部无意义的 0 将被保留</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>flags可以同时存在多个，无字数要求。</p>
+
+<blockquote>
+  <p>width（宽度，可选）是一个数值，用于指定最小字段的宽度</p>
+</blockquote>
+
+<p>转换后的参数输出宽度至少要达到这个数值。如果参数的字符数小于该数值，则在参数左边（如果 flags 设置为 -，要求左对齐的话则在右边）填充一些字符。填充字符通常为空格，但是如果 flags 设置为 0，则填充字符为数字 0。</p>
+
+<blockquote>
+  <p>.precision（.精度，可选），通过点号（.）分隔字段的宽度和精度</p>
+</blockquote>
+
+<ol>
+  <li>对于字符串，它指定打印的字符的最大个数</li>
+  <li>对于整数，它指定打印的数字位数（必要时可加填充位 0 以达到宽度要求）</li>
+  <li>对于转换字符为 e、E 或 f，它指定打印的小数点后的数字位数</li>
+  <li>对于转换字符为 g 或 G，它指定打印的有效数字位数</li>
+</ol>
+
+<blockquote>
+  <p>length（长度修饰符，可选）的值可以是 h、hh、l、ll 或 L</p>
+</blockquote>
+
+<ol>
+  <li>hh 表示将相应的参数按 signed char 或 unsigned char 类型输出</li>
+  <li>h 表示将相应的参数按 short 或 unsigned short 类型输出</li>
+  <li>l 表示将相应的参数按 long 或 unsigned long 类型输出</li>
+  <li>ll 表示将相应的参数按 long long 或 unsigned long long 类型输出</li>
+  <li>L 表示将相应的参数按 long double 类型输出</li>
+</ol>
+
+<blockquote>
+  <p>… 附加参数</p>
+</blockquote>
+
+<p>该参数的个数由格式化字符串决定。</p>
+
+<p>每个参数的值应当与前面格式化字符串中的占位符类型和位置一一对应。</p>
+
+<blockquote>
+  <p>返回值：</p>
+</blockquote>
+
+<p>如果函数调用成功，返回值是实际打印的字符数（不包含表示字符串结束的 ‘\0’）；</p>
+
+<p>如果函数调用失败，返回值是一个负数。</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/assembly-language-35/"
+				title="link to 汇编语言 实验7 寻址方式在结构化数据访问中的应用">汇编语言 实验7 寻址方式在结构化数据访问中的应用</a></h2>
+		<p class="excerpt">题目如下：assume cs:codesg, ds:data, es:table data segment	db '1975', '1976', '1977', '1978', '1979', '1980', '1981', '1982', '1983'	db '1984', '1985', '1986', '1987', '1988', '1989', '1990', '1991', '1992'	db '1993', '1994', '1995'; 以上是表示21年的21个字符串	dd...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-27 16:02:24 +0800"
+				class="post-list__meta--date date">2019-11-27</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/11/assembly-language-35/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/python-magic-method-2/"
+				title="link to python 魔法方法 (2) 算术运算">python 魔法方法 (2) 算术运算</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛算数运算Python 2.2以后，对类和类型进行了统一，做法就是将int(), float(), str(), list(), tuple()这些BIF转换为工厂函数：&gt;&gt;&gt; type(len)&lt;class 'builtin_function_or_method'&gt;&gt;&gt;&gt; type(int)&lt;class 'type'&gt;这与一般的类相同：&gt;&gt;&gt; class C:        pass&gt;&...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-26 15:14:24 +0800"
+				class="post-list__meta--date date">2019-11-26</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/11/python-magic-method-2/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/11/c-print/";
+        this.page.identifier = "/2019/11/c-print/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>HTML5 基础</title>
+  <meta name="description" content="">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HTML5 基础">
+  <meta name="twitter:description" content="">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="HTML5 基础">
+  <meta property="og:description" content="">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2020/07/HTML/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2020-07-09 12:40:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2020-07-09</time> &#8226; <span
+					class="post-meta__tags tags">blog</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#blog">blog</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">HTML5 基础</h1>
+
+		</header>
+
+		<section class="post">
+			<!-- TOC GFM -->
+
+<ul>
+  <li><a href="#什么是html">什么是HTML</a></li>
+  <li><a href="#基础语法">基础语法</a></li>
+  <li><a href="#实例">实例</a></li>
+  <li><a href="#最终网页效果">最终网页效果</a></li>
+</ul>
+
+<!-- /TOC -->
+
+<h2 id="什么是html">什么是HTML</h2>
+
+<ul>
+  <li>
+    <p>HyperText Markup Language （超文本<strong>标记语言</strong>）</p>
+  </li>
+  <li>
+    <p>不是编程语言</p>
+  </li>
+  <li>
+    <p>告诉浏览器如何构造网页</p>
+  </li>
+</ul>
+
+<p>HTML 的模式如图所示，</p>
+
+<p><img src="/assets/202007/2020-07-09_13-46-08.png" alt="figure1" /></p>
+
+<p>关于Taq可以在<a href="http://developer.mozilla.org/en-US/docs/Web/HTML/Element">这里找到</a></p>
+
+<h2 id="基础语法">基础语法</h2>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span> <span class="c">&lt;!--解释文档的类型--&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+	<span class="nt">&lt;head&gt;</span>
+		<span class="nt">&lt;title&gt;</span>This is a page title<span class="nt">&lt;/title&gt;</span>
+	<span class="nt">&lt;/head&gt;</span>
+
+	<span class="nt">&lt;body&gt;</span>
+		<span class="nt">&lt;h1&gt;</span>This is a heading<span class="nt">&lt;/hl&gt;</span>
+		<span class="nt">&lt;p&gt;</span>This is a paragraph<span class="nt">&lt;/p&gt;</span>
+		<span class="nt">&lt;p&gt;</span>This is a paragraph<span class="nt">&lt;/p&gt;</span>
+	<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html</span>
+</code></pre></div></div>
+
+<h2 id="实例">实例</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+	&lt;title&gt;HTML Crash Course For Beginners&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+	&lt;!--Headings--&gt;
+	&lt;h1&gt;Heading One&lt;/h1&gt;
+	&lt;h2&gt;Heading Two&lt;/h2&gt;
+	&lt;h3&gt;Heading Three&lt;/h3&gt;
+	&lt;h4&gt;Heading Four&lt;/h4&gt;
+	&lt;h5&gt;Heading Five&lt;/h5&gt;
+	&lt;h6&gt;Heading Six&lt;/h6&gt;
+
+	&lt;!--Paragraph--&gt;
+	&lt;p&gt;Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum, ipsum.&lt;/p&gt;
+	&lt;p&gt;Lorem ipsum
+		&lt;strong&gt;dolor, sit amet consecteturs&lt;/strong&gt; adipisicing elit. Nisi expedita accusantium nulla.
+		&lt;em&gt;Numquam eaque id voluptas&lt;/em&gt; ratione officia, voluptatibus dolore ullam quis repellat blanditiis ipsam
+		excepturi sint vero perspiciatis ad.&lt;/p&gt;
+	&lt;p&gt;Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum a provident iusto optio dolores quaerat, excepturi
+		voluptatibus, recusandae laboriosam perspiciatis nulla et aperiam
+		&lt;a href="https://google.com" target="_blank"&gt;ex totam&lt;/a&gt; fugiat doloribus pariatur enim iure.&lt;/p&gt;
+
+	&lt;!--Lists--&gt;
+	&lt;ul&gt;
+		&lt;li&gt;List Item 1&lt;/li&gt;
+		&lt;li&gt;List Item 2&lt;/li&gt;
+		&lt;li&gt;List Item 3&lt;/li&gt;
+		&lt;li&gt;List Item 4&lt;/li&gt;
+		&lt;li&gt;List Item 5&lt;/li&gt;
+	&lt;/ul&gt;
+
+	&lt;ol&gt;
+		&lt;li&gt;List Item 1&lt;/li&gt;
+		&lt;li&gt;List Item 2&lt;/li&gt;
+		&lt;li&gt;List Item 3&lt;/li&gt;
+		&lt;li&gt;List Item 4&lt;/li&gt;
+		&lt;li&gt;List Item 5&lt;/li&gt;
+	&lt;/ol&gt;
+
+	&lt;!--Table--&gt;
+	&lt;table&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;
+				&lt;th&gt;First Name&lt;/th&gt;
+				&lt;th&gt;Last Name&lt;/th&gt;
+				&lt;th&gt;Age&lt;/th&gt;
+				&lt;th&gt;Email&lt;/th&gt;
+			&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;Leonard&lt;/td&gt;
+				&lt;td&gt;Chan&lt;/td&gt;
+				&lt;td&gt;99&lt;/td&gt;
+				&lt;td&gt;abc@abc.com&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;Leonard&lt;/td&gt;
+				&lt;td&gt;Chan&lt;/td&gt;
+				&lt;td&gt;99&lt;/td&gt;
+				&lt;td&gt;abc@abc.com&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;Leonard&lt;/td&gt;
+				&lt;td&gt;Chan&lt;/td&gt;
+				&lt;td&gt;99&lt;/td&gt;
+				&lt;td&gt;abc@abc.com&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+
+	&lt;!--Forms--&gt;
+	&lt;form action="form.js" method="" POST&gt;
+		&lt;div&gt;
+			&lt;label&gt;First Name&lt;/label&gt;
+			&lt;input type="text" name="firstname" placeholder="Enter First Name"&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			&lt;label&gt;Last Name&lt;/label&gt;
+			&lt;input type="text" name="lastname" placeholder="Enter Last Name"&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			&lt;label&gt;Email&lt;/label&gt;
+			&lt;input type="email" name="email" placeholder="Enter Email"&gt;
+		&lt;/div&gt;
+		&lt;input type="submit" name="submit" value="Submit"&gt;
+	&lt;/form&gt;
+	&lt;br&gt;
+
+	&lt;!--Button--&gt;
+	&lt;button&gt;This is a Button&lt;/button&gt;
+
+	&lt;!--Image--&gt;
+	&lt;img style="width: 100vw" src="img/pic.jpg" alt="This is a img tag"&gt;
+
+	&lt;!--Quotation--&gt;
+	&lt;blockquote&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quibusdam ipsam rerum, voluptas quasi
+		dolorem exercitationem natus ipsa voluptatum enim, ad voluptates nihil ratione eligendi totam doloribus nesciunt
+		earum corrupti, cupiditate distinctio excepturi nobis praesentium. Sequi, delectus? Autem aspernatur fugiat,
+		consequuntur tempora magni excepturi deleniti, esse quia, temporibus explicabo optio?&lt;/blockquote&gt;
+
+	&lt;p&gt;&lt;abbr title="Massachusetts Institute of Technology"&gt;MIT&lt;/abbr&gt; is a presitigious college&lt;/p&gt;
+
+	&lt;p&gt;&lt;cite&gt;MIT is a prestigious college&lt;/cite&gt; by DasAuto&lt;/p&gt;
+
+	&lt;div style="margin-top:1000px"&gt;&lt;/div&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre></div></div>
+<h2 id="最终网页效果">最终网页效果</h2>
+
+<p><a href="http://life.zququ.fun/assets/202007/test.html">生成以后的网页渲染效果，请点击这里</a></p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2020/07/CSS/"
+				title="link to CSS 基础">CSS 基础</a></h2>
+		<p class="excerpt">  什么是 CSS  三种方式添加CSS  CSS 的选择器  CSS 里的颜色  CSS 中的字体  盒子模型（框模型）  Position in CSS  代码汇总          HTML 代码      CSS 代码        最终网页效果  更多什么是 CSS  Cascading Sytlesheets 层叠样式表  不是变成语言  高速浏览器如何指定样式、布局等首先介绍一下代码样式，如下图所示：三种方式添加CSS  外部样式表 (最常见)          CSS 保存...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2020-07-10 13:02:24 +0800"
+				class="post-list__meta--date date">2020-07-10</time> &#8226; <span
+				class="post-list__meta--tags tags">blog</span><a class="btn-border-small"
+				href=/2020/07/CSS/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2020/07/python-magic-method-9/"
+				title="link to python 魔法方法 (9) 生成器">python 魔法方法 (9) 生成器</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛  什么是生成器  协同程序  生成器表达式          列表推导式 ( list comprehensions )      字典推导式 （ dictionary comprehension ）      结合推导式 （ set comprehension ）        作业  关于 yield 与 Generator 提高篇          协同（协同程序）与子例程        next()和send()用法  总结什么是生成器生成器（ iterato...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2020-07-04 14:00:24 +0800"
+				class="post-list__meta--date date">2020-07-04</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2020/07/python-magic-method-9/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2020/07/HTML/";
+        this.page.identifier = "/2020/07/HTML/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

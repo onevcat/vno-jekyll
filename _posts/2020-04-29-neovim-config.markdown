@@ -62,7 +62,7 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 	- [Text Editing Plugins](#text-editing-plugins)
 		+ [vim-table-mode](#vim-table-mode)
 		+ [Undotree](#undotree)
-		+ [vim-multiple-cursors](#vim-multiple-cursors)
+		+ [vim-visual-multi (instead of vim-multiple-cursors)](#vim-visual-multi-instead-of-vim-multiple-cursors)
 		+ [vim-surround](#vim-surround)
 		+ [vim-subversive](#vim-subversive)
 		+ [vim-easy-align](#vim-easy-align)
@@ -139,8 +139,8 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 | `l`        | Cursor right                                              | `l`        |
 | `I`        | Cursor up 5 terminal lines                                | `5k`       |
 | `K`        | Cursor down 5 terminal lines                              | `5j`       |
-| `J`        | Cursor to the start of the line                           | `0`        |
-| `L`        | Cursor to the end of the line                             | `$`        |
+| `0`        | Cursor to the start of the line                           | `0`        |
+| `9`        | Cursor to the end of the line                             | `$`        |
 | `Ctrl` `u` | Move the view port up 5 lines without moving the cursor   | `Ctrl` `y` |
 | `Ctrl` `e` | Move the view port down 5 lines without moving the cursor | `Ctrl` `e` |
 | `e`        | Move to the end of this word                              | `e`        |
@@ -288,6 +288,15 @@ Use the arrow keys to resize the current window.
 | `tt`     | **Open file browser**   |
 | `?`      | show help (in explorer) |
 
+Some basic operation:
+
+| Shortcut | Action               |
+|----------|----------------------|
+| `o`      | Expand file folder   |
+| `N`      | Collapse file folder |
+| `i`      | Enter file folder    |
+| `q`      | Exit                 |
+
 <img alt="Png" src="https://user-images.githubusercontent.com/1709861/64966850-1e9f5100-d8d2-11e9-9490-438c6d1cf378.png" width="60%" />
 
 #### rnvimr - file browser
@@ -348,15 +357,27 @@ See `:help table-mode.txt` for more.
 
 <img alt="Png" src="https://camo.githubusercontent.com/56430626a5444ea2f0249d71f9288775277c7f5d/68747470733a2f2f73697465732e676f6f676c652e636f6d2f736974652f6d6262696c6c2f756e646f747265655f6e65772e706e67" width="60%" />
 
-#### vim-multiple-cursors
+#### vim-visual-multi (instead of vim-multiple-cursors)
 
-| Shortcut   | Action                                 |
-|------------|----------------------------------------|
-| `Ctrl`+`k` | **Select next key (multiple cursors)** |
-| `Alt`+`k`  | **Select all keys (multiple cursors)** |
-| `Ctrl`+`p` | Select previous key                    |
-| `Ctrl`+`s` | Skip key                               |
-| `Esc`      | Quit mutiple cursors                   |
+| Shortcut   | Action               |
+|------------|----------------------|
+| `Ctrl`+`k` | **Select next key**  |
+| `,`+`k`    | **Select All keys**  |
+| `Ctrl`+`s` | Skip key             |
+| `Ctrl`+`h` | Undo                 |
+| `Ctrl`+`r` | Redo                 |
+| `Esc`      | Quit mutiple cursors |
+
+After selecting the multiple cursors, you can use `u` or `a` to switch to multiple insertion mode at the first or the last of the word. You can also use `.` to exit the insertion mode.
+
+After entering the visual-multi-mode, use the default derection operator to move:
+
+| Shortcut | Action         |
+|----------|----------------|
+| `h`      | Move leftward  |
+| `l`      | Move rightward |
+| `j`      | Move downward  |
+| `k`      | Move upward    |
 
 <img alt="Gif" src="https://raw.githubusercontent.com/terryma/vim-multiple-cursors/master/assets/example1.gif" width="60%" />
 <img alt="Gif" src="https://raw.githubusercontent.com/terryma/vim-multiple-cursors/master/assets/example2.gif" width="60%" />
@@ -368,7 +389,7 @@ To add surround (`string` -> `"string"`):
 ```
 string
 ```
-press: `yskw'`:
+press: `ysuw'`:
 ```
 'string'
 ```
@@ -446,7 +467,7 @@ Press `SPACE` `f` `r` to search in cwd.
 
 | Shortcut        | Action                            |
 |-----------------|-----------------------------------|
-| `H`             | **Show git hunk at current line** |
+| `Z`             | **Show git hunk at current line** |
 | `SPACE` `g` `-` | Go to previous git hunk           |
 | `SPACE` `g` `+` | Go to next git hunk               |
 | `SPACE` `g` `f` | Fold everything except hunks      |

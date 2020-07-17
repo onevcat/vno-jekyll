@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>ml-P1 Machine Learning Introduction</title>
+  <meta name="description" content="整理自李宏毅教授 2020 机器学习课程">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ml-P1 Machine Learning Introduction">
+  <meta name="twitter:description" content="整理自李宏毅教授 2020 机器学习课程">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="ml-P1 Machine Learning Introduction">
+  <meta property="og:description" content="整理自李宏毅教授 2020 机器学习课程">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2020/06/ml-introduction/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2020-06-25 20:31:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2020-06-25</time> &#8226; <span
+					class="post-meta__tags tags">MachineLearning</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#MachineLearning">MachineLearning</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">ml-P1 Machine Learning Introduction</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自<a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html">李宏毅教授 2020 机器学习课程</a></p>
+
+<!-- TOC GFM -->
+
+<ul>
+  <li><a href="#什么是机器学习">什么是机器学习</a></li>
+  <li><a href="#机器学习的第一步">机器学习的第一步</a></li>
+  <li><a href="#怎么告诉机器你想要找什么样的函数关系式">怎么告诉机器，你想要找什么样的函数关系式</a></li>
+  <li><a href="#机器怎么实际找出想要找出的函数式呢">机器怎么实际找出想要找出的函数式呢</a></li>
+  <li><a href="#前沿研究">前沿研究</a></li>
+  <li><a href="#general-regulations">General Regulations</a></li>
+</ul>
+
+<!-- /TOC -->
+
+<h2 id="什么是机器学习">什么是机器学习</h2>
+
+<p>机器学习就是自动找一个函数关系式</p>
+
+<ul>
+  <li>
+    <p>Speech Recognition</p>
+  </li>
+  <li>
+    <p>Image Recognition</p>
+  </li>
+  <li>
+    <p>Playing Go</p>
+  </li>
+  <li>
+    <p>Dialogue System</p>
+  </li>
+</ul>
+
+<h2 id="机器学习的第一步">机器学习的第一步</h2>
+
+<blockquote>
+  <p>你自己想要找什么样的函数关系式</p>
+</blockquote>
+
+<ul>
+  <li>
+    <p>Regression: 现在要找的函数的输出是一个数值。</p>
+
+    <ul>
+      <li>作业1，预测未来某个时刻的PM2.5，输出值是一个scalar</li>
+    </ul>
+  </li>
+  <li>
+    <p>Binary Classification: 输出只有两个可能，Yes or No。</p>
+
+    <ul>
+      <li>作业 RNN，输入句子，输出句子是正面的还是负面的。</li>
+    </ul>
+  </li>
+  <li>
+    <p>Multi-class Classification: 让机器来做选择题，选出正确的。</p>
+
+    <ul>
+      <li>作业 CNN，输入图片，选出这个图片对应的种类</li>
+    </ul>
+  </li>
+</ul>
+
+<p>但是机器学习不只有Regression 和 Classification。</p>
+
+<p>其他的种类被称为Generation（生成）</p>
+
+<p>产生有结构的复杂产物</p>
+
+<ul>
+  <li>Generation：GAN
+    <ul>
+      <li>让机器画图</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="怎么告诉机器你想要找什么样的函数关系式">怎么告诉机器，你想要找什么样的函数关系式</h2>
+
+<ul>
+  <li>
+    <p>Supervised Learning：最为常见的，比如知道输入是一张图片，输出是该图片的类别。</p>
+
+    <ol>
+      <li>
+        <p>给定一些图片，把理想的图片规定为哪一种类，这一过程称为Label</p>
+      </li>
+      <li>
+        <p>评估这个函数关系式的好坏，也就是Loss，给定几张来用某一函式来评价对错，并计算错误率，该错误率称为Loss，Loss越小越好。</p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>Reinfocement Learning：以围棋为例。</p>
+
+    <ul>
+      <li>
+        <p>Supervised：给机器一个input，告诉理想的是什么样的，然后输出下一步最应该落子的位置在哪里</p>
+      </li>
+      <li>
+        <p>Reinforcement Learning: 让机器和其他人去下，赢了或输了让机器自己分析，赢了或者输了就叫做Reward，Alpha Go is supervised learning + reinforcement learning</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="机器怎么实际找出想要找出的函数式呢">机器怎么实际找出想要找出的函数式呢</h2>
+
+<ul>
+  <li>
+    <p>给定函数式寻找范围 Network Architecture</p>
+
+    <ul>
+      <li>
+        <p>RNN</p>
+      </li>
+      <li>
+        <p>CNN</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>怎么从范围中找出最好的函数式呢？Deep Learning Framework</p>
+
+    <ul>
+      <li>Gradient Descent</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="前沿研究">前沿研究</h2>
+
+<ul>
+  <li>
+    <p>Expainable AI：以认猫为例，如何告诉用户是一只猫的理由是什么？</p>
+
+    <ul>
+      <li>CNN required</li>
+    </ul>
+  </li>
+  <li>
+    <p>Adversarial Attack：假设辨识非常强了，用户怀恶意去特意攻击这个函数式，会发生什么？</p>
+  </li>
+  <li>
+    <p>Network Compression：如何将硕大的Network缩小，比如移植到手机上</p>
+  </li>
+  <li>
+    <p>Anormaly Detection：如果输入了错误的数据，会发生什么。如何让机器知道他不认识这个错误的数据</p>
+  </li>
+  <li>
+    <p>Transfer Learning （Domain Adversarial Learning），输入数据时输入了不同类型的数据，比如正常是灰度的数字，而实际上却输入了彩色的数字。即，如何在输入数据和测试数据不同的时候，仍然能够让机器学到东西</p>
+  </li>
+  <li>
+    <p>Meta Learning：比机器学习更进一步，机器是让机器具有学习的能力。Meta Learning则令机器具有了学习如何学习的能力。因为先在的学习效率很低，需要有更好的学习效果。</p>
+  </li>
+  <li>
+    <p>Life-long learning：让机器一连串的任务，终生不断学习。又称为Continuous Learning或者Never Ending Learning</p>
+  </li>
+</ul>
+
+<h2 id="general-regulations">General Regulations</h2>
+
+<ul>
+  <li>
+    <p>Environment</p>
+
+    <ul>
+      <li>建议用Linux或macOS</li>
+      <li>python 3.6.8</li>
+      <li>Pyenv</li>
+    </ul>
+  </li>
+  <li>
+    <p>Kaggle：是一个庞大的资料科学社群，上面有各种资料分析的竞赛。</p>
+  </li>
+  <li>
+    <p>Github</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git config --global user.name "name" # 设置用户名
+  git config --global user.email "name@gmail.com" 
+  git config --list # 检查是否设定完成
+  git init
+  git add example.sh # 将特定档案加入追踪
+  git add --all
+  git rm --cache train.csv
+  git commit -m "Description"
+  git remote add origin http://... # 与Github地址连起来
+  git push -u origin
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2020/06/ml-Regression-P1/"
+				title="link to ml-P2 Regression Case Study and Basic Concept">ml-P2 Regression Case Study and Basic Concept</a></h2>
+		<p class="excerpt">整理自李宏毅教授 2020 机器学习课程  Regression  Example Application      + Step 1: Model  Basic Concept - Where does the error come from?          Estimator      Bias and Variance of Estimator                  Variance          Bias          What to do with lar...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2020-06-26 20:08:24 +0800"
+				class="post-list__meta--date date">2020-06-26</time> &#8226; <span
+				class="post-list__meta--tags tags">MachineLearning</span><a class="btn-border-small"
+				href=/2020/06/ml-Regression-P1/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2020/06/gra/"
+				title="link to 毕业感言">毕业感言</a></h2>
+		<p class="excerpt">6月23日，博士答完辩了。虽然这件事本身是一件非常开心的事。毕业感言里，却想谈一些题外话。这两天心情一直不是很嗨，主要是因为到了30岁，而立之年，心中却充满了恐惧。在这个追逐正能量，奥利给的年代。互联网却像是大墨缸，到处都在宣扬XX岁不怎么样，你就怎么怎么样的常用的句式。如果成功几率成功地走出了一个高斯曲线，大多数人都想成功地跳进这个上坡车。这挺好，我也想。我对成功的理解是可变的。小时候感觉成功就是诺贝尔奖，大一些觉得成功就是当明星，再大一些觉得成功就是博学，现在觉得，成功就是每天都能开心...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2020-06-25 10:13:24 +0800"
+				class="post-list__meta--date date">2020-06-25</time> &#8226; <span
+				class="post-list__meta--tags tags">blog</span><a class="btn-border-small"
+				href=/2020/06/gra/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2020/06/ml-introduction/";
+        this.page.identifier = "/2020/06/ml-introduction/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

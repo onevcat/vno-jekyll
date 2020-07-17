@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python 类和对象 (4) 组合 Mixin 类，类对象与实例对象 绑定</title>
+  <meta name="description" content="整理自小甲鱼鱼C论坛组合">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="python 类和对象 (4) 组合 Mixin 类，类对象与实例对象 绑定">
+  <meta name="twitter:description" content="整理自小甲鱼鱼C论坛组合">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="python 类和对象 (4) 组合 Mixin 类，类对象与实例对象 绑定">
+  <meta property="og:description" content="整理自小甲鱼鱼C论坛组合">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/11/python-class-object-4/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-11-16 20:58:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-11-16</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">python 类和对象 (4) 组合 Mixin 类，类对象与实例对象 绑定</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+<h3 id="组合">组合</h3>
+
+<p>所谓”组合”，可以理解为相对于继承来讲的一个概念。有些时候，利用多重继承本身除了存在风险的同时，在有些时候，如果类本身并不存在明显的相互继承关系，强行继承会很别扭。比如定义了两个类，小鸟和老鹰后，我们想定义一个新的类，天空，天空中包含小鸟和老鹰，奈何天空和小鸟和老鹰本身并不存在继承关系，这时就适合用组合来解决这个问题。</p>
+
+<p>当执行组合时，<strong>我们将需要的类放进目的类中进行实例化</strong>，就可以实现组合，例如代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Bird</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">x</span>
+
+<span class="k">class</span> <span class="nc">Eagle</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">x</span>
+
+<span class="k">class</span> <span class="nc">Sky</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">bird</span>  <span class="o">=</span> <span class="n">Bird</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">eagle</span> <span class="o">=</span> <span class="n">Eagle</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">print_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># 这里print的对象为self.bird.num以及self.eagle.num，为与当前类无继承关系的类的实例化对象的属性。
+</span>    <span class="k">print</span><span class="p">(</span><span class="s">"天空中共有小鸟 %d只，老鹰 %d只"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">bird</span><span class="p">.</span><span class="n">num</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">eagle</span><span class="p">.</span><span class="n">num</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>将几个不是很有继承关系的（横向关系）的几个类放在一起，我们称之为<strong>组合</strong>。如果几个类之间的纵向关系，我们就可以使用继承。</p>
+
+<p>除了组合以外，还有另外一种很流行的编程模式，叫做Mixin。</p>
+
+<h3 id="mixin">Mixin</h3>
+
+<p>Mixin编程是一种开发模式，是一种将多个类中的功能单元的进行组合的利用的方式。<strong>通常Mixin不作为任何类的基类，也不关心与什么类一起使用，而是在运行时动态的同其他零散的类一起组合使用</strong>。</p>
+
+<p>其具有以下有点：</p>
+
+<ol>
+  <li>可以在不修改任何源代码的情况下，对已有类进行扩展；</li>
+  <li>可以保证组件的划分；</li>
+  <li>可以根据需要，使用已有的功能进行组合，来实现“新”类；</li>
+  <li>很好的避免了类继承的局限性，因为新的业务需要，可能就意味着需要创建新的子类</li>
+</ol>
+
+<p>代码示例：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">GetA</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'a'</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">B</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">GetB</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'b'</span><span class="p">)</span>
+  <span class="c1"># 这里应用的是python的多继承机制
+</span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span> <span class="k">pass</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">B</span><span class="p">()</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">GetA</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">a</span>
+<span class="n">c</span><span class="p">.</span><span class="n">GetB</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">b</span>
+
+  <span class="c1"># 下面使用Mixin的方法
+</span>
+<span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">GetA</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'a'</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">B</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">GetB</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'b'</span><span class="p">)</span>
+  <span class="c1"># 这里应用的是python的多继承机制
+</span>  <span class="c1"># 下面使用Mixin的方法
+</span>
+<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">C</span><span class="p">.</span><span class="n">__bases__</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">B</span><span class="p">()</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">GetA</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">GetB</span><span class="p">()</span>
+
+ <span class="c1"># 结果输出
+</span><span class="o">&gt;&gt;&gt;</span>
+<span class="n">a</span>
+<span class="n">b</span>
+
+ <span class="c1"># 利用__base__，我们可以通过C.__bases__来进行控制继承
+</span> <span class="c1"># 如下
+</span>
+<span class="n">C</span><span class="p">.</span><span class="n">__base__</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="nb">object</span><span class="p">)</span>    <span class="c1"># 如果元祖中只有一个元素在后面加object
+</span><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">B</span><span class="p">()</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">GetA</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">GetB</span><span class="p">()</span>
+
+ <span class="c1"># 输出结果
+</span><span class="nb">AttributeError</span><span class="p">:</span> <span class="s">'C'</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s">'GetB'</span>
+</code></pre></div></div>
+
+<p>我们也可以通过<code class="language-plaintext highlighter-rouge">__base__ += calss</code>来对目标类进行拓展。如下代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">GetA</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'a'</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">B</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">GetB</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'b'</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">C</span><span class="p">.</span><span class="n">__base__</span> <span class="o">+=</span> <span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="nb">object</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">B</span><span class="p">()</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">GetA</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">GetB</span><span class="p">()</span>
+
+ <span class="c1"># 结果输出
+</span><span class="o">&gt;&gt;&gt;</span>
+<span class="n">a</span>
+<span class="n">b</span>
+</code></pre></div></div>
+
+<h3 id="类类对象和实例对象">类、类对象和实例对象</h3>
+
+<p>我们在类中定义的属性是静态的变量，相当于C语言的static关键字，<strong>类的属性是与类对象进行绑定，并不会依赖与任何实例对象</strong>。</p>
+
+<p>那么下面就会衍生出一个问题，如果实例对象中属性的名字和类对象的属性名重复了会怎么样呢？</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="o">&gt;&gt;&gt;</span><span class="n">a</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">b</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">count</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">count</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">count</span><span class="p">)</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">c</span><span class="p">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">count</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">count</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">count</span><span class="p">)</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">C</span><span class="p">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">100</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">count</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">count</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">count</span><span class="p">)</span>
+<span class="mi">100</span> <span class="mi">100</span> <span class="mi">10</span>
+</code></pre></div></div>
+
+<p>这个例子说明，在实例对象c中的count属性进行了赋值后，就会覆盖掉类对象C的count属性。</p>
+
+<p>由此我们有以下结论：</p>
+
+<ol>
+  <li>一般不要再类里面定义出所有属性和方法，应该多利用继承和组合机制来进行扩展。</li>
+  <li>使用骆驼命名法，<code class="language-plaintext highlighter-rouge">CamelCase</code>。</li>
+</ol>
+
+<h3 id="绑定">绑定</h3>
+
+<p><strong>Python严格要求方法需要有实例才能被调用</strong>，这种限制就是绑定。</p>
+
+<p>如下代码：</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+       <span class="k">def</span> <span class="nf">printA</span><span class="p">():</span>
+           <span class="k">print</span><span class="p">(</span><span class="s">'A'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">A</span><span class="p">.</span><span class="n">printA</span><span class="p">()</span>  <span class="c1"># 这里相当于直接调用类对象的方法
+</span><span class="n">A</span>
+</code></pre></div></div>
+<p>但是一旦将类对象实例化以后，根据类实例化后的实例对象无法调用里面的函数。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span><span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">B</span><span class="p">.</span><span class="n">printA</span><span class="p">()</span>
+<span class="nb">TypeError</span><span class="p">:</span> <span class="n">printA</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">0</span> <span class="n">positional</span> <span class="n">arguments</span> <span class="n">but</span> <span class="mi">1</span> <span class="n">was</span> <span class="n">given</span>
+</code></pre></div></div>
+<p>实际上当我们调用类的实例对象的方法时，<code class="language-plaintext highlighter-rouge">B.printA()</code>的完整代码为<code class="language-plaintext highlighter-rouge">B.printA(B)</code>，由于Pyhton的绑定机制，**这里自动把B对象作为第一个参数传入，所以会出现TypeError，print()不需要参数，但是实际上传入了一个参数B。</p>
+
+<p>下面我们利用__dict__来查看对象所有用的属性，来更好地理解。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+       <span class="k">def</span> <span class="nf">setXY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+           <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+           <span class="bp">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+       <span class="k">def</span> <span class="nf">printXY</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+           <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span><span class="n">d</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+ <span class="c1">#使用__dict__查看对象所拥有的属性
+</span><span class="o">&gt;&gt;&gt;</span><span class="n">d</span><span class="p">.</span><span class="n">__dict__</span>
+<span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">C</span><span class="p">.</span><span class="n">__dict__</span>
+<span class="n">mappingproxy</span><span class="p">({</span><span class="s">'__module__'</span><span class="p">:</span> <span class="s">'__main__'</span><span class="p">,</span> <span class="s">'setXY'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">C</span><span class="p">.</span><span class="n">setXY</span> <span class="n">at</span> <span class="mh">0x00000166C7E2A378</span><span class="o">&gt;</span><span class="p">,</span> <span class="s">'printXY'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">C</span><span class="p">.</span><span class="n">printXY</span> <span class="n">at</span> <span class="mh">0x00000166C7E2A400</span><span class="o">&gt;</span><span class="p">,</span> <span class="s">'__dict__'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">attribute</span> <span class="s">'__dict__'</span> <span class="n">of</span> <span class="s">'C'</span> <span class="n">objects</span><span class="o">&gt;</span><span class="p">,</span> <span class="s">'__weakreg__'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">attribue</span> <span class="s">'__weakref__'</span> <span class="n">of</span> <span class="s">'C'</span> <span class="n">objects</span><span class="o">&gt;</span><span class="p">,</span> <span class="s">'__doc__'</span><span class="p">:</span> <span class="bp">None</span><span class="p">})</span>
+
+</code></pre></div></div>
+<p>__dict__属性由一个字典组成，字典中仅有实例对象的属性，不显示属性和特殊属性(魔法方法)，键表示的是属性名，值代表属性相应的数据值。</p>
+
+<p>当我们给d加入新属性，而且这两个属性仅属于实例对象自身。</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span><span class="n">d</span><span class="p">.</span><span class="n">setXY</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">d</span><span class="p">.</span><span class="n">__dict__</span>
+<span class="p">{</span><span class="s">'x'</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s">'y'</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>因为self参数，当实例对象d调用setXY方法时，传入参数d，使得self.x = 4, self.y = 5等同于d.x = 4, d.y = 5。</p>
+
+<p>再次强调这个属性只属于实例对象本身，即使我们删除掉之前定义的C类，同样可以获得执行：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span><span class="k">del</span> <span class="n">C</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">d</span><span class="p">.</span><span class="n">printXY</span><span class="p">()</span>
+<span class="mi">4</span> <span class="mi">5</span>
+</code></pre></div></div>
+<p>注意，一般只要用实例属性，而不要用类属性，因为类属性通常只用来跟踪与类相关的值。</p>
+
+<p><strong>类中的属性与方法是静态的，只有在程序退出后，才会被释放。</strong></p>
+
+<h4 id="问题">问题</h4>
+
+<blockquote>
+  <p>类对象在什么时候产生。</p>
+</blockquote>
+
+<p>当你这个类定义完时，类定义就编程类对象，可以直接通过“类名.属性”或者“类名.方法名（）”引用或使用相关的属性或方法。</p>
+
+<blockquote>
+  <p>类中的<code class="language-plaintext highlighter-rouge">self.x = x</code>是实例属性</p>
+</blockquote>
+
+<blockquote>
+  <p>定义一个栈类，用于模拟一种后进先出的（LIFO）特性的数据结构。至少需要有以下方法：</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法名</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>isEmpty()</td>
+      <td>判断当前栈是否为空（返回True或者False）</td>
+    </tr>
+    <tr>
+      <td>push()</td>
+      <td>往栈的顶部压如一个数据项</td>
+    </tr>
+    <tr>
+      <td>pop()</td>
+      <td>往栈顶弹出一个数据项(并在栈中删除</td>
+    </tr>
+    <tr>
+      <td>top()</td>
+      <td>显示当前栈顶的一个数据</td>
+    </tr>
+    <tr>
+      <td>bottom()</td>
+      <td>显示当前栈底的一个数据</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>自己的代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Stack</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">LIST</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">isEmpty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">LIST</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="k">return</span> <span class="s">'TRUE'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">'FALSE'</span>
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">LIST</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">LIST</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">LIST</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">bottom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">LIST</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">data1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">data2</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">data3</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">isEmpty</span><span class="p">())</span>
+<span class="n">a</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">data1</span><span class="p">)</span>
+<span class="n">a</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">data2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">isEmpty</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">top</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">bottom</span><span class="p">())</span>
+<span class="n">a</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">data3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">top</span><span class="p">())</span>
+<span class="n">a</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">top</span><span class="p">())</span>
+</code></pre></div></div>
+<p>答案代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Stack</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="p">[]):</span>    <span class="c1">#考虑到了栈的初始情况
+</span>            <span class="bp">self</span><span class="p">.</span><span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">start</span><span class="p">:</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">isEmpty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">stack</span>    <span class="c1">#简洁的判断栈是否为空的方法，优于两个if
+</span>
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">stack</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'警告，栈为空!'</span><span class="p">)</span>    <span class="c1">#考虑到了栈空的情况
+</span>        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">stack</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">stack</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'警告，栈为空！'</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">bottom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">stack</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'警告：栈为空！'</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/python-class-object-5/"
+				title="link to python 类和对象 (5) 一些相关的BIF">python 类和对象 (5) 一些相关的BIF</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛对类或者对象从属判断的内置函数issubclass(class, classinfo)如果第一个参数(class)是第二个参数(classinfo)的一个子类，返回True否则返回False  一个类被认为是其自身的子类  classinfo可以是一个类对象组成的元组，只要class是其中任何一个候选类的子类，则返回True  其他情况会抛出TypeErrorisinstance(object, classinfo)如果第一个参数(object)是第二个参数(class...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-18 13:30:24 +0800"
+				class="post-list__meta--date date">2019-11-18</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/11/python-class-object-5/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/assembly-language-30/"
+				title="link to 汇编语言 7.10 不同寻址方式的灵活运用(2)">汇编语言 7.10 不同寻址方式的灵活运用(2)</a></h2>
+		<p class="excerpt">7.10 不同寻址方式的灵活运用(2)上次提到的代码会出现死循环，下面来分析具体原因以及如何解决。回顾代码：codesg segment  start:  mov ax, datasg          mov ds, ax          mov bx, 0          mov cx, 4     s0:  mov si, 0         ;外层循环          mov cx, 3      s:  mov al, [bx+si]   ;内层循环          an...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-14 20:29:24 +0800"
+				class="post-list__meta--date date">2019-11-14</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/11/assembly-language-30/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/11/python-class-object-4/";
+        this.page.identifier = "/2019/11/python-class-object-4/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

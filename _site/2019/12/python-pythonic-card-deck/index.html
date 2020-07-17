@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>A Pythonic Card Deck</title>
+  <meta name="description" content="Referenced from Luciano Ramalho, ‘Fluent Python’">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Pythonic Card Deck">
+  <meta name="twitter:description" content="Referenced from Luciano Ramalho, ‘Fluent Python’">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="A Pythonic Card Deck">
+  <meta property="og:description" content="Referenced from Luciano Ramalho, ‘Fluent Python’">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/12/python-pythonic-card-deck/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-12-22 20:10:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-12-22</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">A Pythonic Card Deck</h1>
+
+		</header>
+
+		<section class="post">
+			<p>Referenced from Luciano Ramalho, ‘Fluent Python’</p>
+
+<p>Example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="n">Card</span> <span class="o">=</span> <span class="n">collections</span><span class="p">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s">'Card'</span><span class="p">,</span> <span class="p">[</span><span class="s">'rank'</span><span class="p">,</span> <span class="s">'suit'</span><span class="p">])</span>
+
+<span class="k">class</span> <span class="nc">FrenchDeck</span><span class="p">:</span>
+    <span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s">'JQKA'</span><span class="p">)]</span>
+    <span class="n">suits</span> <span class="o">=</span> <span class="s">'spades diamonds clubs heart'</span><span class="p">.</span><span class="n">split</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_cards</span> <span class="o">=</span> <span class="p">[</span><span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">suit</span><span class="p">)</span> <span class="k">for</span> <span class="n">suit</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">suits</span>
+                                        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">ranks</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_cards</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_cards</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_cards</span><span class="p">[</span><span class="n">positions</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="collectionsnamedtuple">collections.namedtuple()</h3>
+
+<p>Create a class named with ‘Card’, which has two attributes, ‘rank’ and ‘suit’, when you call this class and transfer the atrributes, the order of the atrribute should be the same with defined atrribute.</p>
+
+<p>Which is used to build classes of objects that are just the bundles of attributes with no custom methods, like a database record.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Card = collections.namedtuple('Card', ['rank', 'suit'])
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">beer_card</span> <span class="o">=</span> <span class="n">Card</span><span class="p">(</span><span class="s">'7'</span><span class="p">,</span> <span class="s">'diamonds'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">beer_card</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'7'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'diamonds'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="len-of-the-frenchdeck">len() of the ‘FrenchDeck’</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">deck</span> <span class="o">=</span> <span class="n">FrechDeck</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">deck</span><span class="p">)</span>
+<span class="mi">52</span>
+</code></pre></div></div>
+
+<h3 id="reading-specific-cards-from-the-deck">Reading specific cards from the deck</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># suits = 'spades diamonds clubs hearts'.split()
+# ranks = [str(n) for n in range(2, 11) + list('JQKA')]
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">deck</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'2'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'spades'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">deck</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'A'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'hearts'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="using-randomchoice-to-pick-a-random-card">Using random.choice to pick a random card</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">choice</span><span class="p">(</span><span class="n">deck</span><span class="p">)</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'3'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'hearts'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">choice</span><span class="p">(</span><span class="n">deck</span><span class="p">)</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'K'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'spades'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="__getitem__-makes-frenchdeck-implement-the-slice-and-iterable">__getitem__() makes FrenchDeck implement the slice and iterable</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">deck</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'2'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'spades'</span><span class="p">),</span> <span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'3'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'spades'</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">deck</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'2'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'spades'</span><span class="p">)</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">deck</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s">'A'</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s">'hearts'</span><span class="p">)</span>
+</code></pre></div></div>
+<h3 id="in-instead-of-__contains__method">‘in’ instead of __contains__method</h3>
+
+<p>‘in’ operator does a sequential scan, and **‘in’ works with FrenchDeck class because it it iterable.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">Card</span><span class="p">(</span><span class="s">'Q'</span><span class="p">,</span> <span class="s">'hearts'</span><span class="p">)</span> <span class="ow">in</span> <span class="n">deck</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Card</span><span class="p">(</span><span class="s">'7'</span><span class="p">,</span> <span class="s">'beasts'</span><span class="p">)</span> <span class="ow">in</span> <span class="n">deck</span>
+<span class="bp">False</span>
+</code></pre></div></div>
+
+<h3 id="sorting-of-frenchdeck">Sorting of FrenchDeck</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">suit_values</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">spades</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">hearts</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">diamonds</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">clubs</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">spades_high</span><span class="p">(</span><span class="n">card</span><span class="p">):</span>
+    <span class="n">rank_value</span> <span class="o">=</span> <span class="n">FrenchDeck</span><span class="p">.</span><span class="n">ranks</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="n">card</span><span class="p">.</span><span class="n">rank</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rank_value</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">suit_values</span><span class="p">)</span> <span class="o">+</span> <span class="n">suit_values</span><span class="p">[</span><span class="n">card</span><span class="p">.</span><span class="n">suit</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">deck</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">spades_high</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre></div></div>
+
+<h3 id="summary">Summary</h3>
+
+<p>By implementing the special methods __len__ and __getitem__, our FrenchDeck behaves like a standard Python sequence, allowing it to benefit from <strong>core language features</strong> (e.g., iteration and slicing) and <strong>from the standard library</strong>, as shown by the examples using random.choice, reversed and sorted. Thanks to composition, the __len__ and __getitem__ implementations can hand off all the work to a list object, self._cards.</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/python-magic-method-6/"
+				title="link to python 魔法方法 (6) 描述符，property()函数的原理">python 魔法方法 (6) 描述符，property()函数的原理</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛描述符的概念描述符就是将某种特殊类型的类的实例指派给另一个类的属性。而这个特殊类型的类，就是至少要再这个类里面定义__get__()、__set__()或__delete__()三个特殊方法中的任意一个。            魔法方法      含义                  __get__(self, instance, owner)      用于访问属性，它返回属性的值              __set__(self, instance, value...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-24 12:48:24 +0800"
+				class="post-list__meta--date date">2019-12-24</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/12/python-magic-method-6/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/assembly-language-45/"
+				title="link to 汇编语言 实验10 (1) 显示字符串">汇编语言 实验10 (1) 显示字符串</a></h2>
+		<p class="excerpt">问题编写一个通用的子程序来实现这个功能。我们应该提供灵活的调用接口，使调用者可以决定显示的位置(行，列)、内容和颜色。子程序描述  名称：show_str  功能：在指定的位置，用指定的颜色，显示一个用0结束的字符串。  参数：(dh)=行号(取值范围0~24)，(dl)=列号(取值范围0~79)，(cl)=颜色, ds:si指向字符串的首地址。  返回：无  应用举例：在屏幕的8行3列，用绿色显示data段中的字符串。assume cs:codedata segment  db 'Wel...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-19 15:16:24 +0800"
+				class="post-list__meta--date date">2019-12-19</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/12/assembly-language-45/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/12/python-pythonic-card-deck/";
+        this.page.identifier = "/2019/12/python-pythonic-card-deck/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

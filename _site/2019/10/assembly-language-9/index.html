@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 3.6 3.7 栈 CPU栈机制</title>
+  <meta name="description" content="3.6 栈栈是一种具有特殊的访问方式的存储空间。它的特殊性就在于，最后进入这个空间的数据，最先出去。">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 3.6 3.7 栈 CPU栈机制">
+  <meta name="twitter:description" content="3.6 栈栈是一种具有特殊的访问方式的存储空间。它的特殊性就在于，最后进入这个空间的数据，最先出去。">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 3.6 3.7 栈 CPU栈机制">
+  <meta property="og:description" content="3.6 栈栈是一种具有特殊的访问方式的存储空间。它的特殊性就在于，最后进入这个空间的数据，最先出去。">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/10/assembly-language-9/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-10-15 09:43:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-10-15</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 3.6 3.7 栈 CPU栈机制</h1>
+
+		</header>
+
+		<section class="post">
+			<h4 id="36-栈">3.6 栈</h4>
+<p>栈是一种具有特殊的访问方式的存储空间。它的特殊性就在于，最后进入这个空间的数据，最先出去。</p>
+
+<p>栈有两个基本的操作：</p>
+
+<p>入栈和出栈。入栈就是将新的元素放在栈顶，出栈就是从栈顶去除一个元素。栈顶的元素总是最后入栈，需要出栈时，又最先被从栈中取出。栈的这种操作规则被称为：LIFO1 (Last In First out)。</p>
+
+<h4 id="37-cpu提供的栈机制">3.7 CPU提供的栈机制</h4>
+<p>8086CPU最基本的两个入栈和出栈指令<code class="language-plaintext highlighter-rouge">PUSH</code> 和 <code class="language-plaintext highlighter-rouge">POP</code>。<code class="language-plaintext highlighter-rouge">push ax</code>表示将寄存器ax中的数据送入栈中，<code class="language-plaintext highlighter-rouge">pop ax</code>表示从栈顶取出数据送入ax。8086CPU的入栈和出栈操作都是以字为单位进行的。</p>
+
+<p>存在相应的寄存器来存放栈顶的地址，8086CPU中，有两个寄存器，段寄存器SS和寄存器SP，栈顶的段地址存放在SS中，偏移地址存放在SP中。</p>
+
+<blockquote>
+  <p>任意时刻，SS:SP指向栈顶元素。</p>
+</blockquote>
+
+<p>push指令和pop指令执行时，CPU从SS和SP中得到栈顶的地址。</p>
+
+<h4 id="_-push-ax的执行由以下两步完成">^_^ <code class="language-plaintext highlighter-rouge">push ax</code>的执行，由以下两步完成</h4>
+
+<ol>
+  <li>SP = SP - 2, SS:SP指向当前栈顶前面的单元，以当前栈顶前面的单元为新的栈顶；</li>
+  <li>将ax中的内容送入SS:SP指向的内存单元处，SS:SP此时指向新栈顶。</li>
+</ol>
+
+<p>将10000H~1000FH这段空间当作栈，初始状态栈是空的，此时，SS=1000H，SP为0010H (指向栈的最高地址单元的下一位地址)。</p>
+
+<p>将 10000H~1000FH这段空间当作栈段，SS=1000H，栈空间大小为16字节，栈最底部的字单元地址为1000:000E。任意时刻，SS:SP指向栈顶，当栈中只有一个元素的时候，SS=1000H，SP=000EH。栈为空，就相当于栈中唯一的元素出栈，出栈后，SP = SP+2，SP原来为000EH，加2后SP=10H，所以，当栈为空的时候，SS=1000H，SP=10H。</p>
+
+<p>换个角度看，任意时刻，SS:SP指向栈顶元素，当栈为空的时候，栈中没有元素，也就不存在栈顶元素，所以SS:SP只能指向栈的最底部单元下面的单元，该单元的偏移地址为栈底部的字单元的偏移地址+2，栈最底部字单元的地址为1000:000E，所以栈空时，SP=0010H。</p>
+
+<h4 id="_-pop-ax执行过程和push-ax刚好相反由以下两步完成">^_^ <code class="language-plaintext highlighter-rouge">pop ax</code>执行过程和<code class="language-plaintext highlighter-rouge">push ax</code>刚好相反，由以下两步完成。</h4>
+
+<ol>
+  <li>将SS:SP指向的内存单元处的数据送入ax中；</li>
+  <li>SP=SP+2, SS:SP指向当前栈顶下面的单元，以当前栈顶下面的单元为新的栈顶。</li>
+</ol>
+
+<blockquote>
+  <p>注意，当执行<code class="language-plaintext highlighter-rouge">pop</code>指令时，弹出的数据依然存在，但是，它已不在栈中。当再次执行push等入栈指令后，SS:SP移至1000CH，并在里面写入新的数据，它将被覆盖。</p>
+</blockquote>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/the-complete-solution/"
+				title="link to LA3.3 The Complete Solution to Ax=b">LA3.3 The Complete Solution to Ax=b</a></h2>
+		<p class="excerpt">Simply show the Row Echelon Form R with b at the right sideAt the LA3.2, we didn’t pay much attention to the right side $b$, it is because $b$ is $0$ when we only talk about the nullspace of A.For now, in LA3.3, $b$ is not zero. As the Row Echelon...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-15 15:07:24 +0800"
+				class="post-list__meta--date date">2019-10-15</time> &#8226; <span
+				class="post-list__meta--tags tags">数学</span><a class="btn-border-small"
+				href=/2019/10/the-complete-solution/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/how-to-run-debug-in-mac/"
+				title="link to 在mac或者linux运行debug的优雅解决方案">在mac或者linux运行debug的优雅解决方案</a></h2>
+		<p class="excerpt">I want to run debug in mac or linux sys, however, debug is only designed for windows.There are two ways:  Just install the win virtual box  (Recommend) install DOS virtual box DOSBox hereFor the DOSBoxWhen you have installed the DOSBox, firstly mo...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-14 11:16:24 +0800"
+				class="post-list__meta--date date">2019-10-14</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/how-to-run-debug-in-mac/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/10/assembly-language-9/";
+        this.page.identifier = "/2019/10/assembly-language-9/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 Debug的用法</title>
+  <meta name="description" content="什么是Debug">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 Debug的用法">
+  <meta name="twitter:description" content="什么是Debug">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 Debug的用法">
+  <meta property="og:description" content="什么是Debug">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/09/assembly-language-6/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-09-30 08:39:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-09-30</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 Debug的用法</h1>
+
+		</header>
+
+		<section class="post">
+			<h4 id="什么是debug">什么是Debug</h4>
+
+<p>Debug是DOS、Windows都提供的实模式（8086方式）程序的调试工具。使用它，可以查看CPU各种寄存器中的内容、内存的情况和在及其码级跟踪程序的运行。</p>
+
+<h4 id="debug的使用">Debug的使用</h4>
+
+<ol>
+  <li>R命令查看、改变CPU寄存器的内容；</li>
+  <li>D命令查看内存中的内容；</li>
+  <li>E命令改写内存中的内容；</li>
+  <li>U命令将内存中的机器指令翻译成汇编指令；</li>
+  <li>T命令执行一条机器指令；</li>
+  <li>A命令以汇编指令的格式在内存中写入一条及其指令。</li>
+</ol>
+
+<h4 id="指令详解">指令详解</h4>
+
+<blockquote>
+  <p>R命令：</p>
+</blockquote>
+
+<pre><code class="language-assembly">-r
+AX=0000  BX=0000  CX=0000  DX=0000  SP=FFEE  BP=0000  SI=0000  DI=0000
+DS=138C  ES=138C  SS=138C  CS=138C  IP=0100   NV UP EI PL NZ NA PO NC
+138C:0100 0000          ADD     [BX+SI],AL                         DS:0000=CD
+</code></pre>
+<p>即查看当前寄存器内容。同时R命令还可以修改寄存器的值，</p>
+<pre><code class="language-assembly">-r ax
+AX 0000
+:
+</code></pre>
+<p>可以在<code class="language-plaintext highlighter-rouge">:</code>后面添加需要改变的值，即可修改通用寄存器的值，如</p>
+
+<pre><code class="language-assembly">-r ax
+AX 0000
+:1111
+
+-r
+AX=1111  BX=0000  CX=0000  DX=0000  SP=FFEE  BP=0000  SI=0000  DI=0000
+DS=138C  ES=138C  SS=138C  CS=138C  IP=0100   NV UP EI PL NZ NA PO NC
+138C:0100 0000          ADD     [BX+SI],AL                         DS:0000=CD
+</code></pre>
+
+<p>同理，R命令也可以修改段寄存器CX，</p>
+
+<pre><code class="language-assembly">-r CS
+CS 138C
+:1400
+-r ip
+IP 0100
+:1111
+-r
+AX=0000  BX=0000  CX=0000  DX=0000  SP=FFEE  BP=0000  SI=0000  DI=0000
+DS=138C  ES=138C  SS=138C  CS=1400  IP=1111   NV UP EI PL NZ NA PO NC
+138C:0100 0000          ADD     [BX+SI],AL                         DS:0000=CD
+</code></pre>
+<p>通过这个方法可以用来改变Debug程序的指针。</p>
+
+<p>然后可以通过T命令来执行该指针区间内的指令，可以用D命令来查看当前指针所在内存区间。</p>
+
+<p>但是在本例中，内存为空，使用T命令也不会对命令进行执行，我们可以通过A命令来在此内存空间中添加需要添加的命令。</p>
+
+<p>例如在138C:011F添加代码，</p>
+
+<pre><code class="language-assembly">-a
+138C:0100 mov ax, 4e20
+138C:0103 add ax, 1416
+138C:0106 mov bx, 2000
+138C:0109 add ax, bx
+138C:010B add bx, ax
+138C:010D add ax, bx
+138C:010F mov ax, 001A
+138C:0112 mov bx, 0026
+138C:0115 add al, bl
+138C:0117 add ah, bl
+138C:0119 add bh, al
+138C:011B mov ah, 0
+138C:011D add al, bl
+138C:011F add al, 9c
+138C:0121
+</code></pre>
+<blockquote>
+  <p>PS: 注意IP偏移地址的增加，在机器码中，例如<code class="language-plaintext highlighter-rouge">mov ax, 4E20H</code>的机器码为<code class="language-plaintext highlighter-rouge">b8 20 4e</code>，这时偏移地址增加3，而<code class="language-plaintext highlighter-rouge">mov bx, ax</code>的及其码为<code class="language-plaintext highlighter-rouge">89 c3</code>，偏移地址增加2。</p>
+</blockquote>
+
+<p>这时通过D命令查看相对应的地址区间，就能查看到你输入代码的机器码及ascii码。</p>
+
+<pre><code class="language-assembly">-d 138c:0100
+138c:0100  B8 20 4E 05 16 14 BB 00-20 01 D8 89 C3 01 D8    (ASCII 码)
+...
+</code></pre>
+
+<p>使用U命令可以机器指令翻译为汇编指令。</p>
+
+<pre><code class="language-assembly">-u 138c:0100
+138C:0100 mov ax, 4e20
+138C:0103 add ax, 1416
+138C:0106 mov bx, 2000
+138C:0109 add ax, bx
+138C:010B add bx, ax
+138C:010D add ax, bx
+138C:010F mov ax, 001A
+138C:0112 mov bx, 0026
+138C:0115 add al, bl
+138C:0117 add ah, bl
+138C:0119 add bh, al
+138C:011B mov ah, 0
+138C:011D add al, bl
+138C:011F add al, 9c
+</code></pre>
+<p>之后可以用T命令对上面代码进行逐行实现。每实现一条指令，对应IP都会发生改变。</p>
+
+<pre><code class="language-assembly">-t
+...(-r结果输出)
+138C:0100 B8204E           MOV        AX,4E20
+-t
+...
+139C:0103 051614           ADD        Bx,2000
+...
+</code></pre>
+
+<p>另外，还有一点需要注意的是，例如我想查询从FFF00H到FFFFFH区间内的信息，</p>
+
+<pre><code class="language-assembly">-d fff0:0 ff
+</code></pre>
+<p>输出为（仅显示最后一行结果）：</p>
+
+<pre><code class="language-assembly">FFF0:00F0  EA 8A 99 00 F0 30 31 2F-31 39 2F 30 39 20 FC FF     .....01/19/09 ..
+</code></pre>
+<p>这时前面展示的是该部分内存的信息地址，即从FFF0开始到00FF结束，中间为16位的代码，右侧是对应的ASC码。这时时间01、19、09是从第5位开始的（因为前面从0开始计数），也就是说16进制第5位30对应着ASC码的0。</p>
+
+<p>这时如果我们想改写这个部分的信息，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-e ffff:05
+FFFF:0005  30.48
+-e ffff:06
+FFFF:0006  31.23
+</code></pre></div></div>
+<p>意思为将<code class="language-plaintext highlighter-rouge">FFFF:0005的30改写为48</code>, 下行代码类似。</p>
+
+<p>但是有时会出现改写不了的情况，因为有一些信息如果输入ROM储存器，刻录在主板上，是不能修改的，如本例中一般情况下就无法修改。一般只能修改RAM数据。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-e b810:0 ...
+</code></pre></div></div>
+<p>为往现存里写信息，写的内容会直接显示在显示屏上。</p>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/assembly-language-7/"
+				title="link to 汇编语言 3.1 3.2 3.3 内存中字的存储 DS [assdress] 字的传送">汇编语言 3.1 3.2 3.3 内存中字的存储 DS [assdress] 字的传送</a></h2>
+		<p class="excerpt">第二章中，主要讲CPU如何执行指令的角度讲解了8086的逻辑结构、形成物理地址的方法、相关的寄存器以及一些指令。这一章将从访问内存的角度继续学习几个寄存器。3.1 内存中字的存储            0      20H              1      4EH              2      12H              3      00H              4                     4             本例中，我们用0、1两个内存...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-02 13:39:24 +0800"
+				class="post-list__meta--date date">2019-10-02</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/assembly-language-7/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/09/assembly-language-5/"
+				title="link to 汇编语言 2.9 2.10 2.11 2.12 段寄存器，CS IP，代码段">汇编语言 2.9 2.10 2.11 2.12 段寄存器，CS IP，代码段</a></h2>
+		<p class="excerpt">2.9 段寄存器8086CPU在访问内存时，要由相关部件提供内存单元的段地址和偏移地址，送入加法器合成物理地址。8086CPU中有四个段寄存器：  CS, DS, SS, ES2.10 CS 和 IPCS和IP是8086CPU中两个最关键的寄存器。  CS为代码段寄存器， IP为指令指针寄存器(偏移地址寄存器)。8086机中，任意时刻，CPU将CS：IP指向的内容当做指令执行。过程如下：  从CS：IP指向的内存单元读取指令，读取的指令进入指令缓冲器；  IP=IP+所读取指令的长度，从而...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-09-29 09:24:24 +0800"
+				class="post-list__meta--date date">2019-09-29</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/09/assembly-language-5/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/09/assembly-language-6/";
+        this.page.identifier = "/2019/09/assembly-language-6/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

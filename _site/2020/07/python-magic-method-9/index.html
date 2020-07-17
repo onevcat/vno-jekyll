@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python 魔法方法 (9) 生成器</title>
+  <meta name="description" content="整理自小甲鱼鱼C论坛">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="python 魔法方法 (9) 生成器">
+  <meta name="twitter:description" content="整理自小甲鱼鱼C论坛">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="python 魔法方法 (9) 生成器">
+  <meta property="og:description" content="整理自小甲鱼鱼C论坛">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2020/07/python-magic-method-9/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2020-07-04 14:00:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2020-07-04</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">python 魔法方法 (9) 生成器</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+
+<!-- TOC GFM -->
+
+<ul>
+  <li><a href="#什么是生成器">什么是生成器</a></li>
+  <li><a href="#协同程序">协同程序</a></li>
+  <li><a href="#生成器表达式">生成器表达式</a>
+    <ul>
+      <li><a href="#列表推导式--list-comprehensions-">列表推导式 ( list comprehensions )</a></li>
+      <li><a href="#字典推导式--dictionary-comprehension-">字典推导式 （ dictionary comprehension ）</a></li>
+      <li><a href="#结合推导式--set-comprehension-">结合推导式 （ set comprehension ）</a></li>
+    </ul>
+  </li>
+  <li><a href="#作业">作业</a></li>
+  <li><a href="#关于-yield-与-generator-提高篇">关于 yield 与 Generator 提高篇</a>
+    <ul>
+      <li><a href="#协同协同程序与子例程">协同（协同程序）与子例程</a></li>
+    </ul>
+  </li>
+  <li><a href="#next和send用法"><code class="language-plaintext highlighter-rouge">next()</code>和<code class="language-plaintext highlighter-rouge">send()</code>用法</a></li>
+  <li><a href="#总结">总结</a></li>
+</ul>
+
+<!-- /TOC -->
+
+<h3 id="什么是生成器">什么是生成器</h3>
+
+<p>生成器（ iterator ）和迭代器（ generator ）是 Python 今年来引入的最强大的两个特性，但其不涉及魔法方法，可以巧妙避开类和对象，仅通过普通的函数即可实现。</p>
+
+<p>生成器其实是迭代器的一种实现，其目的是为了使得 Python 更为简洁，因为迭代器需要我们去定义一个类和实现相关的方法，而生成器则只需要在普通的函数中加上一个<code class="language-plaintext highlighter-rouge">yield</code>语句即可。</p>
+
+<p>生成器的发明使得 Python 模仿<strong>协同程序</strong>的概念得以实现。</p>
+
+<h3 id="协同程序">协同程序</h3>
+
+<p><strong>协同程序</strong>就是可以运行的独立函数调用，函数可以<strong>暂定</strong>或者<strong>挂起</strong>，并从程序离开的地方继续或者重新开始。</p>
+
+<p>对于一个普通的 Pyhton 函数，一般是从函数的第一行代码开始执行，结束于 return 语句、异常或者函数所有语句执行完毕（<code class="language-plaintext highlighter-rouge">return None</code>）。一旦函数将控制权交还给调用者，就意味着全部结束。函数中做的所有工作以及保存在局部变量中的数据都将丢失。再次调用这个函数时，一切都将从头创建。</p>
+
+<p>Pyhton 是通过生成器来实现类似于协同程序的概念：生成器可以暂时挂起函数，并保留函数的局部变量等数据，然后再次调用它的时候，从上次暂停的位置基序执行下去。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">myGen</span><span class="p">():</span>
+	<span class="k">print</span><span class="p">(</span><span class="s">'生成器被执行。'</span><span class="p">)</span>
+	<span class="k">yield</span> <span class="mi">1</span>
+	<span class="k">yield</span> <span class="mi">2</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">myG</span> <span class="o">=</span> <span class="n">myGen</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">myG</span><span class="p">)</span>
+<span class="n">生成器被执行</span><span class="err">。</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">myG</span><span class="p">)</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">myG</span><span class="p">)</span>
+<span class="nb">StopIteration</span> <span class="c1"># 异常报错
+</span></code></pre></div></div>
+
+<p>利用<code class="language-plaintext highlighter-rouge">next()</code>函数当超出函数范围时，就是抛出 StopIteration 异常。</p>
+
+<p>由于<code class="language-plaintext highlighter-rouge">for</code>循环包含<code class="language-plaintext highlighter-rouge">next()</code>，所以也可以用来对生成器产生作用。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">my</span> <span class="n">Gen</span><span class="p">():</span>
+	<span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="n">生成器被执行</span><span class="err">。</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+</code></pre></div></div>
+
+<h3 id="生成器表达式">生成器表达式</h3>
+
+<h4 id="列表推导式--list-comprehensions-">列表推导式 ( list comprehensions )</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">81</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>相当于,</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+	<span class="n">list1</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>再举个例子，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>相当于</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list1</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span><span class="p">:</span>
+		<span class="n">list1</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="字典推导式--dictionary-comprehension-">字典推导式 （ dictionary comprehension ）</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)}</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="bp">False</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="p">...}</span>
+</code></pre></div></div>
+
+<h4 id="结合推导式--set-comprehension-">结合推导式 （ set comprehension ）</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]}</span>
+<span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>但需要注意的是：</p>
+
+<ol>
+  <li>
+    <p><strong>不存在字符串推导式</strong>，</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">&gt;&gt;&gt;</span> <span class="s">"i for i in 'I love FishC.com!'"</span>
+  <span class="s">"i for i in 'I love FishC.com!'"</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>元组推导式即位生成器表达式（ generator expressions ）本身。</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+  <span class="o">&lt;</span><span class="n">generator</span> <span class="nb">object</span> <span class="o">&lt;</span><span class="n">genexpr</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x03135300</span><span class="o">&gt;</span>
+</code></pre></div>    </div>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">&gt;&gt;&gt;</span> <span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+  <span class="mi">0</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="mi">1</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="mi">2</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">e</span><span class="p">:</span>
+          <span class="k">print</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+  <span class="mi">3</span>
+  <span class="mi">4</span>
+  <span class="mi">5</span>
+  <span class="mi">6</span>
+  <span class="mi">7</span>
+  <span class="mi">8</span>
+  <span class="mi">9</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>生成器表达器可以作为函数的参数使用，可以直接写推导式，而不必加小括号：</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="mi">2500</span>
+</code></pre></div>    </div>
+
+    <p>等同于，</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">))</span>
+  <span class="mi">2500</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="作业">作业</h3>
+
+<blockquote>
+  <p>作业 1：</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+要求实现一个功能与 reversed()相同 （内置函数 reversed(seq)）是返回一个迭代器，是序列seq的逆序显示）的生成器。例如：
+
+&gt;&gt;&gt; for i in myRev("FishC")
+        print(i, end='')
+&gt;&gt;&gt; ChsiF
+"""</span>
+<span class="k">def</span> <span class="nf">myRev</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+
+	<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+	<span class="k">yield</span> <span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">myRev</span><span class="p">(</span><span class="s">"FishC"</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>作业 2：</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+10 以内的素数之和是：2 + 3 + 5 + 7 = 17，那么请编写程序，计算 2000000 以内的素数之和？
+"""</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="k">def</span> <span class="nf">primeIF</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+    <span class="s">"""  # 这个算法效率太低
+    for i in range(number):
+        if i == 0 or i == 1 or i == number:
+            continue
+        else:
+            if number % i == 0:
+                return False
+            else:
+                continue
+    return True
+    """</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">number</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+
+<span class="k">def</span> <span class="nf">primeCOUNT</span><span class="p">(</span><span class="n">InputNumber</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">InputNumber</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">primeIF</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">number</span>
+        <span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+
+
+<span class="k">def</span> <span class="nf">primeSUM</span><span class="p">(</span><span class="n">InputNumber</span><span class="p">):</span>
+    <span class="n">SUM</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">primeCOUNT</span><span class="p">(</span><span class="n">InputNumber</span><span class="p">):</span>
+        <span class="n">SUM</span> <span class="o">+=</span> <span class="n">i</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">SUM</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">primeSUM</span><span class="p">(</span><span class="mi">2000000</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="关于-yield-与-generator-提高篇">关于 yield 与 Generator 提高篇</h3>
+
+<h4 id="协同协同程序与子例程">协同（协同程序）与子例程</h4>
+
+<p><code class="language-plaintext highlighter-rouge">return</code>隐含的意思是函数正在将执行代码的控制权返回给函数被调用的地方。而<code class="language-plaintext highlighter-rouge">yield</code>的隐含意思是控制权的转移是临时和自愿的，我们的函数将来还会收回控制权。</p>
+
+<p>为了更好的理解生成器所解决的问题，始终记住我们需要解决的问题：<strong>生成值的序列</strong>。</p>
+
+<p><strong>一个生成器会生成值</strong>，生成器函数返回生成器的迭代器。作为一个迭代器，生成器必须要定义一些方法，其中一个就是<code class="language-plaintext highlighter-rouge">__next__()</code>。同迭代器，我们可以使用<code class="language-plaintext highlighter-rouge">next()</code>函数来获取下一个值。</p>
+
+<p>下面引入一个例子，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">simple_generator_function</span><span class="p">():</span>
+	<span class="k">yield</span> <span class="mi">1</span>
+	<span class="k">yield</span> <span class="mi">2</span>
+	<span class="k">yield</span> <span class="mi">3</span>
+</code></pre></div></div>
+
+<p>这里有两个简单的方法来使用它：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">simple_generator_function</span><span class="p">():</span>
+	<span class="k">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">our_generator</span> <span class="o">=</span> <span class="n">simple_generator_function</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">our_generator</span><span class="p">)</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">our_generator</span><span class="p">)</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">our_generator</span><span class="p">)</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+
+<p>当一个生成器函数调用<code class="language-plaintext highlighter-rouge">yield</code>，生成器函数的“状态”会被冻结。如果永远不调用<code class="language-plaintext highlighter-rouge">next()</code>，<code class="language-plaintext highlighter-rouge">yield</code>保存的状态就被无视了。</p>
+
+<p>在 PEP 342 中加入了将值传给生成器的支持，能让生成器在单一语句中实现，生成一个值，接受一个值，或同事生成一个值并接受一个值。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">is_prime</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+	<span class="n">number</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">number</span>
+<span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<p>通过这种方式，我们可以在每次执行 <code class="language-plaintext highlighter-rouge">yield</code> 的时候为 number 设置不同的值。</p>
+
+<h3 id="next和send用法"><code class="language-plaintext highlighter-rouge">next()</code>和<code class="language-plaintext highlighter-rouge">send()</code>用法</h3>
+
+<ul>
+  <li>
+    <p>如果<code class="language-plaintext highlighter-rouge">send</code>不携带参数，那么<code class="language-plaintext highlighter-rouge">send(None)</code> 和<code class="language-plaintext highlighter-rouge">next()</code>的作用的相同的</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">a</span><span class="p">():</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">'aaa'</span><span class="p">)</span>
+      <span class="n">p</span> <span class="o">=</span> <span class="k">yield</span> <span class="s">'123'</span>
+      <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">'bbb'</span><span class="p">)</span>
+
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">a</span><span class="p">()</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+  <span class="c1"># 等同于print(r.send(None))
+</span>  <span class="c1"># 二者，使用next(r) 和 r.send(None)输出的结果都是 123
+</span>  <span class="c1"># 另外注意，这里的p变量的值都是None
+</span>	
+  <span class="n">aaa</span>
+  <span class="mi">123</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>如果<code class="language-plaintext highlighter-rouge">send</code>的参数不是<code class="language-plaintext highlighter-rouge">None</code>，则是把<code class="language-plaintext highlighter-rouge">yield xx</code>当成一个表达式，且把<code class="language-plaintext highlighter-rouge">send</code>的参数的值赋给了p；而后的操作同next一样，如：</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">a</span><span class="p">():</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">'aaa'</span><span class="p">)</span>
+      <span class="n">p1</span> <span class="o">=</span> <span class="k">yield</span> <span class="s">'123'</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">'bbb'</span><span class="p">)</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">p1</span> <span class="o">==</span> <span class="s">'hello'</span><span class="p">):</span>
+          <span class="k">print</span><span class="p">(</span><span class="s">'p1是send传过来的'</span><span class="p">)</span>
+          <span class="n">p2</span> <span class="o">=</span> <span class="k">yield</span> <span class="s">'234'</span>
+          <span class="k">print</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">a</span><span class="p">()</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="nb">next</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span>
+
+  <span class="n">aaa</span> <span class="c1"># 执行第一次 `next()` 在第一次打印 `aaa`，在 p1 = yield '123' 处暂停
+</span>  <span class="n">bbb</span> <span class="c1"># 执行第二次 `next()` ，打印'bbb' 和 'p1是send传过来的'
+</span>  <span class="n">p1是send传过来的</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<blockquote>
+  <p>实例：找出比某个数的等比级数大的最小素数（ 例如 10，我们要生成比 10，100，1000，10000 … 大的最小素数）。我们从 <code class="language-plaintext highlighter-rouge">get_primes</code> 开始：</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">print_successive_primes</span><span class="p">(</span><span class="n">iterations</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+	<span class="n">prime_generator</span> <span class="o">=</span> <span class="n">get_primes</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+	<span class="n">prime_generator</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">power</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">itarations</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="n">prime_generator</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">base</span> <span class="o">**</span> <span class="n">power</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">get_primes</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+	<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">is_prime</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+			<span class="n">number</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">number</span>
+		<span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<p>本例中的注意事项：</p>
+
+<ol>
+  <li>
+    <p>我们打印的是 generator.send 的结果，这是没问题的，因为<code class="language-plaintext highlighter-rouge">send</code>在发送数据给生成器的同时还返回生成器通过<code class="language-plaintext highlighter-rouge">yield</code>生成的值（就如同生成器中 <code class="language-plaintext highlighter-rouge">yield</code> 语句做的那样）</p>
+  </li>
+  <li>
+    <p>当你用 <code class="language-plaintext highlighter-rouge">send</code> 来“启动”一个生成器时，必须发动<code class="language-plaintext highlighter-rouge">None</code>。这不难理解，根据刚才的描述，生成器还没有走到第一个<code class="language-plaintext highlighter-rouge">yield</code>语句，如果我们发生一个真实的值，这时是没有人去“接收”它的。一旦生成器启动了，我们就可以像上面那样发送数据了</p>
+  </li>
+</ol>
+
+<h3 id="总结">总结</h3>
+
+<ul>
+  <li>
+    <p>generator 是用来产生一系列值的</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">yield</code> 则像是 generator 函数的返回结果</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">yield</code> 唯一所做的另一件事就是保存一个 generator 函数的状态</p>
+  </li>
+  <li>
+    <p>generator 就是一个特殊类型的迭代器</p>
+  </li>
+  <li>
+    <p>和迭代器相似，我们可以通过使用 <code class="language-plaintext highlighter-rouge">next()</code> 来从 generator 中获取下一个值</p>
+  </li>
+  <li>
+    <p>通过隐式地调用 <code class="language-plaintext highlighter-rouge">next()</code> 来忽略一些值</p>
+  </li>
+</ul>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2020/07/HTML/"
+				title="link to HTML5 基础">HTML5 基础</a></h2>
+		<p class="excerpt">  什么是HTML  基础语法  实例  最终网页效果什么是HTML      HyperText Markup Language （超文本标记语言）        不是编程语言        告诉浏览器如何构造网页  HTML 的模式如图所示，关于Taq可以在这里找到基础语法&lt;!DOCTYPE html&gt; &lt;!--解释文档的类型--&gt;&lt;html&gt;	&lt;head&gt;		&lt;title&gt;This is a page title&lt;/t...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2020-07-09 12:40:24 +0800"
+				class="post-list__meta--date date">2020-07-09</time> &#8226; <span
+				class="post-list__meta--tags tags">blog</span><a class="btn-border-small"
+				href=/2020/07/HTML/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2020/06/pytorch-tutorial/"
+				title="link to Pytorch Tutorial">Pytorch Tutorial</a></h2>
+		<p class="excerpt">Pytorch Introduction&hellip;</p>
+		<div class="post-list__meta"><time datetime="2020-06-28 20:07:24 +0800"
+				class="post-list__meta--date date">2020-06-28</time> &#8226; <span
+				class="post-list__meta--tags tags">MachineLearning</span><a class="btn-border-small"
+				href=/2020/06/pytorch-tutorial/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2020/07/python-magic-method-9/";
+        this.page.identifier = "/2020/07/python-magic-method-9/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

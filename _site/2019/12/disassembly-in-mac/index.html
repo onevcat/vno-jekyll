@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>C语言 如何利用mac xcode实现C语言反汇编</title>
+  <meta name="description" content="今天谈一下，如何利用mac系统下的xcode实现类似于windows系统下microsoft visual C++的反汇编功能。">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="C语言 如何利用mac xcode实现C语言反汇编">
+  <meta name="twitter:description" content="今天谈一下，如何利用mac系统下的xcode实现类似于windows系统下microsoft visual C++的反汇编功能。">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="C语言 如何利用mac xcode实现C语言反汇编">
+  <meta property="og:description" content="今天谈一下，如何利用mac系统下的xcode实现类似于windows系统下microsoft visual C++的反汇编功能。">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/12/disassembly-in-mac/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-12-13 09:51:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-12-13</time> &#8226; <span
+					class="post-meta__tags tags">C语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#C语言">C语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">C语言 如何利用mac xcode实现C语言反汇编</h1>
+
+		</header>
+
+		<section class="post">
+			<p>今天谈一下，如何利用mac系统下的xcode实现类似于windows系统下microsoft visual C++的反汇编功能。</p>
+
+<p>(1) 首先安装xcode</p>
+
+<p>(2) 按顺序在菜单栏目依次选择：file –&gt; new –&gt; Project…</p>
+
+<p>(3) 在新弹出的菜单栏中在最上面选择macos标签页下的Command Line Tool图标，如图所示：</p>
+
+<p><img src="/assets/201912/2019-12-13_10-56-11.png" alt="figure1" /></p>
+
+<p>(4) 在新弹出的菜单栏中的Language选项栏中选择C，</p>
+
+<p><img src="/assets/201912/2019-12-13_10-59-12.png" alt="figure2" /></p>
+
+<p>(5) 主界面上左侧菜单栏中会出现两个文件夹分别存放代码以及编译好的程序，</p>
+
+<p><img src="/assets/201912/2019-12-13_11-01-20.png" alt="figure3" /></p>
+
+<p>(6) 在main.c中输入测试程序，如图，</p>
+
+<p><img src="/assets/201912/2019-12-13_11-04-54.png" alt="figure4" /></p>
+
+<p>(7) 依次在菜单栏选择：Debug –&gt; Debug Workflow –&gt; Always Show Disassembly，勾选此项</p>
+
+<p>(8) 在main.c中加入breakpoint准备对程序进行调试，快捷键：Command + ‘\’</p>
+
+<p><img src="/assets/201912/2019-12-13_11-09-23.png" alt="figure5" /></p>
+
+<p>(9) 运行程序，快捷键：Command + R</p>
+
+<p>(10) 运行后，反汇编的x86代码就会以函数(main，love)的形式给出，如图所示，</p>
+
+<p><img src="/assets/201912/2019-12-13_11-11-38.png" alt="figure6" /></p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/assembly-language-43/"
+				title="link to 汇编语言 10.7-10.10 call和ret的配合使用 mul 模块化 参数和结果传递的问题">汇编语言 10.7-10.10 call和ret的配合使用 mul 模块化 参数和结果传递的问题</a></h2>
+		<p class="excerpt">10.7 call和ret的配合使用问题(1) 下面程序返回前，bx中的值是多少？assume cs:codecode segmentstart: mov ax, 1       mov cx, 3       call s       mov bx, ax       mov ax, 4c00h       int 21h    s: add ax, ax       loop s       retcode endsend start分析程序运行的过程：  CPU将call s 指令的...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-14 15:52:24 +0800"
+				class="post-list__meta--date date">2019-12-14</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/12/assembly-language-43/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/assembly-language-42/"
+				title="link to 汇编语言 10.4 10.5 10.6 转移的目的地址在指令，寄存器以及内存中的call指令">汇编语言 10.4 10.5 10.6 转移的目的地址在指令，寄存器以及内存中的call指令</a></h2>
+		<p class="excerpt">10.4 转移的目的地址在指令中的call指令前面讲的call指令，其对应的及其指令中并没有转移的目的地址，而是相对于当前IP的转移位移。“call far ptr 标号”实现的是段间转移。CPU执行此种格式的call指令时，进行如下的操作。      (sp)=(sp)-2 ((ss)*16+(sp))=(CS)(sp)=(sp)-2((ss)*16+(sp))=(IP)        (CS)=标号所在段的段地址(IP)=标号在段中的偏移地址  从上面的描述中可以看出，如果我们用汇编语...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-11 10:48:24 +0800"
+				class="post-list__meta--date date">2019-12-11</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/12/assembly-language-42/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/12/disassembly-in-mac/";
+        this.page.identifier = "/2019/12/disassembly-in-mac/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>CSS 基础</title>
+  <meta name="description" content="">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CSS 基础">
+  <meta name="twitter:description" content="">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="CSS 基础">
+  <meta property="og:description" content="">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2020/07/CSS/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2020-07-10 13:02:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2020-07-10</time> &#8226; <span
+					class="post-meta__tags tags">blog</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#blog">blog</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">CSS 基础</h1>
+
+		</header>
+
+		<section class="post">
+			<!-- TOC GFM -->
+
+<ul>
+  <li><a href="#什么是-css">什么是 CSS</a></li>
+  <li><a href="#三种方式添加css">三种方式添加CSS</a></li>
+  <li><a href="#css-的选择器">CSS 的选择器</a></li>
+  <li><a href="#css-里的颜色">CSS 里的颜色</a></li>
+  <li><a href="#css-中的字体">CSS 中的字体</a></li>
+  <li><a href="#盒子模型框模型">盒子模型（框模型）</a></li>
+  <li><a href="#position-in-css">Position in CSS</a></li>
+  <li><a href="#代码汇总">代码汇总</a>
+    <ul>
+      <li><a href="#html-代码">HTML 代码</a></li>
+      <li><a href="#css-代码">CSS 代码</a></li>
+    </ul>
+  </li>
+  <li><a href="#最终网页效果">最终网页效果</a></li>
+  <li><a href="#更多">更多</a></li>
+</ul>
+
+<!-- /TOC -->
+
+<h2 id="什么是-css">什么是 CSS</h2>
+
+<ul>
+  <li>Cascading Sytlesheets 层叠样式表</li>
+  <li>不是变成语言</li>
+  <li>高速浏览器如何指定样式、布局等</li>
+</ul>
+
+<p>首先介绍一下代码样式，如下图所示：</p>
+
+<p><img src="/assets/202007/2020-07-10_14-07-13.png" alt="figure1" /></p>
+
+<h2 id="三种方式添加css">三种方式添加CSS</h2>
+
+<ul>
+  <li>外部样式表 (最常见)
+    <ul>
+      <li>CSS 保存在 .css 文件中</li>
+      <li>在 HTML 里使用 <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code> 引用</li>
+    </ul>
+  </li>
+  <li>内部样式表 (较常见)
+    <ul>
+      <li>不使用外部 CSS 文件</li>
+      <li>将 CSS 放在 HTML <code class="language-plaintext highlighter-rouge">&lt;style&gt;</code> 里</li>
+    </ul>
+  </li>
+  <li>内联样式 (不常见)
+    <ul>
+      <li>仅影响一个元素</li>
+      <li>在 HTML 元素的 <code class="language-plaintext highlighter-rouge">style</code> 属性中添加</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;style&gt;</span>
+		<span class="nt">h1</span> <span class="p">{</span>
+			<span class="nl">color</span><span class="p">:</span> <span class="no">royalblue</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="nt">&lt;/style&gt;</span>
+	<span class="nt">&lt;title&gt;</span>CSS Crash Course<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;h1&gt;</span>Hello World<span class="nt">&lt;/h1&gt;</span>
+	<span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates asperiores quod repudiandae in error, et quo
+		dolores sunt omnis ratione eum esse alias libero nesciunt deserunt eius qui ipsa quisquam.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;title&gt;</span>CSS Crash Course<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;h1</span> <span class="na">style=</span><span class="s">"color: red;"</span><span class="nt">&gt;</span>Hello World<span class="nt">&lt;/h1&gt;</span>
+	<span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates asperiores quod repudiandae in error, et quo
+		dolores sunt omnis ratione eum esse alias libero nesciunt deserunt eius qui ipsa quisquam.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"./css/style.css"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;title&gt;</span>CSS Crash Course<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;h1&gt;</span>Hello World<span class="nt">&lt;/h1&gt;</span>
+	<span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates asperiores quod repudiandae in error, et quo
+		dolores sunt omnis ratione eum esse alias libero nesciunt deserunt eius qui ipsa quisquam.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+
+</code></pre></div></div>
+
+<h2 id="css-的选择器">CSS 的选择器</h2>
+
+<p>对于一段 HTML 代码，</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"paragraph"</span> <span class="na">id=</span><span class="s">"paral"</span><span class="nt">&gt;</span>Lorem<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>有三种引用方式：</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">p</span> <span class="p">{</span>
+	<span class="nl">color</span><span class="p">:</span><span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.paragraph</span> <span class="p">{</span>
+	<span class="nl">color</span><span class="p">:</span><span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#para1</span> <span class="p">{</span>
+	<span class="nl">color</span><span class="p">:</span><span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>值得注意的是，对于 <code class="language-plaintext highlighter-rouge">class</code>来说一段可以包含多个相同的<code class="language-plaintext highlighter-rouge">class</code>，但是 <code class="language-plaintext highlighter-rouge">id</code> 必须保证不同。</p>
+
+<h2 id="css-里的颜色">CSS 里的颜色</h2>
+
+<ul>
+  <li>关键词</li>
+  <li>十六进制
+    <ul>
+      <li>#ff0000</li>
+    </ul>
+  </li>
+  <li>RGB
+    <ul>
+      <li>rgb(244, 0, 0)</li>
+    </ul>
+  </li>
+  <li>HSL 色相(hue)，饱和度(saturation)，亮度(lightness)
+    <ul>
+      <li>hsl(0, 100%, 50%)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/202007/2020-07-10_23-28-46.png" alt="figure2" /></p>
+
+<ul>
+  <li>RGBA 比 RGB 多一个 α 通道
+    <ul>
+      <li>rgb(255, 0, 0, 0.5)</li>
+    </ul>
+  </li>
+  <li>HSLA HSL 多一个 α 通道
+    <ul>
+      <li>hsl(0, 100%, 50%, 0.5)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="css-中的字体">CSS 中的字体</h2>
+
+<p>CSS 的字体见下方：</p>
+
+<p><img src="/assets/202007/2020-07-11_10-03-11.png" alt="figure3" /></p>
+
+<ul>
+  <li>使用 <code class="language-plaintext highlighter-rouge">font-family</code> 来代表 property。</li>
+  <li>sans-serif， 无衬线；serif, 有衬线代表字母的花体</li>
+  <li><code class="language-plaintext highlighter-rouge">Arial, Helvetica</code>，是指前者字体优先，如果<code class="language-plaintext highlighter-rouge">Arial</code>找不到，就用<code class="language-plaintext highlighter-rouge">Helvetica</code>代替</li>
+  <li>当字体名字中带空格，需要用引号引出，如<code class="language-plaintext highlighter-rouge">"Gil Sans"</code>及<code class="language-plaintext highlighter-rouge">"Times New Roman"</code></li>
+  <li>monospace 代表等宽</li>
+</ul>
+
+<p>详情见以下网站:</p>
+
+<ul>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals">mozilla</a></li>
+  <li><a href="https://www.cssfontstack.com">cssfontstack</a></li>
+  <li><a href="https://fonts.google.com">googlefont</a></li>
+</ul>
+
+<p>但是，在运用字体时，需要注意电脑的适配性问题，多使用电脑适配率较高的字体。</p>
+
+<p>关于字体排版可以关注, <a href="http://thetype.com">Type is Beautiful</a>。</p>
+
+<p>注意的是，如果定义了 <code class="language-plaintext highlighter-rouge">body</code> 的颜色，和 <code class="language-plaintext highlighter-rouge">box1</code> 的颜色，但是没有定义 <code class="language-plaintext highlighter-rouge">box2</code> 的颜色，这时候 <code class="language-plaintext highlighter-rouge">box2</code> 将会默认为 <code class="language-plaintext highlighter-rouge">body</code> 的颜色。</p>
+
+<h2 id="盒子模型框模型">盒子模型（框模型）</h2>
+
+<p><img src="/assets/202007/2020-07-11_11-42-22.png" alt="figure4" /></p>
+
+<ul>
+  <li>content ，可以想象为一张图片或者一段文字，注意文字是上下撑顶的</li>
+  <li>border ，可以称为边框，一般是没有边框宽度的，可以定义颜色</li>
+  <li>padding ，可以理解为内边距，代表内容和边框之间的距离</li>
+  <li>margin ，可以称为外边框，表示外边距</li>
+</ul>
+
+<p>如果我们将很多的盒子放在一起，会是什么样子呢？</p>
+
+<p><img src="/assets/202007/2020-07-11_11-48-45.png" alt="figure5" /></p>
+
+<p>其实上图中的排列方式是错误的，真正的排列方式如下图：</p>
+
+<p><img src="/assets/202007/2020-07-11_11-51-07.png" alt="figure6" /></p>
+
+<p>当两个盒子靠在一起，外边距只会取两个盒子间最大的作为自己的外边距，这称为<strong>外边距塌陷</strong>。</p>
+
+<p>以 margin 为一个实例，</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p {
+	margin-top : 5px ;
+	margin-bottom : 5px ;
+	margin-right : 10px ;
+	margin-left : 10px ;
+} 
+</code></pre></div></div>
+
+<p>这样指定能用但是比较麻烦，有三种简单的方式：</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!--方法一--&gt;</span>
+p {
+	margin : 5px 10px 5px 10px ;
+}
+<span class="c">&lt;!--指定顺序为顺时方向：上右下昨--&gt;</span>
+
+<span class="c">&lt;!--方法二--&gt;</span>
+p {
+	margin: 5px 10px ;
+}
+<span class="c">&lt;!--当上下，左右编剧一样时，可以这样指定，同理全部一样时，指定一个即可--&gt;</span>
+
+<span class="c">&lt;!--方法三--&gt;</span>
+p {
+	margin : 5px 10px 5px ;
+}
+<span class="c">&lt;!--左右一致，上下不一致，可以这样指定，顺序为上，左右，下--&gt;</span>
+</code></pre></div></div>
+
+<p>padding 同理。</p>
+
+<h2 id="position-in-css">Position in CSS</h2>
+
+<ul>
+  <li>static - 静态定位，默认的</li>
+  <li>relative - 相对定位，可以指定left right偏移</li>
+  <li>absolute - 绝对定位，也可以做偏移，但是通常情况下雨relative共同使用，参考 relative 定位</li>
+  <li>fixed - 固定定位，相对于视窗做定位</li>
+  <li>sticky - 根据导航滚动，一定位置后会粘在一个位置上</li>
+</ul>
+
+<h2 id="代码汇总">代码汇总</h2>
+
+<h3 id="html-代码">HTML 代码</h3>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"./style.css"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;title&gt;</span>CSS Crash Course<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box1"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;h1&gt;</span>Hello World<span class="nt">&lt;/h1&gt;</span>
+			<span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates asperiores quod repudiandae in error, et
+				quo dolores sunt omnis ratione eum esse alias libero nesciunt deserunt eius qui ipsa quisquam.<span class="nt">&lt;/p&gt;</span>
+			<span class="nt">&lt;button&gt;</span>Button<span class="nt">&lt;/button&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box2"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;h1&gt;</span>Hello World<span class="nt">&lt;/h1&gt;</span>
+			<span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates asperiores quod repudiandae in error, et
+				quo dolores sunt omnis ratione eum esse alias libero nesciunt deserunt eius qui ipsa quisquam.<span class="nt">&lt;/p&gt;</span>
+			<span class="nt">&lt;button&gt;</span>Button<span class="nt">&lt;/button&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"list"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;ul&gt;</span>
+				<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>List 1<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+				<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>List 2<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+				<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>List 3<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+				<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>List 4<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+				<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>List 5<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+			<span class="nt">&lt;/ul&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio voluptas voluptate eum blanditiis perferendis
+				error eveniet ducimus magni ut voluptatum!<span class="nt">&lt;/p&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio voluptas voluptate eum blanditiis perferendis
+				error eveniet ducimus magni ut voluptatum!<span class="nt">&lt;/p&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio voluptas voluptate eum blanditiis perferendis
+				error eveniet ducimus magni ut voluptatum!<span class="nt">&lt;/p&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+		<span class="c">&lt;!--注意使用float后需要清除--&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"main-block"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, consectetur.<span class="nt">&lt;/p&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"sidebar"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, consectetur.<span class="nt">&lt;/p&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+		<span class="c">&lt;!--注意使用float后需要清除--&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+		<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"list2"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+			<span class="nt">&lt;li&gt;</span>List Item<span class="nt">&lt;/li&gt;</span>
+		<span class="nt">&lt;/ul&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"position-box"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;h1&gt;</span>Heading1<span class="nt">&lt;/h1&gt;</span>
+			<span class="nt">&lt;h2&gt;</span>Heading2<span class="nt">&lt;/h2&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+		<span class="c">&lt;!--实现按钮或者窗口在边上--&gt;</span>
+		<span class="c">&lt;!--将按钮固定在右下角--&gt;</span>
+		<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"fixed"</span><span class="nt">&gt;</span>Button<span class="nt">&lt;/button&gt;</span>
+	<span class="nt">&lt;/div&gt;</span>
+	<span class="c">&lt;!--这时调整margin边框位置时，可以使用内联的方式--&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"margin-top: 1000px;"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="css-代码">CSS 代码</h3>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">body</span> <span class="p">{</span>
+	<span class="nl">background-color</span><span class="p">:</span> <span class="m">#f4f4f4</span><span class="p">;</span> 
+	<span class="nl">color</span><span class="p">:</span> <span class="m">#555555</span><span class="p">;</span>
+	<span class="nl">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+	<span class="nl">font-size</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
+	<span class="nl">font-weight</span><span class="p">:</span> <span class="nb">normal</span><span class="p">;</span>
+
+	<span class="nl">font</span><span class="p">:</span> <span class="nb">normal</span> <span class="m">16px</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+	<span class="nl">line-height</span><span class="p">:</span> <span class="m">1.5em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">button</span> <span class="p">{</span>
+	<span class="nl">background-color</span><span class="p">:</span> <span class="m">#444444</span><span class="p">;</span>
+	<span class="nl">color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+	<span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span> <span class="m">15px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/*当鼠标放在button上时*/</span>
+<span class="nt">button</span><span class="nd">:hover</span> <span class="p">{</span>
+	<span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/*按下按钮时*/</span>
+<span class="nt">button</span><span class="nd">:active</span> <span class="p">{</span>
+	<span class="nl">background-color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">a</span> <span class="p">{</span>
+	<span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+	<span class="nl">color</span><span class="p">:</span> <span class="m">#555555</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+	<span class="nl">color</span><span class="p">:</span> <span class="no">cyan</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/*如果访问过如何处理*/</span>
+<span class="nt">a</span><span class="nd">:visited</span> <span class="p">{</span>
+	<span class="nl">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.box1</span> <span class="p">{</span>
+	<span class="nl">background-color</span><span class="p">:</span> <span class="no">antiquewhite</span><span class="p">;</span>
+	<span class="nl">color</span><span class="p">:</span> <span class="no">royalblue</span><span class="p">;</span>
+	<span class="nl">border</span><span class="p">:</span> <span class="m">5px</span> <span class="no">blue</span> <span class="nb">solid</span><span class="p">;</span>
+	<span class="nl">border-right</span><span class="p">:</span> <span class="m">5px</span> <span class="no">red</span> <span class="nb">solid</span><span class="p">;</span>
+	<span class="nl">border-left</span><span class="p">:</span> <span class="m">8px</span> <span class="no">blue</span> <span class="nb">solid</span><span class="p">;</span>
+	<span class="nl">border-top</span><span class="p">:</span> <span class="m">10px</span> <span class="no">green</span> <span class="nb">dotted</span><span class="p">;</span>
+	<span class="nl">border-bottom</span><span class="p">:</span> <span class="m">1px</span> <span class="n">firebrike</span> <span class="nb">double</span><span class="p">;</span>
+
+	<span class="nl">border-bottom-width</span><span class="p">:</span> <span class="m">8px</span><span class="p">;</span>
+	<span class="nl">border-bottom-style</span><span class="p">:</span> <span class="nb">dashed</span><span class="p">;</span>
+
+	<span class="nl">padding-top</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+	<span class="nl">padding-bottom</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+	<span class="nl">padding-left</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+	<span class="nl">padding-right</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="c">/*整体下移 20px*/</span>
+	<span class="nl">margin-top</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span> <span class="p">{</span>
+	<span class="c">/*去除 left和 right*/</span>
+	<span class="nl">clear</span><span class="p">:</span> <span class="nb">both</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.box1</span> <span class="nt">h1</span> <span class="p">{</span>
+	<span class="nl">font-family</span><span class="p">:</span> <span class="s2">'Times New Roman'</span><span class="p">,</span> <span class="n">Times</span><span class="p">,</span> <span class="nb">serif</span><span class="p">;</span>
+	<span class="nl">font-weight</span><span class="p">:</span> <span class="m">800</span><span class="p">;</span>
+	<span class="nl">font-style</span><span class="p">:</span> <span class="nb">italic</span><span class="p">;</span>
+	<span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">underline</span><span class="p">;</span>
+	<span class="nl">text-transform</span><span class="p">:</span><span class="nb">uppercase</span><span class="p">;</span>
+	<span class="nl">letter-spacing</span><span class="p">:</span> <span class="m">1em</span><span class="p">;</span>
+	<span class="nl">word-spacing</span><span class="p">:</span> <span class="m">2em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.box2</span> <span class="p">{</span>
+	<span class="nl">border</span><span class="p">:</span> <span class="m">5px</span> <span class="nb">dotted</span> <span class="m">#cccccc</span><span class="p">;</span>
+	<span class="nl">border-radius</span><span class="p">:</span> <span class="m">35px</span><span class="p">;</span>
+	<span class="nl">padding</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+	<span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span><span class="p">,</span> <span class="m">0</span><span class="p">;</span>
+
+	<span class="c">/*相对定位*/</span>
+	<span class="c">/*position: relative;*/</span>
+	<span class="c">/*top: 30px;*/</span>
+	<span class="c">/*left: 30px;*/</span>
+	<span class="c">/*保留原来位置，并发生偏转，不浮动*/</span>
+
+	<span class="c">/*[&gt;绝对定位，在没有上下文 relative 时，是参考当前视窗页面做偏移的&lt;]*/</span>
+	<span class="c">/*position: absolute;*/</span>
+	<span class="c">/*top: 30px;*/</span>
+	<span class="c">/*left: 30px;*/</span>
+	<span class="c">/*同时决定平移会使整个盒子浮动起来，不会保留原来位置*/</span>
+<span class="p">}</span>
+
+<span class="nc">.container</span> <span class="p">{</span>
+	<span class="nl">width</span><span class="p">:</span> <span class="m">80%</span><span class="p">;</span>
+	<span class="nl">margin</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.box2</span> <span class="p">{</span>
+	<span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.list</span> <span class="nt">li</span> <span class="p">{</span>
+	<span class="c">/*改变list前的图片标识*/</span>
+	<span class="c">/*可以自定义图片*/</span>
+	<span class="c">/*list-style-image: url(../image/check.jpg);*/</span>
+
+	<span class="c">/*也可以用自带的*/</span>
+	<span class="nl">list-style</span><span class="p">:</span> <span class="nb">square</span><span class="p">;</span>
+	<span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.block</span> <span class="p">{</span>
+	<span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+	<span class="c">/*改为三列的形式*/</span>
+	<span class="nl">width</span><span class="p">:</span> <span class="m">33.3%</span><span class="p">;</span>
+	<span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#ccc</span><span class="p">;</span>
+	<span class="c">/*这时会破坏三列，因为加了边框*/</span>
+	<span class="c">/*需要用box-sizing来解决*/</span>
+	<span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#mian-block</span> <span class="p">{</span>
+	<span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+	<span class="nl">width</span><span class="p">:</span> <span class="m">70%</span><span class="p">;</span>
+	<span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#ccc</span><span class="p">;</span>
+	<span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#sidebar</span> <span class="p">{</span>
+	<span class="nl">float</span><span class="p">:</span> <span class="nb">right</span><span class="p">;</span>
+	<span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+	<span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#ccc</span><span class="p">;</span>
+	<span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/*较为高级的选择方式 ---- 伪类*/</span>
+
+<span class="nc">.list2</span> <span class="nt">li</span><span class="nd">:nth-child</span><span class="o">(</span><span class="nt">even</span><span class="o">)</span> <span class="p">{</span>
+	<span class="nl">background-color</span><span class="p">:</span> <span class="n">grey</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.list2</span> <span class="nt">li</span><span class="nd">:first-child</span> <span class="p">{</span>
+	<span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/*注意不是从0开始计数*/</span>
+<span class="nc">.list2</span> <span class="nt">li</span><span class="nd">:nth-child</span><span class="o">(</span><span class="nt">3</span><span class="o">)</span> <span class="p">{</span>
+	<span class="nl">color</span><span class="p">:</span> <span class="no">aqua</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.position-box</span> <span class="p">{</span>
+	<span class="nl">width</span><span class="p">:</span> <span class="m">500px</span><span class="p">;</span>
+	<span class="nl">height</span><span class="p">:</span> <span class="m">500px</span><span class="p">;</span>
+	<span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">black</span><span class="p">;</span>
+	<span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/*relative 和 absolute结合*/</span>
+<span class="c">/*box 1,2的偏移量是根据 box 说的*/</span>
+<span class="c">/*如果将 box的position 去掉relative，则移到页面开头*/</span>
+<span class="nc">.position-box</span> <span class="nt">h1</span> <span class="p">{</span>
+	<span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+	<span class="nl">top</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.position-box</span> <span class="nt">h2</span> <span class="p">{</span>
+	<span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+	<span class="nl">left</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/*固定位置*/</span>
+<span class="nf">#fixed</span> <span class="p">{</span>
+	<span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span><span class="p">;</span>
+	<span class="nl">right</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+	<span class="nl">bottom</span><span class="p">:</span> <span class="m">200px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="最终网页效果">最终网页效果</h2>
+
+<p><a href="http://life.zququ.fun/assets/202007/test2.html">最终的HTML效果，请点击这里</a></p>
+
+<h2 id="更多">更多</h2>
+
+<p>这里只是谈了很基础的关于 CSS 的介绍。更多内容可以访问<a href="https://developer.mozilla.org/en-US/docs/Learn/CSS">mozilla</a></p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2020/07/HTML/"
+				title="link to HTML5 基础">HTML5 基础</a></h2>
+		<p class="excerpt">  什么是HTML  基础语法  实例  最终网页效果什么是HTML      HyperText Markup Language （超文本标记语言）        不是编程语言        告诉浏览器如何构造网页  HTML 的模式如图所示，关于Taq可以在这里找到基础语法&lt;!DOCTYPE html&gt; &lt;!--解释文档的类型--&gt;&lt;html&gt;	&lt;head&gt;		&lt;title&gt;This is a page title&lt;/t...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2020-07-09 12:40:24 +0800"
+				class="post-list__meta--date date">2020-07-09</time> &#8226; <span
+				class="post-list__meta--tags tags">blog</span><a class="btn-border-small"
+				href=/2020/07/HTML/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2020/07/CSS/";
+        this.page.identifier = "/2020/07/CSS/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

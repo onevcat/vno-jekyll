@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>The Amplitude Contrast and the Phase Contrast</title>
+  <meta name="description" content="In TEM, there are two kinds of contrast:">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="The Amplitude Contrast and the Phase Contrast">
+  <meta name="twitter:description" content="In TEM, there are two kinds of contrast:">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Amplitude Contrast and the Phase Contrast">
+  <meta property="og:description" content="In TEM, there are two kinds of contrast:">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/11/amplitude-and-phase-contrast/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-11-25 09:07:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-11-25</time> &#8226; <span
+					class="post-meta__tags tags">cryo-EM</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#cryo-EM">cryo-EM</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">The Amplitude Contrast and the Phase Contrast</h1>
+
+		</header>
+
+		<section class="post">
+			<p>In TEM, there are two kinds of contrast:</p>
+
+<h3 id="amplitude-contrast">Amplitude Contrast</h3>
+
+<p>As you can see in the figure,</p>
+
+<p><img src="/assets/201911/2019-11-25_10-11-03.png" alt="figure1" /></p>
+
+<p>When the incident electrons ‘light’ on the sample, there will be three kinds of resulted electrons, which is also mentioned before in the <a href="http://life.zququ.fun/2019/11/amplitude-and-phase-contrast-1/">‘The interaction between the electron and the sample’</a>, they are unscattered primary electrons, inelastically scattered primary electrons and elastically scattered primary respectively.</p>
+
+<p>For the unscattered primary electrons (in pink), they are not influenced by the sample and no energy or amplitude (intensity) is changed.</p>
+
+<p>For the inelastically primary electrons (not given in the figure), which has lost part of energy transfered by interaction with the sample, which can be filtered out by the inelastically primary electrons. So basecally, we don’t need to discuss the inelastically primary.</p>
+
+<p>For the elastically (in green), it will be interesting, because as mentioned before, although there will be no energy transfer during interaction with the sample (which means they will not filtered out by eneryg filter), some electrons will scattered with a very high angles or even returning from the original road, which will do no contribution to the image. So, there will be the aperture to limit the elastically scattered electrons into some fixed angle range. The result is, the amplitude of the scattered electrons will decrease and make the fisrt contrast with the unscattered electrons. It is the so-called <strong>amplitude contrast</strong>.</p>
+
+<h3 id="phase-contrast">Phase contrast</h3>
+
+<p>Like double slit experiment, an electron microscope is like a billion slit experiment each electron idividually feels all the atoms of the sample and collecting all of their scattering to produce an image.</p>
+
+<p>When the incident electrons interact with the electrons in the track of the sample atoms, electrons will go along any directions and angles which will create the wave as seen in the figure,</p>
+
+<p><img src="/assets/201911/2019-11-25_10-28-54.png" alt="figure2" /></p>
+
+<p>After which, many plane waves derived from the interactions between incident electrons and the atoms electrons will pass through the imaginary plane with different phase angle (Θ),</p>
+
+<p><img src="/assets/201911/2019-11-25_10-33-36.png" alt="figure3" /></p>
+
+<p>In this way, the create a very complex phase riples situations, different interactions make different plane waves with different spreading angles,</p>
+
+<p><img src="/assets/201911/2019-11-25_10-44-25.png" alt="figure4" /></p>
+
+<p>This angle, we call it ‘α’. First of all, let’s think of it in a more complex view step by step,</p>
+
+<p><img src="/assets/201911/2019-11-25_10-49-13.png" alt="figure5" /></p>
+
+<p>Before discussing, there is a very important equations in crystallography, braggs equation:</p>
+
+\[sinα = λ/d\]
+
+<p>, where α is the incident angle, λ is the wave length and d is the spacing of the crystal faces formed by the repeating unit.</p>
+
+<p>We think of the repeating unit as every integrate protein structures, in other words, think of the every whole proteins as the scattering centers. Referenced by the braggs equation, gives a α， we name it $α_1$.</p>
+
+<p>Let’s go on, in the next figure, I showed a more complex situation, when the scattering center is more and more ‘detailed’, will gives a bigger and bigger ‘α’, and</p>
+
+<p><img src="/assets/201911/2019-11-25_10-58-53.png" alt="figure8" /></p>
+
+<p>$ α_1 &lt; α_2 &lt; … &lt;α_n $</p>
+
+<p>From this example, we can also get a conclusion, the higher angle of the incident angle, the higher resolution of the structural information we will get. As seen in the figure bellow,</p>
+
+<p><img src="/assets/201911/2019-11-25_11-04-31.png" alt="figure6" /></p>
+
+<p>which Y-axis shows the density and showing how much this sin function would be needed to represent the density.</p>
+
+<p>In the end, let’s discuss something in crystallography. Because cryo-EM is very similar to the crystallography. The figure bellow gives a diffraction image model,</p>
+
+<p><img src="/assets/201911/2019-11-25_11-10-27.png" alt="figure7" /></p>
+
+<p>Where does the diffraction point come from?</p>
+
+<ol>
+  <li>Each spot represents a Fourier component (a 3-D sin wave)</li>
+  <li>Identify by miller index (h, k, l)</li>
+  <li>Each has an amplitude and a phase</li>
+  <li>Both must be known to recalculate the “real space” object</li>
+</ol>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/wave-propagation-and-phase-shifts/"
+				title="link to Wave Propagation and Phase Shifts">Wave Propagation and Phase Shifts</a></h2>
+		<p class="excerpt">The image magnification,as seen in the figure, when the scattered electrons poass through the lens which will get together at the imaginary back focal plane, which is just like the fourier transform process, and when pass into the detector, just l...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-26 08:31:24 +0800"
+				class="post-list__meta--date date">2019-11-26</time> &#8226; <span
+				class="post-list__meta--tags tags">cryo-EM</span><a class="btn-border-small"
+				href=/2019/11/wave-propagation-and-phase-shifts/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/assembly-language-35/"
+				title="link to 汇编语言 8.7 8.8 8.9 div 伪指令dd dup">汇编语言 8.7 8.8 8.9 div 伪指令dd dup</a></h2>
+		<p class="excerpt">8.7 div 指令div是除法指令，有以下注意事项：  除数：有8位和16位两种，在一个reg或者内存单元中。  被除数：默认放在ax或dx和ax中，如果除数为8位，被除数则为16位，默认在ax中存放；如果除数为16位，则被除数则为32位，在dx和ax中存放，dx存放高16位，ax存放在低16位。  结果：如果除数为8位，则al存储除法操作的商, ah存储除法操作的余数；如果除数为16位，则ax存储除法操作的商，dx存储除法操作的余数。除数和被除数的规格总结：            除数...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-24 15:15:24 +0800"
+				class="post-list__meta--date date">2019-11-24</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/11/assembly-language-35/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/11/amplitude-and-phase-contrast/";
+        this.page.identifier = "/2019/11/amplitude-and-phase-contrast/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

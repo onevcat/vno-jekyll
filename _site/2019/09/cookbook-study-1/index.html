@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>PCB1.1 - Squence unpacking, Star syntax, deque, yield, Keeping the Last N Items, Finding the Largest or Smallest N Items, and Implementing a Priority Queue</title>
+  <meta name="description" content="About the titlePython - Cookbook study CHAPTER 1 - Data Strucutres and Algorithms - PCB1 for shortSomething to say before everything beginsI plan to have a p...">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PCB1.1 - Squence unpacking, Star syntax, deque, yield, Keeping the Last N Items, Finding the Largest or Smallest N Items, and Implementing a Priority Queue">
+  <meta name="twitter:description" content="About the titlePython - Cookbook study CHAPTER 1 - Data Strucutres and Algorithms - PCB1 for shortSomething to say before everything beginsI plan to have a p...">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PCB1.1 - Squence unpacking, Star syntax, deque, yield, Keeping the Last N Items, Finding the Largest or Smallest N Items, and Implementing a Priority Queue">
+  <meta property="og:description" content="About the titlePython - Cookbook study CHAPTER 1 - Data Strucutres and Algorithms - PCB1 for shortSomething to say before everything beginsI plan to have a p...">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/09/cookbook-study-1/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-09-16 07:21:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-09-16</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">PCB1.1 - Squence unpacking, Star syntax, deque, yield, Keeping the Last N Items, Finding the Largest or Smallest N Items, and Implementing a Priority Queue</h1>
+
+		</header>
+
+		<section class="post">
+			<h4 id="about-the-title">About the title</h4>
+<p>Python - Cookbook study CHAPTER 1 - Data Strucutres and Algorithms - PCB1 for short</p>
+<h4 id="something-to-say-before-everything-begins">Something to say before everything begins</h4>
+<p>I plan to have a python cookbook study (David Beazley &amp; Brian K. Jones). Aim to have a deeper understanding Python coding tech. And for better studying, I will make a notebook for studying process, I will upload this part to github, <strong>if I inadvertently encroaching on the interests of anyone, please contact me in time, I will delete the related information immediately</strong>.</p>
+<h2 id="11-unpacking-a-sequence-into-separate-variables">1.1. Unpacking a Sequence into Separate Variables</h2>
+<p>Unpack N-element tuple or sequence into a collection of N variables</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s">'ACME'</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mf">91.1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">21</span><span class="p">)]</span>
+<span class="n">name</span><span class="p">,</span> <span class="n">shares</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">mon</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span> <span class="o">=</span> <span class="n">data</span>
+</code></pre></div></div>
+<p>and if there is a mismatch in the number of elements, you’ll get an error.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ValueError</span><span class="p">:</span> <span class="n">need</span> <span class="n">more</span> <span class="n">than</span> <span class="mi">2</span> <span class="n">values</span> <span class="n">to</span> <span class="n">unpack</span>
+</code></pre></div></div>
+
+<p>throwaway variable name</p>
+
+<p>If you want to discard certain values.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s">'ACME'</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mf">91.1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">21</span><span class="p">)]</span>
+<span class="n">_</span> <span class="p">,</span> <span class="n">shares</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">data</span>
+</code></pre></div></div>
+
+<h2 id="12-unpacking-elements-from-iterables-of-arbitrary-length">1.2. Unpacking Elements from Iterables of Arbitrary Length</h2>
+<p>Problems of “too many values to unpack”</p>
+
+<p>Python use “star expressions” to address the problems when there are too many values to unpack.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">drop_first_last</span><span class="p">(</span><span class="n">grades</span><span class="p">):</span>
+    <span class="n">first</span><span class="p">,</span> <span class="o">*</span><span class="n">middle</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">grades</span>
+    <span class="k">return</span> <span class="n">avg</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The unpacked variables will be returned as a list (including none)</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">record</span> <span class="o">=</span> <span class="p">(</span><span class="s">'Dave'</span><span class="p">,</span> <span class="s">'dave@example.com'</span><span class="p">,</span> <span class="s">'773-555-1212'</span><span class="p">,</span> <span class="s">'847-555-1212'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="o">*</span><span class="n">phone_numbers</span> <span class="o">=</span> <span class="n">user_record</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">phone_numbers</span>
+<span class="p">[</span><span class="s">'773-555-1212'</span><span class="p">,</span> <span class="s">'847-555-1212'</span><span class="p">]</span>
+</code></pre></div></div>
+<p>example 2 is to put the star expressions at the first one in the list.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">*</span><span class="n">trailing_qtrs</span><span class="p">,</span> <span class="n">current_qtr</span> <span class="o">=</span> <span class="n">sales_record</span>
+<span class="n">trailing_avg</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">trailing_qtrs</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trailing_qtrs</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">avg_comparison</span><span class="p">(</span><span class="n">trailing_avg</span><span class="p">,</span> <span class="n">current_qtr</span><span class="p">)</span>
+</code></pre></div></div>
+<p>and</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="o">*</span><span class="n">trailing</span><span class="p">,</span> <span class="n">current</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">trailing</span>
+<span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">current</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+<p>star syntax can be especially useful when iterating over a sequence of tupls of varying length. For example, a sequence of <strong>tagged tuples</strong>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">records</span> <span class="o">=</span> <span class="p">[(</span><span class="s">'ffo'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+           <span class="p">(</span><span class="s">'bar'</span><span class="p">,</span> <span class="s">'hello'</span><span class="p">),</span>
+           <span class="p">(</span><span class="s">'foo'</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">do_foo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'foo'</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">do_bar</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'bar'</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s">'foo'</span><span class="p">:</span>
+        <span class="n">do_foo</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s">'bar'</span><span class="p">:</span>
+        <span class="n">do_bar</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+</code></pre></div></div>
+<p>star unpacking combined with certain kinds of string processing operations, such as splitting.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">line</span> <span class="o">=</span> <span class="s">'nobody:*:-2:-2:Unprivileged User:/var/empty:/usr/bin/false'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">uname</span><span class="p">,</span> <span class="o">*</span><span class="n">fields</span><span class="p">,</span> <span class="n">homedir</span><span class="p">,</span> <span class="n">sh</span> <span class="o">=</span> <span class="n">line</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">':'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">homedir</span>
+<span class="s">'/var/empty'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sh</span>
+<span class="s">'/usr/bin/false'</span>
+</code></pre></div></div>
+<p>combined with a common throwaway variable name, such as _ or ign (ignored).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="p">(</span><span class="s">'ACME'</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mf">123.45</span><span class="p">,</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">2012</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span> <span class="o">=</span> <span class="n">record</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">name</span>
+<span class="s">'ACME'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">year</span>
+<span class="mi">2012</span>
+</code></pre></div></div>
+
+<p><strong>Split a list into head and tail components</strong> with star syntax</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">head</span><span class="p">,</span> <span class="o">*</span><span class="n">tail</span> <span class="o">=</span> <span class="n">items</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tail</span>
+<span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>apply the star unpacking to recursive algorithm <br />
+(not recommand, because of Python is not strong about inherent recursion limit)</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="n">head</span><span class="p">,</span> <span class="o">*</span><span class="n">tail</span> <span class="o">=</span> <span class="n">items</span>
+        <span class="k">return</span> <span class="n">head</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span> <span class="k">if</span> <span class="n">tail</span> <span class="k">else</span> <span class="n">head</span>
+        
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+<span class="mi">36</span>
+</code></pre></div></div>
+<h2 id="13-keeping-the-last-n-items">1.3. Keeping the Last N Items</h2>
+
+<p>To keep a <strong><em>limited history</em></strong> of the last few items seen during iteration or during some other kind of processing. It’s a perfect use for a <code class="language-plaintext highlighter-rouge">cllections.deque</code>.
+***</p>
+<h4 id="what-is-deque">What is deque</h4>
+<p>Related codes and text translated from <a href="https://blog.csdn.net/hellojoy/article/details/81281367">HERE</a>.</p>
+<ol>
+  <li>Similirity with list
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># deque provides the same function with part of list
+</span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>  <span class="c1">#Create a 'deque' sequence
+</span><span class="n">d</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">d</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">d</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="mi">1</span>
+</code></pre></div>    </div>
+  </li>
+  <li>The use of pop of deque
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="s">'12345'</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="s">'1'</span><span class="p">,</span> <span class="s">'2'</span><span class="p">,</span> <span class="s">'3'</span><span class="p">,</span> <span class="s">'4'</span><span class="p">,</span> <span class="s">'5'</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="mi">5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">leftpop</span><span class="p">()</span>
+<span class="mi">1</span>
+</code></pre></div>    </div>
+  </li>
+  <li>The ‘length limit fuction’ of deque
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+ <span class="n">d</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span>
+     <span class="n">d</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="s">'10'</span><span class="p">,</span> <span class="s">'11'</span><span class="p">,</span> <span class="s">'12'</span><span class="p">],</span> <span class="n">maxlen</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Extend the list to deque</li>
+</ol>
+
+<pre><code class="language-pyhon">d = deque([1, 2, 3, 4, 5])
+d.extend([0])
+&gt;&gt;&gt; d
+d = deque([1, 2, 3, 4, 5, 0])
+d.extendleft([6, 7, 8])
+&gt;&gt;&gt; d
+d = deque([8, 7, 6, 1, 2, 3, 4, 5, 0])
+</code></pre>
+<h4 id="yield">Yield?</h4>
+<p>Codes and text is tranlated <a href="https://blog.csdn.net/mieleizhi0522/article/details/82142856">HERE</a>
+Another thing to concern is the yield, here I find some explain about this function. <br /></p>
+
+<h4 id="at-first-you-can-just-think-yield-as-return-for-easy-understanding-and-next-think-it-as-a-generator">At first, you can just think <code class="language-plaintext highlighter-rouge">yield</code> as <code class="language-plaintext highlighter-rouge">return</code> for easy understanding. And next, think it as a <em>generator</em></h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'starting...'</span><span class="p">)</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="k">yield</span> <span class="mi">4</span> <span class="c1"># &lt;-**-&gt;
+</span>        <span class="k">print</span><span class="p">(</span><span class="s">'res:'</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span>  <span class="c1"># will not call foo(), because of the use of 'yield', but get a generator named with 'g'
+</span><span class="k">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="c1"># only when call the next(), foo() will begin working**
+</span><span class="k">print</span><span class="p">(</span><span class="s">'x'</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="c1"># Here start from the where previous  next(g) stop {the res valuing process}
+</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="n">starting</span><span class="p">...</span>
+<span class="mi">4</span>   <span class="c1"># *** WHAT NEED TO GET ATTENTION: Here, 4 is not valued to res (&lt;-**-&gt;), only print the yielded 4 (the returned 4) and then the program will stop
+</span> <span class="o">********************</span>
+<span class="n">res</span><span class="p">:</span> <span class="bp">None</span>  <span class="c1"># Here, next() begins from the {prviously stopped point of previous next(g) at &lt;-**-&gt;} to value to res, however, at the first next(), 4 has been returned out, so here "res: None"
+</span><span class="mi">4</span>   <span class="c1"># Here because of the recyle of 'while', yield 4 again.
+</span></code></pre></div></div>
+
+<p>Here you may understand the relationship between yield and return, <code class="language-plaintext highlighter-rouge">yield</code> is a generator but not a function. There is a function of <code class="language-plaintext highlighter-rouge">yield</code>, <code class="language-plaintext highlighter-rouge">next()</code>, means which function to generate next step, and this time the fuction will continue from where previous <code class="language-plaintext highlighter-rouge">next()</code> stops, and when call the <code class="language-plaintext highlighter-rouge">next()</code>, generator will not begin from <code class="language-plaintext highlighter-rouge">foo()</code>, but from the previous stopped point. Then when meet the <code class="language-plaintext highlighter-rouge">yield</code> again, return the generated number, and this stip will stop.
+<br /></p>
+
+<h4 id="then-another-example-about-send">Then another example about <code class="language-plaintext highlighter-rouge">send()</code></h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'starting...'</span><span class="p">)</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="k">yield</span> <span class="mi">4</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'res:'</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'*'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>  <span class="c1"># Here 7 has been valued to res &lt;-**-&gt;
+</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="n">starting</span><span class="p">...</span>
+<span class="mi">4</span>
+ <span class="o">********************</span>
+<span class="n">res</span><span class="p">:</span> <span class="mi">7</span>   <span class="c1"># Because before the second next() {Here, send() include the use of next()}, 7 has been valued to res.
+</span><span class="mi">4</span>
+</code></pre></div></div>
+
+<p>Here, &lt;-**-&gt; The fucntion of <code class="language-plaintext highlighter-rouge">g.send()</code> includes <code class="language-plaintext highlighter-rouge">g.next()</code>, and different from <code class="language-plaintext highlighter-rouge">g.next()</code>, it can pass the value 7 to res.</p>
+
+<h4 id="why-need-the-yield">Why need the yield?</h4>
+
+<p><br />
+If there is a very big data, like (0 ~ 1000).</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">n</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">range(1000)</code> will generate a list with 1000 datas, not good for storage. Then you can use <code class="language-plaintext highlighter-rouge">yield</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>    <span class="c1"># This will help make a very small list which will help for better storage.
+</span>    <span class="k">print</span><span class="p">(</span><span class="s">'starting...'</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">num</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">yield</span> <span class="n">num</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">foo</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span>
+<span class="n">starting</span><span class="p">...</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="mi">5</span>
+<span class="mi">6</span>
+<span class="mi">7</span>
+<span class="mi">8</span>
+<span class="mi">9</span>
+<span class="mi">10</span>
+</code></pre></div></div>
+
+<p>It is the same with <code class="language-plaintext highlighter-rouge">xrange(1000)</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">n</span>
+</code></pre></div></div>
+
+<p>However, in python3, <code class="language-plaintext highlighter-rouge">range()</code> is <code class="language-plaintext highlighter-rouge">xrange()</code> already. So you don’t need to care about this.</p>
+
+<p>After the preparing knowledge about <code class="language-plaintext highlighter-rouge">yield</code> as well as the <code class="language-plaintext highlighter-rouge">deque</code>. The following code performs a simple text match on a sequence of lines and yields the matching line along with the previous N lines of context when found:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">history</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">previous_lines</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="n">history</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">line</span><span class="p">,</span> <span class="n">previous_lines</span> <span class="c1"># yield to make a generator
+</span>        <span class="n">previous_lines</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+<span class="c1"># Example use on a file
+</span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'somefile.txt'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">pline</span><span class="p">,</span> <span class="n">prevlines</span> <span class="ow">in</span> <span class="n">search</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">'python'</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">pline</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s">''</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>When writing code to search for items, it is common to use a generator function involving <code class="language-plaintext highlighter-rouge">yield</code>, this decouples the process of searching from the code that uses the reults. And using <code class="language-plaintext highlighter-rouge">deque(maxlen=N)</code> creates a fixed-sized queue. When new items are added and the queue is full, the oldest item is automatically removed.
+<br />
+More generally, a deque can be used whenever you need a simple queue structure. If you don’t give it a maximum size, you get an unbounded queue that lets you append and pop items on either end. Adding or popping items from either end of a queue has O(1) complexity. This is unlike a list where inserting or removing items from the front of the list is O(N).</p>
+
+<h2 id="14-finding-the-largest-or-smallest-n-items">1.4. Finding the Largest or Smallest N Items</h2>
+<p>The <code class="language-plaintext highlighter-rouge">heapq</code> module has two functions, <code class="language-plaintext highlighter-rouge">nlargest()</code> and <code class="language-plaintext highlighter-rouge">nsmallest()</code> — that do exactly what you want.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">heapq</span>
+
+<span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">heapq</span><span class="p">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">nums</span><span class="p">))</span>  <span class="c1"># Print [42, 37, 23]
+</span><span class="k">print</span><span class="p">(</span><span class="n">heapq</span><span class="p">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">nums</span><span class="p">))</span> <span class="c1"># Print -4, 1, 2
+</span></code></pre></div></div>
+
+<p>A key parameter that allows them to be used with more complicated data structures is accepted.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">portfolio</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'IBM'</span><span class="p">,</span> <span class="s">'shares'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s">'price'</span><span class="p">:</span> <span class="mf">91.1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="p">...}</span>
+<span class="p">]</span>
+
+<span class="n">cheap</span> <span class="o">=</span> <span class="n">heapq</span><span class="p">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">portfolio</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="s">'price'</span><span class="p">])</span>
+<span class="n">expensive</span> <span class="o">=</span> <span class="n">heapq</span><span class="p">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">portfolio</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="s">'price'</span><span class="p">])</span>
+</code></pre></div></div>
+
+<h4 id="if-n-is-small-compared-to-the-overall-size-of-the-collection-and-you-are-looking-for-the-n-smallest-or-largest-items">If N is small compared to the overall size of the collection and you are looking for the N smallest or largest items.</h4>
+<p>They work by first converting the data into a list where items are ordered as a heap. For example,</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">heapq</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">heap</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">heapq</span><span class="p">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">heap</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</code></pre></div></div>
+<p>The most important feature of a heap, <code class="language-plaintext highlighter-rouge">heap[0]</code> is **always the smallest item. Moreover, subsequent items can be easily found using the <code class="language-plaintext highlighter-rouge">heapq.heappop()</code> method. For example, to find the three smallest items, you can do this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">heapq</span><span class="p">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<span class="o">-</span><span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">heapq</span><span class="p">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">heapq</span><span class="p">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<span class="mi">2</span>
+</code></pre></div></div>
+<p>If you just want to find the single largest or smallest, <code class="language-plaintext highlighter-rouge">max()</code> and <code class="language-plaintext highlighter-rouge">min()</code> is faster.<br />
+If N is about the same size as the collection itself, sort first and take a slice (<code class="language-plaintext highlighter-rouge">sorted(items)[:N]</code> or <code class="language-plaintext highlighter-rouge">sorted(items)[-N:]</code> is faster).</p>
+
+<h2 id="15-implemeting-a-priority-queue">1.5. Implemeting a Priority Queue</h2>
+<p>How to implement a queue that sorts items by a given priority and always returns the item with the highest priority on each pop operations.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">heapq</span>
+
+<span class="k">class</span> <span class="nc">PriorityQueue</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_index</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c1"># index: to properly order items with the same priority level. &lt;-**-&gt;
+</span>
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">priority</span><span class="p">):</span>
+        <span class="n">heapq</span><span class="p">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_queue</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">priority</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">_index</span><span class="p">,</span> <span class="n">item</span><span class="p">))</span>    <span class="c1"># -priority: to get get the queue to sort items from highest priority to lowest priority.
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">_index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">heapq</span><span class="p">.</span><span class="n">heapop</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_queue</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Item</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s">'Item({!r})'</span> <span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>   <span class="c1">#???
+</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="n">PriorityQueue</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">'foo'</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">'bar'</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">'spam'</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">'grok'</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="n">Item</span><span class="p">(</span><span class="s">'bar'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="n">Item</span><span class="p">(</span><span class="s">'spam'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="n">Item</span><span class="p">(</span><span class="s">'foo'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="n">Item</span><span class="p">(</span><span class="s">'grok'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Make data a <code class="language-plaintext highlighter-rouge">priority, item</code> tuple will help make a comparision between two items.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="s">'foo'</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="s">'bar'</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span>
+
+<span class="o">&gt;&gt;&gt;</span>
+
+<span class="nb">TypeError</span><span class="p">:</span> <span class="n">unorderable</span> <span class="n">types</span><span class="p">:</span> <span class="n">Item</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">Item</span><span class="p">()</span>
+</code></pre></div></div>
+<p><br />
+&lt;-**-&gt; Here index will function as a proper way to handle the problems when two items possess the same priority.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Item</span><span class="p">(</span><span class="s">'foo'</span><span class="p">))</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Item</span><span class="p">(</span><span class="s">'bar'</span><span class="p">))</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Item</span><span class="p">(</span><span class="s">'grok'</span><span class="p">))</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">c</span>
+<span class="bp">True</span>
+</code></pre></div></div>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/09/LA-the-nullspace/"
+				title="link to LA3.2 The Nullspace of A">LA3.2 The Nullspace of A</a></h2>
+		<p class="excerpt">The Nullspace of A  The nullspace $N(A)$ consists of all solutions to $Ax=0$. These vectors $x$ are in $R^n$.The solution vectors $x$ have $n$ components. They are vectors in $R^n$, so the nullspace is a subspace of $R^n$. The $C(A)$ is a subspace...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-09-17 07:50:24 +0800"
+				class="post-list__meta--date date">2019-09-17</time> &#8226; <span
+				class="post-list__meta--tags tags">数学</span><a class="btn-border-small"
+				href=/2019/09/LA-the-nullspace/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/09/static-class-abstract-method/"
+				title="link to Python - Binding and the Static, Class, Abstract Method">Python - Binding and the Static, Class, Abstract Method</a></h2>
+		<p class="excerpt">Something about parameter bindingFunction is stored as the attribute of class, as you can see in the code followed.class Pizza(object):    def __init__(self, size):        self.size = size    def get_size(self):        return self.sizeprint(Pizza....&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-09-04 15:45:24 +0800"
+				class="post-list__meta--date date">2019-09-04</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/09/static-class-abstract-method/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/09/cookbook-study-1/";
+        this.page.identifier = "/2019/09/cookbook-study-1/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

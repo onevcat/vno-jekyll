@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 4.1 4.2 源程序</title>
+  <meta name="description" content="4.1 一个源程序从写出到执行的过程">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 4.1 4.2 源程序">
+  <meta name="twitter:description" content="4.1 一个源程序从写出到执行的过程">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 4.1 4.2 源程序">
+  <meta property="og:description" content="4.1 一个源程序从写出到执行的过程">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/10/assembly-language-12/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-10-18 08:24:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-10-18</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 4.1 4.2 源程序</h1>
+
+		</header>
+
+		<section class="post">
+			<h3 id="41-一个源程序从写出到执行的过程">4.1 一个源程序从写出到执行的过程</h3>
+
+<p>做一个程序从写出到执行分为以下步骤。</p>
+
+<blockquote>
+  <p>第一步：编写汇编源程序。</p>
+</blockquote>
+
+<blockquote>
+  <p>第二步：对源程序进行编译连接。</p>
+</blockquote>
+
+<p>使用汇编语言编译程序对源程序文件中的<strong>源程序进行编译，产生目标文件</strong>。再用连接程序对<strong>目标文件进行连接</strong>，生成可以在操作系统中<strong>直接运行的可执行文件</strong>。</p>
+
+<p>可执行文件包含两部分内容：</p>
+
+<ol>
+  <li>程序（从源程序中的汇编指令翻译过来的机器码）以及数据（原程序中定义的数据）</li>
+  <li>相关的描述信息</li>
+</ol>
+
+<blockquote>
+  <p>第三步：执行可执行文件中的程序。</p>
+</blockquote>
+
+<p>操作系统依照可执行文件中的描述信息，将可执行文件中的机器码和数据加载入内存，并进行相关的初始化（比如设置CS:IP指向第一条要执行的命令），然后由CPU执行程序。</p>
+
+<p>主要流程如下图：</p>
+
+<p><img src="/assets/201910/2019-10-18_09-25-19.png" alt="流程图" /></p>
+
+<h3 id="42-源程序">4.2 源程序</h3>
+
+<p>如下一段简单的汇编语言<strong>源程序</strong>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  assume cs:codesg
+2  codesg segment
+3
+4         mov ax, 0123H
+5         mov bx, 0456H
+6         add ax, bx
+7         add ax, ax
+8
+9         mov ax, 4c00H
+10        int 21H
+11
+12 codesg ends
+13 end
+</code></pre></div></div>
+
+<p>这里4~10行代码称为汇编指令，除去汇编指令以外的其他行称为伪指令。</p>
+
+<p>汇编指令是有对应的机器码的指令，可以被编译为机器指令，最终为CPU所执行。</p>
+
+<p>伪指令没有对应的机器指令，最终不被CPU所执行，<strong>由编译器来执行的命令</strong>，编译器根据伪指令来进行相关的编译工作。</p>
+
+<blockquote>
+  <p>代码示例中的伪指令详解：</p>
+</blockquote>
+
+<ol>
+  <li>segment 与 ends指令</li>
+</ol>
+
+<p>这是一对成对使用的伪指令，其在可被编译器编译的汇编程序时必须要用到的一对伪指令。其功能是定义一个段。</p>
+
+<p><strong>一个有意义的汇编程序中至少有一个段</strong>，用来存放代码。</p>
+
+<ol>
+  <li>end</li>
+</ol>
+
+<p>end是汇编程序结束的标记，结束对源程序的编译。否则，编译器在编译程序时，无法知道程序在何处结束。</p>
+
+<ol>
+  <li>assume</li>
+</ol>
+
+<p>假设某一段寄存器和程序中的某一个用segment…ends定义的段相关联。</p>
+
+<h4 id="源程序中的程序">源程序中的程序</h4>
+
+<p>源程序包括伪指令与汇编指令。</p>
+
+<p>将源程序文件的所有内容称为源程序，将原程序中最终由计算机执行、处理的指令或数据成为程序。</p>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/correlation-of-discrete-signals/"
+				title="link to Correlation of Discrete Signals">Correlation of Discrete Signals</a></h2>
+		<p class="excerpt">The related information of correlation is mostly from David Dorran video at youtube, it is very clear and easy understanding.What Is CorrelationCorrelation is a measure of how similar signals are. They are present in things like discrete Fourier t...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-18 10:34:24 +0800"
+				class="post-list__meta--date date">2019-10-18</time> &#8226; <span
+				class="post-list__meta--tags tags">数学</span><a class="btn-border-small"
+				href=/2019/10/correlation-of-discrete-signals/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/assembly-language-11/"
+				title="link to 汇编语言 3.10 栈段">汇编语言 3.10 栈段</a></h2>
+		<p class="excerpt">3.10 栈段对于8086PC机，可以根据需要，将一组内存单元定义为一个段。我们可以将长度为N(N&lt;=64KB)的一组地址连续、起始地址为16的倍数的内存单元，当作栈空间来用，从而定义了一个栈段。例如10010H~1001FH这段长度为16字节的内存空间当作栈来用，以栈的方式进行访问。这段空间就可以成为一个栈段，段地址为1001H，大小为16字节。通过将SS:SP指向我们定义的栈段来使得如push、pop等栈操作指令访问我们定义的栈段。问题 1如果将10000H~1FFFFH这段空间...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-17 09:13:24 +0800"
+				class="post-list__meta--date date">2019-10-17</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/assembly-language-11/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/10/assembly-language-12/";
+        this.page.identifier = "/2019/10/assembly-language-12/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

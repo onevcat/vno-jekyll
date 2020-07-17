@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 10.11 10.12 批量数据的传递 寄存器冲突问题</title>
+  <meta name="description" content="10.11 批量数据的传递">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 10.11 10.12 批量数据的传递 寄存器冲突问题">
+  <meta name="twitter:description" content="10.11 批量数据的传递">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 10.11 10.12 批量数据的传递 寄存器冲突问题">
+  <meta property="og:description" content="10.11 批量数据的传递">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/12/assembly-language-44/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-12-15 09:39:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-12-15</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 10.11 10.12 批量数据的传递 寄存器冲突问题</h1>
+
+		</header>
+
+		<section class="post">
+			<h3 id="1011-批量数据的传递">10.11 批量数据的传递</h3>
+
+<p>子程序中如果只要一个参数，可以放在寄存器bx中。但是如果应对多个数据需要传递，由于寄存器的数量终究有限，我们不能简单地用寄存器存放多个需要传递的数据。对于返回值，也同样有相同的问题。</p>
+
+<p>这种情况，我们将批量数据放到内存中，然后将它们所在的内存空间地址放在寄存器中，传递给需要的子程序。对于具有批量数据的返回结果，也可以用同样的方法。</p>
+
+<p>问题： 设计一个子程序，功能：将一个全是字母的字符串转化为大写。</p>
+
+<p>分析：</p>
+
+<p>这个子程序需要知道两件事，<strong>字符串的内容和字符串的长度</strong>。因为字符串中的字母可能有很多，所以不便将整个字符串中的所有字母都直接传递给子程序。但是可以将字符串在内存中的首地址放在寄存器中传递给子程序。因为子程序中要用到循环，我们可以用loop指令，而循环的次数恰恰就是字符串的长度。处于方便，我们把字符串的长度放在cx中。</p>
+
+<p>子程序代码如下：</p>
+
+<pre><code class="language-x86asm">capital: and byte ptr [si], 11011111b    ;将目标字符改写为大写
+        inc si                          ;指向目标字符的下一个字符
+        loop captal                     ;直至改写全部字符
+        ret
+</code></pre>
+
+<p>完整代码如下，</p>
+
+<pre><code class="language-x86asm">assume cs:code
+data segment
+  db 'conversation'
+data ends
+
+code segment
+  start: mov ax, data
+         mov ds, ax
+         mov si, 0
+         mov cx, 12
+         call capital
+         mov ax, 4c00h
+         int 21h
+
+capital: and byte ptr [si], 11011111b
+         inc si
+         loop capital
+         ret
+code ends
+end start
+</code></pre>
+<p>除了寄存器传递参数外，还有一种通用的方法是用栈来传递参数。</p>
+
+<h3 id="1012-寄存器冲突的问题">10.12 寄存器冲突的问题</h3>
+
+<p>设计一个子程序，功能：讲一个全是字母，以0结尾的字符串，转化为大写。</p>
+
+<p>程序要处理的字符串以0作为结尾符，这个字符串可以如下定义：</p>
+
+<p><code class="language-plaintext highlighter-rouge">db 'conversation', 0</code></p>
+
+<p>应用这个子程序，字符串的额内容后面以一定要有一个0，标记字符串的结束。子程序可以依次读取每个字符进行检测，如果不是0，就进行大写的转化；如果是0，就结束处理。由于可通过检测0而直到是否已经处理完整个字符串，所以子程序可以不需要字符串的长度作为参数。这时可以用jcxz来检测0。</p>
+
+<pre><code class="language-x86asm">;说明：讲一个全是字母，以0结尾的字符串，转化为大写
+;参数：ds:si指向字符串的首地址
+;结果：没有返回值
+
+captial: mov cl, [si]
+         mov ch, 0    ;寻找cx = 0000时，执行jcxz命令
+         jcxz ok
+         and byte ptr [si], 11011111b
+         inc si
+         jmp short capital
+     ok: ret
+</code></pre>
+<p>子程序的应用，将数据段中的字符串全部转化为大写。</p>
+<pre><code class="language-x86asm">assume cs:code
+data segment
+  db 'word', 0
+  db 'unix', 0
+  db 'wind', 0
+  db 'good', 0
+data ends
+</code></pre>
+<p>应用子程序后的代码段为，</p>
+
+<pre><code class="language-x86asm">code segment
+  start: mov ax, data
+         mov ds, ax
+         mov bx, 0
+
+         mov cx, 4
+      s: mov bx, 0
+         call capital
+         add bx, 5
+         loop s
+
+         mov ax, 4c00h
+         int 21h
+capital: push cx
+         push si
+
+ change: mov cl, [si]
+         mov ch, 0
+         jcxz ok
+         and byte ptr [si], 11011111b
+         inc si
+         jmp short change
+
+     ok: pop si    ;这里注意寄存器入栈和出栈的顺序
+         pop cx
+         ret
+</code></pre>
+<p>要小心实际上的一般化问题：子程序中使用的寄存器很可能会造成与主程序中的寄存器之间的冲突。</p>
+
+<p>解决方案：</p>
+
+<p>在子程序开始将子程序中所有用到的寄存器中的内容都保存起来，在子程序返回前再回复。这样用栈来保存寄存器中的内容。</p>
+
+<p>以后，编写的框架如下：</p>
+
+<pre><code class="language-x86asm">子程序开始时：子程序中使用的寄存器入栈
+              子程序内容
+              子程序中使用的寄存器出栈
+              返回（ret、retf）
+</code></pre>
+<p><strong>要注意寄存器入栈和出栈的顺序</strong></p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/python-magic-method-5/"
+				title="link to python 魔法方法 (5) 属性访问">python 魔法方法 (5) 属性访问</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛属性访问操作，getattr()，setattr()以及delattr()函数通常可以通过(.)操作符的形式去访问对象的属性。&gt;&gt;&gt; class C:    def __init__(self):        self.x = 'RED'&gt;&gt;&gt; c = C()&gt;&gt;&gt; c.x'RED'&gt;&gt;&gt; getattr(c, 'x', '没有这个属性')'RED'&gt;&gt;&gt; getattr(c, ...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-16 10:28:24 +0800"
+				class="post-list__meta--date date">2019-12-16</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/12/python-magic-method-5/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/assembly-language-43/"
+				title="link to 汇编语言 10.7-10.10 call和ret的配合使用 mul 模块化 参数和结果传递的问题">汇编语言 10.7-10.10 call和ret的配合使用 mul 模块化 参数和结果传递的问题</a></h2>
+		<p class="excerpt">10.7 call和ret的配合使用问题(1) 下面程序返回前，bx中的值是多少？assume cs:codecode segmentstart: mov ax, 1       mov cx, 3       call s       mov bx, ax       mov ax, 4c00h       int 21h    s: add ax, ax       loop s       retcode endsend start分析程序运行的过程：  CPU将call s 指令的...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-14 15:52:24 +0800"
+				class="post-list__meta--date date">2019-12-14</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/12/assembly-language-43/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/12/assembly-language-44/";
+        this.page.identifier = "/2019/12/assembly-language-44/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

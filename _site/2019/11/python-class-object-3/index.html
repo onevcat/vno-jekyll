@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python 类和对象 (3) 继承 super函数 多重继承 钻石继承</title>
+  <meta name="description" content="整理自小甲鱼鱼C论坛继承">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="python 类和对象 (3) 继承 super函数 多重继承 钻石继承">
+  <meta name="twitter:description" content="整理自小甲鱼鱼C论坛继承">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="python 类和对象 (3) 继承 super函数 多重继承 钻石继承">
+  <meta property="og:description" content="整理自小甲鱼鱼C论坛继承">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/11/python-class-object-3/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-11-13 20:34:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-11-13</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">python 类和对象 (3) 继承 super函数 多重继承 钻石继承</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+<h3 id="继承">继承</h3>
+
+<p>继承的语法为：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">DerivedClassName</span><span class="p">(</span><span class="n">BaseClassName</span><span class="p">):</span>
+</code></pre></div></div>
+<p>注意的是，如果子类中定义了与父类相同的<strong>方法或者属性</strong>，会自动覆盖父类的方法或者属性。</p>
+
+<p>例如如下代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="n">r</span>
+<span class="k">class</span> <span class="nc">Fish</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">print</span><span class="p">(</span><span class="sb">`我的位置是: `</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Carp</span><span class="p">(</span><span class="n">Fish</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">Shark</span><span class="p">(</span><span class="n">Fish</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">hungry</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">eat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">hungry</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"吃"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">hungry</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"不吃"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>运行代码后，在Carp和Shark类中分别调用<code class="language-plaintext highlighter-rouge">move()</code>方法，观察是否能运行。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span><span class="n">fish</span> <span class="o">=</span> <span class="n">Fish</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">fish</span><span class="p">.</span><span class="n">move</span><span class="p">()</span>
+<span class="n">我的位置是</span><span class="err">：</span><span class="mi">5</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">shark</span> <span class="o">=</span> <span class="n">Shark</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">shark</span><span class="p">.</span><span class="n">move</span><span class="p">()</span>
+<span class="n">ArributeError</span><span class="p">:</span> <span class="s">'Shark'</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">atrribute</span> <span class="s">'x'</span>
+</code></pre></div></div>
+
+<p>分析原因就是因为在Shark类中，重新定义了构造方法，覆盖了父类Fish的move()方法。</p>
+
+<p>解决方法有两个：</p>
+
+<p>方法1. 在定义Shark的构造方法时，调用未绑定的父类方法</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Shark</span><span class="p">(</span><span class="n">Fish</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Fish</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">hungry</span> <span class="o">=</span> <span class="bp">True</span>
+</code></pre></div></div>
+<p>或者</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">calss</span> <span class="n">Shark</span><span class="p">(</span><span class="n">Fish</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Fish</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">shark</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">hungry</span> <span class="o">=</span> <span class="bp">True</span>
+</code></pre></div></div>
+<p>需要注意的是，这个self并不是父类Fish的实例对象，而是子类的实例对象，而题目所谓的未绑定的父类方法意思就是，并不绑定父类的实例对象，而是直接使用子类的实例对象。</p>
+
+<p>方法2. 使用super函数</p>
+
+<p>super 函数能够自动找到基类的方法，而不需要给出任何基类的名字，会自动找出所有基类以及对应的方法。用法如下：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Shark</span><span class="p">(</span><span class="n">Fish</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="p">.</span><span class="n">hungry</span> <span class="o">=</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<h3 id="多重继承">多重继承</h3>
+
+<p>多重继承的语法是：</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">DerivedClassName</span><span class="p">(</span><span class="n">Base1</span><span class="p">,</span> <span class="n">Base2</span><span class="p">,</span> <span class="n">Base3</span><span class="p">):</span>
+</code></pre></div></div>
+<p>举个例子：</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Base1</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">foo1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"foo1"</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Base2</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">foo2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"foo2"</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">Base1</span><span class="p">,</span> <span class="n">Base2</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="o">&gt;&gt;&gt;</span><span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">c</span><span class="p">.</span><span class="n">foo1</span><span class="p">()</span>
+<span class="n">foo1</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">c</span><span class="p">.</span><span class="n">foo2</span><span class="p">()</span>
+<span class="n">foo2</span>
+</code></pre></div></div>
+
+<p>值得注意的是多重继承问题尽量避免使用，会出现钻石继承问题。</p>
+
+<h3 id="钻石继承">钻石继承</h3>
+
+<p>钻石继承是多重继承的陷阱，如下代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">A</span><span class="p">():</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="k">print</span><span class="p">(</span><span class="s">"进入A…"</span><span class="p">)</span>
+       <span class="k">print</span><span class="p">(</span><span class="s">"离开A…"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="k">print</span><span class="p">(</span><span class="s">"进入B…"</span><span class="p">)</span>
+       <span class="n">A</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"离开B…"</span><span class="p">)</span>
+        
+<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"进入C…"</span><span class="p">)</span>
+        <span class="n">A</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"离开C…"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">D</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"进入D…"</span><span class="p">)</span>
+        <span class="n">B</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">C</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"离开D…"</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">D</span><span class="p">()</span>
+<span class="n">进入D</span><span class="err">…</span>
+<span class="n">进入B</span><span class="err">…</span>
+<span class="n">进入A</span><span class="err">…</span>
+<span class="n">离开A</span><span class="err">…</span>
+<span class="n">离开B</span><span class="err">…</span>
+<span class="n">进入C</span><span class="err">…</span>
+<span class="n">进入A</span><span class="err">…</span>
+<span class="n">离开A</span><span class="err">…</span>
+<span class="n">离开C</span><span class="err">…</span>
+<span class="n">离开D</span><span class="err">…</span>
+</code></pre></div></div>
+<p>如下图所示:
+<img src="/assets/201911/20191113.png" alt="figure1" /></p>
+
+<p>因为从D类继承的方式有通过A类为基类的B类，以及通过A类为基类的C类两个方式继承。这样在调用D类时，就会两个词进入A类。如果这时加入计数器会<strong>发生计数错误的情况</strong>。</p>
+
+<p>解决钻石继承的方法可以使用Method Resolution Order(MRO) 方法解析顺序的方法，以及C3算法。</p>
+
+<p><strong>MRO顺序，就是在避免同一类被调用多次的前提下，使用广度优先和左到右的原则去寻找需要的属性和方法。</strong></p>
+
+<p>C3算法确保同一个类只会被搜寻一次，如果一个属性或者方法在D类中没有被找到，Python就会搜索B类，然后搜索C类，如果都没有找到，会继续搜索B的基类A，如果还没有找到会抛出’AttributeError’异常。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">#方法为类.__mro__获得MRO的顺序
+</span><span class="o">&gt;&gt;&gt;</span><span class="n">D</span><span class="p">.</span><span class="n">__mro__</span>
+<span class="p">(</span><span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">__main__</span><span class="p">.</span><span class="n">D</span><span class="s">'&gt;, &lt;class '</span><span class="n">__main__</span><span class="p">.</span><span class="s">B'&gt;, &lt;class '</span><span class="n">__main__</span><span class="p">.</span><span class="n">C</span><span class="s">'&gt;, &lt;class '</span><span class="n">__main__</span><span class="p">.</span><span class="n">A</span><span class="s">'&gt;, &lt;class '</span><span class="nb">object</span><span class="s">'&gt;)
+ #object是所有类的基类
+</span></code></pre></div></div>
+
+<p>或者利用super函数解决。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">A</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"进入A…"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"离开A…"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"进入B…"</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"离开B…"</span><span class="p">)</span>
+        
+<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"进入C…"</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"离开C…"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">D</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"进入D…"</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"离开D…"</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">D</span><span class="p">()</span>
+<span class="n">进入D</span><span class="err">…</span>
+<span class="n">进入B</span><span class="err">…</span>
+<span class="n">进入C</span><span class="err">…</span>
+<span class="n">进入A</span><span class="err">…</span>
+<span class="n">离开A</span><span class="err">…</span>
+<span class="n">离开C</span><span class="err">…</span>
+<span class="n">离开B</span><span class="err">…</span>
+<span class="n">离开D</span><span class="err">…</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意1：构造方法不能return值，否则报错</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">TypeError</span><span class="p">:</span> <span class="n">__init__</span><span class="p">()</span> <span class="n">should</span> <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="ow">not</span> <span class="s">'str'</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意2：当子类方法覆盖了父类方法时，不会删除父类方法，只是该子类看不到父类方法了而已</p>
+</blockquote>
+
+<blockquote>
+  <p>注意3：当我们想故意覆盖掉父类的方法时，可以定义一个方法直接pass掉，如下：</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Bird</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">fly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"fly"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Penguin</span><span class="p">(</span><span class="n">Bird</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>练习：定义一个点（Point）类和直线（Line）类，使用getLen方法可以获得直线长度</p>
+</blockquote>
+
+<p>提示：
+Python中开根号使用math模块中的sqrt函数</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">math</span>
+<span class="k">class</span> <span class="nc">Point</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valX</span><span class="p">,</span> <span class="n">valY</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">valX</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">valY</span>
+    <span class="k">def</span> <span class="nf">getX</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">x</span>
+    <span class="k">def</span> <span class="nf">getY</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">y</span>
+
+<span class="k">class</span> <span class="nc">Line</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pointA</span><span class="p">,</span> <span class="n">pointB</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">diffX</span> <span class="o">=</span> <span class="n">pointA</span><span class="p">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">-</span> <span class="n">pointB</span><span class="p">.</span><span class="n">getX</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">diffY</span> <span class="o">=</span> <span class="n">pointA</span><span class="p">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">-</span> <span class="n">pointB</span><span class="p">.</span><span class="n">getY</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">getLen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">diffX</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">diffX</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">diffY</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">diffY</span><span class="p">)</span>
+
+<span class="n">pointA</span>               <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">pointB</span>               <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">line</span>                 <span class="o">=</span> <span class="n">Line</span><span class="p">(</span><span class="n">pointA</span><span class="p">,</span> <span class="n">pointB</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">getLen</span><span class="p">())</span>
+</code></pre></div></div>
+
+<p>本例子中获得的经验：</p>
+
+<ol>
+  <li>定义的类可以作为后面类的参数</li>
+  <li>注意math.sqrt的用法</li>
+  <li>在python中不能用”^2”来表示平方，平方用”**2”来表示</li>
+</ol>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/amplitude-and-phase-contrast-1/"
+				title="link to The interaction between the electron and the sample">The interaction between the electron and the sample</a></h2>
+		<p class="excerpt">Let’s firstly try to analysis the process, during which the single primary electron shot by the high velocity hits at one atom of the sample.There were three situations:Situation 1. As seen in the (a). The primary electron is unscattered, and noth...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-14 09:13:24 +0800"
+				class="post-list__meta--date date">2019-11-14</time> &#8226; <span
+				class="post-list__meta--tags tags">cryo-EM</span><a class="btn-border-small"
+				href=/2019/11/amplitude-and-phase-contrast-1/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/assembly-language-29/"
+				title="link to 汇编语言 7.10 不同寻址方式的灵活运用 (1)">汇编语言 7.10 不同寻址方式的灵活运用 (1)</a></h2>
+		<p class="excerpt">7.10 不同寻址方式的灵活运用(1)之前有介绍过几种定位内存地址的方法（寻址方式）：  [idata]用一个常量来表示内存地址，可用于直接定义一个内存单元，注意的是，单独使用[idata]只能在debug中被正确识别，如果在masm中，需要表明[idata]对应的段，即ds:[idata]。  [bx]用一个变量来表示内存地址，可用于间接定位一个内存单元。其使用时不用表明对应的段，默认[bx]就是在ds中。  [bx+idata]。  [bx+si]。  [bx+si+idata]用两个...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-13 00:00:00 +0800"
+				class="post-list__meta--date date">2019-11-13</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/11/assembly-language-29/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/11/python-class-object-3/";
+        this.page.identifier = "/2019/11/python-class-object-3/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

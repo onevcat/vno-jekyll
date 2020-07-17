@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 7.1 7.2 7.3 7.4 and or, ASCII, 按字符给出数据, 大小写转化</title>
+  <meta name="description" content="7.1 and和or指令">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 7.1 7.2 7.3 7.4 and or, ASCII, 按字符给出数据, 大小写转化">
+  <meta name="twitter:description" content="7.1 and和or指令">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 7.1 7.2 7.3 7.4 and or, ASCII, 按字符给出数据, 大小写转化">
+  <meta property="og:description" content="7.1 and和or指令">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/11/assembly-language-26/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-11-08 22:11:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-11-08</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 7.1 7.2 7.3 7.4 and or, ASCII, 按字符给出数据, 大小写转化</h1>
+
+		</header>
+
+		<section class="post">
+			<h3 id="71-and和or指令">7.1 and和or指令</h3>
+
+<h4 id="and-指令">and 指令</h4>
+
+<pre><code class="language-x86asm">mov al, 01100011B
+mov al, 00111011B
+
+;结果为 al = 00100011B
+</code></pre>
+<p>通过该指令可将操作对象的相应位设为0，其他不变。如将al的第六位设置为零的指令为：</p>
+
+<pre><code class="language-x86asm">and al, 10111111B
+</code></pre>
+
+<h4 id="or-指令">or 指令</h4>
+
+<pre><code class="language-x86asm">mov al, 01100011B
+or al, 00111011B
+
+;结果为 al = 01111011B
+</code></pre>
+<p>通过该指令可将操作对象的相应位设置为1，其他位不变。如将al的第六位设置为1的指令为：</p>
+
+<pre><code class="language-x86asm">or al, 09000000B
+</code></pre>
+
+<h3 id="72-关于ascii码">7.2 关于ASCII码</h3>
+
+<p>世界上有很多种编码方案，有一种方案叫做ASCII编码，是在计算机系统中通常被采用的。比如ASCII中，61H表示’a’, 62H表示’b’。</p>
+
+<h4 id="文本便捷过程">文本便捷过程</h4>
+
+<p>我们按下键盘的a键，这个按键的信息被送入计算机，计算机用ASCII码的规则对其进行编码，将其转化为61H存储在内存的指定空间中；文本编辑软件从内存中取出61H，将其送到显卡上的显存中。</p>
+
+<h3 id="73-以字符形式给出的数据">7.3 以字符形式给出的数据</h3>
+
+<p>我们可以在汇编程序中，用<strong>单引号</strong>指明数据时以字符的形式给出，编译器将把他们转化为对应的ASCII码。如下代码：</p>
+
+<pre><code class="language-x86asm">assume cs:code, ds:data
+data segment
+  db 'unIX'
+  db 'foRK'
+data ends
+code segment
+  start: mov al, 'a'
+         mov bl, 'b'
+         mov ax, 4c00h
+         int 21h
+code ends
+end start
+</code></pre>
+<p>这里<code class="language-plaintext highlighter-rouge">mov al, 'a'</code>相当于<code class="language-plaintext highlighter-rouge">mov al, 61H</code>，可以使用debug查看。电脑会直接将字符转化为ASCII码。</p>
+
+<h3 id="74-大小写转换的问题">7.4 大小写转换的问题</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>大写</th>
+      <th>十六进制</th>
+      <th>二进制</th>
+      <th>小写</th>
+      <th>十六进制</th>
+      <th>二进制</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>41</td>
+      <td>01000001</td>
+      <td>a</td>
+      <td>61</td>
+      <td>01100001</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>42</td>
+      <td>01000010</td>
+      <td>b</td>
+      <td>62</td>
+      <td>01100010</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>同理我们发现如果将’a’的ASCII码值减去20H，就会得到’A’。相应的二进制第5位上多了一个 1。</p>
+
+<p>可以通过ASCII码的二进制形式来不需要判断相应字符大小写来直接对其进行改写大小写，代码如下：</p>
+
+<pre><code class="language-x86asm">assume cs:codesg, ds:datasg
+
+datasg segment
+  db 'BaSiC'
+  db 'iNfOrMaTiOn'
+datasg ends
+
+codesg segment
+start:  mov ax, datasg
+        mov ds, ax    ;设置ds指向datasg
+
+        mov bx, 0    ;设置ds:[bx]指向‘BaSiC’第一个字母
+
+        mov cx, 5
+      s:mov al, [bx]  ;将ASCII码从ds:bx所指向的单元中取出
+        and al, 11011111B  ;将ASCII第五位改为0，变为大写字母
+        mov [bx], al      ;将转变后的ASCII码写回原单元
+        inc bx
+        loop s
+
+        mov bx, 5
+        
+        mov cx, 11
+     s0:mov al, [bx]
+        or al, 00100000B
+        mov [bx], al
+        inc bx
+        loop s0
+
+        mov ax, 4c00h
+        int 21h
+
+codesg ends
+end start
+</code></pre>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/assembly-language-27/"
+				title="link to 汇编语言 7.5 7.6 通过[bx+idata]进行数组处理">汇编语言 7.5 7.6 通过[bx+idata]进行数组处理</a></h2>
+		<p class="excerpt">7.5 [bx+idata]例如我们要访问地址[10H], 可以进行如下变换：\[[bx=10H]=[bx=8H+2H]\][bx+idata]表示一个内存单元，它的偏移地址为(bx)+idata (bx中的数值加上idata)。将这种操作代入指令中，如mov ax, [bx+200]，含义为：\[(ax)=((ds)*16+(bx)+200)\][bx+idata]的形式有多种方法，如下等同：  mov ax, [200+bx]  mov ax, 200[bx]  mov ax, [bx...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-11 09:39:24 +0800"
+				class="post-list__meta--date date">2019-11-11</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/11/assembly-language-27/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/assembly-language-25/"
+				title="link to 汇编语言 实验5 第二部分">汇编语言 实验5 第二部分</a></h2>
+		<p class="excerpt">代码1、编写代码段代码，将a段和b段中的数据依次相加，将结果存到c段中。assume cs:codea segment    db 1, 2, 3, 4, 5, 6, 7, 8a endsb segment    db 1, 2, 3, 4, 5, 6, 7, 8b endsc segment    db 0, 0, 0, 0, 0, 0, 0, 0c endscode segmentstart:  mov ax, a        mov ds, ax        mov ax, b ...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-07 22:22:24 +0800"
+				class="post-list__meta--date date">2019-11-07</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/11/assembly-language-25/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/11/assembly-language-26/";
+        this.page.identifier = "/2019/11/assembly-language-26/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

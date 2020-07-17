@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>LA3.2 The Nullspace of A</title>
+  <meta name="description" content="The Nullspace of A  The nullspace $N(A)$ consists of all solutions to $Ax=0$. These vectors $x$ are in $R^n$.">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="LA3.2 The Nullspace of A">
+  <meta name="twitter:description" content="The Nullspace of A  The nullspace $N(A)$ consists of all solutions to $Ax=0$. These vectors $x$ are in $R^n$.">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="LA3.2 The Nullspace of A">
+  <meta property="og:description" content="The Nullspace of A  The nullspace $N(A)$ consists of all solutions to $Ax=0$. These vectors $x$ are in $R^n$.">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/09/LA-the-nullspace/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-09-17 07:50:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-09-17</time> &#8226; <span
+					class="post-meta__tags tags">数学</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#数学">数学</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">LA3.2 The Nullspace of A</h1>
+
+		</header>
+
+		<section class="post">
+			<h3 id="the-nullspace-of-a">The Nullspace of A</h3>
+<blockquote>
+  <p>The nullspace $N(A)$ consists of all solutions to $Ax=0$. These vectors $x$ are in $R^n$.</p>
+</blockquote>
+
+<p>The solution vectors $x$ have $n$ components. They are vectors in $R^n$, so the <em>nullspace is a subspace of $R^n$</em>. The $C(A)$ is a subspace of $R^m$.
+The $N(A)$ contains all the combinations of the <strong><em>special solutions</em></strong> to $Ax=0$.</p>
+
+<p><strong>Example</strong> $x+2y+3z=0$ comes from the 1 by 3 matrix $A=$
+\(\begin{bmatrix}1&amp;2&amp;3\\\end{bmatrix}\)
+. Then $Ax=0$ produces a plane. All vectors on the plane are perpendicular to $(1, 2, 3)$.The plane is the nullspace of $A$. Set two free variables $y$ and $z$ to $0$ and $1$.</p>
+
+<p>\(\begin{bmatrix}1&amp;2&amp;3\\\end{bmatrix}\)
+\(\begin{bmatrix}1\\2\\3\\\end{bmatrix}\)
+\(=0\)
+has two special solutions $s_1$=
+\(\begin{bmatrix}-2\\1\\0\\\end{bmatrix}\)
+and $s_2$=
+\(\begin{bmatrix}-3\\0\\1\\\end{bmatrix}\)
+.</p>
+
+<p>Those vectors $s_1$ and $s_2$ lie on the plane $x+2y+3z=0$. All vectors on the plane are combinations of $s_1$ and $s_2$.</p>
+
+<p>We notice the last two components are free, because they were assigned $0$ or $1$.</p>
+
+<blockquote>
+  <p>The two key steps of this section:</p>
+  <ol>
+    <li>Reducing A to its <strong>row echelon form $R$</strong>.</li>
+    <li>Finding the <strong>special solutons</strong> to $Ax=0$</li>
+  </ol>
+</blockquote>
+
+<h4 id="pivot-columns-and-free-columns">Pivot Columns and Free Columns</h4>
+
+<p>Let’s continue to find something to make this system more stable. $C=$
+\(\begin{bmatrix}1&amp;2&amp;2&amp;4\\3&amp;8&amp;6&amp;16\\\end{bmatrix}\)
+becomes $U=$
+\(\begin{bmatrix}1&amp;2&amp;2&amp;4\\0&amp;2&amp;0&amp;4\\\end{bmatrix}\)
+. In $U$, columns 1 and 2 are pivot columns and columns 3 and 4 are free columns.</p>
+
+<p>From this view, we can find elimination doesn’t change solutions — This is also the nullspace of $U$. To think about this, I will make a consideration of equations, because the value at the right side is always 0, so the elimination will not affect the solutions of the nullspace.</p>
+
+<h4 id="the-reduced-row-echelon-form-r">The Reduced Row Echelon Form R</h4>
+
+<p>$U(A)$ is a very easy way to get the special solutions to $Us=0$, however, not the easiest way. Now let’s see the <strong>Reduced Row Echelon Form</strong> $R$ ($rref(A)$).</p>
+
+<p>How to make a $rref(A)$?</p>
+
+<ol>
+  <li><strong><em>Produce zeros above the pivots</em></strong>. Use pivot rows to eliminate upward in $R$.</li>
+  <li><strong><em>Produce ones in the pivots</em></strong>. Divide the whole pivot row by its pivot.</li>
+</ol>
+
+<p>It’s same with $U(A)$, $N(A)$ also does not change the zero vector on the right side, another word, $N(A)=N(U)=N(R)$. This nullspace becomes the easiest to see when we reach the <strong><em>reduced row echelon form</em></strong> $R=rref(A)$. And through the operations of $N(R)$, we can easy get a very beautiful attribution, <strong><em>The pivot columns of R contain</em></strong> $I$.</p>
+
+<p>Have an example:</p>
+
+<p>$U=$
+\(\begin{bmatrix}1&amp;2&amp;2&amp;4\\0&amp;2&amp;0&amp;4\\\end{bmatrix}\)
+becomes $R=$
+\(\begin{bmatrix}1&amp;0&amp;2&amp;0\\0&amp;1&amp;0&amp;2\\\end{bmatrix}\)
+.</p>
+
+<p>To get the special solutions, we can very easily value the free components (columns) $1$ or $0$ to get $s_1=(-2,0,1,0)$ and $s_2=(0, -2, 0, 1)$. Thanks to the rref operations, we can get the value at the pivot components very easily, just assign it a ‘minus’ to the free components which were given the $1$ in the nullspace. There is an example to help understand this process:</p>
+
+<blockquote>
+  <p>Pivot Varibles and Free Variables in the Echelon Matrix</p>
+</blockquote>
+
+<p><strong>$p$ means pivot columns</strong> while <strong>$f$ means free columns</strong></p>
+
+<p>$A=$
+\(\begin{bmatrix}p&amp;p&amp;f&amp;p&amp;f\\|&amp;|&amp;|&amp;|&amp;|\\|&amp;|&amp;|&amp;|&amp;|\\|&amp;|&amp;|&amp;|&amp;|\\\end{bmatrix}\)
+$R=$
+\(\begin{bmatrix}1&amp;0&amp;a&amp;0&amp;c\\0&amp;1&amp;b&amp;0&amp;d\\0&amp;0&amp;0&amp;1&amp;e\\0&amp;0&amp;0&amp;0&amp;0\\\end{bmatrix}\)
+$s_1=$
+\(\begin{bmatrix}-a\\-b\\1\\0\\0\\\end{bmatrix}\)
+$s_2=$
+\(\begin{bmatrix}-c\\-d\\0\\-e\\1\\\end{bmatrix}\)
+.</p>
+
+<p>Now let’s talk something more interesting. About the <strong><em>dimension</em></strong>.</p>
+
+<blockquote>
+  <p>See the $N(R)$ below, think about what are the column space and the nullspace for this matrix $R$?</p>
+</blockquote>
+
+<p>$R=$
+\(\begin{bmatrix}1&amp;0&amp;x&amp;x&amp;x&amp;0&amp;x\\0&amp;1&amp;x&amp;x&amp;x&amp;0&amp;x\\0&amp;0&amp;0&amp;0&amp;0&amp;1&amp;x\\0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0\\\end{bmatrix}\)</p>
+
+<p>The columns of $R$ have four components (rows) so they lie in $R^4$. The column space $C(R)$ consists of all vectors of the form $(b_1, b_2, b_3, 0)$. Counting the pivots leads to an extremely important theorem. Suppose $A$ has more columns than rows. <strong><em>With $n&gt;m$ there is at least one free variable</em></strong>. The system <strong>$Ax=0$ has at least one special solution and this solution is not zero</strong>!</p>
+
+<p>For a <em>Short Wide</em> matrix ($n&gt;m$), in its nullspce always has nonzero vectors. And there must be at least $n-m$ free variables, since the number of pivots cannot exceed $m$. Here is the point: <strong>When there is a free variable, it can be set to $1$. Then the equation $Ax=0$ has at least a line of nonzero solutions</strong>.</p>
+
+<blockquote>
+  <p>About the dimension of nullspace</p>
+</blockquote>
+
+<p>Nullspace is a subspace. Its dimension is the number of <em>free variables</em>.</p>
+
+<h4 id="the-rank-of-a-matrix">The Rank of a Matrix</h4>
+
+<p>Sometimes we need to get the <strong>true size</strong> of a linear system, some rows may be a combination of other rows and becomes zero in the $U$ or the $rref$, and we don’‘t want to count them. So there comes the <strong><em>Rank</em></strong>, <strong><em>the true size of $A$</em></strong>.</p>
+
+<p>Here is an example:</p>
+
+<p>$A=$
+\(\begin{bmatrix}1&amp;1&amp;2&amp;4\\1&amp;2&amp;2&amp;5\\1&amp;3&amp;2&amp;6\\\end{bmatrix}\)
+and $R=$
+\(\begin{bmatrix}1&amp;0&amp;2&amp;3\\0&amp;1&amp;0&amp;1\\0&amp;0&amp;0&amp;0\\\end{bmatrix}\)</p>
+
+<p>The first two columns of $A$ are $(1, 1, 1)$ and $(2, 2, 2)$, <strong>going in different directions</strong>, which will be pivot columns. What we need to be attention, column 3 and column4 is free column,</p>
+
+<blockquote>
+  <p>$Column 3 =2(column 1) + 0(column 2)$  —-&gt;   $s_1=(-2, -0, 1, 0)$<br />
+  $Column 4 =3(column 1) + 1(column 2)$  —-&gt;   $s_2=(-3, -1, 0, 1)$</p>
+</blockquote>
+
+<p>Actually, <strong><em>Every free column is a combination of earlier pivot columns. It is the special solutions $s$ that tell us those combinations</em></strong>.</p>
+
+<h4 id="rank-one">Rank One</h4>
+
+<p>Matrices of <strong>rank one</strong> have only one pivot. The column space of a rank one matrix is ‘one-dimensional’.</p>
+
+<p>For example,
+$A=$
+\(\begin{bmatrix}1&amp;3&amp;10\\2&amp;6&amp;20\\3&amp;9&amp;30\\\end{bmatrix}\)
+—-&gt;
+$R=$
+\(\begin{bmatrix}1&amp;3&amp;10\\0&amp;0&amp;0\\0&amp;0&amp;0\\\end{bmatrix}\)</p>
+
+<p>Here all columns are on the line through $u= (1, 2, 3)$. The columns of $A$ is $u, 3u, 10u$. Put those numbers into the row $v^T=$
+\(\begin{bmatrix}1&amp;3&amp;10\\\end{bmatrix}\)
+and you have the special rank one form $A = uv^T$</p>
+
+<blockquote>
+  <p>$A = column times row = uv^T$<br />
+\(\begin{bmatrix}1&amp;3&amp;10\\2&amp;6&amp;20\\3&amp;9&amp;30\\\end{bmatrix}\)
+$=$
+\(\begin{bmatrix}1\\2\\3\\\end{bmatrix}\)
+\(\begin{bmatrix}1&amp;3&amp;10\\\end{bmatrix}\)</p>
+</blockquote>
+
+<p>With rank one, $Ax=0$ is easy to understand. That equation $u(v^Tx)=0$ leads us to $u^Tx = 0$. All vectors $x$ in the nullspace must be othogonal to $v$ in the row space. This is the geometry when $r=1$: <strong><em>row space = line, nullspace = perpendicular plane</em></strong>.</p>
+
+<p>$A$ and $U$ and $R$ also have <strong><em>r independent columns</em></strong> (pivot columns).</p>
+
+<p>The <strong><em>rank r</em></strong> is the ‘<strong><em>dimension</em></strong>’ of the column space. It is also the <strong><em>dimension of the row space</em></strong>. There is a very great thing: ##</p>
+
+<blockquote>
+  <p>The <strong><em>Dimension of the nullspace</em></strong> = $n-r$ ##</p>
+</blockquote>
+
+<p>Very important!</p>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/09/assembly-language-1/"
+				title="link to 汇编语言第一章总结">汇编语言第一章总结</a></h2>
+		<p class="excerpt">汇编 第一章 小结：  汇编是及其指令的助记符  每一种CPU都有自己的汇编指令集  CPU可以直接使用的信息在存储器中存放（存储器就是内存，数据交换的地方）  在存储器中指令和数据没有任何区别，都是二进制信息，放在不同的路上  存储单元从零开始顺序编号  一个存储单元可以存储8个bit(b, 位)，即8位二进制数  1B = 8b, 1KB = 1024B, 1MB = 1024KB, 1GB = 1024MB  每个CPU芯片都有许多管脚，与总线相连，也可以说，这些管脚引出总线。一个C...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-09-20 08:22:24 +0800"
+				class="post-list__meta--date date">2019-09-20</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/09/assembly-language-1/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/09/cookbook-study-1/"
+				title="link to PCB1.1 - Squence unpacking, Star syntax, deque, yield, Keeping the Last N Items, Finding the Largest or Smallest N Items, and Implementing a Priority Queue">PCB1.1 - Squence unpacking, Star syntax, deque, yield, Keeping the Last N Items, Finding the Largest or Smallest N Items, and Implementing a Priority Queue</a></h2>
+		<p class="excerpt">About the titlePython - Cookbook study CHAPTER 1 - Data Strucutres and Algorithms - PCB1 for shortSomething to say before everything beginsI plan to have a python cookbook study (David Beazley &amp; Brian K. Jones). Aim to have a deeper understand...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-09-16 07:21:24 +0800"
+				class="post-list__meta--date date">2019-09-16</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/09/cookbook-study-1/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/09/LA-the-nullspace/";
+        this.page.identifier = "/2019/09/LA-the-nullspace/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python 时间处理模块总结</title>
+  <meta name="description" content="整理自小甲鱼鱼C论坛">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="python 时间处理模块总结">
+  <meta name="twitter:description" content="整理自小甲鱼鱼C论坛">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="python 时间处理模块总结">
+  <meta property="og:description" content="整理自小甲鱼鱼C论坛">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/12/python-time-relative/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-12-04 20:47:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-12-04</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">python 时间处理模块总结</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+
+<h3 id="python中与时间处理总结">python中与时间处理总结</h3>
+
+<p>Python中，与时间有关的模块包括：time，datetime以及calender。</p>
+
+<blockquote>
+  <p>datetime模块</p>
+</blockquote>
+
+<h4 id="datetime支持的时间范围">datetime支持的时间范围</h4>
+
+<p>object.MINYEAR = 1
+object.MAXYEAR = 9999</p>
+
+<h4 id="timedelta类属性">timedelta类属性</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>timedelta.min</th>
+      <th>timedelta(-999999999)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>timedelta.max</td>
+      <td>timedelta(days=999999999, hours=23, minutes=59, seconds=59, microseconds=999999)</td>
+    </tr>
+    <tr>
+      <td>timedelta.resolution</td>
+      <td>timedelta(miacroseconds=1)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>注意：<strong>timedelta.max &gt; -timedelta.min, -timedelta.max无意义</strong></p>
+
+<h4 id="timedelta实例属性只读">timedelta实例属性(只读)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>属性</th>
+      <th>取值范围</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>timedelta.days</td>
+      <td>-999999999 ~ 999999999</td>
+    </tr>
+    <tr>
+      <td>timedelta.seconds</td>
+      <td>0 ~ 86399</td>
+    </tr>
+    <tr>
+      <td>timedelta.microseconds</td>
+      <td>0 ~ 999999</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="datetime模块中定义的类">datetime模块中定义的类</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>定义的类</th>
+      <th>说明</th>
+      <th>常用属性</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>datetime.date</td>
+      <td>表示日期的类</td>
+      <td>year, month, day</td>
+    </tr>
+    <tr>
+      <td>datetime.time</td>
+      <td>表示时间的类</td>
+      <td>hour, minute, second, microsecond, tzinfo</td>
+    </tr>
+    <tr>
+      <td>datetime.datetime</td>
+      <td>表示日期和时间的类</td>
+      <td>year, month, day, hour, minute, second, microsecond, tzinfo</td>
+    </tr>
+    <tr>
+      <td>datetime.timedelta</td>
+      <td>表示时间间隔的类</td>
+      <td>两个时间点date, time, datetime之间的长度</td>
+    </tr>
+    <tr>
+      <td>datetime.tzinfo</td>
+      <td>表示时区的基类</td>
+      <td>为time与datetime类提供调整的基准</td>
+    </tr>
+    <tr>
+      <td>datetime.timezone</td>
+      <td>表示UTC时区的固定偏移</td>
+      <td>是tzinfo基类的实现</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="timedelta对象详解">timedelta对象详解</h4>
+
+<p>timedelta对象表示两个日期或时间之间的间隔</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span><span class="p">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">seconds</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">microseconds</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">milliseconds</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">minutes</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">hours</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">weeks</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>默认参数可以是整数，浮点数，整数或复数，默认为0。<strong>内部存储单位只有days，seconds以及microseconds，其他单位需要进行换算</strong>。</p>
+
+<h4 id="timedelta对象支持的操作">timedelta对象支持的操作</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>操作</th>
+      <th>结果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>t1=t2+t3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>t1=t2-t3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>t1=t2*i</td>
+      <td>对象乘以一个整数</td>
+    </tr>
+    <tr>
+      <td>t1=t2*f</td>
+      <td>对象乘以一个浮点数，结果四舍五入到精度timedelta.resolution</td>
+    </tr>
+    <tr>
+      <td>f=t2/t3</td>
+      <td>t2和t3的商，返回一个float对象</td>
+    </tr>
+    <tr>
+      <td>t1=t2/f或t1=t2/i</td>
+      <td>对象除以一个整数或浮点数，结果四舍五入到精度</td>
+    </tr>
+    <tr>
+      <td>t1=t2//i或t1=t2//t3</td>
+      <td>对象地板除一个整数或浮点数，结果社区小鼠，返回一个整数</td>
+    </tr>
+    <tr>
+      <td>t1=t2%t3</td>
+      <td>t2和t3的余数，返回一个timedelta对象</td>
+    </tr>
+    <tr>
+      <td>q,r = divmod(t1, t2)</td>
+      <td>计算t1和t2的商和余数，q=t1//t2，r=t1%t2, q是一个整数，r是一个timedelta对象</td>
+    </tr>
+    <tr>
+      <td>+t1</td>
+      <td>返回一个timedelta对象，且值相同</td>
+    </tr>
+    <tr>
+      <td>-t1</td>
+      <td>等同于timedelta(-t1.days, -t1.seconds, -t1.microseconds)，并且相当于t1*-1</td>
+    </tr>
+    <tr>
+      <td>abs(t)</td>
+      <td>当t.days &gt;= 0时，等同于+t；当t.days &lt;= 0时，等同-t</td>
+    </tr>
+    <tr>
+      <td>str(t)</td>
+      <td>返回一个字符串，格式为：[D day[s], ][H]H:MM:SS[.UUUUUU]</td>
+    </tr>
+    <tr>
+      <td>repr(t)</td>
+      <td>返回一个字符串，格式为：datetime.timedelta(D[, S[, U]])</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="timedelta的实例方法">timedelta的实例方法</h4>
+
+<p><code class="language-plaintext highlighter-rouge">timedelta.total_seconds()</code> 返回timedelta对象所包含的总秒数，相当于td/timedelta(seconds=1)</p>
+
+<p>请注意，对于非常大的时间间隔(大于270年),这种方法将失去微妙(microsecond)精度。</p>
+
+<blockquote>
+  <p>date 对象</p>
+</blockquote>
+
+<p>date对象表示一个日期，在一个理想化的日历里，日期由year, month, day。</p>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.date(year, month, day)</code></p>
+
+<h4 id="date参数的范围">date参数的范围</h4>
+
+<p>参数必需为整数并且满足一下范围：</p>
+
+<ol>
+  <li>MINYEAR &lt;= year &lt;= MAXYEAR (也就是 1 ~ 9999)</li>
+  <li>1 &lt;= month &lt;= 12</li>
+  <li>1 &lt;= day &lt;= 根据year 和 month来决定(例如闰年和非闰年的二月问题)</li>
+</ol>
+
+<h4 id="date类方法classmethod">date类方法(classmethod):</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>classmethod</th>
+      <th>功能</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>date.today()</td>
+      <td>返回一个表示当前本地日期的date对象</td>
+    </tr>
+    <tr>
+      <td>date.fromtimestam(timestamp)</td>
+      <td>根据给定的timestamp返回date对象</td>
+    </tr>
+    <tr>
+      <td>date.fromordinal(ordinal)</td>
+      <td>将Gregorian日历时间转换为date对象</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="date类属性">date类属性</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>类属性</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>date.min</td>
+      <td>date(MINYEAR, 1, 1)</td>
+    </tr>
+    <tr>
+      <td>date.max</td>
+      <td>date(MAXYEAR, 12, 31)</td>
+    </tr>
+    <tr>
+      <td>date.resolution</td>
+      <td>timedelta(days=1)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="date实例属性只读">date实例属性(只读)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>属性</th>
+      <th>取值范围</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>date.year</td>
+      <td>MINYEAR~MAXYEAR(1~9999)</td>
+    </tr>
+    <tr>
+      <td>date.month</td>
+      <td>1~12</td>
+    </tr>
+    <tr>
+      <td>date.day</td>
+      <td>1~根据year和month具体确定</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="对象支持的操作">对象支持的操作</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>操作</th>
+      <th>结果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>date2 = date1 + timedelta</td>
+      <td>日期+时间间隔，返回新的日期对象</td>
+    </tr>
+    <tr>
+      <td>date2 = date1 - timedelta</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>timedelta = date1 - date2</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>date1 &lt; date2</td>
+      <td>比较两个日期前后</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="date实例方法">date实例方法：</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>实例方法</th>
+      <th>功能</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>date.replace(year, month, day)</td>
+      <td>生成一个新的日期对象，用参数指定的年月日代替原有属性</td>
+    </tr>
+    <tr>
+      <td>date.timetuple()</td>
+      <td>返回日期对应的time.struct_time对象(类似于time.localtime())</td>
+    </tr>
+    <tr>
+      <td>date.toordinal()</td>
+      <td>返回日期对应的Gregorian Calendar日期</td>
+    </tr>
+    <tr>
+      <td>date.weekday()</td>
+      <td>返回0~6表示星期几(星期一是0，以此类推)</td>
+    </tr>
+    <tr>
+      <td>date.isoweekday()</td>
+      <td>返回1~7表示星期几(星期一是1，以此类推)</td>
+    </tr>
+    <tr>
+      <td>date.isocalendar()</td>
+      <td>返回一个三元组格式(year, month, day)</td>
+    </tr>
+    <tr>
+      <td>date.isoformat()</td>
+      <td>返回一个ISO 8601格式的日期字符串，如”YYYY-MM-DD”的字符串</td>
+    </tr>
+    <tr>
+      <td>date.__str__()</td>
+      <td>对于date对象d来说，str(d)相当于d.isoformat()</td>
+    </tr>
+    <tr>
+      <td>date.ctime()</td>
+      <td>返回一个表示日期的字符串，同time.ctime(time.mktime(d/timetuple()))</td>
+    </tr>
+    <tr>
+      <td>date.strftime(format)</td>
+      <td>返回自定义格式化字符串表示日期</td>
+    </tr>
+    <tr>
+      <td>date.__format__(format)</td>
+      <td>跟date.strftime(format)一样，这使得调用str.format()时可以指定data对象的的字符串</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>代码示例：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">date</span><span class="p">.</span><span class="n">fromordinal</span><span class="p">(</span><span class="mi">735678</span><span class="p">)</span>  <span class="c1"># 1.1.0001后735678天
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="n">datetime</span><span class="p">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">timetuple</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="mi">2015</span>
+<span class="mi">3</span>
+<span class="mi">21</span>
+<span class="mi">0</span>
+<span class="mi">0</span>
+<span class="mi">0</span>
+<span class="mi">5</span>
+<span class="mi">80</span>
+<span class="o">-</span><span class="mi">1</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ic</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">isocalendar</span><span class="p">()</span>    <span class="c1">#对比d.timetuple()方法的输出数据
+</span><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ic</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="mi">2015</span>
+<span class="mi">12</span>
+<span class="mi">6</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">isoformat</span><span class="p">()</span>    <span class="c1"># ISO 8601格式输出，“YYYY-MM-DD”
+</span><span class="s">'2015-03-21'</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"%d/%m/%y"</span><span class="p">)</span>    <span class="c1">#自定义输出格式
+</span><span class="s">'21/03/15'</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"%A %d. %B %Y"</span><span class="p">)</span>    <span class="c1">#%A大写的周
+</span><span class="s">'Saturday 21. March 2015'</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="s">'The {1} is {0:%d}, the {2} is {0:%b}.'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s">"day"</span><span class="p">,</span> <span class="s">"month"</span><span class="p">)</span>
+<span class="s">'The day is 21, the month is March.'</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>time 对象</p>
+</blockquote>
+
+<p>time对象表示一天中的一个时间，可以通过tzinfo对象进行调整。</p>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.time(hour=0, minute=0, second=0, microsecond=0, tzinfo=None)</code></p>
+
+<h4 id="time-参数范围">time 参数范围</h4>
+
+<p>所有参数都是可选的，tzinfo可以是None或者tzinfo子类的实例对象；其余参数可以是整数，并在一下范围内：</p>
+
+<ol>
+  <li>0 &lt;= hour &lt; 24</li>
+  <li>0 &lt;= minute &lt; 60</li>
+  <li>0 &lt;= second &lt; 60</li>
+  <li>0 &lt;= microsecond &lt; 1000000</li>
+</ol>
+
+<p>注：如果参数超出范围，将引发ValueError</p>
+
+<h4 id="time-类属性">time 类属性</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>类属性</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>time.min</td>
+      <td>time(0, 0, 0, 0)</td>
+    </tr>
+    <tr>
+      <td>time.max</td>
+      <td>time(23, 59, 59, 999999)</td>
+    </tr>
+    <tr>
+      <td>time.resolution</td>
+      <td>timedelta(microseconds=1)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="time-属性只读">time 属性(只读)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>属性</th>
+      <th>取值范围</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>time.hour</td>
+      <td>0~23</td>
+    </tr>
+    <tr>
+      <td>time.minute</td>
+      <td>0~59</td>
+    </tr>
+    <tr>
+      <td>time.second</td>
+      <td>0~59</td>
+    </tr>
+    <tr>
+      <td>time.microsecond</td>
+      <td>0~999999</td>
+    </tr>
+    <tr>
+      <td>time.tzinfo</td>
+      <td>通过构造函数的tzinfo参数赋值</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="time-实例方法">time 实例方法</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>实例方法</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>time.replace([hour[, minute[, second[, microsecond[, tzinfo]]]]])</td>
+      <td>生成一个新的日期对象，用参数指定，时间代替原有属性</td>
+    </tr>
+    <tr>
+      <td>time.isoformat()</td>
+      <td>返回一个ISO 8601 格式的日期字符串，如”HH:MM:SS.mmmmmm”的字符串</td>
+    </tr>
+    <tr>
+      <td>time.__str__()</td>
+      <td>对于time对象t来说，str(t)相当于t.isoformat()</td>
+    </tr>
+    <tr>
+      <td>time.strftime(format)</td>
+      <td>返回自定义格式化字符串表示时间</td>
+    </tr>
+    <tr>
+      <td>time.__format__(format)</td>
+      <td>同time.strftime(format)，使得调用str.format()时可以指定time对象的字符串</td>
+    </tr>
+    <tr>
+      <td>time.utcoffset()</td>
+      <td>如果tzinfo属性是None，则返回None；否则返回self.tzinfo.utcoffset(self)</td>
+    </tr>
+    <tr>
+      <td>time.dst()</td>
+      <td>如果tzinfo属性是None，则返回None；否则返回self.tzinfo.tzname(self)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>time 代码示例，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">fromt</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="nn">time</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">tzinfo</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">GMT1</span><span class="p">(</span><span class="n">tzinfo</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">utcoffset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">dst</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">timedelta</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">tzname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s">"欧洲/布拉格"</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">GMT1</span><span class="p">())</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span>
+<span class="n">datetime</span><span class="p">.</span><span class="n">time</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=&lt;</span><span class="n">__main__</span><span class="p">.</span><span class="n">GMT1</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x02D7FE90</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gmt</span> <span class="o">=</span> <span class="n">GMT1</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">isoformat</span><span class="p">()</span>
+<span class="s">'14:10:30+01:00'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">dst</span><span class="p">()</span>
+<span class="n">datetime</span><span class="p">.</span><span class="n">timedelta</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">tzname</span><span class="p">()</span>
+<span class="s">'欧洲/布拉格'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"%H:%M:%S %Z"</span><span class="p">)</span>
+<span class="s">'14:10:30 欧洲/布拉格'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s">'The {} is {:%H:%M}.'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="s">"time"</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="s">'The time is 14:10.'</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>datetime对象</p>
+</blockquote>
+
+<p>datetime对象是date对象和time对象的结合体，并且包含他们所有的信息。</p>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.datetime(year, month, day, hour=0, minute=0, second=0, microsecond=0, tzinfo=None)</code></p>
+
+<h4 id="datetime-参数范围">datetime 参数范围</h4>
+
+<p>必须的参数为year, month, day; tzinfo 可以是None或者tzinfo子类的实例对象；其余的参数可以是整数，范围同上，不做赘述。</p>
+
+<h4 id="datetime-实例属性只读">datetime 实例属性(只读)</h4>
+
+<p>datetime实例属性同上，不做赘述。</p>
+
+<h4 id="datetime对象支持的操作">datetime对象支持的操作</h4>
+
+<p>同date对象支持的操作，不做赘述。</p>
+
+<h4 id="datetime-类方法classmethod">datetime 类方法(classmethod)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>类方法</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>datetime.today()</td>
+      <td>返回一个表示当前本地时间的datetime对象，同datetime.fromtimestamp(time.time())</td>
+    </tr>
+    <tr>
+      <td>datetime.now(tz=None)</td>
+      <td>返回一个表示当前本地时间的datetime对象；如果提供了参数tz，则获取tz参数所指时区的本地时间</td>
+    </tr>
+    <tr>
+      <td>datetime.utcnow()</td>
+      <td>返回一个当前UTC时间的datetime对象</td>
+    </tr>
+    <tr>
+      <td>datetime.fromtimestamp(timestamp, tz=None)</td>
+      <td>根据时间戳创建一个datetime对象，参数tz指定时区信息</td>
+    </tr>
+    <tr>
+      <td>datetime.utcfromtimestamp(timestamp)</td>
+      <td>根据时间戳创建一个UTC时间的datetime对象</td>
+    </tr>
+    <tr>
+      <td>datetime.fromordinal(ordinal)</td>
+      <td>返回对应Gregorian日历时间对应的datetime对象</td>
+    </tr>
+    <tr>
+      <td>datetime.combine(date, time)</td>
+      <td>根据参数date和time，创建一个datetime对象</td>
+    </tr>
+    <tr>
+      <td>datetime.strptime(date_string, format)</td>
+      <td>将格式化字符串转化为datetime对象</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="datetime-类属性">datetime 类属性</h4>
+
+<p>参考time和date，不做赘述</p>
+
+<h4 id="datetime-实例方法">datetime 实例方法</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>实例方法</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>datetime.date()</td>
+      <td>返回一个date对象datetime.time()， 返回一个time对象(tzinfo属性为None)</td>
+    </tr>
+    <tr>
+      <td>datetime.timetz()</td>
+      <td>返回一个time()对象(带有tzinfo属性)</td>
+    </tr>
+    <tr>
+      <td>datetime.replace([year[,month,[day[,hour[,minute[,second[,microsecond[,tzinfo]]]]]]]])</td>
+      <td>生成一个新的日期对象，用参数指定日期和时间代替原有对象中的属性</td>
+    </tr>
+    <tr>
+      <td>datetime.astimezone(tz=None)</td>
+      <td>传入一个新的tzinfo属性，返回根据新时区调整好的datetime对象</td>
+    </tr>
+    <tr>
+      <td>datetime.utcoffset()</td>
+      <td>如果tzinfo为None，返回None；否则返回self.tzinfo.utcoffset(self)</td>
+    </tr>
+    <tr>
+      <td>datetime.dst()</td>
+      <td>tzinfo为None，返回None；否则返回self.tzinfo.dst(self)</td>
+    </tr>
+    <tr>
+      <td>datetime.tzname()</td>
+      <td>tzinfo为None，返回None；否则返回self.tzinfo.tzname(self)</td>
+    </tr>
+    <tr>
+      <td>datetime.timetuple()</td>
+      <td>返回日期对应的time.struct_time对象(类似于time模块的time.localtime())</td>
+    </tr>
+    <tr>
+      <td>datetime.utctimetuple()</td>
+      <td>返回UTC日期对应的time.struct_time对象</td>
+    </tr>
+    <tr>
+      <td>datetime.timestamp()</td>
+      <td>返回当前时间的时间戳(类似于time 模块的time.time())</td>
+    </tr>
+    <tr>
+      <td>date.weekday()</td>
+      <td>返回0~6表示星期几(星期一是0，以此类推))</td>
+    </tr>
+    <tr>
+      <td>datetime.isoweekday()</td>
+      <td>返回1~7表示星期几</td>
+    </tr>
+    <tr>
+      <td>datetime.isocalendar()</td>
+      <td>返回一个三元组格式(year, month, day)</td>
+    </tr>
+    <tr>
+      <td>datetime.isoformat(sep=’T’)</td>
+      <td>返回一个ISO 8601格式的日期字符串，如”YYYY-MM-DD”的字符串</td>
+    </tr>
+    <tr>
+      <td>datetime.__str__()</td>
+      <td>对于date对象来说，str(d)相当于d.isoformat()</td>
+    </tr>
+    <tr>
+      <td>datetime.ctime()</td>
+      <td>返回一个表示日期的字符串，相当于time模块的time.ctime(time.ctime(time.mktime(d.timetuple())))</td>
+    </tr>
+    <tr>
+      <td>datetime.strftime(format)</td>
+      <td>返回自定义格式化字符串表示日期</td>
+    </tr>
+    <tr>
+      <td>datetime.__format__(format)</td>
+      <td>与datetime.strftime(format)一样，这使得调用str.format()时可以指定data对象的字符串</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>格式化字符串： strftime() 和 strptime()</p>
+</blockquote>
+
+<p>date, datetime 和time均支持strftime(format)方法，将指定日期或时间转化为自定义的格式化字符串。</p>
+
+<p>datetime.strptime()类方法把格式化字符串转换为datetime对象。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>格式化指令</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%a</td>
+      <td>Mon, Tue, Wed…</td>
+    </tr>
+    <tr>
+      <td>%A</td>
+      <td>Monday, Tuesday, Wednesday…</td>
+    </tr>
+    <tr>
+      <td>%w</td>
+      <td>一个星期中的第几天，0星期天，6星期六</td>
+    </tr>
+    <tr>
+      <td>%d</td>
+      <td>在一个月的第几天(01,02,…,31)</td>
+    </tr>
+    <tr>
+      <td>%b</td>
+      <td>Jan, Feb…</td>
+    </tr>
+    <tr>
+      <td>%B</td>
+      <td>January, February…</td>
+    </tr>
+    <tr>
+      <td>%m</td>
+      <td>月份(01, 02…)</td>
+    </tr>
+    <tr>
+      <td>%y</td>
+      <td>两个数字表示年份，2014 == 14</td>
+    </tr>
+    <tr>
+      <td>%Y</td>
+      <td>四个数字表示年份</td>
+    </tr>
+    <tr>
+      <td>%H</td>
+      <td>24小时(00, 01, …, 23)</td>
+    </tr>
+    <tr>
+      <td>%I</td>
+      <td>12小时(01, 02, …, 11)</td>
+    </tr>
+    <tr>
+      <td>%p</td>
+      <td>AM或PM</td>
+    </tr>
+    <tr>
+      <td>%M</td>
+      <td>分钟(00, 01, …, 59)</td>
+    </tr>
+    <tr>
+      <td>%S</td>
+      <td>秒</td>
+    </tr>
+    <tr>
+      <td>%f</td>
+      <td>微秒(000000, 000001, …, 999999)</td>
+    </tr>
+    <tr>
+      <td>%z</td>
+      <td>与UTC时间的间隔；如果本地时间，返回空字符串((empty), +0000,-0400, +1030)</td>
+    </tr>
+    <tr>
+      <td>%Z</td>
+      <td>时区名称；如果是本地时间，返回空字符串((empty), UTC, ET, CST)</td>
+    </tr>
+    <tr>
+      <td>%j</td>
+      <td>在一年中的第几天(001, 002, …, 366)</td>
+    </tr>
+    <tr>
+      <td>%U</td>
+      <td>在一年中的第几周，星期天作为第一天(00, 01, …, 53)</td>
+    </tr>
+    <tr>
+      <td>%W</td>
+      <td>在一年中的第几周，星期一作为第一天(00, 01, …, 53)</td>
+    </tr>
+    <tr>
+      <td>%c</td>
+      <td>用字符串表示日期和时间(Tue Aug 16 21:30:00 2014)</td>
+    </tr>
+    <tr>
+      <td>%x</td>
+      <td>用字符串表示日期(08/16/24)</td>
+    </tr>
+    <tr>
+      <td>%X</td>
+      <td>用字符串表示时间(21:30:00)</td>
+    </tr>
+    <tr>
+      <td>%%</td>
+      <td>表示百分号</td>
+    </tr>
+  </tbody>
+</table>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/assembly-language-39/"
+				title="link to 汇编语言 9.9 9.10 实验8 根据位移进行转移的意义 编译器对转移位移超界的检测">汇编语言 9.9 9.10 实验8 根据位移进行转移的意义 编译器对转移位移超界的检测</a></h2>
+		<p class="excerpt">9.9 根据位移进行转移的意义目前转移命令有一下几种：  jmp short 标号  jmp near ptr 标号  jcxz 标号  loop 标号等几种汇编指令，它们对IP的修改是根据转移目的地之和转移起始地址之间的位移来进行的。在他们对应的机器码中不包含转移的目的地址，而包含的是到目的地之的位移。这种设计，方便了程序段在内存中的浮动装配。例如：            汇编指令      机器代码                    mov cx, 6        B9 06 0...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-06 19:43:24 +0800"
+				class="post-list__meta--date date">2019-12-06</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/12/assembly-language-39/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/rep-ncbi-2/"
+				title="link to python爬取ncbi检索信息的摸索(2) 找到隐藏背后的真实地址">python爬取ncbi检索信息的摸索(2) 找到隐藏背后的真实地址</a></h2>
+		<p class="excerpt">在用python requests爬取ncbi数据库时候，会有个苦恼的地方，就是在通过ncbi数据库检索到蛋白后，地址栏给出的地址是隐藏的，即使你通过该出的该地址也无法打开对应的地址网页，也就无法正常爬取网页信息，如下图所示，可以看到即使我更改Summary为Fasta，并且将20 per page更改为200 per page，也无法看到完整的地址信息，下面我来介绍如何将完整的地址找到，首先inspect，并查看Network 选项，要注意重新刷新，比如说将20 per page更改为2...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-03 00:00:00 +0800"
+				class="post-list__meta--date date">2019-12-03</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/12/rep-ncbi-2/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/12/python-time-relative/";
+        this.page.identifier = "/2019/12/python-time-relative/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

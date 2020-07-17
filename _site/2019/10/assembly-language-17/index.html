@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 5.3 Debug跟踪loop循环</title>
+  <meta name="description" content="5.3 在Debug中跟踪用loop指令实现的循环程序">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 5.3 Debug跟踪loop循环">
+  <meta name="twitter:description" content="5.3 在Debug中跟踪用loop指令实现的循环程序">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 5.3 Debug跟踪loop循环">
+  <meta property="og:description" content="5.3 在Debug中跟踪用loop指令实现的循环程序">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/10/assembly-language-17/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-10-26 11:31:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-10-26</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 5.3 Debug跟踪loop循环</h1>
+
+		</header>
+
+		<section class="post">
+			<h3 id="53-在debug中跟踪用loop指令实现的循环程序">5.3 在Debug中跟踪用loop指令实现的循环程序</h3>
+
+<p>首先要考虑一下超出地址存储能力的问题：</p>
+
+<p>加入我们要计算在FFFF:0006单元中的数乘以3，并将结果存储在DX中。</p>
+
+<blockquote>
+  <p>我们每次做这种类似的计算时，要注意是否会超出DX的存储范围！</p>
+</blockquote>
+
+<p>ffff:0006单元中的数是<strong>字节型</strong>数据，所以范围在0~255之间，这是因为对于字节型数据，计算方式如下：</p>
+
+\[2^8=256\]
+
+<p>所以范围在0~255之间，相对的对于DX通用寄存器，由于数据存储针对的往往是<strong>字型数据</strong>，而针对于16位的字型数据，计算方式如下：</p>
+
+\[2^{16}=65536\]
+
+<p>所以数据长度在0~65535之间，所以在FFFF:0006中的8位字节型数据乘以3是不会超过DX寄存器的存储长度的。</p>
+
+<p>但是要注意的是，每次执行类似loop循环指令时，都要考虑到数据存储是否会超过相应寄存器的存储长度。</p>
+
+<blockquote>
+  <p>循环累加来实现乘法，如何使用寄存器</p>
+</blockquote>
+
+<p>将FFFF:0006单元中的数值赋值给AX，用DX进行累加。先设$(DX)=0$，再做3次$(DX)=(DX)+(AX)$运算。</p>
+
+<blockquote>
+  <p>如何保证字节单元和寄存器字型数据的长度统一并赋值？</p>
+</blockquote>
+
+<p>设FFFF:6单元中的数据时XXH，若要AX中的值和FFFF:0006单元中的相等，AX中的数据应为00XXH。所以，若实现FFFF:0006单元向AX赋值，应该令$(AH)=0$，$(AL)=(FFFF6H)$。</p>
+
+<p>书中给出代码：</p>
+
+<pre><code class="language-x86asm">assume cs:code
+code segment
+    mov ax, 0ffffh ;注意这里
+    mov ds, ax
+    mov bx, 6
+    
+    mov al, [bx]
+    mov ah, 0   ;这行以及下一行可以简写为
+    mov dx, 0   ;mov ax, [bx]
+    
+    mov cx, 3
+s:  add dx, ax
+    loop s
+    
+    mov ax, 4c00h
+    int 21h
+
+code ends
+end
+</code></pre>
+
+<blockquote>
+  <p>注意代码第三行，汇编源程序中，不能以字母开头，所以必须加0!!</p>
+</blockquote>
+
+<h4 id="关于多次循环的debug跟踪">关于多次循环的debug跟踪</h4>
+
+<p>之前涉及到的代码都是循环次数较少的跟踪过程，那么假如循环次数很多，又该如何解决呢？</p>
+
+<p>这里有两个方案：</p>
+
+<p>第一个方案是遇到循环指令时后，直接输入<code class="language-plaintext highlighter-rouge">-p</code>命令，自动重复执行，直到$(CX)=0$为止。</p>
+
+<p>第二个方案是在遇到，如<code class="language-plaintext highlighter-rouge">loop 0012</code>时，直接用，如<code class="language-plaintext highlighter-rouge">g 0016</code>直接执<code class="language-plaintext highlighter-rouge">CS:0016</code>处，进而跳过循环。</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/python-read-excel/"
+				title="link to 使用Python 读写Excel (1)">使用Python 读写Excel (1)</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛 openpyxl 模块简单易用、功能广泛，单元格格式、图片、表格、公式、筛选、批注、文件保护等功能都具有，图表功能是其一大特点。openpyxl模块的安装pip install openpyxl创建并保存Excel文件通过调用openpyxl.Workbook()生成一个Workbook的实例化对象，这个就代表一个工作簿：import openpyxlwb = openpyxl.Workbook()# 获取活跃的工作表ws = wb.active# 数据可以直接赋值给...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-26 21:32:24 +0800"
+				class="post-list__meta--date date">2019-10-26</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/10/python-read-excel/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/assembly-language-16/"
+				title="link to 汇编语言 5.2 loop">汇编语言 5.2 loop</a></h2>
+		<p class="excerpt">Loop 指令loop 指令的格式是：loop 标号， CPU执行loop指令的时候，要进行两步操作：  $(CX) = (CX) - 1$  判断CX的值，不为零则转至标号处执行程序，如果为零则继续向下执行  CX的值影响着loop指令的执行结果。通常，我们用loop指令来实现循环功能，CX中存放着循环的次数我们编写一个实现$2^12$的代码，代码如下：assume cs:codecode segmentstart: mov ax, 2       mov cx, 11    s: ad...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-25 16:07:24 +0800"
+				class="post-list__meta--date date">2019-10-25</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/assembly-language-16/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/10/assembly-language-17/";
+        this.page.identifier = "/2019/10/assembly-language-17/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

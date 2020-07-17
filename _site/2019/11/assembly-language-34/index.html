@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 8.6 寻址方式的综合应用</title>
+  <meta name="description" content="8.6 寻址方式的综合应用">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 8.6 寻址方式的综合应用">
+  <meta name="twitter:description" content="8.6 寻址方式的综合应用">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 8.6 寻址方式的综合应用">
+  <meta property="og:description" content="8.6 寻址方式的综合应用">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/11/assembly-language-34/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-11-21 14:47:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-11-21</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 8.6 寻址方式的综合应用</h1>
+
+		</header>
+
+		<section class="post">
+			<h3 id="86-寻址方式的综合应用">8.6 寻址方式的综合应用</h3>
+
+<p>按照王爽教材里给的例子：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>公司名称</td>
+      <td>DEC</td>
+    </tr>
+    <tr>
+      <td>总裁姓名</td>
+      <td>Ken Olsen</td>
+    </tr>
+    <tr>
+      <td>排名</td>
+      <td>137</td>
+    </tr>
+    <tr>
+      <td>收入</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>著名产品</td>
+      <td>PDP</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>以上是DEC公司1982年的情况，到了1988年DEC公司的信息放生了变化，如下：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>公司名称</td>
+      <td>DEC</td>
+    </tr>
+    <tr>
+      <td>总裁姓名</td>
+      <td>Ken Olsen</td>
+    </tr>
+    <tr>
+      <td>排名</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <td>收入</td>
+      <td>+70</td>
+    </tr>
+    <tr>
+      <td>著名产品</td>
+      <td>VAX</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>利用汇编语言来对对应数据进行修改。</p>
+
+<p><img src="/assets/201911/2019-11-21_15-53-09.png" alt="figure1" /></p>
+
+<p>代码如下：</p>
+
+<pre><code class="language-x86asm">mov ax, seg  ;seg:60
+mov ds, ax
+mov bx, 60h  ;设置seg的偏移地址
+
+mov word ptr [bx+0Ch], 38
+add word ptr [bx+0Eh], 70
+
+mov si, 0
+mov byte ptr [bx+10h+si], 'V'  ;字符串占用3个字节
+inc si
+mov byte ptr [bx+10h+si], 'A'
+inc si
+mov byte prt [bx+10h_si], 'X'
+</code></pre>
+
+<p>观察相同功能的C语言代码：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="nc">company</span> <span class="p">{</span>    <span class="cm">/*定义公司记录的结构体*/</span>
+    <span class="kt">char</span> <span class="n">cn</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>     <span class="cm">/*公司名称*/</span>
+    <span class="kt">char</span> <span class="n">hn</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>     <span class="cm">/*总裁姓名*/</span>
+    <span class="kt">int</span>  <span class="n">pm</span><span class="p">;</span>        <span class="cm">/*排    名*/</span>
+    <span class="kt">int</span>  <span class="n">sr</span><span class="p">;</span>        <span class="cm">/*收    入*/</span>
+    <span class="kt">char</span> <span class="n">cp</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>     <span class="cm">/*注明产品*/</span>
+    <span class="p">};</span>
+<span class="k">struct</span> <span class="nc">company</span> <span class="n">dec</span><span class="o">=</span><span class="p">{</span><span class="s">"DEC"</span><span class="p">,</span> <span class="s">"Ken Olsen"</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s">"PDP"</span><span class="p">};</span>
+<span class="cm">/*定义一个公司记录的变量，内存中将存有一条公司的记录*/</span>
+</code></pre></div></div>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+ <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+ <span class="n">dec</span><span class="p">.</span><span class="n">pm</span><span class="o">=</span><span class="mi">38</span><span class="p">;</span>
+ <span class="n">dec</span><span class="p">.</span><span class="n">sr</span><span class="o">=</span><span class="n">dec</span><span class="p">.</span><span class="n">sr</span><span class="o">+</span><span class="mi">70</span><span class="p">;</span>
+ <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+ <span class="n">dec</span><span class="p">.</span><span class="n">cp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="sc">'V'</span><span class="p">;</span>
+ <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+ <span class="n">dec</span><span class="p">.</span><span class="n">cp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="sc">'A'</span><span class="p">;</span>
+ <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+ <span class="n">dec</span><span class="p">.</span><span class="n">cp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="sc">'x'</span><span class="p">;</span>
+ <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>对应C语言风格，将汇编语言代码进行改写：</p>
+
+<pre><code class="language-x86asm">mov ax, seg
+mov ds, ax
+mov bx, 60h
+mov word ptr [bx].0ch, 38
+add word ptr [bx].0eh, 70
+
+mov si, 0
+mov byte ptr [bx].10h[si], 'V'
+inc si
+mov byte ptr [bx].10h[si], 'A'
+inc si
+mov byte ptr [bx].10h[si], 'X'
+</code></pre>
+
+<p>从这个例子看，有几个收获与结论：</p>
+
+<ol>
+  <li>我们再编程的时候，从结构化的角度去看待所要处理的数据。</li>
+  <li>一个结构化的数据包含了多个数据项。</li>
+  <li>8086CPU提供的[bx+si+idata]的寻址方式为结构化数据的处理提供了方便。</li>
+  <li>**我们可以用[bx+idata+si]的方式来访问结构体中的数据。用bx定位整体结构体，用idata定位结构体中的某一个数据项，用si定位数组项中的每一个元素。为此，汇编语言提供了更贴切的书写方式，<code class="language-plaintext highlighter-rouge">[bx].idata</code>、<code class="language-plaintext highlighter-rouge">[bx].idata[si]</code>。</li>
+</ol>
+
+<blockquote>
+  <p>对比C语言和汇编语言代码，我们可以看到，如<code class="language-plaintext highlighter-rouge">dec.cp[i]</code>与汇编语言的<code class="language-plaintext highlighter-rouge">bx.10h[si]</code>是很相似的。</p>
+</blockquote>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/c-introduction/"
+				title="link to C语言 简介以及C转化asm的初尝试">C语言 简介以及C转化asm的初尝试</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛编译的概念将助记符转化为机器码的过程叫做编译。C语言的优势(1) 效率高C语言相对于其他第三代编程语言，C语言是编译型语言，源代码最终编译为机器语言，也就是可执行文件，从此CPU就可以直接执行。编译型语言与解释型语言的对比：            C语言      Python                  汇编语言      字节码              机器语言      解释器              CPU执行      CPU执行      (2) ...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-22 09:55:24 +0800"
+				class="post-list__meta--date date">2019-11-22</time> &#8226; <span
+				class="post-list__meta--tags tags">C语言</span><a class="btn-border-small"
+				href=/2019/11/c-introduction/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/python-magic-method-1/"
+				title="link to python 魔方方法 (1) 构造与析构">python 魔方方法 (1) 构造与析构</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛构造与析构__init__(self[,...])__init__()相当于其他面向对象编程语言的构造方法，也就是类在实例化成对象时，首先会调用的方法。class Rectangle:    def __init__(self, x, y):        self.x = x        self.y = y    def getArea(self):        return self.x * self.y&gt;&gt;&gt; rect = Rectangl...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-20 21:13:24 +0800"
+				class="post-list__meta--date date">2019-11-20</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/11/python-magic-method-1/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/11/assembly-language-34/";
+        this.page.identifier = "/2019/11/assembly-language-34/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

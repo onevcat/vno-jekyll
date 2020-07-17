@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 10.4 10.5 10.6 转移的目的地址在指令，寄存器以及内存中的call指令</title>
+  <meta name="description" content="10.4 转移的目的地址在指令中的call指令">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 10.4 10.5 10.6 转移的目的地址在指令，寄存器以及内存中的call指令">
+  <meta name="twitter:description" content="10.4 转移的目的地址在指令中的call指令">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 10.4 10.5 10.6 转移的目的地址在指令，寄存器以及内存中的call指令">
+  <meta property="og:description" content="10.4 转移的目的地址在指令中的call指令">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/12/assembly-language-42/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-12-11 10:48:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-12-11</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 10.4 10.5 10.6 转移的目的地址在指令，寄存器以及内存中的call指令</h1>
+
+		</header>
+
+		<section class="post">
+			<h3 id="104-转移的目的地址在指令中的call指令">10.4 转移的目的地址在指令中的call指令</h3>
+
+<p>前面讲的call指令，其对应的及其指令中并没有转移的目的地址，而是相对于当前IP的转移位移。</p>
+
+<p>“call far ptr 标号”实现的是段间转移。</p>
+
+<p>CPU执行此种格式的call指令时，进行如下的操作。</p>
+
+<ol>
+  <li>
+    <p>(sp)=(sp)-2 <br />
+((ss)*16+(sp))=(CS)<br />
+(sp)=(sp)-2<br />
+((ss)*16+(sp))=(IP)</p>
+  </li>
+  <li>
+    <p>(CS)=标号所在段的段地址<br />
+(IP)=标号在段中的偏移地址</p>
+  </li>
+</ol>
+
+<p>从上面的描述中可以看出，如果我们用汇编语法来解释此种格式的call指令，则:</p>
+
+<p>CPU执行”call far ptr 标号”时，相当于进行：</p>
+
+<p>push CS<br />
+push IP<br />
+jmp far ptr 标号</p>
+
+<p>问题：</p>
+
+<p>下面的程序执行后，ax中的数值为多少？</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>内存地址</th>
+      <th>机器码</th>
+      <th>汇编指令</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>1000:0</td>
+      <td>b80000</td>
+      <td>mov ax, 0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1000:3</td>
+      <td>9A09000010</td>
+      <td>call far ptr s</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1000:8</td>
+      <td>40</td>
+      <td>inc ax</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1000:9</td>
+      <td>58</td>
+      <td>s:pop ax</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td> </td>
+      <td> </td>
+      <td>add ax, ax</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td> </td>
+      <td> </td>
+      <td>pop bx</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td> </td>
+      <td> </td>
+      <td>add ax, bx</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>在1处，ax –&gt; 0，在2处，执行call指令，IP = 8，并跳转到5处，<code class="language-plaintext highlighter-rouge">pop ax</code>，弹出IP地址并赋值给ax，此时ax –&gt; 8。执行<code class="language-plaintext highlighter-rouge">add ax, ax</code>，ax –&gt; 8 + 8 = 16 (<strong>注意这里是错误的，因为IP地址间的运算应该为16进制运算：8h + 8h = 10h</strong>)。由于call指令为<code class="language-plaintext highlighter-rouge">call far ptr 标号</code>实现的是段间转移，所以首先push的地址为CS，而后push进栈的地址为IP，所以第一次pop出的为IP，而后pop出的为CS。所以<code class="language-plaintext highlighter-rouge">pop bx</code>会弹出CS地址并赋值给bx，所以这是，bx的值为1000，所以<code class="language-plaintext highlighter-rouge">add ax, bx</code> –&gt; ax = ax + bx = 10h + 1000h = 1010h。</p>
+
+<h3 id="105-转移地址在寄存器中的call指令">10.5 转移地址在寄存器中的call指令</h3>
+
+<p>指令格式：call 16位reg<br />
+功能：</p>
+
+<p>(sp)=(sp)-2<br />
+((ss)*16)+(sp)=(IP)<br />
+(IP)=(16位reg)</p>
+
+<p>用汇编语法来解释此种格式的call指令，CPU执行”call 16位reg”时，相当于进行：</p>
+
+<p>push IP<br />
+jmp 16位reg</p>
+
+<p>问题：</p>
+
+<p>下面的程序执行后，ax中的数值为多少？</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>内存地址</th>
+      <th>机器码</th>
+      <th>汇编指令</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>1000:0</td>
+      <td>b80600</td>
+      <td>mov ax, 6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1000:3</td>
+      <td>ffd0</td>
+      <td>call ax</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1000:5</td>
+      <td>40</td>
+      <td>inc ax</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1000:6</td>
+      <td> </td>
+      <td>mov bp, sp</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td> </td>
+      <td> </td>
+      <td>add ax, [bp]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>在1处，ax –&gt; 6，在2处执行<code class="language-plaintext highlighter-rouge">call ax</code>指令，将IP = 5推入栈中，并跳转到ax对应的值为IP的地址，即1000:6，执行<code class="language-plaintext highlighter-rouge">mov bp, sp</code>，此时的(sp) = (sp) - 2 = 0000h(栈顶) - 2 = fffeh并赋值给bp。并且此时[bp] = ss:[bp] = 5。所以执行<code class="language-plaintext highlighter-rouge">add ax, [bp]</code>后，ax = ax + [bp] = 6h + 5h = 0bh。</p>
+
+<h3 id="106-转移地址在内存中的call指令">10.6 转移地址在内存中的call指令</h3>
+
+<p>转移地址在内存中的call指令有两种格式。</p>
+
+<ol>
+  <li>
+    <p>call word ptr 内存单元地址<br />
+用汇编语法来解释此种格式的call指令，则：<br />
+CPU执行”call word ptr 内存单元地址”时，相当于进行：<br />
+push IP<br />
+jmp word ptr 内存单元地址<br />
+<br />
+代码示例，<br />
+<br />
+mov sp, 10h<br />
+mov ax, 0123h<br />
+mov ds:[0], ax<br />
+call sord ptr ds:[0]<br />
+<br />
+执行后，(IP) = 0123H，(sp)=0EH。</p>
+  </li>
+  <li>
+    <p>call dword ptr 内存单元地址<br />
+用汇编语法来解释此种格式的call指令，则：<br />
+CPU执行”call dword ptr 内存单元地址”时，相当于进行：<br />
+<br />
+push CS<br />
+push IP<br />
+jmp dword ptr 内存那单元地址<br /></p>
+
+    <p>代码示例，<br /></p>
+
+    <p>mov sp, 10h<br />
+mov ax, 0123h<br />
+mov ds:[0], ax<br />
+mov word ptr ds:[2], 0<br />
+call dword ptr ds:[0]<br /></p>
+
+    <p>执行后，(CS)=0，(IP)=123H，(sp)=0CH。</p>
+  </li>
+</ol>
+
+<p>问题(1)：</p>
+
+<p>下面的程序执行后，ax中的数值为多少？</p>
+
+<pre><code class="language-x86asm">assume cs:code
+stack segment
+  dw 8 dup (0)
+stack ends
+code segment
+  start:mov ax, stack
+        mov sp, ax
+        mov sp, 16
+        mov ds, ax
+        mov ax, 0
+        call word ptr ds:[0EH]
+        inc ax
+        inc ax
+        inc ax
+        mov ax, 4c00h
+        int 21h
+code ends
+end start
+</code></pre>
+<p>首先我们绘制一个对应地址的表格，</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>内存地址</th>
+      <th>代码</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>0C50:0000</td>
+      <td>mov ax, stack</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0C50:0003</td>
+      <td>mov ss, ax</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0C50:0005</td>
+      <td>mov sp, 16</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0C50:0008</td>
+      <td>mov ds, ax</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>0C50:000A</td>
+      <td>mov ax, 0</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>0C50:000D</td>
+      <td>call word ptr ds:[0EH]</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>0C50:0011</td>
+      <td>inc ax</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td> </td>
+      <td>inc ax</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td> </td>
+      <td>inc ax</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td> </td>
+      <td>mov ax, 4c00h</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td> </td>
+      <td>int 21h</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>在5处，ax –&gt; 0。在6处，执行<code class="language-plaintext highlighter-rouge">call word ptr ds:[0EH]</code>，前面在3处，指明了栈顶为sp = 16，所以在栈顶的位置推入IP地址：IP = 0011，并执行跳转到目标地址ds:[0EH]，正好指向刚刚推入栈的IP = 0011，所以ds:[0EH] = 0011，所以跳转到7处，执行三次inc ax，所以ax = 0 + 1 + 1 + 1 = 3。</p>
+
+<p>问题(2)</p>
+
+<p>下面的程序执行后，ax和bx中的数值为多少？</p>
+
+<pre><code class="language-x86asm">assume cs:code
+data segment
+  dw 8 dup(0)
+data ends
+code segment
+  start:mov ax, data
+        mov ss, ax
+        mov sp, 16
+        mov word ptr ss:[0], 0ffset s
+        mov ss:[2], cs
+        call dword ptr ss:[0]
+        nop
+      s:mov ax, 0ffset s
+        sub ax, ss:[0ch]
+        mov bx, cs
+        sub bx, ss:[0eh]
+        mov ax, 4c00h
+        int 21h
+code ends
+end start
+</code></pre>
+<p>根据代码绘制栈，</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>s的CS</td>
+    </tr>
+    <tr>
+      <td>s的IP-1</td>
+    </tr>
+    <tr>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>s的CS</td>
+    </tr>
+    <tr>
+      <td>s的IP</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>ss:[0]为s的IP，ss:[2]为s的CS。执行<code class="language-plaintext highlighter-rouge">call dword ptr ss:[0]</code>后，在ss:[0ch]，ss:[0dh]处推入IP = s的IP - 1，并在ss:[0eh]，ss:[0fh]推入CS = s的CS。在s中，<code class="language-plaintext highlighter-rouge">mov ax, offset s</code>ax = s 的IP。执行<code class="language-plaintext highlighter-rouge">sub ax, ss:[0ch]</code>，所以ax = ax - ss:[0ch] = s的IP - (s的IP - 1) = 1。<code class="language-plaintext highlighter-rouge">mov bx, cs</code>，所以bx = s的CS。则<code class="language-plaintext highlighter-rouge">sub bx, ss:[0eh]</code>结果，bx = s的CS - s的CS = 0。</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/disassembly-in-mac/"
+				title="link to C语言 如何利用mac xcode实现C语言反汇编">C语言 如何利用mac xcode实现C语言反汇编</a></h2>
+		<p class="excerpt">今天谈一下，如何利用mac系统下的xcode实现类似于windows系统下microsoft visual C++的反汇编功能。(1) 首先安装xcode(2) 按顺序在菜单栏目依次选择：file –&gt; new –&gt; Project…(3) 在新弹出的菜单栏中在最上面选择macos标签页下的Command Line Tool图标，如图所示：(4) 在新弹出的菜单栏中的Language选项栏中选择C，(5) 主界面上左侧菜单栏中会出现两个文件夹分别存放代码以及编译好的程序，(6)...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-13 09:51:24 +0800"
+				class="post-list__meta--date date">2019-12-13</time> &#8226; <span
+				class="post-list__meta--tags tags">C语言</span><a class="btn-border-small"
+				href=/2019/12/disassembly-in-mac/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/python-magic-method-4/"
+				title="link to python 魔法方法 (4) 简单定制">python 魔法方法 (4) 简单定制</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛简单定制下面来做一个案例，要求如下：  定制一个计时器的类  start和stop方法代表启动定时和停止计时  假设计时器对象t1，print(t1)和直接调用t1均显示结果  当计时器未启动或已经停止计时，调用stop方法会给予温馨的提示  像个计时器对象可以相加：t1+t2  只能使用提供的有限资源完成需要用到下面的资源：  使用time模块的localtime方法获取时间  time.localtime返回struct_time的时间格式  __str__()和_...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-10 21:24:24 +0800"
+				class="post-list__meta--date date">2019-12-10</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/12/python-magic-method-4/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/12/assembly-language-42/";
+        this.page.identifier = "/2019/12/assembly-language-42/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

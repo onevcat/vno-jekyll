@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Scanning EM VS Bright Field EM</title>
+  <meta name="description" content="First of all, let’s introduce the definition of the Scannning EM and the Bright field EM respectively:">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Scanning EM VS Bright Field EM">
+  <meta name="twitter:description" content="First of all, let’s introduce the definition of the Scannning EM and the Bright field EM respectively:">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Scanning EM VS Bright Field EM">
+  <meta property="og:description" content="First of all, let’s introduce the definition of the Scannning EM and the Bright field EM respectively:">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/11/scanning-bright-field-EM/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-11-24 12:16:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-11-24</time> &#8226; <span
+					class="post-meta__tags tags">cryo-EM</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#cryo-EM">cryo-EM</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">Scanning EM VS Bright Field EM</h1>
+
+		</header>
+
+		<section class="post">
+			<p>First of all, let’s introduce the definition of the Scannning EM and the Bright field EM respectively:</p>
+
+<blockquote>
+  <p>Scanning EM</p>
+</blockquote>
+
+<p>Take the incoming beam of electrons and focused on very small point, rather that small point back and forth across the image as if you are shining a flashlight on a poster.</p>
+
+<blockquote>
+  <p>Bright Field EM</p>
+</blockquote>
+
+<p>Illuminate the whole sample all at once, like lift your flashlight.</p>
+
+<p>When the incident electrons light on the conduction, as seen in the figure,</p>
+
+<p><img src="/assets/201911/2019-11-24_13-25-56.png" alt="figure1" /></p>
+
+<blockquote>
+  <p>Reflection:</p>
+</blockquote>
+
+<p>About the reflected electrons, there were two applications:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>.EXMA</td>
+      <td>..Hard x-ray</td>
+      <td>…Hard x-ray with high energy</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Soft x-ray</td>
+      <td>…Soft x-ray with lower energy</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Cathodoluminescene visible light</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>EXMA: measure wave length, get information about what elements are present in your sample (Because different elements will emit x-rays with different characteristics)</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>.SEM</td>
+      <td>..Back scattered primaries</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Secondaries angle</td>
+      <td>…Electrons interact with the electrons in the sample and cause sample electorns to be emitted</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Positive ions</td>
+      <td>…Electrons interacte with nuleus</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>SEM: Detector counting the number of charged particles coming back out of the sample, when it’s iluminated you can build up an image pixel by pixel by counting all of these charged particles as they emrge and correlating that counting with the position on the sample that your’re illuminating. Always you can find the detector this formations,</p>
+
+<p><img src="/assets/201911/2019-11-24_14-16-43.png" alt="figure2" /></p>
+
+<p>Get a much better looking image if you coat the surface with some form of metal often platinum.</p>
+
+<blockquote>
+  <p>About the Speciemn on the conduction:</p>
+</blockquote>
+
+<p>As electrons are being ejected from the sample they leave unmet positive charges within the sample and because the sample is clamped into a sample holder and that’s connected to the rest of the metal of the microscope, electrons will flow in from the mecroscope into the sample slowly to compensate for unmet charges, which is <strong>can be measured</strong>.</p>
+
+<blockquote>
+  <p>Transmission</p>
+</blockquote>
+
+<table>
+  <tbody>
+    <tr>
+      <td>.Primaries STEM (scanning + transmission)</td>
+      <td>..Wide-angle elastic</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Inelastic</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>.Primaries TEM</td>
+      <td>..Unscattered</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Inelastic</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>..Narrow-angle elastic</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Bright field mode, for the TEM, not only counting detector bu also an imaging detector like CCD.</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/assembly-language-35/"
+				title="link to 汇编语言 8.7 8.8 8.9 div 伪指令dd dup">汇编语言 8.7 8.8 8.9 div 伪指令dd dup</a></h2>
+		<p class="excerpt">8.7 div 指令div是除法指令，有以下注意事项：  除数：有8位和16位两种，在一个reg或者内存单元中。  被除数：默认放在ax或dx和ax中，如果除数为8位，被除数则为16位，默认在ax中存放；如果除数为16位，则被除数则为32位，在dx和ax中存放，dx存放高16位，ax存放在低16位。  结果：如果除数为8位，则al存储除法操作的商, ah存储除法操作的余数；如果除数为16位，则ax存储除法操作的商，dx存储除法操作的余数。除数和被除数的规格总结：            除数...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-24 15:15:24 +0800"
+				class="post-list__meta--date date">2019-11-24</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/11/assembly-language-35/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/c-introduction/"
+				title="link to C语言 简介以及C转化asm的初尝试">C语言 简介以及C转化asm的初尝试</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛编译的概念将助记符转化为机器码的过程叫做编译。C语言的优势(1) 效率高C语言相对于其他第三代编程语言，C语言是编译型语言，源代码最终编译为机器语言，也就是可执行文件，从此CPU就可以直接执行。编译型语言与解释型语言的对比：            C语言      Python                  汇编语言      字节码              机器语言      解释器              CPU执行      CPU执行      (2) ...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-22 09:55:24 +0800"
+				class="post-list__meta--date date">2019-11-22</time> &#8226; <span
+				class="post-list__meta--tags tags">C语言</span><a class="btn-border-small"
+				href=/2019/11/c-introduction/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/11/scanning-bright-field-EM/";
+        this.page.identifier = "/2019/11/scanning-bright-field-EM/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

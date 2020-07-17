@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python 类和对象 (2) self 构造方法 Name Mangling</title>
+  <meta name="description" content="整理自小甲鱼鱼C论坛self 是什么">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="python 类和对象 (2) self 构造方法 Name Mangling">
+  <meta name="twitter:description" content="整理自小甲鱼鱼C论坛self 是什么">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="python 类和对象 (2) self 构造方法 Name Mangling">
+  <meta property="og:description" content="整理自小甲鱼鱼C论坛self 是什么">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/11/python-class-object-2/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-11-11 20:26:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-11-11</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">python 类和对象 (2) self 构造方法 Name Mangling</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+<h3 id="self-是什么">self 是什么</h3>
+
+<p>Python的self相当于C++的this指针。同一个类可以生成无数个对象，当一个对象的方法被调用时，对象会将自身的引用作为第一个参数传给该方法，python就知道需要操作哪个对象的方法了。以下代码为例，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">People</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">setName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="k">def</span> <span class="nf">intro</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'My name is %s'</span> <span class="o">%</span> <span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">People</span><span class="p">()</span>
+<span class="n">A</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="s">'A'</span><span class="p">)</span>    <span class="c1"># 这里将name = 'A'传入了实例对象的self.name属性
+</span><span class="n">B</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="s">'B'</span><span class="p">)</span>
+
+<span class="n">A</span><span class="p">.</span><span class="n">intro</span><span class="p">()</span>    <span class="c1"># 这里'()'中为A的隐藏属性，即将A的name属性传入了self.name
+</span><span class="n">B</span><span class="p">.</span><span class="n">intro</span><span class="p">()</span>
+</code></pre></div></div>
+<h3 id="构造方法">构造方法</h3>
+
+<p><strong>init</strong>()方法称为构造方法，<strong>init</strong>()只需要实例化一个对象，这个方法就会在对象被创建时自动调用(类似于C的构造函数)。实例化对象是可以传入参数的，这些参数会自动传入__init__()中，可以通过这个方法来自定义对象的初始化操作。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">People</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="k">def</span> <span class="nf">intro</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'I am %s'</span> <span class="o">%</span> <span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span><span class="n">A</span> <span class="o">=</span> <span class="n">People</span><span class="p">(</span><span class="s">"A"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">A</span><span class="p">.</span><span class="n">intro</span><span class="p">()</span>
+<span class="n">I</span> <span class="n">am</span> <span class="n">A</span>
+</code></pre></div></div>
+<h3 id="name-mangling">Name Mangling</h3>
+
+<p>对象的属性方法可以通过’.’来进行访问。如下代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">People</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">"A"</span>
+
+<span class="o">&gt;&gt;&gt;</span><span class="n">A</span> <span class="o">=</span> <span class="n">People</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">A</span><span class="p">.</span><span class="n">name</span>
+
+<span class="s">'A'</span>
+</code></pre></div></div>
+
+<p>这里A的name属性是共有的。下面讲一个利用Name Mangling来对实例属性私有化并进行隐藏的例子：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">People</span><span class="p">:</span>
+    <span class="n">__name</span> <span class="o">=</span> <span class="s">"A"</span>
+
+<span class="o">&gt;&gt;&gt;</span><span class="n">A</span> <span class="o">=</span> <span class="n">People</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">A</span><span class="p">.</span><span class="n">__name</span>
+
+<span class="nb">AttributeError</span><span class="p">:</span> <span class="s">'People'</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s">'__name'</span>
+</code></pre></div></div>
+<p>想要访问这个私有属性的方法有两种：</p>
+<ol>
+  <li>从内部调用该属性，例如通过定义一个函数来将这个属性从内部return出来</li>
+  <li>使用”_类名__变量名”的方法来访问私有化的属性</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span><span class="n">A</span><span class="p">.</span><span class="n">_People__name</span>
+<span class="s">'A'</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>问题1</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">'FishC'</span>
+    <span class="k">def</span> <span class="nf">myFun</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Hello FishC!"</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">MyClass</span><span class="p">.</span><span class="n">name</span>
+<span class="n">TypeErr</span><span class="p">:</span> <span class="n">myFun</span><span class="p">()</span> <span class="n">missing</span> <span class="mi">1</span> <span class="n">required</span> <span class="n">positional</span> <span class="n">argument</span><span class="p">:</span> <span class="s">'self'</span>
+<span class="o">&gt;&gt;&gt;</span>
+</code></pre></div></div>
+<p>这里报错的原因，我们常说的类指的是类定义，当类定义完之后，自然就是类对象。在这个时候，你可以对类的属性（变量）进行直接访问（MyClass.name）。</p>
+
+<p>一个类可以实例化出无数个实例对象，**Python为了区分是哪个实例对象调用了方法，于是要求必须绑定（通过self参数）才可以调用，而未实例化的类对象直接调用方法，因为缺少self参数，所以会报错。</p>
+
+<p>这里有两种解决方案，第一种创建一个实例对象：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">P</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+</code></pre></div></div>
+<p>第二种方式为给类MyClass加入self参数：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MyClass</span><span class="p">.</span><span class="bp">self</span><span class="p">.</span><span class="n">MyFun</span><span class="p">()</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>问题0 按照以下要求定义一个游乐园门票的类，并尝试计算2个成人和1个小孩的平日票价。</p>
+</blockquote>
+
+<ol>
+  <li>平日票价100元</li>
+  <li>周末票价为平日的120%</li>
+  <li>儿童半票</li>
+</ol>
+
+<p>代码如下：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Ticket</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">weekend</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">price</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="k">if</span> <span class="n">weekend</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">inc1</span> <span class="o">=</span> <span class="mf">1.2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">inc1</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">child</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">inc2</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">inc2</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">def</span> <span class="nf">calculatePrice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>    <span class="c1">#注意类中函数必须要绑定self参数, 不然后面实力对象无法正确调用
+</span>        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">price</span><span class="o">*</span><span class="bp">self</span><span class="p">.</span><span class="n">inc1</span><span class="o">*</span><span class="bp">self</span><span class="p">.</span><span class="n">inc2</span><span class="o">*</span><span class="n">num</span>
+<span class="n">adult</span> <span class="o">=</span> <span class="n">Ticket</span><span class="p">()</span>
+<span class="n">child</span> <span class="o">=</span> <span class="n">Ticket</span><span class="p">(</span><span class="n">child</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'2个成人与1一个小孩的票价为%.2f元'</span> <span class="o">%</span> <span class="p">(</span><span class="n">adult</span><span class="p">.</span><span class="n">calculatePrice</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="n">child</span><span class="p">.</span><span class="n">calculatePrice</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>要按要求定义一个乌龟类和一个鱼类并尝试编写游戏。</p>
+</blockquote>
+
+<ol>
+  <li>假设游戏场景为范围(x, y)为0 &lt;= x &lt;= 10, 0 &lt;= y &lt;= 10</li>
+  <li>游戏生成1只乌龟和10条鱼</li>
+  <li>他们的移动方法均随机</li>
+  <li>乌龟的最大移动能力是2(可以随机选择移动1还是移动2)，鱼的最大移动能力是1</li>
+  <li>当移动到场景边缘，自动向反方向移动</li>
+  <li>乌龟初始化体力为100</li>
+  <li>乌龟每移动一次，体力消耗1</li>
+  <li>当乌龟和鱼坐标重叠，乌龟吃掉鱼，乌龟体力增加20</li>
+  <li>鱼暂不计算体力</li>
+  <li>当乌龟体力为0或者鱼数量为0时，游戏结束</li>
+</ol>
+
+<p>代码如下：</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="n">r</span>
+<span class="n">legalX</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="n">legalY</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">Turtle</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">HP</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="n">legalX</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">legalX</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="n">legalY</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">legalY</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">r</span><span class="p">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">r</span><span class="p">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">=</span> <span class="n">legalX</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">-</span> <span class="n">legalX</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">=</span> <span class="n">legalX</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">legalX</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">newX</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">newX</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">=</span> <span class="n">legalY</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">-</span> <span class="n">legalY</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">=</span> <span class="n">legalY</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">legalY</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">newY</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">newY</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">HP</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">eat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">HP</span> <span class="o">+=</span> <span class="mi">20</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">HP</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">HP</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="k">class</span> <span class="nc">Fish</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="n">legalX</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">legalX</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="n">legalY</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">legalY</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">r</span><span class="p">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">r</span><span class="p">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">=</span> <span class="n">legalX</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">-</span> <span class="n">legalX</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">newX</span> <span class="o">=</span> <span class="n">legalX</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">legalX</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">newX</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">newX</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">=</span> <span class="n">legalY</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">-</span> <span class="n">legalY</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">newY</span> <span class="o">=</span> <span class="n">legalY</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">legalY</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">newY</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">newY</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>    <span class="c1">#注意使用return来返回数值的方法
+</span>
+<span class="n">turtle</span> <span class="o">=</span> <span class="n">Turtle</span><span class="p">()</span>
+<span class="n">fish</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">new_fish</span> <span class="o">=</span> <span class="n">Fish</span><span class="p">()</span>
+    <span class="n">fish</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_fish</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">fish</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'鱼被吃完了，游戏结束！'</span><span class="p">)</span>
+        <span class="k">break</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">turtle</span><span class="p">.</span><span class="n">HP</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'乌龟累死了，游戏结束!'</span><span class="p">)</span>
+        <span class="k">break</span>
+    
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">turtle</span><span class="p">.</span><span class="n">move</span><span class="p">()</span>    <span class="c1">#这里的while可以反复调用实例对象turtle的move方法
+</span>
+    <span class="c1">#在迭代器中删除列表元素是非常危险的，经常会出现意想不到的效果，因为迭代器是直接饮用列表的数据进行引用的
+</span>    <span class="c1">#针对这一问题，我们通常把列表拷贝给迭代器，然后对原列表进行删除就不会有问题了。
+</span>    <span class="c1">#关于在迭代器中直接删除列表的具体风险。比如我在列表[0, 1, 2, 3]中，迭代器中直接删除了[0], 下次循环时i += 1, 但这个列表为[1, 2, 3]，而i = 1, 指向的第二项, 会跳过[1]
+</span>
+    <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">fish</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">new_fish</span><span class="p">.</span><span class="n">move</span><span class="p">()</span> <span class="o">==</span> <span class="n">pos</span><span class="p">:</span>
+            <span class="n">turtle</span><span class="p">.</span><span class="n">eat</span><span class="p">()</span>
+            <span class="n">fish</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'有条鱼被吃了！'</span><span class="p">)</span>
+</code></pre></div></div>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/assembly-language-28/"
+				title="link to 汇编语言 7.7 7.8 7.9 SI DI, [bx+si+idata] [bx+di+idata]">汇编语言 7.7 7.8 7.9 SI DI, [bx+si+idata] [bx+di+idata]</a></h2>
+		<p class="excerpt">7.7 SI 和 DIsi和di在8086CPU中与bx的功能非常相似，唯一不同的是si和di均不能被拆成两个8位寄存器来使用，如bx = bh + bl, 但si, di不能这样拆成h和l。  问题： 用si和di实现将字符串’welcome to masm!’复制到它后面的数据区中。assume cs:codesg, ds:datasgdatasg segment  db 'welcome to masm!'  db '................'datasg ends首先就要确...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-12 18:49:24 +0800"
+				class="post-list__meta--date date">2019-11-12</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/11/assembly-language-28/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/defocus-1/"
+				title="link to Defocus in TEM Imaging.1 General">Defocus in TEM Imaging.1 General</a></h2>
+		<p class="excerpt">Relative information is summarised from the Online Book of the Practical Electron Microscopy and Database, in the next posts, I will only reference it in the end of the post.In TEM imaging, the conventional modes of high-resolution imaging are mai...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-11 17:21:24 +0800"
+				class="post-list__meta--date date">2019-11-11</time> &#8226; <span
+				class="post-list__meta--tags tags">cryo-EM</span><a class="btn-border-small"
+				href=/2019/11/defocus-1/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/11/python-class-object-2/";
+        this.page.identifier = "/2019/11/python-class-object-2/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

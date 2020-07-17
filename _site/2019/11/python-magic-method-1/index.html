@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python 魔方方法 (1) 构造与析构</title>
+  <meta name="description" content="整理自小甲鱼鱼C论坛">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="python 魔方方法 (1) 构造与析构">
+  <meta name="twitter:description" content="整理自小甲鱼鱼C论坛">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="python 魔方方法 (1) 构造与析构">
+  <meta property="og:description" content="整理自小甲鱼鱼C论坛">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/11/python-magic-method-1/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-11-20 21:13:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-11-20</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">python 魔方方法 (1) 构造与析构</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+
+<h3 id="构造与析构">构造与析构</h3>
+
+<h4 id="__init__self"><code class="language-plaintext highlighter-rouge">__init__(self[,...])</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">__init__()</code>相当于其他面向对象编程语言的构造方法，也就是<strong>类在实例化成对象时，首先会调用的方法</strong>。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">getArea</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">y</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>    <span class="c1">#这里输入__init__()中需要的参数。
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">rect</span><span class="p">.</span><span class="n">getArea</span><span class="p">()</span>
+<span class="mi">12</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>需要注意，<code class="language-plaintext highlighter-rouge">__init__()</code>方法不能return值，只能return None.</p>
+</blockquote>
+
+<h4 id="__new__cls"><code class="language-plaintext highlighter-rouge">__new__(cls[,...])</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">__new__()</code>方法是对象实例化时，调用的第一个方法。<strong>他的第一个参数不self，而是类cls</strong>，<strong>同时，其他参数会传入<code class="language-plaintext highlighter-rouge">__init__()</code>中</strong>。</p>
+
+<p><code class="language-plaintext highlighter-rouge">__new__()</code><strong>需要返回一个实例对象</strong>，通常是cls这个类实例化的对象，当然也可以返回其他对象。</p>
+
+<p>通常在<strong>继承一个不可变的类型的时候</strong>，需要使用<code class="language-plaintext highlighter-rouge">__new__()</code>方法。如下代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CapStr</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="p">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Capstr</span><span class="p">(</span><span class="s">'abc'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="s">'ABC'</span>
+</code></pre></div></div>
+<h4 id="__del__self"><code class="language-plaintext highlighter-rouge">__del__(self)</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">__del__()</code>方法只有在垃圾回收机制激活时才能调用，即对应数据完全删除以后。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">DelPrint</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'__delf__()方法被调用'</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">DelPrint</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">C</span> <span class="o">=</span> <span class="n">B</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">B</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">C</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">A</span>
+<span class="n">__delf__</span><span class="p">()</span><span class="n">方法被调用</span>
+</code></pre></div></div>
+
+<p>练习：</p>
+
+<p>(1) 写一个FileObject类，给文件对象进行包装，从而确认在删除对象时文件能自动关闭。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">FileObject</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">FILE</span><span class="o">=</span><span class="s">'example.txt'</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">FILE</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">FILE</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">FILE</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">FILE</span>
+</code></pre></div></div>
+
+<p>(2) 定义一个摄氏度到华氏度转换(华氏度 = 摄氏度*1.8 + 32)。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">C2F</span><span class="p">(</span><span class="nb">float</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">C</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span> <span class="mf">1.8</span> <span class="o">+</span> <span class="mi">32</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>(3) 定一个一个类继承int类型，当传入参数是字符串时候，返回该字符串所有字符的ASCII码的和（ord()）</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">TOASCII</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">INPUT</span> <span class="o">=</span> <span class="s">''</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">INPUT</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">INPUT</span><span class="p">:</span>
+                <span class="n">total</span> <span class="o">+=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+                <span class="n">INPUT</span> <span class="o">=</span> <span class="n">total</span>  <span class="c1">#最后要赋值回INPUT
+</span>        <span class="k">return</span> <span class="nb">int</span><span class="p">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">TOASCII</span><span class="p">(</span><span class="s">'A'</span><span class="p">))</span>
+</code></pre></div></div>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/assembly-language-34/"
+				title="link to 汇编语言 8.6 寻址方式的综合应用">汇编语言 8.6 寻址方式的综合应用</a></h2>
+		<p class="excerpt">8.6 寻址方式的综合应用按照王爽教材里给的例子：            公司名称      DEC              总裁姓名      Ken Olsen              排名      137              收入      40              著名产品      PDP      以上是DEC公司1982年的情况，到了1988年DEC公司的信息放生了变化，如下：            公司名称      DEC              总裁...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-21 14:47:24 +0800"
+				class="post-list__meta--date date">2019-11-21</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/11/assembly-language-34/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/assembly-language-33/"
+				title="link to 汇编语言 8.4 8.5 寻址方式(2) 指令要处理的数据多长">汇编语言 8.4 8.5 寻址方式(2) 指令要处理的数据多长</a></h2>
+		<p class="excerpt">8.4 寻址方式(2)寻址方式的小结表格:            寻址方式      含义      名称      常用格式举例                  [idata]      EA=idata;SA=(ds)      直接寻址      [idata]              [bx]      EA=(bx);SA=(ds)      寄存器间接寻址      [bx]              [si]      EA=(bx);SA=(ds)           ...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-20 15:59:24 +0800"
+				class="post-list__meta--date date">2019-11-20</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/11/assembly-language-33/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/11/python-magic-method-1/";
+        this.page.identifier = "/2019/11/python-magic-method-1/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

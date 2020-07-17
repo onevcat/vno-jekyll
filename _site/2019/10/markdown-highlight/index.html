@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Markdown 语言高亮关键字（转载）</title>
+  <meta name="description" content="转载自CSDN, 原作者yxys01.">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Markdown 语言高亮关键字（转载）">
+  <meta name="twitter:description" content="转载自CSDN, 原作者yxys01.">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Markdown 语言高亮关键字（转载）">
+  <meta property="og:description" content="转载自CSDN, 原作者yxys01.">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/10/markdown-highlight/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-10-24 10:21:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-10-24</time> &#8226; <span
+					class="post-meta__tags tags">blog</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#blog">blog</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">Markdown 语言高亮关键字（转载）</h1>
+
+		</header>
+
+		<section class="post">
+			<p>转载自<a href="https://blog.csdn.net/yxys01/article/details/78296526">CSDN, 原作者yxys01</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>语言名</th>
+      <th>关键字</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bash</td>
+      <td>bash</td>
+    </tr>
+    <tr>
+      <td>CoffeeScript</td>
+      <td>coffeescript</td>
+    </tr>
+    <tr>
+      <td>C++</td>
+      <td>cpp</td>
+    </tr>
+    <tr>
+      <td>C#</td>
+      <td>cs</td>
+    </tr>
+    <tr>
+      <td>CSS</td>
+      <td>css</td>
+    </tr>
+    <tr>
+      <td>Diff</td>
+      <td>diff</td>
+    </tr>
+    <tr>
+      <td>HTTP</td>
+      <td>http</td>
+    </tr>
+    <tr>
+      <td>Ini</td>
+      <td>ini</td>
+    </tr>
+    <tr>
+      <td>Java</td>
+      <td>java</td>
+    </tr>
+    <tr>
+      <td>JavaScript</td>
+      <td>javascript</td>
+    </tr>
+    <tr>
+      <td>JSON</td>
+      <td>json</td>
+    </tr>
+    <tr>
+      <td>Makefile</td>
+      <td>markdown</td>
+    </tr>
+    <tr>
+      <td>Objective-C</td>
+      <td>objectivec</td>
+    </tr>
+    <tr>
+      <td>Perl</td>
+      <td>perl</td>
+    </tr>
+    <tr>
+      <td>Python</td>
+      <td>python</td>
+    </tr>
+    <tr>
+      <td>Ruby</td>
+      <td>ruby</td>
+    </tr>
+    <tr>
+      <td>SQL</td>
+      <td>sql</td>
+    </tr>
+    <tr>
+      <td>XML</td>
+      <td>xml</td>
+    </tr>
+    <tr>
+      <td>ARM汇编</td>
+      <td>armasm</td>
+    </tr>
+    <tr>
+      <td>AVR汇编</td>
+      <td>avrasm</td>
+    </tr>
+    <tr>
+      <td>MIPS汇编</td>
+      <td>mipsasm</td>
+    </tr>
+    <tr>
+      <td>x86汇编</td>
+      <td>x86asm</td>
+    </tr>
+    <tr>
+      <td>Elixir</td>
+      <td>elixir</td>
+    </tr>
+    <tr>
+      <td>Elm</td>
+      <td>elm</td>
+    </tr>
+    <tr>
+      <td>Erlang</td>
+      <td>erlang</td>
+    </tr>
+    <tr>
+      <td>F#</td>
+      <td>fsharp</td>
+    </tr>
+    <tr>
+      <td>Haskell</td>
+      <td>haskell</td>
+    </tr>
+    <tr>
+      <td>GLSL</td>
+      <td>glsl</td>
+    </tr>
+    <tr>
+      <td>Clojure</td>
+      <td>clojure</td>
+    </tr>
+    <tr>
+      <td>Lisp</td>
+      <td>lisp</td>
+    </tr>
+  </tbody>
+</table>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/assembly-language-16/"
+				title="link to 汇编语言 5.2 loop">汇编语言 5.2 loop</a></h2>
+		<p class="excerpt">Loop 指令loop 指令的格式是：loop 标号， CPU执行loop指令的时候，要进行两步操作：  $(CX) = (CX) - 1$  判断CX的值，不为零则转至标号处执行程序，如果为零则继续向下执行  CX的值影响着loop指令的执行结果。通常，我们用loop指令来实现循环功能，CX中存放着循环的次数我们编写一个实现$2^12$的代码，代码如下：assume cs:codecode segmentstart: mov ax, 2       mov cx, 11    s: ad...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-25 16:07:24 +0800"
+				class="post-list__meta--date date">2019-10-25</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/assembly-language-16/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/assembly-language-15/"
+				title="link to 汇编语言 5.1 [bx]">汇编语言 5.1 [bx]</a></h2>
+		<p class="excerpt">[bx]和内存单元我们在debug中，可以输入以下命令来执行对于段地址偏移地址的操作：mov ax, [0]     ；字传输mov al, [0]     ；字节传输但是当我们将这个命令在编译环境下执行，则会出现问题，例如我们写一个汇编脚本：assume cs:codesgcodesg segmentstart: mov ax, 2000H       mov ds, ax       mov al, [0]       mov bl, [1]       mov cl, [2]    ...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-24 09:16:24 +0800"
+				class="post-list__meta--date date">2019-10-24</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/assembly-language-15/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/10/markdown-highlight/";
+        this.page.identifier = "/2019/10/markdown-highlight/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

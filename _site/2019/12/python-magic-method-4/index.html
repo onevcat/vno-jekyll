@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python 魔法方法 (4) 简单定制</title>
+  <meta name="description" content="整理自小甲鱼鱼C论坛">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="python 魔法方法 (4) 简单定制">
+  <meta name="twitter:description" content="整理自小甲鱼鱼C论坛">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="python 魔法方法 (4) 简单定制">
+  <meta property="og:description" content="整理自小甲鱼鱼C论坛">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/12/python-magic-method-4/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-12-10 21:24:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-12-10</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">python 魔法方法 (4) 简单定制</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+
+<h3 id="简单定制">简单定制</h3>
+
+<p>下面来做一个案例，要求如下：</p>
+
+<ol>
+  <li>定制一个计时器的类</li>
+  <li>start和stop方法代表启动定时和停止计时</li>
+  <li>假设计时器对象t1，print(t1)和直接调用t1均显示结果</li>
+  <li>当计时器未启动或已经停止计时，调用stop方法会给予温馨的提示</li>
+  <li>像个计时器对象可以相加：t1+t2</li>
+  <li>只能使用提供的有限资源完成</li>
+</ol>
+
+<p>需要用到下面的资源：</p>
+
+<ol>
+  <li>使用time模块的localtime方法获取时间</li>
+  <li>time.localtime返回struct_time的时间格式</li>
+  <li>__str__()和__repr__()魔法方法</li>
+  <li>其中，__str__()和__repr__()魔法方法的用法如下：</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># __str__()的代码示例
+</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s">"A"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">A</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="o">&lt;</span><span class="n">__main__</span><span class="p">.</span><span class="n">A</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x03260F30</span><span class="o">&gt;</span>
+
+<span class="c1"># __repr__()的代码示例
+</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">B</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s">"B"</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">B</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span>
+<span class="n">B</span>
+</code></pre></div></div>
+
+<p>首先谈一下—__str__()的方法，在打印一个实例化对象时，打印的其实和是一个对象的地址。而通过__str__()函数就可以帮助我们打印对象中具体的属性值，因为在python中调用print函数打印实例化对象时就会调用__str__()的方法，如果__str__()中有返回值，就会打印其中的返回值。</p>
+
+<p>而__repr__()本身功能为显示自身的属性，在实例化以后，调用自身就会打印出属性。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="n">t</span>
+
+<span class="k">class</span> <span class="nc">Mytimer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">unit</span> <span class="o">=</span> <span class="p">[</span><span class="s">'年'</span><span class="p">,</span> <span class="s">'月'</span><span class="p">,</span> <span class="s">'天'</span><span class="p">,</span> <span class="s">'小时'</span><span class="p">,</span> <span class="s">'分钟'</span><span class="p">,</span> <span class="s">'秒'</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="s">"还未开始计时"</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">last_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">begin</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c1"># 这里如果使用self.start = 0，
+</span>                          <span class="c1"># 会因为在__init__()方法中使用
+</span>                          <span class="c1"># 与类中方法相同的名的属性，而覆盖方法
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">begin</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">localtime</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="s">"请调用stop()开始计时"</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"计时开始"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">localtime</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">calc</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"计时结束"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">calc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">last_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="s">"总共运行了"</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="nb">list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">stop</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">start</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">prompt</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">last_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">prompt</span>
+
+    <span class="n">__repr__</span> <span class="o">=</span> <span class="n">__str__</span>    <span class="c1"># 实现print(实例对象)和
+</span>                          <span class="c1"># 直接调用实例对象都会
+</span>                          <span class="c1"># 显示结果
+</span>
+    <span class="n">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="s">'总共运行了'</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+            <span class="n">result</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">prompt</span> <span class="o">+=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">unit</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">prompt</span>
+</code></pre></div></div>
+<p>但是以上的统计运行时间方法只能计算短时间以内的时间，当我们想要计算比较长时间的间隔就会出现问题，比如如果开始计时的时间是2022年2月22日16:30:30，停止时间是2025年1月23日15:30:30就会出现负数(小时:分钟:秒可以通过程序解决，但是月份就会出现闰年问题，变得很难处理)。</p>
+
+<p>对于这一问题，可以用time模块的perf_counter()和procee_time()来计算，其中, <br /></p>
+
+<p><strong>perf_counter()返回计时器的精准时间(系统的运行时间)</strong>；<br />
+<strong>process_time()返回当前进程执行CPU的时间总和</strong>。</p>
+
+<p>尝试通过perf_counter()以及process_time()这两个函数来改写程序，并加入能够连续统计多次运行程序的时间总长：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="n">t</span>
+
+<span class="k">class</span> <span class="nc">Mytimer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">1000000</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="s">"还未开始计时"</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">default_timer</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">perf_counter</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">begin</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c1"># 这里如果使用self.start = 0，
+</span>                          <span class="c1"># 会因为在__init__()方法中使用
+</span>                          <span class="c1"># 与类中方法相同的名的属性，而覆盖方法
+</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">lasted</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">prompt</span>
+
+    <span class="n">__repr__</span> <span class="o">=</span> <span class="n">__str__</span>    <span class="c1"># 实现print(实例对象)和
+</span>                          <span class="c1"># 直接调用实例对象都会
+</span>                          <span class="c1"># 显示结果
+</span>
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">lasted</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="n">lasted</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="s">'总共运行了%0.2f秒'</span> <span class="o">%</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">prompt</span>
+
+    <span class="k">def</span> <span class="nf">set_timer</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">timer</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">timer</span> <span class="o">==</span> <span class="s">"process_time"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">default_timer</span> <span class="o">=</span> <span class="n">process_time</span>
+        <span class="k">elif</span> <span class="n">timer</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">default_timer</span> <span class="o">=</span> <span class="n">perf_counter</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"输入无效，请重新输入perf_counter或process_time"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">timing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">defalt_timer</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">func</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">default_timer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">lasted</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">start</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="s">"总共运行了%0.2f秒"</span> <span class="o">%</span> <span class="bp">self</span><span class="p">.</span><span class="n">lasted</span>
+</code></pre></div></div>
+
+<p>这一讲主要告诉了一个道理，千万不要自己编辑程序计时器。计时器出现问题，失败代价成本太高!</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/assembly-language-42/"
+				title="link to 汇编语言 10.4 10.5 10.6 转移的目的地址在指令，寄存器以及内存中的call指令">汇编语言 10.4 10.5 10.6 转移的目的地址在指令，寄存器以及内存中的call指令</a></h2>
+		<p class="excerpt">10.4 转移的目的地址在指令中的call指令前面讲的call指令，其对应的及其指令中并没有转移的目的地址，而是相对于当前IP的转移位移。“call far ptr 标号”实现的是段间转移。CPU执行此种格式的call指令时，进行如下的操作。      (sp)=(sp)-2 ((ss)*16+(sp))=(CS)(sp)=(sp)-2((ss)*16+(sp))=(IP)        (CS)=标号所在段的段地址(IP)=标号在段中的偏移地址  从上面的描述中可以看出，如果我们用汇编语...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-11 10:48:24 +0800"
+				class="post-list__meta--date date">2019-12-11</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/12/assembly-language-42/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/assembly-language-41/"
+				title="link to 汇编语言 10.1 10.2 10.3 ret和retf call指令 依据位移进行转移的call指令">汇编语言 10.1 10.2 10.3 ret和retf call指令 依据位移进行转移的call指令</a></h2>
+		<p class="excerpt">call和ret指令都是转移指令，它们都修改IP，或同时修改CS和IP。它们经常被共同用来实现子程序的设计。10.1 ret和retfret指令用栈中的数据，修改IP的内容，从而实现近转移；retf指令用栈中的数据，修改CS和IP的内容，从而实现远转移。  CPU执行ret指令时，进行下面两步操作：  (IP)=((ss)*16+(sp))  (sp)=(sp)+2栈模拟图如下，            1      IP              2                    ...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-10 09:28:24 +0800"
+				class="post-list__meta--date date">2019-12-10</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/12/assembly-language-41/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/12/python-magic-method-4/";
+        this.page.identifier = "/2019/12/python-magic-method-4/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

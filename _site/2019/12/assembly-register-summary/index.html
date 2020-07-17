@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 寄存器总结 (转载)</title>
+  <meta name="description" content="转自CSDN博客，Dask Jhonson转自CSDN博客，iteye_10501">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 寄存器总结 (转载)">
+  <meta name="twitter:description" content="转自CSDN博客，Dask Jhonson转自CSDN博客，iteye_10501">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 寄存器总结 (转载)">
+  <meta property="og:description" content="转自CSDN博客，Dask Jhonson转自CSDN博客，iteye_10501">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/12/assembly-register-summary/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-12-30 19:55:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-12-30</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 寄存器总结 (转载)</h1>
+
+		</header>
+
+		<section class="post">
+			<p><a href="https://blog.csdn.net/qq_41115702/article/details/82763383">转自CSDN博客，Dask Jhonson</a><br />
+<a href="https://blog.csdn.net/iteye_10501/article/details/82297309">转自CSDN博客，iteye_10501</a></p>
+
+<p>表格总结：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>寄存器的分类</th>
+      <th> </th>
+      <th>寄存器</th>
+      <th>主要用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>通用寄存器</td>
+      <td>数据寄存器</td>
+      <td>AX</td>
+      <td>乘、除运算，字的输入输出，中间结果的缓存</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>AL</td>
+      <td>字节的乘、除运算，字节的输入输出，十进制算数运算</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>AH</td>
+      <td>字节的乘、除运算，存放中断的功能号</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>BX</td>
+      <td>存储器指针</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>CX</td>
+      <td>串操作、循环控制的计数器</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>CL</td>
+      <td>移位操作的计数器</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>DX</td>
+      <td>字的乘、除运算，间接的输入输出</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>变址寄存器</td>
+      <td>SI</td>
+      <td>存储器指针、串指令中的源操作数指针</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>DI</td>
+      <td>存储器指针、串指令中的目的操作数指针</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>BP</td>
+      <td>存储器指针、存取堆栈的指针</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>SP</td>
+      <td>堆栈的栈顶指针</td>
+    </tr>
+    <tr>
+      <td>指令指针</td>
+      <td> </td>
+      <td>IP/EIP</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>标志位寄存器</td>
+      <td> </td>
+      <td>FLag/EFlag</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>32位CPU的段寄存器</td>
+      <td>16位CPU的段寄存器</td>
+      <td>ES</td>
+      <td>附加段寄存器</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>CS</td>
+      <td>代码段寄存器</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>SS</td>
+      <td>堆栈段寄存器</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>DS</td>
+      <td>数据段寄存器</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>新增加的段寄存器</td>
+      <td>FS</td>
+      <td>附加段寄存器</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>GS</td>
+      <td>附加段寄存器</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>8086CPU总共有14个寄存器：<br />
+即AX，BX，CX，DX，SP，BP，SI，DI，IP，FLAG，CS，DS，SS，ES共14个。</p>
+
+<h3 id="1-通用寄存器">1. 通用寄存器</h3>
+
+<blockquote>
+  <p>AX，BX，CX，DX称作为<strong>数据寄存器</strong>：</p>
+</blockquote>
+
+<p>AX (Accumulator)：累加寄存器，也称之为累加器；<br />
+BX (Base)：基地址寄存器；<br />
+CX (Count)：计数器寄存器；<br />
+DX (Data)：数据寄存器；</p>
+
+<blockquote>
+  <p>SP和BP又称作为<strong>指针寄存器</strong>：</p>
+</blockquote>
+
+<p>SP (Stack Pointer)：堆栈指针寄存器；<br />
+BP (Base Pointer)：基指针寄存器；<br /></p>
+
+<blockquote>
+  <p>SI和DI又称作为<strong>变址寄存器</strong>：</p>
+</blockquote>
+
+<p>SI (Source Index)：源变址寄存器；<br />
+DI (Destination Index)：目的贬值寄存器；</p>
+
+<h3 id="2-控制寄存器">2. 控制寄存器</h3>
+
+<blockquote>
+  <p>IP (Instruction Pointer)：指令指针寄存器；
+FLAG：标志寄存器；</p>
+</blockquote>
+
+<h3 id="3-段寄存器">3. 段寄存器</h3>
+
+<blockquote>
+  <p>CS (Code Segment)：代码段寄存器；<br />
+DS (Data Segment)：数据段寄存器；<br />
+SS (Stack Segment)：堆栈段寄存器；<br />
+ES (Extra Segment)：附加段寄存器；</p>
+</blockquote>
+
+<p>以上是常见的寄存器分类；其终值得注意的每个寄存器都是16位的(dword，双字节)，而只有4个数据寄存器，<strong>即AX，BX，CX，DX可以拆分为两个8位寄存器来使用</strong>。</p>
+
+<h3 id="寄存器使用方法">寄存器使用方法</h3>
+
+<h4 id="1-4个数据寄存器是可拆分的">1. 4个数据寄存器是可拆分的</h4>
+
+<p>例如AX可分为AH(高位寄存器)和AL(低位寄存器)，即：在负值的时候可分开赋值。</p>
+
+<h4 id="2-csip寄存器">2. CS/IP寄存器</h4>
+
+<p>CS:IP 索引的内存即为CPU开始读取代码的起点，之后的一段代码区域，被称为代码片段(code segment)，这两个寄存器不能进行赋值操作(mov操作)，只能通过jmp指令跳转。</p>
+
+<pre><code class="language-x86asm">jmp 4E6A:0
+</code></pre>
+
+<h4 id="3-sssp">3. SS/SP</h4>
+
+<p>用于栈顶操作</p>
+
+<h4 id="4-segment段">4. segment(段)</h4>
+
+<ol>
+  <li>数据段(被存在DS指定的段地址开始的地方)</li>
+  <li>代码段(被存在CS指定的段地址开始的地方)</li>
+  <li>栈段(被存在SS指定的段地址开始的地方)</li>
+</ol>
+
+<p>一般通过assume伪指令把数据段绑定在对应的段上，</p>
+
+<pre><code class="language-x86asm">assume cs:code, ds:data, ss:stack
+</code></pre>
+
+<h4 id="5-寄存器寻址">5. 寄存器寻址</h4>
+
+<p>(1) 在8086CPU中只有这四个寄存器可以在[…]中进行内存单元的寻址。</p>
+
+<p>比如，下面的指令都是正确的：<br />
+mov ax,[bx]<br />
+mov ax,[bx+si]<br />
+mov ax,[bx+di]<br />
+mov ax,[bp]<br />
+mov ax,[bp+si]<br />
+mov ax,[bp+di]</p>
+
+<p>而下面都是错误的:
+mov ax,[cx]<br />
+mov ax,[ax]<br />
+mov ax,[dx]<br />
+mov ax,[ds]</p>
+
+<p>(2) 在[…]中，这四个寄存器可以单独出现，或者只能以四种组合出现：bx和si、bx和di、bp和si、bp和di。</p>
+
+<p>比如下面都是正确的：<br />
+mov ax,[bx]<br />
+mov ax,[si]<br />
+mov ax,[di]<br />
+mov ax,[bp]<br />
+mov ax,[bx+si]<br />
+mov ax,[bx+di]<br />
+mov ax,[bp+si]<br />
+mpv ax,[bp+di]<br />
+mov ax,[bx+si+idata]<br />
+mov ax,[bx+si+idata]<br />
+mov ax,[bp+si+idata]<br />
+mov ax,[bp+di+idata]</p>
+
+<p>下面就是错误的：<br />
+mov ax,[bx+bp]<br />
+mov ax,[si+di]</p>
+
+<p>(3) 只要在[…]中使用寄存器bp，而指令汇总没有显示给出段地址，<strong>段地址就默认在ss中</strong>。 比如下面的指令：</p>
+
+<p>mov ax,[bp] 含义：(ax)=((ss)*16+(bp))<br />
+mov ax,[bp+idata] 含义：(ax)=((ss)*16+(bp)+idata)<br />
+mov ax,[bp+si] 含义：(ax)=((ss)*16+(bp)+(si))<br />
+mov ax,[bp+si+idata] 含义：(ax)=((ss)*16+(bp)+(si)+idata)</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/python-magic-method-7/"
+				title="link to python 魔法方法 (7) 定制序列">python 魔法方法 (7) 定制序列</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛定制容器与协议(protocol)成功地实现容器定制，需要先了解一下协议(protocol)。Python中的协议与其他编程语言中的接口很相似，它规定哪些方法必须定义。然后，在Python中的协议就不那么正式。事实上，Python的协议更像是一种指南。这有点像Python极力推崇的鸭子类型。鸭子类型(duck typing)复习鸭子类型(duck typing)是动态类型的一种风格。这种风格中，一个对象有效的语义，不是由继承自特定的类或实现特定的接口，而是由当前方法和属...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-31 14:46:24 +0800"
+				class="post-list__meta--date date">2019-12-31</time> &#8226; <span
+				class="post-list__meta--tags tags">python</span><a class="btn-border-small"
+				href=/2019/12/python-magic-method-7/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/assembly-language-46/"
+				title="link to 汇编语言 实验10 (2) 解决除法溢出的问题">汇编语言 实验10 (2) 解决除法溢出的问题</a></h2>
+		<p class="excerpt">div 复习div指令可以做除法。当进行8位除法的时候，用al存储结果的商，ah存储结果的余数；进行16位除法的时候，用ax存储结果的商，dx存储结果的余数，            数据类型      寄存器      存放内容                  8位      al      商                     ah      余数              16位      ax      商                     dx      余数    ...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-29 14:48:24 +0800"
+				class="post-list__meta--date date">2019-12-29</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/12/assembly-language-46/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/12/assembly-register-summary/";
+        this.page.identifier = "/2019/12/assembly-register-summary/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

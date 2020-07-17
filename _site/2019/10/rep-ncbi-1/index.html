@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python爬取ncbi检索信息的摸索</title>
+  <meta name="description" content="爬取前，先准备爬虫所需模块：">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="python爬取ncbi检索信息的摸索">
+  <meta name="twitter:description" content="爬取前，先准备爬虫所需模块：">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="python爬取ncbi检索信息的摸索">
+  <meta property="og:description" content="爬取前，先准备爬虫所需模块：">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/10/rep-ncbi-1/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-10-30 20:15:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-10-30</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">python爬取ncbi检索信息的摸索</h1>
+
+		</header>
+
+		<section class="post">
+			<p>爬取前，先准备爬虫所需模块：</p>
+
+<ol>
+  <li>requests</li>
+  <li>bs4</li>
+  <li>openpyxl</li>
+</ol>
+
+<p>安装后，进行爬取。</p>
+
+<p>首先伪装user-agent:</p>
+
+<p>在浏览器中使用inspect功能寻找浏览器user-agent, 如图中红框所示：</p>
+
+<p><img src="/assets/201910/2019-10-30_21-18-47.png" alt="figure1" /></p>
+
+<p>爬取代码如下：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">bs4</span>
+<span class="kn">import</span> <span class="nn">openpyxl</span>
+
+<span class="k">def</span> <span class="nf">open_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">"user-agent"</span><span class="p">:</span> <span class="s">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"</span><span class="p">}</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="k">def</span> <span class="nf">find_data</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">bs4</span><span class="p">.</span><span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="s">"html.parser"</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">soup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="s">"gene-tabular-docsum"</span><span class="p">)</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">content</span><span class="p">.</span><span class="n">find_all</span><span class="p">(</span><span class="s">"td"</span><span class="p">)</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>   <span class="c1"># 对target列表添加迭代器
+</span>
+    <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">target</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">.</span><span class="n">append</span><span class="p">([</span>
+            <span class="nb">next</span><span class="p">(</span><span class="n">target</span><span class="p">).</span><span class="n">text</span><span class="p">,</span>
+            <span class="nb">next</span><span class="p">(</span><span class="n">target</span><span class="p">).</span><span class="n">text</span><span class="p">,</span>
+            <span class="nb">next</span><span class="p">(</span><span class="n">target</span><span class="p">).</span><span class="n">text</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="k">def</span> <span class="nf">to_excel</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="p">.</span><span class="n">Workbook</span><span class="p">()</span>
+    <span class="n">wb</span><span class="p">.</span><span class="n">guess_types</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="p">.</span><span class="n">active</span>
+    <span class="n">ws</span><span class="p">.</span><span class="n">append</span><span class="p">([</span><span class="s">'Description'</span><span class="p">,</span><span class="s">'Location'</span><span class="p">,</span><span class="s">'Name'</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">ws</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+
+    <span class="n">wb</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"test.xlsx"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">"https://www.ncbi.nlm.nih.gov/gene/?term="</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">open_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">find_data</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    <span class="n">to_excel</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+<p>本代码以爬取ncbi上PRRSV关键字的基因的Description, Location 以及基因名称为例。</p>
+
+<p>爬取后的效果如图所示：</p>
+
+<p><img src="/assets/201910/2019-10-30_21-31-41.png" alt="figure2" /></p>
+
+<p>目标爬取html代码如下:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="nt">&lt;div&gt;&lt;p&gt;&lt;set&gt;&lt;/set&gt;&lt;/p&gt;&lt;div</span> <span class="na">class=</span><span class="s">"ui-ncbigrid-outer-div"</span> <span class="na">id=</span><span class="s">"gene-tabular-docsum"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"ui-ncbigrid-inner-div"</span><span class="nt">&gt;&lt;table</span> <span class="na">class=</span><span class="s">"jig-ncbigrid gene-tabular-rprt"</span> <span class="na">data-jigconfig=</span><span class="s">"isPageable: false, isPageToolbarHideable: true, pageSize:300"</span> <span class="na">style=</span><span class="s">"width:100%;margin-top:0;"</span> <span class="na">cellpadding=</span><span class="s">"0"</span> <span class="na">cellspacing=</span><span class="s">"0"</span><span class="nt">&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;</span>Name/Gene ID<span class="nt">&lt;/th&gt;&lt;th&gt;</span>Description<span class="nt">&lt;/th&gt;&lt;th&gt;</span>Location<span class="nt">&lt;/th&gt;&lt;th&gt;</span>Aliases<span class="nt">&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox1502251"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 1502251<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"1"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox1502251"</span> <span class="na">value=</span><span class="s">"1502251"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/1502251"</span> <span class="na">ref=</span><span class="s">"ordinalpos=1&amp;amp;ncbi_uid=1502251&amp;amp;link_uid=1502251"</span><span class="nt">&gt;</span>FCVgp2<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 1502251<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>capsid protein precursor [<span class="nt">&lt;em&gt;</span>Feline <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"highlight"</span> <span class="na">style=</span><span class="s">"background-color:"</span><span class="nt">&gt;</span>calicivirus<span class="nt">&lt;/span&gt;&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>NC_001481.2 (5314..7320)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>FCVgp2<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox105998555"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 105998555<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"2"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox105998555"</span> <span class="na">value=</span><span class="s">"105998555"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/105998555"</span> <span class="na">ref=</span><span class="s">"ordinalpos=2&amp;amp;ncbi_uid=105998555&amp;amp;link_uid=105998555"</span><span class="nt">&gt;</span>Mapt<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 105998555<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>microtubule associated protein tau [<span class="nt">&lt;em&gt;</span>Dipodomys ordii<span class="nt">&lt;/em&gt;</span> (Ord's kangaroo rat)]<span class="nt">&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox105782729"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 105782729<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"3"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox105782729"</span> <span class="na">value=</span><span class="s">"105782729"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/105782729"</span> <span class="na">ref=</span><span class="s">"ordinalpos=3&amp;amp;ncbi_uid=105782729&amp;amp;link_uid=105782729"</span><span class="nt">&gt;</span>LOC105782729<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 105782729<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>general negative regulator of transcription subunit 3-like [<span class="nt">&lt;em&gt;</span>Gossypium raimondii<span class="nt">&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Chromosome 13, NC_026941.1 (31606705..31615612)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>B456_013G123000<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox101405930"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 101405930<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"4"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox101405930"</span> <span class="na">value=</span><span class="s">"101405930"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/101405930"</span> <span class="na">ref=</span><span class="s">"ordinalpos=4&amp;amp;ncbi_uid=101405930&amp;amp;link_uid=101405930"</span><span class="nt">&gt;</span>LOC101405930<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 101405930<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>rubicon autophagy regulator [<span class="nt">&lt;em&gt;</span>Ceratotherium simum simum<span class="nt">&lt;/em&gt;</span> (southern white rhinoceros)]<span class="nt">&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;</span>KIAA0226<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox7095708"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 7095708<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"5"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox7095708"</span> <span class="na">value=</span><span class="s">"7095708"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/7095708"</span> <span class="na">ref=</span><span class="s">"ordinalpos=5&amp;amp;ncbi_uid=7095708&amp;amp;link_uid=7095708"</span><span class="nt">&gt;</span>RaCVMIC07_gp1<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 7095708<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>polyprotein [<span class="nt">&lt;em&gt;</span>Rabbit <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"highlight"</span> <span class="na">style=</span><span class="s">"background-color:"</span><span class="nt">&gt;</span>calicivirus<span class="nt">&lt;/span&gt;</span> Australia 1 MIC-07<span class="nt">&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>NC_011704.1 (10..7032)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>RaCVMIC07_gp1<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox111588689"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 111588689<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"6"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox111588689"</span> <span class="na">value=</span><span class="s">"111588689"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/111588689"</span> <span class="na">ref=</span><span class="s">"ordinalpos=6&amp;amp;ncbi_uid=111588689&amp;amp;link_uid=111588689"</span><span class="nt">&gt;</span>ect2<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 111588689<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>epithelial cell transforming 2 [<span class="nt">&lt;em&gt;</span>Amphiprion ocellaris<span class="nt">&lt;/em&gt;</span> (clown anemonefish)]<span class="nt">&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox101077282"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 101077282<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"7"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox101077282"</span> <span class="na">value=</span><span class="s">"101077282"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/101077282"</span> <span class="na">ref=</span><span class="s">"ordinalpos=7&amp;amp;ncbi_uid=101077282&amp;amp;link_uid=101077282"</span><span class="nt">&gt;</span>gata3<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 101077282<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>GATA binding protein 3 [<span class="nt">&lt;em&gt;</span>Takifugu rubripes<span class="nt">&lt;/em&gt;</span> (torafugu)]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Chromosome 18, NC_042302.1 (3061001..3072374, complement)<span class="nt">&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox20178596"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 20178596<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"8"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox20178596"</span> <span class="na">value=</span><span class="s">"20178596"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/20178596"</span> <span class="na">ref=</span><span class="s">"ordinalpos=8&amp;amp;ncbi_uid=20178596&amp;amp;link_uid=20178596"</span><span class="nt">&gt;</span>PPTG_08834<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 20178596<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>hypothetical protein [<span class="nt">&lt;em&gt;</span>Phytophthora parasitica INRA-310<span class="nt">&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;</span>PPTG_08834<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox43765"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 43765<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"9"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox43765"</span> <span class="na">value=</span><span class="s">"43765"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/43765"</span> <span class="na">ref=</span><span class="s">"ordinalpos=9&amp;amp;ncbi_uid=43765&amp;amp;link_uid=43765"</span><span class="nt">&gt;</span>Map205<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 43765<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>Microtubule-associated protein 205 [<span class="nt">&lt;em&gt;</span>Drosophila melanogaster<span class="nt">&lt;/em&gt;</span> (fruit fly)]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Chromosome 3R, NT_033777.3 (32055279..32068441, complement)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Dmel_CG1483, 205-kDa MAP, 205K MAP, 205kD MAP, 205kDa MAP, CG1483, Dmel\CG1483, MAP205, MAP4, map205<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox33905891"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 33905891<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"10"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox33905891"</span> <span class="na">value=</span><span class="s">"33905891"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/33905891"</span> <span class="na">ref=</span><span class="s">"ordinalpos=10&amp;amp;ncbi_uid=33905891&amp;amp;link_uid=33905891"</span><span class="nt">&gt;</span>CK834_gp1<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 33905891<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>polyprotien [<span class="nt">&lt;em&gt;</span>Fathead minnow <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"highlight"</span> <span class="na">style=</span><span class="s">"background-color:"</span><span class="nt">&gt;</span>calicivirus<span class="nt">&lt;/span&gt;&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>NC_035675.1 (46..6390)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>CK834_gp1<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox19351527"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 19351527<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"11"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox19351527"</span> <span class="na">value=</span><span class="s">"19351527"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/19351527"</span> <span class="na">ref=</span><span class="s">"ordinalpos=11&amp;amp;ncbi_uid=19351527&amp;amp;link_uid=19351527"</span><span class="nt">&gt;</span>EW44_gp1<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 19351527<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>polyprotein [<span class="nt">&lt;em&gt;</span>Goose <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"highlight"</span> <span class="na">style=</span><span class="s">"background-color:"</span><span class="nt">&gt;</span>calicivirus<span class="nt">&lt;/span&gt;&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>NC_024078.1 (11..6970)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>EW44_gp1<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox19076913"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 19076913<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"12"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox19076913"</span> <span class="na">value=</span><span class="s">"19076913"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/19076913"</span> <span class="na">ref=</span><span class="s">"ordinalpos=12&amp;amp;ncbi_uid=19076913&amp;amp;link_uid=19076913"</span><span class="nt">&gt;</span>EH71_gp1<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 19076913<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>polyprotein [<span class="nt">&lt;em&gt;</span>Atlantic salmon <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"highlight"</span> <span class="na">style=</span><span class="s">"background-color:"</span><span class="nt">&gt;</span>calicivirus<span class="nt">&lt;/span&gt;&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>NC_024031.1 (46..7131)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>EH71_gp1<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox7901792"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 7901792<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"13"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox7901792"</span> <span class="na">value=</span><span class="s">"7901792"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/7901792"</span> <span class="na">ref=</span><span class="s">"ordinalpos=13&amp;amp;ncbi_uid=7901792&amp;amp;link_uid=7901792"</span><span class="nt">&gt;</span>SVSV_gp1<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 7901792<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>polyprotein [<span class="nt">&lt;em&gt;&lt;span</span> <span class="na">class=</span><span class="s">"highlight"</span> <span class="na">style=</span><span class="s">"background-color:"</span><span class="nt">&gt;</span>Calicivirus<span class="nt">&lt;/span&gt;</span> pig/AB90/CAN<span class="nt">&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>NC_012699.1 (11..5950)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>SVSV_gp1<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox14181239"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 14181239<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"14"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox14181239"</span> <span class="na">value=</span><span class="s">"14181239"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/14181239"</span> <span class="na">ref=</span><span class="s">"ordinalpos=14&amp;amp;ncbi_uid=14181239&amp;amp;link_uid=14181239"</span><span class="nt">&gt;</span>F868_gp2<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 14181239<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>ORF2 protein [<span class="nt">&lt;em&gt;</span>Mink <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"highlight"</span> <span class="na">style=</span><span class="s">"background-color:"</span><span class="nt">&gt;</span>calicivirus<span class="nt">&lt;/span&gt;&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>NC_019712.1 (5857..7899)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>F868_gp2<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox114798770"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 114798770<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"15"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox114798770"</span> <span class="na">value=</span><span class="s">"114798770"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/114798770"</span> <span class="na">ref=</span><span class="s">"ordinalpos=15&amp;amp;ncbi_uid=114798770&amp;amp;link_uid=114798770"</span><span class="nt">&gt;</span>tmem201<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 114798770<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>transmembrane protein 201 [<span class="nt">&lt;em&gt;</span>Denticeps clupeoides<span class="nt">&lt;/em&gt;</span> (denticle herring)]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Chromosome 10, NC_041716.1 (20993598..21005919, complement)<span class="nt">&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox105583465"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 105583465<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"16"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox105583465"</span> <span class="na">value=</span><span class="s">"105583465"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/105583465"</span> <span class="na">ref=</span><span class="s">"ordinalpos=16&amp;amp;ncbi_uid=105583465&amp;amp;link_uid=105583465"</span><span class="nt">&gt;</span>PLD2<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 105583465<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>phospholipase D2 [<span class="nt">&lt;em&gt;</span>Cercocebus atys<span class="nt">&lt;/em&gt;</span> (sooty mangabey)]<span class="nt">&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox30854753"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 30854753<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"17"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox30854753"</span> <span class="na">value=</span><span class="s">"30854753"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/30854753"</span> <span class="na">ref=</span><span class="s">"ordinalpos=17&amp;amp;ncbi_uid=30854753&amp;amp;link_uid=30854753"</span><span class="nt">&gt;</span>BWU78_gp1<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 30854753<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>polyprotein [<span class="nt">&lt;em&gt;</span>Chicken <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"highlight"</span> <span class="na">style=</span><span class="s">"background-color:"</span><span class="nt">&gt;</span>calicivirus<span class="nt">&lt;/span&gt;&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>NC_033081.1 (304..7245)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>BWU78_gp1<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox5130492"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 5130492<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"18"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox5130492"</span> <span class="na">value=</span><span class="s">"5130492"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/5130492"</span> <span class="na">ref=</span><span class="s">"ordinalpos=18&amp;amp;ncbi_uid=5130492&amp;amp;link_uid=5130492"</span><span class="nt">&gt;</span>CITV_gp1<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 5130492<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>polyprotein [<span class="nt">&lt;em&gt;&lt;span</span> <span class="na">class=</span><span class="s">"highlight"</span> <span class="na">style=</span><span class="s">"background-color:"</span><span class="nt">&gt;</span>Calicivirus<span class="nt">&lt;/span&gt;</span> isolate TCG<span class="nt">&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>NC_006875.1 (75..6707)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>CITV_gp1<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox105328637"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 105328637<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"19"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox105328637"</span> <span class="na">value=</span><span class="s">"105328637"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/105328637"</span> <span class="na">ref=</span><span class="s">"ordinalpos=19&amp;amp;ncbi_uid=105328637&amp;amp;link_uid=105328637"</span><span class="nt">&gt;</span>LOC105328637<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 105328637<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>leucine-rich repeat-containing protein 74B [<span class="nt">&lt;em&gt;</span>Crassostrea gigas<span class="nt">&lt;/em&gt;</span> (Pacific oyster)]<span class="nt">&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;</span>CGI_10025655<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr</span> <span class="na">class=</span><span class="s">"rprt"</span><span class="nt">&gt;&lt;td</span> <span class="na">class=</span><span class="s">"gene-name-id"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnumcol"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"rprtnum nohighlight"</span><span class="nt">&gt;&lt;label</span> <span class="na">for=</span><span class="s">"UidCheckBox7901791"</span> <span class="na">class=</span><span class="s">"ui-helper-hidden-accessible"</span><span class="nt">&gt;</span>Select item 7901791<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">name=</span><span class="s">"EntrezSystem2.PEntrez.Gene.Gene_ResultsPanel.Gene_TabularDocsum.uid"</span> <span class="na">sid=</span><span class="s">"20"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"UidCheckBox7901791"</span> <span class="na">value=</span><span class="s">"7901791"</span> <span class="nt">/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/gene/7901791"</span> <span class="na">ref=</span><span class="s">"ordinalpos=20&amp;amp;ncbi_uid=7901791&amp;amp;link_uid=7901791"</span><span class="nt">&gt;</span>SVSV_gp2<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;span</span> <span class="na">class=</span><span class="s">"gene-id"</span><span class="nt">&gt;</span>ID: 7901791<span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td&gt;</span>VP2 [<span class="nt">&lt;em&gt;&lt;span</span> <span class="na">class=</span><span class="s">"highlight"</span> <span class="na">style=</span><span class="s">"background-color:"</span><span class="nt">&gt;</span>Calicivirus<span class="nt">&lt;/span&gt;</span> pig/AB90/CAN<span class="nt">&lt;/em&gt;</span>]<span class="nt">&lt;/td&gt;&lt;td&gt;</span>NC_012699.1 (5941..6393)<span class="nt">&lt;/td&gt;&lt;td&gt;</span>SVSV_gp2<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</span>
+ 
+</code></pre></div></div>
+<p>根据html代码，我们可以用<code class="language-plaintext highlighter-rouge">find_all()</code>函数来直接寻找”td”关键词，来直接取前三个关键词的text进行爬取。</p>
+
+<p>以上代码只是一个引子，具体情况具体分析。</p>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/assembly-language-22/"
+				title="link to 汇编语言 6.1 在CS中使用数据">汇编语言 6.1 在CS中使用数据</a></h2>
+		<p class="excerpt">6.1 在代码段中使用数据这里有个问题，我们希望使用loop的方法将如下数据累加和。数据如下：0123H、0456H、0789H、0ABCH、0DEFH、0FEDH、0CBAH、0987H为此我们进行了编程，代码如下：assume cs:codecode segment  dw 0123H, 0456H, 0789H, 0ABCH, 0DEFH, 0FEDH, 0CBAH, 0987H  ;dw意为define word  mov bx, 0  mov ax, 0  mov cx, 8s:...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-31 15:43:24 +0800"
+				class="post-list__meta--date date">2019-10-31</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/assembly-language-22/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/assembly-language-21/"
+				title="link to 汇编语言 实验4 [bx]和loop的使用">汇编语言 实验4 [bx]和loop的使用</a></h2>
+		<p class="excerpt">实验4 [bx]和loop的使用问题1：编程， 向内存0:200~0:23F依次复制数据0~63(3FH)。assume cs:codecode segment    mov ax, 0020h     ;0:200~0:23F相当于0020h:0~0020h:23f    mov ds, ax    mov bx, 0    mov cx, 64s:  mov ds:[bx], bl   ;这里因为直接从0开始复制    inc bx    loop s    mov ax, 4c00h...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-30 10:04:24 +0800"
+				class="post-list__meta--date date">2019-10-30</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/assembly-language-21/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/10/rep-ncbi-1/";
+        this.page.identifier = "/2019/10/rep-ncbi-1/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

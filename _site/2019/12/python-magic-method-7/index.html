@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python 魔法方法 (7) 定制序列</title>
+  <meta name="description" content="整理自小甲鱼鱼C论坛">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="python 魔法方法 (7) 定制序列">
+  <meta name="twitter:description" content="整理自小甲鱼鱼C论坛">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="python 魔法方法 (7) 定制序列">
+  <meta property="og:description" content="整理自小甲鱼鱼C论坛">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/12/python-magic-method-7/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-12-31 14:46:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-12-31</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">python 魔法方法 (7) 定制序列</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+
+<h3 id="定制容器与协议protocol">定制容器与协议(protocol)</h3>
+
+<p>成功地实现容器定制，需要先了解一下协议(protocol)。Python中的协议与其他编程语言中的接口很相似，它规定哪些方法必须定义。然后，在Python中的协议就不那么正式。事实上，Python的协议更像是一种指南。</p>
+
+<p>这有点像Python极力推崇的鸭子类型。</p>
+
+<h3 id="鸭子类型duck-typing复习">鸭子类型(duck typing)复习</h3>
+
+<p>鸭子类型(duck typing)是动态类型的一种风格。这种风格中，一个对象有效的语义，不是由<strong>继承自特定的类或实现特定的接口，而是由当前方法和属性的集合决定</strong>。
+即关注的不是对象的类型本身，而是它是如何使用的。在使用鸭子类型的语言中，一个函数可以接受一个任意类型的对象，并调用它的方法。如果这些需要被调用的方法不存在，那么将引发一个运行时错误。任何拥有这样的正确的方法的对象，都可被函数接受的这种行为引出了以上表述，这种决定类型的方式因此得名。
+鸭子类型通常得益于不测试方法和函数中的参数的类型，而是依赖文档、清晰的代码和测试来确保正确的使用。</p>
+
+<p>从静态类型语言转向动态类型语言的用户通常试图添加一些静态的(在运行之前的)类型检查，从而影响了鸭子类型的益处和可伸缩性，并约束了语言的动态特性。</p>
+
+<p>代码示例，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Duck</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">quack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"呱呱呱!"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">feathers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"这个鸭子拥有灰白灰白的羽毛。"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">quack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"你才是鸭子，你们全家人都是鸭子！"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">feathers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"这个人穿着一件羽绒大衣。"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">in_the_forest</span><span class="p">(</span><span class="n">duck</span><span class="p">):</span>
+    <span class="n">duck</span><span class="p">.</span><span class="n">quack</span><span class="p">()</span>
+    <span class="n">duck</span><span class="p">.</span><span class="n">feathers</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">game</span><span class="p">():</span>
+    <span class="n">donald</span> <span class="o">=</span> <span class="n">Duck</span><span class="p">()</span>
+    <span class="n">john</span> <span class="o">=</span> <span class="n">Person</span><span class="p">()</span>
+    <span class="n">in_the_forest</span><span class="p">(</span><span class="n">donald</span><span class="p">)</span>
+    <span class="n">in_the_forest</span><span class="p">(</span><span class="n">john</span><span class="p">)</span>
+
+<span class="n">game</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>in_the_forest() 函数对参数duck只有一个要求：就是可以实现quack()和feathers()方。然而Duck类和Person类都实现了quack()和feathers()方法，因此它们的实例对象donald和john都可以用作in_the_forest()的参数。这就是鸭子类型。</p>
+
+<p>我们可以看出，鸭子类型给予Python这样的动态语言以多态。但是这种多态的实现完全由程序员来约束强制实现(文档、清晰的代码和测试)，并没有语言上的约束(如C++ 继承和虚函数)。因此这种方法即灵活，又提高了对程序员的要求。</p>
+
+<h3 id="与定制容器类型相关的魔法方法及含义">与定制容器类型相关的魔法方法及含义</h3>
+
+<p>在Python中，像序列类型(如列表、元组、字符串)或映射类型(如字典)都属于容器类型。</p>
+
+<p>下面讲一下与定制容器有关的一些协议：</p>
+
+<ul>
+  <li>如果希望定制的容器<strong>不可变</strong>，则只需要定义__len__()和__getitem__()方法。</li>
+  <li>如果希望地址的容器是<strong>可变的</strong>，除了__len__()和__getitem__()方法，还需要定义__setitem__()和__delitem__()两个方法。</li>
+</ul>
+
+<p>下表列举了与定制容器有关的魔法方法及含义。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>魔法方法</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>__len__(self)</td>
+      <td>定义当被len()函数调用时的行为，即返回容器中元素的个数</td>
+    </tr>
+    <tr>
+      <td>__getitem__(self, key)</td>
+      <td>定义获取容器中指定元素时的行为，相当于self[key]</td>
+    </tr>
+    <tr>
+      <td>__setitem__(self, key, value)</td>
+      <td>定义设置容器中指定元素的行为，相当于self[key]=value</td>
+    </tr>
+    <tr>
+      <td>__delitem__(self, key)</td>
+      <td>定义删除容器中指定元素的行为，相当于del self[key]</td>
+    </tr>
+    <tr>
+      <td>__iter__(self)</td>
+      <td>定义当迭代容器中的元素的行为</td>
+    </tr>
+    <tr>
+      <td>__reversed__(self)</td>
+      <td>定义当被reversed()函数调用时的行为</td>
+    </tr>
+    <tr>
+      <td>__contains__(self, item)</td>
+      <td>定义当使用成员测试运算符(in或not in)时的行为</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>实例，编写一个不可变的自定义列表，要求记录列表中的每个元素被访问的次数。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CountList</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
+        <span class="c1"># 使用列表的下标作为字典的键，注意不能用元素作为字典的键
+</span>        <span class="c1"># 因为列表的不同下标可能有数值相等的元素，但字典不可能有两个相同的键
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">count</span> <span class="o">=</span> <span class="p">{}.</span><span class="n">fromkeys</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># 这里可以注释掉，不用定义__len__()方法
+</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">CountList</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">CountList</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">c2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="mi">7</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c1</span><span class="p">.</span><span class="n">count</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c2</span><span class="p">.</span><span class="n">count</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="练习">练习</h3>
+
+<p>根据上面的例子，定制一个列表，同样要求记录列表中每个元素被访问的次数。并且支持append()、pop()、extand()原生列表所拥有的方法。</p>
+
+<p>要求：</p>
+
+<ol>
+  <li>实现获取、设置和删除一个元素的行为(删除一个元素的时候对应的计数器也会被删除)</li>
+  <li>增加counter(index)方法，返回index参数所指定的元素记录的访问次数</li>
+  <li>实现append()、pop()、remove()、insert()、clear()和reverse()方法(重写这些方法时要注意考虑计数器的对应改变)</li>
+</ol>
+
+<p>自己的代码如下，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CountList</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">added_value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">added_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">reverse</span><span class="p">(),</span> <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">reverse</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">insert_pos</span><span class="p">,</span> <span class="n">inserted_value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">insert_pos</span><span class="p">,</span> <span class="n">inserted_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">insert_pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">pop</span><span class="p">(),</span> <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remove_value</span><span class="p">):</span>
+        <span class="n">remove_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="n">remove_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">remove_value</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">counterkey</span><span class="p">[</span><span class="n">remove_pos</span><span class="p">]</span>
+
+
+<span class="n">c1</span> <span class="o">=</span> <span class="n">CountList</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">counterkey</span><span class="p">)</span>
+
+<span class="c1"># 输出结果
+</span><span class="mi">2</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="mi">4</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="mi">3</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="mi">5</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="mi">8</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="mi">3</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="p">[]</span>
+</code></pre></div></div>
+
+<p>答案该出的代码类继承并严重依赖其父类(list)的行为，并按要求重写了一些方法，代码如下，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CountList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">count</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">().</span><span class="n">__getitem__</span><span class="p">(</span><span class="n">key</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__delitem__</span><span class="p">(</span><span class="n">key</span>
+
+    <span class="k">def</span> <span class="nf">counter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span>
+
+    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">append</span><span class="p">(</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">().</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span>
+
+    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">super</span><span class="p">().</span><span class="n">index</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">slef</span><span class="p">.</span><span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">remove</span><span class="p">(</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">insert</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">clear</span><span class="p">(</span>
+
+    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">reverse</span><span class="p">()</span>
+</code></pre></div></div>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2020/01/happy-new-year/"
+				title="link to 2020年，新年快乐">2020年，新年快乐</a></h2>
+		<p class="excerpt">新年快乐现在是2020年的一月一日。新年来了，我的博客陪伴我走过了6个月的快乐时光。在翻看以前发的技术博文，每一个日期下的每一篇博文都有一段过往，可以是对过去的经历的回忆也可以是对未来的些许期许。2019年很长也很短，和以往的任何时间相比。但却又更加的具有意义，就像我虚度的每一年一模一样。新的一年里，我有很多愿望。不要停止自己追逐自己的脚步。加油！&hellip;</p>
+		<div class="post-list__meta"><time datetime="2020-01-01 21:34:24 +0800"
+				class="post-list__meta--date date">2020-01-01</time> &#8226; <span
+				class="post-list__meta--tags tags">blog</span><a class="btn-border-small"
+				href=/2020/01/happy-new-year/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/assembly-register-summary/"
+				title="link to 汇编语言 寄存器总结 (转载)">汇编语言 寄存器总结 (转载)</a></h2>
+		<p class="excerpt">转自CSDN博客，Dask Jhonson转自CSDN博客，iteye_10501表格总结：            寄存器的分类             寄存器      主要用途                  通用寄存器      数据寄存器      AX      乘、除运算，字的输入输出，中间结果的缓存                            AL      字节的乘、除运算，字节的输入输出，十进制算数运算                            A...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-30 19:55:24 +0800"
+				class="post-list__meta--date date">2019-12-30</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/12/assembly-register-summary/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/12/python-magic-method-7/";
+        this.page.identifier = "/2019/12/python-magic-method-7/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>C语言 变量</title>
+  <meta name="description" content="整理自小甲鱼鱼C论坛">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="C语言 变量">
+  <meta name="twitter:description" content="整理自小甲鱼鱼C论坛">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="C语言 变量">
+  <meta property="og:description" content="整理自小甲鱼鱼C论坛">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/12/c-variable/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-12-08 20:23:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-12-08</time> &#8226; <span
+					class="post-meta__tags tags">C语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#C语言">C语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">C语言 变量</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+
+<h3 id="变量">变量</h3>
+
+<p>变量和常量是程序处理的两种基本数据对象。通常会在内存中找一个位置来存放CPU要处理的数据，每个存放数据的位置都有一个“地址”，通过这个地址，CPU就可以找到并使用它们。<strong>这个存放的位置就是变量</strong>。</p>
+
+<p><strong>变量名就是给一个数据的“地址“贴标签</strong>。</p>
+
+<h3 id="变量命名的规则">变量命名的规则：</h3>
+
+<ol>
+  <li>C语言变量名只能由<strong>英文字母和数字或者下划线</strong>来组成，<strong>其他特殊字母不行</strong>。</li>
+  <li>变量名必须以<strong>英文字母或者下划线开头</strong>，<strong>不能以数字开头</strong>。</li>
+  <li>便令名区分大小写。</li>
+  <li>不能使用关键字来命名。</li>
+</ol>
+
+<p>一下对C语言的关键字进行整理：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>传统C语言(ANSI C)</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>auto</td>
+      <td>break</td>
+      <td>case</td>
+      <td>char</td>
+      <td>const</td>
+      <td>continue</td>
+      <td>default</td>
+      <td>do</td>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>else</td>
+      <td>enum</td>
+      <td>extern</td>
+      <td>float</td>
+      <td>for</td>
+      <td>goto</td>
+      <td>if</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td>long</td>
+      <td>register</td>
+      <td>return</td>
+      <td>short</td>
+      <td>signed</td>
+      <td>sizeof</td>
+      <td>static</td>
+    </tr>
+    <tr>
+      <td>struct</td>
+      <td>switch</td>
+      <td>typedef</td>
+      <td>union</td>
+      <td>unsigned</td>
+      <td>void</td>
+      <td>volatile</td>
+      <td>while</td>
+    </tr>
+    <tr>
+      <td>C99标准</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>inline</td>
+      <td>restrict</td>
+      <td>_Bool</td>
+      <td>_Complex</td>
+      <td>_Imaginary</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>C11标准</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>_Alignas</td>
+      <td>_Alignof</td>
+      <td>_Atomic</td>
+      <td>_Static_assert</td>
+      <td>_Noreturn</td>
+      <td>_Thread_local</td>
+      <td>_Generic</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>为变量指定名字后，还需要为变量指定”坑位”大小，即指定该变量即将存放的数据类型。以防浪费。</p>
+
+<h3 id="c语言常用的基本数据类型">C语言常用的基本数据类型</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>数据类型</td>
+      <td>说明</td>
+    </tr>
+    <tr>
+      <td>char</td>
+      <td>字符型，占用一个字节</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td>整型，通常反映了所用机器中整数的自然长度</td>
+    </tr>
+    <tr>
+      <td>float</td>
+      <td>单精度浮点型</td>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>双精度浮点型</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>代码说明，</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">数据类型</span> <span class="err">变量名</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">a</span><span class="p">;</span>      <span class="cm">/* 在内存中找到一个整型大小的位置，并给它命名为a */</span>
+<span class="kt">char</span> <span class="n">b</span><span class="p">;</span>     <span class="cm">/* 在内存中找到一个字节大小的位置，并给它命名为b */</span>
+<span class="kt">float</span> <span class="n">c</span><span class="p">;</span>    <span class="cm">/*在内存中找到一个单精度浮点型数据大小的位置，并给它命名为c */</span>
+<span class="kt">double</span> <span class="n">d</span><span class="p">;</span>   <span class="cm">/*在内存中找到一个双精度浮点型数据大小的位置，并给它命名为d */</span>
+</code></pre></div></div>
+<blockquote>
+  <p>PS：单精度浮点型用于存放小数点后位数比较小的浮点数，对于比较大的，要用更大的空间来存储，这就是双精度浮点型。</p>
+</blockquote>
+
+<p>代码说明，</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//test.c</span>
+<span class="cp">#include &lt;stdio.h&gt;
+</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">c</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">d</span><span class="p">;</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">.</span><span class="mi">14</span><span class="p">;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">3</span><span class="p">.</span><span class="mi">141592653</span><span class="p">;</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"圆周率是：%.2f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"圆周率是：%11.9f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/c-constant-marco-define/"
+				title="link to C语言 常量 宏定义">C语言 常量 宏定义</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛常量在程序运行的过程中，它的值不能够被改变，成为常量。C语言中常见的常量如下：  整型常量：520，1314，123  实型常量：3.14，5.12，8.97  字符常量：          普通字符：’A’, ‘B’      转义字符：’\n’, ‘\t’        字符串常量：’ABCD’  符号常量：使用之前必须定义定义符号常量符号常量的定义格式：#define 标识符 常量#define是一条预处理命令(预处理命令都以”#”开头)，也称为宏定义命令。#de...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-09 13:46:24 +0800"
+				class="post-list__meta--date date">2019-12-09</time> &#8226; <span
+				class="post-list__meta--tags tags">C语言</span><a class="btn-border-small"
+				href=/2019/12/c-constant-marco-define/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/12/assembly-language-40/"
+				title="link to 汇编语言 实验9 彩色字打印到屏幕">汇编语言 实验9 彩色字打印到屏幕</a></h2>
+		<p class="excerpt">编程： 在屏幕中间分别显示绿色，绿地红色，白底蓝色的字符串 ‘welcome to masm!’。内存地址空间中，B8000H~BFFFFH共32KB的空间(DOS的显存)，为80x25彩色字符模式的显示缓冲区。向这个地址空间写入数据，写入的内容将立即出现在显示器上。在80x25彩色字符模式下，显示器可以显示25行，每行80个字符，每个字符可以用256种属性(背景色、前景色、闪烁、高亮等组合信息)。一个字符在显示缓冲区占两个字节，分别存放字符的ASCII码和属性。80x25模式下，一屏的内...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-12-08 14:18:24 +0800"
+				class="post-list__meta--date date">2019-12-08</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/12/assembly-language-40/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/12/c-variable/";
+        this.page.identifier = "/2019/12/c-variable/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

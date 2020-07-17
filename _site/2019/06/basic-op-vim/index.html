@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Some Basic Operations of Vim</title>
+  <meta name="description" content="Where I got to know vim">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Some Basic Operations of Vim">
+  <meta name="twitter:description" content="Where I got to know vim">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Some Basic Operations of Vim">
+  <meta property="og:description" content="Where I got to know vim">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/06/basic-op-vim/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-06-26 18:11:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-06-26</time> &#8226; <span
+					class="post-meta__tags tags">vim</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#vim">vim</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">Some Basic Operations of Vim</h1>
+
+		</header>
+
+		<section class="post">
+			<h4 id="where-i-got-to-know-vim">Where I got to know vim</h4>
+
+<p>Bilibili up, ‘TheCW’, showed a very nice video to introduce how to use the vim ( <a href="http://www.bilibili.com/video/av55498503?from=search&amp;seid=9399177761934796555">You can find the video here</a>. )</p>
+
+<h4 id="the-advantage-of-vim">The advantage of vim</h4>
+
+<blockquote>
+  <p>Actually, I have ever learned some basic introduction about vim, and I ever thought it was a very unique editor, but not a good one. I can imagine at the very old age without a mouse, there must be a keyboard leading editor make some words out, but why vim is still pre-installed in kinds of Unix based os today? I found myself too young (not young enough actually :() too simple. Vim is a very powerful txt editor in Unix. How powerful?</p>
+</blockquote>
+
+<p>First of all, vim could be apart from the mouse. Some people may feel puzzle, why this can be called an advantage, thanks to the mouse, it provide us a convenient way to solve some problems. But in fact, when I have tried the vim to process data totally without a mouse, something interesting has happened to me. This is a feeling of fluent, makes you feel that you can control everything here. Every moves will give you a response, and every response will make you know what you’re doing now.</p>
+
+<p>Secondly, unexpected high level freedom for the plug-in setting. In my opinion, the greatest quality of linux is you can make linux you like. Vim follows this spirit. An open, free, and big community forum exits, and you can download the plug-ins easily.</p>
+
+<p>Thirdly, a built-in keyboard macro can help work change to be highly efficient. Some complex processes will be easy thing to be done. You can imagine the boring repetition in your daily work is elegantly avoided. What a happiness :).</p>
+
+<h4 id="some-basic-operations-on-vim">Some basic operations on vim</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>i</th>
+      <th>enter insert mode</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>a</td>
+      <td>insert after the cursor</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>insert at the last of the line</td>
+    </tr>
+    <tr>
+      <td>I</td>
+      <td>insert at the beginning of the line</td>
+    </tr>
+    <tr>
+      <td>o</td>
+      <td>insert at the next line</td>
+    </tr>
+    <tr>
+      <td>O</td>
+      <td>insert at the beginning of the line</td>
+    </tr>
+    <tr>
+      <td>x</td>
+      <td>delete character at the cursor</td>
+    </tr>
+    <tr>
+      <td>d</td>
+      <td>cut the character at the cursor</td>
+    </tr>
+    <tr>
+      <td>dd</td>
+      <td>cut the whole line</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>N/A</th>
+      <th>normal mode</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>c</td>
+      <td>delete character at the cursor and enter insert mode</td>
+    </tr>
+    <tr>
+      <td>w</td>
+      <td>move the cursor to the next word</td>
+    </tr>
+    <tr>
+      <td>b</td>
+      <td>move the cursor back to the previous word</td>
+    </tr>
+    <tr>
+      <td>y</td>
+      <td>copy</td>
+    </tr>
+    <tr>
+      <td>p</td>
+      <td>paste</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>All the operations above can be made in to a mode like this:</p>
+
+<blockquote>
+  <p>operation + motivation</p>
+</blockquote>
+
+<p>For example:</p>
+
+<p>d –&gt; means cut the next character</p>
+
+<p>cw –&gt; means cut the next word and enter the insert mode</p>
+
+<p>ciw –&gt; means cut the present word and enter the insert mode</p>
+
+<blockquote>
+  <p>PS (Only show myself this message, the visitor, you, don’t need care about it): Because I have made the i -&gt; u, so in mine: ciw = cuw</p>
+</blockquote>
+
+<h4 id="finally">Finally</h4>
+
+<p>Today I only introduced some very basal operations. In fact, the most interesting part of vim, I think, is the configuration of vimrc as well as the plug-in system. I will show you in the next posts.</p>
+
+<p>If you are not a freshbird like me, I share a configuration of mine, and you can configurate yourself immediately.</p>
+
+<blockquote>
+  <p><a href="https://github.com/zququ/vim-configuration">My vim configuration (vimrc)</a></p>
+</blockquote>
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/06/the-front-matter-issue/"
+				title="link to The Front Matter Issue">The Front Matter Issue</a></h2>
+		<p class="excerpt">&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-06-29 00:00:00 +0800"
+				class="post-list__meta--date date">2019-06-29</time> &#8226; <span
+				class="post-list__meta--tags tags"></span><a class="btn-border-small"
+				href=/2019/06/the-front-matter-issue/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/06/why-blog/"
+				title="link to Why Blog">Why Blog</a></h2>
+		<p class="excerpt">This is a valuable post, because this is my first post. Every first must be memorable. Zququ’s Blog is a place to record my studying experiences. However, I dream to communicate with other people. So I welcome everyone who has any suggestion or an...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-06-23 13:08:24 +0800"
+				class="post-list__meta--date date">2019-06-23</time> &#8226; <span
+				class="post-list__meta--tags tags">blog</span><a class="btn-border-small"
+				href=/2019/06/why-blog/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/06/basic-op-vim/";
+        this.page.identifier = "/2019/06/basic-op-vim/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

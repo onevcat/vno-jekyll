@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python 魔法方法 (2) 算术运算</title>
+  <meta name="description" content="整理自小甲鱼鱼C论坛算数运算">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="python 魔法方法 (2) 算术运算">
+  <meta name="twitter:description" content="整理自小甲鱼鱼C论坛算数运算">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="python 魔法方法 (2) 算术运算">
+  <meta property="og:description" content="整理自小甲鱼鱼C论坛算数运算">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/11/python-magic-method-2/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-11-26 15:14:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-11-26</time> &#8226; <span
+					class="post-meta__tags tags">python</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#python">python</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">python 魔法方法 (2) 算术运算</h1>
+
+		</header>
+
+		<section class="post">
+			<p>整理自小甲鱼<a href="https://fishc.com.cn/">鱼C论坛</a></p>
+<h3 id="算数运算">算数运算</h3>
+
+<p>Python 2.2以后，对类和类型进行了统一，做法就是将int(), float(), str(), list(), tuple()这些BIF转换为工厂函数：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">builtin_function_or_method</span><span class="s">'&gt;
+&gt;&gt;&gt; type(int)
+&lt;class '</span><span class="nb">type</span><span class="s">'&gt;
+</span></code></pre></div></div>
+<p>这与一般的类相同：</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">type</span><span class="s">'&gt;
+</span></code></pre></div></div>
+
+<p>type类型也就是类对象，所谓的工厂函数就是一个类对象。当调用它们的时候，事实上就是创建一个相应的实例对象，并且类对象本身可以用于运算</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="s">'123'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="s">'345'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</code></pre></div></div>
+
+<p>常见的算数运算相关的魔法方法：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>魔法方法</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>__add__(self, other)</td>
+      <td>定义加法的行为：+</td>
+    </tr>
+    <tr>
+      <td>__sub__(self, other)</td>
+      <td>定义减法的行为：-</td>
+    </tr>
+    <tr>
+      <td>__mul__(self, other)</td>
+      <td>定义乘法的行为：*</td>
+    </tr>
+    <tr>
+      <td>__truediv__(self, other)</td>
+      <td>定义真除法行为：/</td>
+    </tr>
+    <tr>
+      <td>__floordiv__(self,ohter)</td>
+      <td>定义整数除法行为：//</td>
+    </tr>
+    <tr>
+      <td>__mod__(self, other)</td>
+      <td>定义取模算法的行为：%</td>
+    </tr>
+    <tr>
+      <td>__divmod__(self, other)</td>
+      <td>定义当被divmod()调用时的行为</td>
+    </tr>
+    <tr>
+      <td>__pow__(self, other[,modulo])</td>
+      <td>定义当贝power()调用或**运算时的行为</td>
+    </tr>
+    <tr>
+      <td>以下为汇编行为：</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>__lshift__(self, other)</td>
+      <td>定义按位左移位的行为：«</td>
+    </tr>
+    <tr>
+      <td>__rshift__(self, other)</td>
+      <td>定义按位右移位的行为：»</td>
+    </tr>
+    <tr>
+      <td>__and__(self, other)</td>
+      <td>定义按位与操作的行为：&amp;</td>
+    </tr>
+    <tr>
+      <td>__xor__(self, other)</td>
+      <td>定义按位异或操作的行为：^</td>
+    </tr>
+    <tr>
+      <td>__or__(self, other)</td>
+      <td>定义按位或操作的行为：|</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>具体用法，如编程一个新的New_int类，使得加法与减法运算结果相反：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">New_int</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">.</span><span class="n">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">New_int</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">New_int</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="o">-</span><span class="mi">2</span>
+</code></pre></div></div>
+
+<p>下面观察下面代码的问题出在哪里？</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Try_int</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span> <span class="o">+</span> <span class="n">other</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Try_int</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Try_int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="nb">RecursionError</span><span class="p">:</span> <span class="n">maximum</span> <span class="n">recursion</span> <span class="n">depth</span> <span class="n">exceeded</span>
+</code></pre></div></div>
+<p>在我们在通过对Try_intA()进行实例化以后，执行<code class="language-plaintext highlighter-rouge">a + b</code>时，读到<code class="language-plaintext highlighter-rouge">a +</code>时开始执行__add__()函数，返回<code class="language-plaintext highlighter-rouge">self +</code>即<code class="language-plaintext highlighter-rouge">a +</code>而后再次执行__add__()函数，继而陷入无限递归。</p>
+
+<p>我们可以通过将返回值强制修改为数值运算，就可以避免这个问题：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Try_int</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+</code></pre></div></div>
+<p>这样在执行<code class="language-plaintext highlighter-rouge">a + b</code>时，读到<code class="language-plaintext highlighter-rouge">a +</code>执行__add__()函数，返回a的值与b的值的和，这样，即使再次调用__add__()函数，由于缺少实例对象而就不会再次进入递归。</p>
+
+<p>有一点值得注意，看一下代码有什么问题，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">foo</span> <span class="o">=</span> <span class="s">'Result'</span>
+
+        <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">food</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">.</span><span class="n">foo</span><span class="p">()</span>
+<span class="nb">TypeError</span><span class="p">:</span> <span class="s">'str'</span> <span class="nb">object</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">callable</span>
+</code></pre></div></div>
+
+<p>问题在于，在__init__()方法里，如果类中方法名和属性同名，属性会覆盖方法，所以在调用实例对象foo的foo函数时，由于foo函数被属性<code class="language-plaintext highlighter-rouge">self.foo = 'Result'</code>所替代，所以会出现TypeError说字符串类型无法被调用。</p>
+
+<h3 id="鸭子类型-duck-typing-">鸭子类型( duck typing )</h3>
+
+<p>鸭子类型是一种<strong>动态类型的一种风格</strong>，这种风格中，<strong>一个对象有效的语义，不是由继承特定的类或实现特定的接口，而是由当前方法和属性的集合决定</strong>。</p>
+
+<p>这个名字的由来源自于 James Whitcomb Riley提出的鸭子测试：</p>
+
+<blockquote>
+  <p>当看到一只鸟走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称作鸭子。</p>
+</blockquote>
+
+<p>鸭子类型应避免使用type()或者isinstance()等测试类型是否合法。</p>
+
+<p>如下代码，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Duck</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">quack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'呱呱呱'</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">feathers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="err">‘</span><span class="n">灰白色羽毛</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">quack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'啊啊啊'</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">feathers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'穿着羽绒服'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">location</span><span class="p">(</span><span class="n">duck</span><span class="p">):</span>
+    <span class="n">duck</span><span class="p">.</span><span class="n">quack</span><span class="p">()</span>
+    <span class="n">duck</span><span class="p">.</span><span class="n">feathers</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">game</span><span class="p">():</span>
+    <span class="n">donald</span> <span class="o">=</span> <span class="n">Duck</span><span class="p">()</span>
+    <span class="n">john</span> <span class="o">=</span> <span class="n">Person</span><span class="p">()</span>
+    <span class="n">location</span><span class="p">(</span><span class="n">donald</span><span class="p">)</span>
+    <span class="n">location</span><span class="p">(</span><span class="n">john</span><span class="p">)</span>
+
+<span class="n">game</span><span class="p">()</span>
+</code></pre></div></div>
+<p>location()函数中对参数duck只有一个要求：就是可以实现quack()和feathers()方法，然而Duck类型和Person类都实现了quack()和feathers()的方法，因此donald和john都可以作为location()的参数。</p>
+
+<p>鸭子类型给予了Python这样的动态语言以多态，但是这种多态的实现完全由程序员来约束强制实现，并没有语言上的约束。因此这种方法既灵活，由提高了要求。</p>
+
+<p>又如，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">calc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">calc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">calc</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">calc</span><span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="s">'B'</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>问题：</p>
+</blockquote>
+
+<p>(1) 定义一个Nstr类，支持字符串的相间操作：A - B，从A中去除所有B的子字符串。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Nstr</span><span class="p">(</span><span class="s">'ABC'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Nstr</span><span class="p">(</span><span class="s">'A'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
+<span class="s">'BC'</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Nstr</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s">''</span><span class="p">)</span>    <span class="c1"># 使用字符串的replece函数
+</span></code></pre></div></div>
+
+<h4 id="replace-函数">replace 函数</h4>
+
+<blockquote>
+  <p>描述</p>
+</blockquote>
+
+<p>Python replace() 方法把字符串中的 old（旧字符串） 替换成 new(新字符串)，如果指定第三个参数max，则替换不超过 max 次。</p>
+
+<blockquote>
+  <p>语法</p>
+</blockquote>
+
+<p>replace()方法语法：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">stR</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">[,</span> <span class="nb">max</span><span class="p">])</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>参数</p>
+</blockquote>
+
+<p>old – 将被替换的子字符串。
+new – 新字符串，用于替换old子字符串。
+max – 可选字符串, 替换不超过 max 次</p>
+
+<blockquote>
+  <p>返回值</p>
+</blockquote>
+
+<p>返回字符串中的 old（旧字符串） 替换成 new(新字符串)后生成的新字符串，如果指定第三个参数max，则替换不超过 max 次。</p>
+
+<p>(2) 移位操作符是应用于二进制操作数的，现在需要你定义一个新的类Nstr，也支持移位操作符的运算：</p>
+
+<p>如下：</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Nstr</span><span class="p">(</span><span class="s">'ABCDEFGHK'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>
+<span class="s">'DEFGHKABC'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="mi">3</span>
+<span class="s">'GHKABCDEF'</span>
+</code></pre></div></div>
+<p>利用<code class="language-plaintext highlighter-rouge">__lshift__()</code>函数以及<code class="language-plaintext highlighter-rouge">__rshift__()</code>函数</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Nstr</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__lshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">other</span><span class="p">:]</span> <span class="o">+</span> <span class="bp">self</span><span class="p">[:</span><span class="n">other</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__rshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="o">-</span><span class="n">other</span><span class="p">:]</span> <span class="o">+</span> <span class="bp">self</span><span class="p">[:</span><span class="o">-</span><span class="n">other</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>(3) 定义一个类 Nstr, 当该类的实例对象间发生的加、减、乘、除运算时，将该对象的所有字符串的ASCII码之和进行计算：</p>
+
+<p>如下，</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Nstr</span><span class="p">(</span><span class="s">'FishC'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Nstr</span><span class="p">(</span><span class="s">'love'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="mi">899</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
+<span class="mi">23</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+<span class="mi">201918</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+<span class="mf">1.052511415525114</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">//</span> <span class="n">b</span>
+<span class="mi">1</span>
+</code></pre></div></div>
+<p>代码如下：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Nstr</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span> <span class="o">=</span> <span class="s">''</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">total</span> <span class="o">+=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'输入有误，请重新输入！'</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">total</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="n">total</span>
+    <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">total</span> <span class="o">-</span> <span class="n">other</span><span class="p">.</span><span class="n">total</span>
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">total</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">total</span>
+    <span class="k">def</span> <span class="nf">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">total</span> <span class="o">/</span> <span class="n">other</span><span class="p">.</span><span class="n">total</span>
+    <span class="k">def</span> <span class="nf">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">total</span> <span class="o">//</span> <span class="n">other</span><span class="p">.</span><span class="n">total</span>
+</code></pre></div></div>
+<p>代码的前半部分可以这样改写：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Nstr</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
+                <span class="n">total</span> <span class="o">+=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+            <span class="n">arg</span> <span class="o">=</span> <span class="n">total</span>    <span class="c1">#注意__new__()方法需要将最终参数传回arg
+</span>        <span class="k">return</span> <span class="nb">int</span><span class="p">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+</code></pre></div></div>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/c-print/"
+				title="link to C语言 打印">C语言 打印</a></h2>
+		<p class="excerpt">整理自小甲鱼鱼C论坛打印C语言的打印命令，printf，将制定的内容打印到屏幕上。printf最后的f是formatted的缩写，格式，也因此通常把printf命令成为格式化输出函数。代码示例：#include &lt;stdio.h&gt;int main(){	printf("        **             *      *******         **    ************     ***  ***************** ********** @ *...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-27 09:36:24 +0800"
+				class="post-list__meta--date date">2019-11-27</time> &#8226; <span
+				class="post-list__meta--tags tags">C语言</span><a class="btn-border-small"
+				href=/2019/11/c-print/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/11/wave-propagation-and-phase-shifts/"
+				title="link to Wave Propagation and Phase Shifts">Wave Propagation and Phase Shifts</a></h2>
+		<p class="excerpt">The image magnification,as seen in the figure, when the scattered electrons poass through the lens which will get together at the imaginary back focal plane, which is just like the fourier transform process, and when pass into the detector, just l...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-11-26 08:31:24 +0800"
+				class="post-list__meta--date date">2019-11-26</time> &#8226; <span
+				class="post-list__meta--tags tags">cryo-EM</span><a class="btn-border-small"
+				href=/2019/11/wave-propagation-and-phase-shifts/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/11/python-magic-method-2/";
+        this.page.identifier = "/2019/11/python-magic-method-2/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

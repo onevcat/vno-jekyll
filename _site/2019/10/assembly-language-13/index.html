@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?18cdfb7c9ee74e1cfba49c447d3945eb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>汇编语言 4.3 4.4 4.5 4.6 4.7 源程序标号结构返回以及编译连接</title>
+  <meta name="description" content="4.2后半">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="汇编语言 4.3 4.4 4.5 4.6 4.7 源程序标号结构返回以及编译连接">
+  <meta name="twitter:description" content="4.2后半">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="汇编语言 4.3 4.4 4.5 4.6 4.7 源程序标号结构返回以及编译连接">
+  <meta property="og:description" content="4.2后半">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/10/assembly-language-13/">
+  <link rel="alternate" type="application/rss+xml" title="Zququ's blog" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- mathjax -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script>
+  <!--script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script--!>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- Valine Comment -->
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+</head>
+
+
+<body>
+
+	<span class="mobile btn-mobile-menu">
+		<i class="fa fa-list btn-mobile-menu__icon"></i>
+		<i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+	</span>
+
+	<header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Zququ's blog 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Zququ's blog logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Zququ's blog" class="blog-button">Zququ's blog</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">生而为学, 学而不老</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，欢迎！我是曲泽慧(@zququ)，预防兽医专业，农学博士。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://www.researchgate.net/profile/Zehui_Qu2"> 计划开展免疫原改造相关研究，可以在 RG 上找到我已发表的论文</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="To Home Page" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="https://zququcv.netlify.com" target="_blank" title="Curriculum Vitae">简历</a></li>
+                
+                  <li class="navigation__item"><a href="http://life.zququ.fun/tags/" target="_blank" title="Tags Page">标签</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/1251190497" title="@1251190497 Weibo" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/Zququ" title="@Zququ Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/qzh813" title="@qzh813" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:qzh813@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Research Gate  -->
+  <li class="navigation__item">
+    <a href="https://www.researchgate.net/profile/Zehui_Qu2" title="@Zehui_Qu2" target="_blank">
+      <i class='fa fa-book'></i>
+      <span class="label">Researchgate</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+
+	<div class="content-wrapper">
+		<div class="content-wrapper__inner">
+			<!doctype html>
+<html>
+
+<head>
+	<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="post-header">
+			<div class="post-meta">
+				<time datetime="2019-10-19 16:48:24 +0800" itemprop="datePublished"
+					class="post-meta__date date">2019-10-19</time> &#8226; <span
+					class="post-meta__tags tags">汇编语言</span>
+			</div>
+
+			<div class="post-tags">
+	标签页 Tags:
+	
+	
+	<a href="/tags/#汇编语言">汇编语言</a>
+	
+</div>
+
+			<br>
+
+			<h1 class="post-title">汇编语言 4.3 4.4 4.5 4.6 4.7 源程序标号结构返回以及编译连接</h1>
+
+		</header>
+
+		<section class="post">
+			<h3 id="42后半">4.2后半</h3>
+
+<h4 id="标号">标号</h4>
+
+<p>汇编源程序中，除了汇编指令和伪指令外，还有一些标号，比如”codesg”。一个标号指代了一个地址。比如codesg在segment的前面，作为一个段名称，这个段的名称最终将被编译、连接程序处理为一个段的段地址。</p>
+
+<blockquote>
+  <p>标号 —&gt; 段名称 —&gt; 编译、连接处理为一个段的段地址</p>
+</blockquote>
+
+<h4 id="程序的结构">程序的结构</h4>
+
+<p>之前对于较为简短的程序我们可以在debug中直接运行，但是如果程序比较大，我们就需要写出能让编译器进行编译的程序，这样的源程序应该具备起码的结构。</p>
+
+<p>源程序有一些段构成，用来存放<strong>代码、数据、或者将整个段当做栈空间</strong>。</p>
+
+<p>(1) 首先，我们要定义一个段，其名称为abc。</p>
+
+<pre><code class="language-asm">abc segment
+...
+abc ends
+</code></pre>
+<p>(2) 在定义好的段中，输入汇编指令。</p>
+
+<pre><code class="language-asm">abc segment
+    mov ax, 2
+    add ax, ax
+    add ax, ax
+abc ends
+</code></pre>
+
+<p>(3) 指出程序在何处结束</p>
+
+<pre><code class="language-asm">abc segment
+    mov ax, 2
+    add ax, ax
+    add ax, ax
+abc ends
+end
+</code></pre>
+
+<p>(4) abc被当做代码段来用，所以，应该将abc和cs联系起来。</p>
+
+<pre><code class="language-asm">assume cs:abc    ; 将abc处理为cs代码段
+abc segment
+    mov ax, e
+    add ax, ax
+    add ax, ax
+abc ends
+end
+</code></pre>
+<h4 id="程序返回">程序返回</h4>
+
+<p>程序最先以汇编指令的形式存在源程序中，经编译、连接后转变为机器码，存储在可执行文件中。</p>
+
+<p>一个程序P2在可执行文件中，则必须有一个正在运行的程序P1, 将P2从可执行文件中加载入内存后，将CPU的控制权交给P2，P2才能得以运行。P2开始运行后，P1暂停运行。而当P2运行完以后，将CPU的控制权交还给使它得以运行的程序P1，此后P1继续运行。</p>
+
+<p>这个过程就被称为<strong>程序返回</strong></p>
+
+<blockquote>
+  <p>程序返回：一个程序结束后，将CPU的控制权交还给使它得以运行的程序。</p>
+</blockquote>
+
+<p>这一过程的代码如下：</p>
+
+<pre><code class="language-asm">mov ax, 4c00H
+int 21H
+</code></pre>
+
+<p>到目前为止，已经遇到了几个和结束相关的内容：段结束、程序结束、程序返回，如下表：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>目的</th>
+      <th>相关指令</th>
+      <th>指令性质</th>
+      <th>指令执行者</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>通知编译器一个段结束</td>
+      <td>段名 ends</td>
+      <td>伪指令</td>
+      <td>编译时，由编译器执行</td>
+    </tr>
+    <tr>
+      <td>通知编译器程序结束</td>
+      <td>end</td>
+      <td>伪指令</td>
+      <td>编译时，由编译器执行</td>
+    </tr>
+    <tr>
+      <td>程序返回</td>
+      <td>mov ax,4c00H; int21H</td>
+      <td>汇编指令</td>
+      <td>执行时，由CPU执行</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="语法错误和逻辑错误">语法错误和逻辑错误</h4>
+
+<p>编译器能够发现的叫做语法错误，逻辑错误编译器一般不容易发现。</p>
+
+<p>最终的程序如下，</p>
+
+<pre><code class="language-asm">assume cs:abc
+abc segment
+    mov ax, 2
+    add ax, ax
+    add ax, ax
+
+    mov ax, 4cooH
+    int 21H
+abc ends
+end
+</code></pre>
+
+<h3 id="43-编辑源程序">4.3 编辑源程序</h3>
+
+<p>程序编写在<code class="language-plaintext highlighter-rouge">.asm</code>后缀的文本类文件中。</p>
+
+<h3 id="44-编译">4.4 编译</h3>
+
+<p>完成对源程序的编辑后，得到name.asm文件，可以对其通过masm汇编编译器，进行编译。</p>
+
+<pre><code class="language-asm">C:\masm&gt;masm
+...
+Source filename [.ASM]: c:\name.asm  ;文件名
+Object filename [name.OBJ]:  ;[]中为默认文件名
+Source listing  [NUL.LST]:   ;这项以及后面一项先不用考虑
+Cross-reference [NUL.CRF]:
+</code></pre>
+<p>目的文件为以<code class="language-plaintext highlighter-rouge">.obj</code>后缀结尾的文件。打开该目标文件后,发现将源程序编译为了二进制语言。</p>
+
+<h3 id="45-连接">4.5 连接</h3>
+
+<p>在得到目标文件后，我们需要对其进行连接，从而得到可执行文件<code class="language-plaintext highlighter-rouge">name.exe</code>。</p>
+
+<pre><code class="language-asm">Object Modules [.OBJ]: name
+Run File [name.EXE]: c:\windows\desktop\name.exe   ;这里可以规定输出地址
+List File [NUL.MAP]:
+Libraries [.LIB]:
+</code></pre>
+<p>获得<code class="language-plaintext highlighter-rouge">name.exe</code>文件。</p>
+
+<blockquote>
+  <p>连接的任务是什么？</p>
+</blockquote>
+
+<ol>
+  <li>当源程序很到时候，可以分为多个原程序文件来编译，每个源程序编译为<code class="language-plaintext highlighter-rouge">.obj</code>文件以后，利用连接程序将他们连接到一起成为一个可执行文件。</li>
+  <li>程序中调用了某个<strong>库文件中的子程序</strong>, 需要将这个库文件和该程序生成的目标文件连接到一起，生成一个可执行文件。</li>
+  <li>连接程序可以将目标文件处理为最终的可执行信息。所以在只有一个源程序文件，而又不需要调用某个库中的子程序的情况下，<strong>也必须用连接程序对目标文件进行处理，生成可执行文件</strong>。</li>
+</ol>
+
+<blockquote>
+  <p>值得注意的是，对于连接过程而言，<strong>可执行文件是我们要得到的最终结果</strong>。</p>
+</blockquote>
+
+<h3 id="以简化的方式来进行编译和连接">以简化的方式来进行编译和连接</h3>
+
+<p>在执行编译或者连接时，在命令后面加“;”可以直接按照默认（即[]内的默认参数）直接输出文件。如：</p>
+
+<pre><code class="language-asm">masm name.asm;
+
+or
+
+link name.asm;
+</code></pre>
+
+<p>也可以直接运行ml程序直接连续执行编译与连接。</p>
+
+
+		</section>
+	</article>
+
+	<section class="read-more">
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Last One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/assembly-language-14/"
+				title="link to 汇编语言 4.8 4.9 程序装载内存以及执行过程跟踪">汇编语言 4.8 4.9 程序装载内存以及执行过程跟踪</a></h2>
+		<p class="excerpt">4.8 程序装载进入内存并使用之前讲过，在DOS中，可执行文件中P1若要运行，必须有一个正在运行的程序P2，将P1从可执行文件中加载入内存，将CPU的控制权交给它，P1才能得以运行；当P1运行完毕后，应该将CPU的控制权交还给使它得以运行的程序P2。  操作系统的shell操作系统是由多个功能模块组成的庞大、复杂的软件系统。任何通用的操作系统，都要提供一个成为shell（外壳）的程序，用户使用这个程序来操作计算机系统运行工作。  在DOS中直接运行.exe时，是正在运行的command，将...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-20 13:55:24 +0800"
+				class="post-list__meta--date date">2019-10-20</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/assembly-language-14/>More</a></div>
+	</div>
+	
+
+	
+	
+	<div class="read-more-item">
+		<span class="read-more-item-dim">Next One</span>
+		<h2 class="post-list__post-title post-title"><a href="/2019/10/how-to-build-masm-enviroment-with-dosbox/"
+				title="link to 如何利用dosbox搭建mac, linux masm环境">如何利用dosbox搭建mac, linux masm环境</a></h2>
+		<p class="excerpt">之前介绍过如何dosbox运性debug，这里介绍一下如何用doxbox运行汇编语言的调试包。首先下载MASM5.0软件包。安装好后，运用之前的方法进行虚拟盘挂载。挂载好后，将masm5 软件包所有内容进行拷贝，为了方便可以将测试用的汇编程序test.asm 放在相同文件夹之后就可以执行相关编译连接指令&gt;&gt;&gt;masm test.asm&gt;&gt;&gt;link test.asm&gt;&gt;&gt;ml test.asm...&hellip;</p>
+		<div class="post-list__meta"><time datetime="2019-10-19 11:03:24 +0800"
+				class="post-list__meta--date date">2019-10-19</time> &#8226; <span
+				class="post-list__meta--tags tags">汇编语言</span><a class="btn-border-small"
+				href=/2019/10/how-to-build-masm-enviroment-with-dosbox/>More</a></div>
+	</div>
+	
+</section>
+
+	<section class="post-comments">
+<!--
+  
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/10/assembly-language-13/";
+        this.page.identifier = "/2019/10/assembly-language-13/";
+    };
+
+    var disqus_shortname = 'zququ';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>To see the<a href="http://disqus.com/?ref_noscript"> Disqus </a>comment, please run JavaScript</noscript>
+   
+-->
+  
+    <div id="comments"></div> 
+   
+
+	<script>
+    var valine = new Valine();
+    valine.init({
+        av: AV,
+        el: '#comments',
+        app_id: 'FjbsHwFujLmrV58RJWOoC1XG-gzGzoHsz',
+        app_key: 'AMHLA0K7K1BXcSEWwusdyllN',
+        notify: true, 
+        verify: true, 
+        avatar: 'avatar', 
+      placeholder: '留下昵称和邮箱可以获得回复通知. Leave a nickname and email to get a reply. Welcome your comment!' 
+    });
+</script>
+
+
+</html>
+
+			<section class="footer">
+    <footer>
+        <span class="footer__copyright">&copy; 2020  <a href="https://zququcv.netlify.com">@zququ</a> Powered by the<a href="https://github.com/onevcat/vno-jekyll"> Vno - Jekyll</a> for <a href="https://jekyllrb.com">Jekyll</a> </span>
+    </footer>
+</section>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>
