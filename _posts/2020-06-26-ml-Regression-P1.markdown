@@ -192,7 +192,7 @@ $$
 
 		![figure6](/assets/202006/2020-06-27-14-55-10.png)
 
-		可以获得 Average Error on Training Data为，
+		Error 值即为真实值与预测值之间的距离。可以获得 Average Error on Training Data为，
 
 		$$ \sum_{n=1}^{10}e^n = 31.9 $$
 
