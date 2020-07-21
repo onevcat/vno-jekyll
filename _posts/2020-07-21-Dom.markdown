@@ -1,0 +1,314 @@
+---
+layout: post
+title: DOM 基础
+date: 2020-07-21 12:34:24.000000000 +09:00
+tags: blog
+---
+
+<!-- TOC GFM -->
+
+* [DOM 简介](#dom-简介)
+* [DOM 'document.get' 方法](#dom-documentget-方法)
+* [`document.querySelector` 方法](#documentqueryselector-方法)
+* [选择后对 `style` 进行修改](#选择后对-style-进行修改)
+* [利用变量(`var`)快速访问](#利用变量var快速访问)
+* [DOM `classList` 的使用](#dom-classlist-的使用)
+* [DOM 的 `toggle` 方法](#dom-的-toggle-方法)
+* [利用 DOM 添加事件](#利用-dom-添加事件)
+* [利用 DOM 修改文本](#利用-dom-修改文本)
+* [利用 DOM 修改属性](#利用-dom-修改属性)
+* [更多内容](#更多内容)
+
+<!-- /TOC -->
+
++ HTML --- Structure
++ CSS  --- Style
++ JS   --- Function
+
+## DOM 简介
+
+Document Object Model 文本对象模型
+
+对于一段 HTML 代码：
+
+```html
+<html>
+	<head>
+		<title>This is a page title</title>
+	</head>
+	<body>
+		<h1>This is a heading</h1>
+		<p>This is a paragraph</p>
+		<p>This is a paragraph</p>
+	</body>
+</html>
+```
+
+![figure1](/assets/202007/2020-07-21_12-39-59.png)
+
+可以利用 Chrome 插件，**HTML Tree Generator** 来看网页 HTML 结构
+
+在浏览器 `Console` 中输入 `document`，会返回完整的 HTML 代码。
+
+DOM 有两种常用选择器，即 `document.get` 以及 `querySelector` 方法。`querySelector` 往往更加高效以及准确。
+
+## DOM 'document.get' 方法
+
+对于以下 HTML 代码，
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<h1 id = "title">Hello</h1>
+
+	<button>Click me</button>
+
+	<ul>
+		<li class = 'list'>Fisrt</li>
+		<li class = 'list'>Second</li>
+		<li class = 'list'>Third</li>
+	</ul>
+</body>
+
+</html>
+```
+
++ 使用 `document.getElementsByTagName("body");` 返回 HTMLCollection [body]
+
++ 使用 `document.getElementsByTagName("li").length;` 获得长度属性，`document.getElementsByTagName("li")[1];` 获得对应位置的值。
+
++ `document.getElementsByClassName("list");` 返回 `li` 中所有的值，
+
++ 使用 `document.getElementsByClassName("list");` 会返回
+`HTMLCollection(3) [li.list, li.list, li.list]`。
+
++ 使用 `document.getElementsById("title");` 会返回 `<h1 id="title">Hello</h1>`
+
+## `document.querySelector` 方法
+
+对于以下 HTML 代码，
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<h1 id = "title">Hello</h1>
+
+	<button>Click me</button>
+
+	<ul id = "sp=list">
+		<li class = 'list'>Fisrt</li>
+		<li class = 'list'>Second</li>
+		<li>Third</li>    <!--注意这里取消了对于 Third 的 list class-->
+	</ul>
+</body>
+
+</html>
+```
+
++ 使用 `document.querySelector("li");` 只会返回一个 `list class`， 即 `<list class = "list">First</li>`，因为该方法只会遍历代码找到第一个 `li` 并返回。
+
++ 如果需要全部寻找，使用 `document.querySelectorAll("li");` 命令，返回全部即 `NodeList(3) [li.list, li.list, li]`
+
++ 使用 `document.querySelector("ul li");` 会返回 `ul` 中的第一个 `li`，即 `<li class="list">First</li>`
+
++ 同样可以通过 `id` 去选取对应的 `li`，使用 `document.querySelectorAll("#sp-list li");`，返回 `Node(3) [li.list, li.list, li]`
+
++ 更加进一步检索 `li` 下的 `list` 类，可以使用 `document.querySelectorAll("#sp=list li.list");`，返回 `Nodelist(2) [li.list, li.list]`
+
+## 选择后对 `style` 进行修改
+
+我们可以利用选择器来对 HTML 进行修改。对于下面一段代码：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<h1 id = "title">Hello</h1>
+
+	<button>Click me</button>
+
+	<ul>
+		<li class = 'list'>Fisrt</li>
+		<li class = 'list'>Second</li>
+		<li class = 'list'>Third</li>
+	</ul>
+</body>
+
+</html>
+```
+
+
++ 使用 `document.querySelector("h1").style.color = "red"` 对标题颜色进行修改。
+
++ 使用 `document.querySelector("h1").style.backgroundColor = "black"` 对标题背景进行修改
+
+实际上，可以利用 JS 修改所有 CSS Object，但属性名称不同，如在 CSS 中 `background-color` 在 JS 中使用驼峰书（Camel Case）写方法，即 `backgroundColor`
+
+**更多的可以在 [w3shool.com](https://www.w3schools.com/jsref/dom_obj_style.asp) 找到所有的 HTML DOM Style Object**
+
+## 利用变量(`var`)快速访问
+
+我们可以利用新建变量的方法来快速访问某一个对象。如下代码:
+
+```js
+var title = document.querySelector("h1")
+
+<!--这样就看可以快速访问并修改了-->
+title.sytle.backgroundColor = "white";
+```
+
+## DOM `classList` 的使用
+
+对于以下 HTML 代码:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<h1 class = "title">Hello</h1>
+
+	<button>Click me</button>
+
+	<ul>
+		<li class = 'list'>Fisrt</li>
+		<li class = 'list'>Second</li>
+		<li class = 'list'>Third</li>
+	</ul>
+</body>
+
+</html>
+```
+
+使用 `classList` 可以返回对应元素的信息，
+
+```js
+document.querySelector("h1").classList;
+// 返回
+// DOMTokenList ["title", value: "title"]
+//	0: "title"
+//	length: 1
+//	value: "title"
+//	__proto__: DOMTokenList
+
+document.querySelector("li").classList;
+// 返回
+// DOMTokenList ["list", value: "list"]
+//	0: "list"
+//	length: 1
+//	value: "list"
+//	__proto__: DOMTokenList
+```
+
+**加入我们在 CSS 中添加了一个新的 `title` 类及对应的属性** 
+
+```css
+.title {
+	color: red;
+}
+```
+
+可以利用 `classList` 的 `add` 方法，来为选择的对象元素，添加 CSS 中定义的类属性：
+
+```js
+document.querySelector("h1").classList.add("title");
+
+<!--也可以进行移除-->
+document.querySelector("h1").classList.remove("title");
+```
+
+## DOM 的 `toggle` 方法
+
+使用 `toggle` 方法可以切换是否添加某一类属性，
+
+```js
+document.querySelector("h1").classList.toggle("title");
+// 返回
+// true
+
+document.querySelector("h1").classList.toggle("title");
+// 返回
+// false
+```
+
+## 利用 DOM 添加事件
+
+加时间监听器 `.addEventListner("事件", "当事件执行时发生什么内容")`
+
+```js
+document.querySelector("Button").addEventListner("click", function() {
+	document.querySelector("h1").classList.toggle("title");
+});
+// 可以实现点击按钮时，切换 h1 颜色
+```
+
+## 利用 DOM 修改文本
+
+利用 `innerHTML` 来修改
+
+```js
+<!--修改文本-->
+document.querySelector("h1").innerHTML = "Goodbye";
+
+<!--加斜体-->
+document.querySelector("h1").innerHTML = "<em>Goodbye<em>";
+
+<!--返回文字内容，注意不会返回格式，只会返回文本-->
+document.querySelector("h1").textContent;
+```
+
+## 利用 DOM 修改属性
+
+
+```js
+document.querySelector("li").attributes;
+// 返回
+// 属性，包括 class，class 的值等等
+
+document.querySelector("ul").attributes;
+// 返回
+// id, class 及对应的值
+
+<!--获得属性-->
+document.querySelector("ul").getattributes;
+// 获得"list"
+
+<!--对属性进行修改-->
+document.querySelector("li").attributes.class.value = "title";
+
+<!--更简单的方法, setAttribute-->
+document.querySelector("h1").setAttribute("class", "title");
+```
+
+## 更多内容
+
+**更多内容访问 [MDN](https//developer.mozilla.org/zh-CN/docs/Learn) 搜索 DOM。**
