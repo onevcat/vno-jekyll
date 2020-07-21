@@ -8,7 +8,7 @@ tags: blog
 <!-- TOC GFM -->
 
 * [DOM 简介](#dom-简介)
-* [DOM 'document.get' 方法](#dom-documentget-方法)
+* [DOM `document.get` 方法](#dom-documentget-方法)
 * [`document.querySelector` 方法](#documentqueryselector-方法)
 * [选择后对 `style` 进行修改](#选择后对-style-进行修改)
 * [利用变量(`var`)快速访问](#利用变量var快速访问)
@@ -52,7 +52,7 @@ Document Object Model 文本对象模型
 
 DOM 有两种常用选择器，即 `document.get` 以及 `querySelector` 方法。`querySelector` 往往更加高效以及准确。
 
-## DOM 'document.get' 方法
+## DOM `document.get` 方法
 
 对于以下 HTML 代码，
 
