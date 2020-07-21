@@ -81,17 +81,22 @@ DOM 有两种常用选择器，即 `document.get` 以及 `querySelector` 方法�
 </html>
 ```
 
-+ 使用 `document.getElementsByTagName("body");` 返回 HTMLCollection [body]
+```js
+<!--通过 Tag 标签来获得对象-->
+document.getElementsByTagName("body");
 
-+ 使用 `document.getElementsByTagName("li").length;` 获得长度属性，`document.getElementsByTagName("li")[1];` 获得对应位置的值。
+<!--对于 li，可以访问 length 属性，或者对应位置的值-->
+document.getElementsByTagName("li").length;
+document.getElementsByTagName("li")[1];
 
-+ `document.getElementsByClassName("list");` 返回 `li` 中所有的值，
+<!--通过 document.get 访问类对象，返回 li 中所有的值-->
+document.getElementsByClassName("list");
+// 返回 HTMLCollection(3) [li.list, li.list, li.list]
 
-+ 使用 `document.getElementsByClassName("list");` 会返回
-`HTMLCollection(3) [li.list, li.list, li.list]`。
-
-+ 使用 `document.getElementsById("title");` 会返回 `<h1 id="title">Hello</h1>`
-
+<!--通过 document.get 访问 id-->
+document.getElementsById("title");
+// 返回 <h1 id="title">Hello</h1>
+```
 ## `document.querySelector` 方法
 
 对于以下 HTML 代码，
@@ -121,16 +126,31 @@ DOM 有两种常用选择器，即 `document.get` 以及 `querySelector` 方法�
 </html>
 ```
 
-+ 使用 `document.querySelector("li");` 只会返回一个 `list class`， 即 `<list class = "list">First</li>`，因为该方法只会遍历代码找到第一个 `li` 并返回。
+```js
+<!--通过 querySelector 选择-->
+document.querySelector("li");
+// 只会返回一个 list class 的 li 标签对象
+// 即 <list class = "list">First</li>
+// 因为 querySelector 只会遍历代码找到第一个 li 并返回
 
-+ 如果需要全部寻找，使用 `document.querySelectorAll("li");` 命令，返回全部即 `NodeList(3) [li.list, li.list, li]`
+<!--通过 querySelectorAll 来选择全部标签对象-->
+document.querySelectorAll("li");
+// 返回全部
+// 即 NodeList(3) [li.list, li.list, li]
 
-+ 使用 `document.querySelector("ul li");` 会返回 `ul` 中的第一个 `li`，即 `<li class="list">First</li>`
+<!--querySelector 可以以"外标签 内标签"的方式更加精准对标签进行定位-->
+document.querySelector("ul li");
+// 返回 ul 中的第一个 li
+// 即 <li class="list">First</li>
 
-+ 同样可以通过 `id` 去选取对应的 `li`，使用 `document.querySelectorAll("#sp-list li");`，返回 `Node(3) [li.list, li.list, li]`
+<!--利用 querySelector 选取 id 对应的 li-->
+document.querySelectorAll("#sp-list li");
+// 返回 Node(3) [li.list, li.list, li]
 
-+ 更加进一步检索 `li` 下的 `list` 类，可以使用 `document.querySelectorAll("#sp=list li.list");`，返回 `Nodelist(2) [li.list, li.list]`
-
+<!--利用 querySelector 选取 id 对应的 li 下，进一步的 list 类-->
+document.querySelectorAll("#sp=list li.list");
+// 返回 Nodelist(2) [li.list, li.list]
+```
 ## 选择后对 `style` 进行修改
 
 我们可以利用选择器来对 HTML 进行修改。对于下面一段代码：
@@ -160,10 +180,13 @@ DOM 有两种常用选择器，即 `document.get` 以及 `querySelector` 方法�
 </html>
 ```
 
+```js
+<!--利用 querySelector 对标题颜色进行修改 -->
+document.querySelector("h1").style.color = "red"
 
-+ 使用 `document.querySelector("h1").style.color = "red"` 对标题颜色进行修改。
-
-+ 使用 `document.querySelector("h1").style.backgroundColor = "black"` 对标题背景进行修改
+<!--利用 querySelector 对标题背景进行修改-->
+document.querySelector("h1").style.backgroundColor = "black"
+```
 
 实际上，可以利用 JS 修改所有 CSS Object，但属性名称不同，如在 CSS 中 `background-color` 在 JS 中使用驼峰书（Camel Case）写方法，即 `backgroundColor`
 
@@ -311,4 +334,4 @@ document.querySelector("h1").setAttribute("class", "title");
 
 ## 更多内容
 
-**更多内容访问 [MDN](https//developer.mozilla.org/zh-CN/docs/Learn) 搜索 DOM。**
+**更多内容访问 [MDN](https://developer.mozilla.org/zh-CN/docs/Learn) 搜索 DOM。**
