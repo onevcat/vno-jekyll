@@ -24,7 +24,7 @@ input[type="tel"] {
   color: $gray-darker;
 
   &:focus {
-    border-color: $secondary-color;
+    border-color: var(--bg-secondary);
   }
 
   @include placeholder {

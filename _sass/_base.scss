@@ -223,7 +223,7 @@ details {
   }
   
   details[open] summary {
-    background: $primary-color;
+    background: (var: --bg);
     color: $gray-lightest;
   }
   

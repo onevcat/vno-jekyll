@@ -14,17 +14,17 @@ html {
 body {
   font-family: $sans-font;
   font-size: 1em;
-  color: $body-color;
+  background-color: var(--background-color);
   -webkit-font-smoothing: antialiased;
   text-align: justify;
 }
 
 ::selection {
-  background: lighten($primary-color, 36%);
+  background: var(--selection);
 }
 
 ::-moz-selection {
-  background: lighten($primary-color, 36%);
+  background: var(--selection);
 }
 
 // ------------------------------
@@ -33,10 +33,10 @@ body {
 
 a {
   text-decoration: none;
-  color: $link-color;
+  color: var(--link);
 
   &:hover {
-    color: $hover-color;
+    color: var(--link-hover);
     -o-transition:.5s;
     -ms-transition:.5s;
     -moz-transition:.5s;
@@ -55,12 +55,12 @@ h2,
 h3,
 h4,
 h5,
-h5 {
+h6 {
   margin-top: 1.0em;
   margin-bottom: .5em;
   font-family: $serif-font;
   font-weight: lighter;
-  color: $gray-darkest;
+  color: var(--headings);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -91,9 +91,14 @@ h5 {
   font-size: 1em;
 }
 
+h6 {
+  font-size: .9em;
+}
+
 p {
   margin-bottom: 1.3em;
   line-height: 1.7em;
+  color: var(--text);
 }
 
 strong {
@@ -110,7 +115,7 @@ blockquote {
   font-family: $serif-font;
   font-weight: lighter;
   font-size: 1em;
-  border-left: 3px solid $primary-color;
+  border-left: 3px solid var(--blockquote);
 
   p {
 
@@ -126,15 +131,15 @@ blockquote {
 // BASIC STYLING
 // ------------------------------
 
-ol, ul {
+ol, ul, dl {
   margin: 0 0 1.3em 2.5em;
-
+  color: var(--list);
   li {
     margin: 0 0 .2em 0;
     line-height: 1.6em;
   }
 
-  ol, ul {
+  ol, ul, dl {
     margin: .1em 0 .2em 2em;
   }
 
@@ -150,8 +155,9 @@ ul {
 
 code {
   padding: .1em .4em;
-  background: lighten($secondary-color, 32%);
-  border: 1px solid lighten($secondary-color, 25%);
+  background: var(--code);
+  border: 1px solid var(--code-border);
+  color: var(--code-text);
   border-radius: $border-radius;
   font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
   font-size: .9em;
@@ -162,8 +168,9 @@ code {
 pre {
   margin-bottom: 1.3em;
   padding: 1em 2.5%;
-  background: lighten($secondary-color, 32%);
-  border: 1px solid lighten($secondary-color, 25%);
+  background: var(--pre);
+  border: 1px solid var(--pre-border);
+  color: var(--pre-text);
   border-radius: $border-radius;
   font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
   font-size: .9em;
@@ -181,19 +188,19 @@ pre {
 }
 
 table {
-  color: $gray-darkest;
+  color: var(--table-text);
   font-size: .9em;
   text-align: center;
   line-height: 40px;
   border-spacing: 0;
-  border: 2px solid darken($primary-color, 10%);
+  border: 2px solid var(--table-border);
   width: 90%;
   margin: 50px auto;
 }
 
 thead tr:first-child {
-  background-color: darken($primary-color, 10%);
-  color: $gray-lightest;
+  background-color: var(--table-first-child);
+  color: var(--table-first-child-text);
   border: none;
 }
 
@@ -220,13 +227,13 @@ td:last-child {
 .author,
 .tags {
   font-size: .8em;
-  color: darken($gray, 2%);
+  color: var(--subtext);
 
   a {
     color: $gray-darker;
 
     &:hover {
-      color: $hover-color;
+      color: var(--link-hover);
     }
 
   }
@@ -261,7 +268,7 @@ td:last-child {
   position: relative;
   display: inline-block;
   padding: 8px 18px 9px 18px;
-  background: $primary-color;
+  background: var(--bg);
   border-radius: $border-radius;
   text-align: center;
   color: #FFF;
@@ -307,7 +314,7 @@ td:last-child {
       text-decoration: underline;
 
       &:hover {
-        color: $hover-color;
+        color: var(--link-hover);
       }
 
     }

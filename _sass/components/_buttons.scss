@@ -4,24 +4,23 @@
 
 .btn {
   padding: 10px 20px;
-  border: 1px solid $primary-color;
+  border: 1px solid var(--btn-border);
   border-radius: 20px;
   font-size: .9em;
   font-weight: bold;
   letter-spacing: 1px;
   text-shadow: none;
-  color: $primary-color;
+  color: var(--btn);
   -webkit-font-smoothing: antialiased;
 
   &:hover {
-    color: darken($primary-color, 15%);
-    border-color: darken($primary-color, 15%);
+    color: var(--bg-darker);
+    border-color: var(--bg-darker);
   }
-
 }
 
 .btn-border-small {
-  border: 1px solid $primary-color;
+  border: 1px solid var(--btn-border);
   border-radius: 20px;
   padding: 6px 8px;
   font-size: .8em;
@@ -29,12 +28,12 @@
 }
 
 .btn-secondary {
-  border-color: $secondary-color;
-  color: $secondary-color;
+  border-color: var(--bg-secondary);
+  color: var(--bg-secondary);
 
   &:hover {
-    color: darken($secondary-color, 15%);
-    border-color: darken($secondary-color, 15%);
+    color: var(--bg-secondary-dark);
+    border-color: var(--bg-secondary-dark);
   }
 
 }

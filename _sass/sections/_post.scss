@@ -3,7 +3,7 @@
 // ------------------------------
 
 .post-comments {
-  border-top: 1px solid $gray-light;
+  border-top: 1px solid var(--post-comments);
   padding: 60px 0;
 }
 
@@ -13,7 +13,7 @@
 
 .post-meta {
   margin: 0 0 .4em 0;
-  color: darken($gray, 2%);
+  color: var(--post);
 }
 
   .post-meta__date {
@@ -60,7 +60,7 @@
     display: block;
     width: 30%;
     margin: 2em 0;
-    border-top: 1px solid $gray-light;
+    border-top: 1px solid var(--post-hr);
   }
 
 }

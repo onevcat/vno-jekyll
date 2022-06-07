@@ -1,0 +1,122 @@
+.theme-toggle {
+    color: var(--text);
+    background-color: transparent;
+    padding: 4px;
+    cursor: pointer;
+    margin: 1em;
+    position: fixed;
+    right: 0;
+    top: 0;
+    border: 2px transparent solid;
+    outline: none;
+  }
+  
+  .theme-toggle:hover {
+    color: var(--links);
+    outline: none;
+  }
+  .theme-toggle:focus {
+    outline: none;
+  }
+
+html {
+    // will remove later (only used in button and form)
+    --bg: #ffffff;
+    --bg-light: #ffffff;
+    --bg-dark:  #ffffff;
+    --bg-darker:  #ffffff;
+    --body-color: #090950;
+    --bg-secondary: #5BA4E5;
+    --bg-secondary-light: #c9e1f6;
+    --bg-secondary-lighter: #dfedfa;
+    ----bg-secondary-dark: #217fd2;
+
+    --background-color: #f6f6f6;
+
+    --headings: #333; // title's color (h1 to h6)
+    --text: #3a3a3a; //  text's color (p)
+    --subtext: #3c3c3c; // time, author's name, etc.
+    --selection: #a9d9e4; // selection's color (text selection)
+    --link: #020204; 
+    --link-hover: #090950;
+    
+    --blockquote: #355aa0;
+    --list: #3a3a3a;
+
+    --table-border: #355aa0;
+    --table-first-child: #355aa0;
+    --table-first-child-text: #f6f6f6;
+    --table-text: #3c3c3c;
+
+    --code: #bde0ff;
+    --code-border: #355aa0;
+    --code-text: #090950;
+    --pre: #bde0ff;
+    --pre-border: #355aa0;
+    --pre-text: #090950;
+
+    --highlight: #FFECB2; // light yellow
+    --share-text: #999;
+
+    // color used in button
+    --btn: #bde0ff;
+    --btn-border: #355aa0;
+
+    // color used in _post-list
+    --post-list: #3c3c3c;
+  
+    // color used in post (sections->post)
+    --post: #b9b9b9;
+    --post-hr: #ccc;
+    --post-comments: #3c3c3c;
+  }
+
+  
+  @mixin dark-appearance {
+    html, body  {
+      --background-color: #3b3535;
+
+      --headings: #d9d9d9; // title's color (h1 to h6)
+      --text: #dadada; // text's color (p)
+      --subtext: #d6d6d6;// time, author's name, etc.
+      --selection: #4cc2df; // selection's color (text selection)
+      --link: #bde0ff;
+      --link-hover: #9cd1ff;
+      
+      --blockquote: #bde0ff;
+      --list: #dadada;
+  
+      --table-border: #bde0ff;
+      --table-first-child: #bde0ff;
+      --table-first-child-text: #3b3535;
+      --table-text: #dadada;
+  
+      --code: #355aa0;
+      --code-border: #bde0ff;
+      --code-text: #dadada;
+      --pre: #355aa0;
+      --pre-border: #bde0ff;
+      --pre-text: #dadada;
+  
+      --highlight: #FFECB2; // light yellow
+      --share-text: #999;
+  
+      // color used in button
+      --btn: #355aa0;
+      --btn-border: #bde0ff;
+  
+      // color used in _post-list
+      --post-list: #dadada;
+
+      // color used in post (sections->post)
+      --post: #b9b9b9;
+      --post-hr: #ccc;
+      --post-comments: #dadada;
+    };
+  }
+
+  html[data-theme="dark"] { @include dark-appearance; }
+  
+  @media (prefers-color-scheme: dark) {
+    body[data-theme="auto"] { @include dark-appearance; }
+  }

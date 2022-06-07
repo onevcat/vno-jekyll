@@ -28,12 +28,13 @@
     margin-bottom: .2em;
     font-size: 1.5em;
     line-height: 1.3em;
+    color: var(--post-color);
 
     a {
-      color: $gray-darkest;
+      color: var(--link);
 
       &:hover {
-        color: $hover-color;
+        color: var(--link-hover);
       }
 
     }
@@ -44,12 +45,11 @@
     display: block;
     margin: .7em 0 0 0;
     font-size: .9em;
-    color: darken($gray, 2%);
+    color: var(--post-list);
   }
 
     .post-list__meta--date {
       margin-right: .5em;
-      color: darken($gray, 2%);
     }
 
     .post-list__meta--tags {
